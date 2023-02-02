@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Marfa
+  m_EditorClassIdentifier: 
+  Name: Marfa
+  Description: bruh
+  Type: 1
+  Icon: {fileID: 0}
+  Art: {fileID: 0}
+  Rarity: 3
+  Level: 1
+  Element: 2
+  Weapon: 6
+  BaseHealth: 150
+  HealthMod: 15
+  BaseAttack: 5
+  AttackMod: 5
+  BaseDefence: 20
+  DefenceMod: 7
+  SightRange: 20
+  AttackRange: 20
+  AttackCooldown: 5
+  BaseSpeed: 6.5
+  NormalAttackMult: 60
+  Luck: 3
+  BaseCritDamage: 150
+  CritChanceMod: 0
+  CritDamageMod: 0
+  BaseMana: 200
+  ManaMod: 0
+  ManaRecoveringBonus: 10
+  Endurance: 3
+  Agility: 3
+  BaseStamina: 100
+  StaminaMod: 0
+  StaminaConsumption: 0.1
+  AttackSpeed: 0.9285714
+  Sprint: 11.7
+  DodgeCost: 29
+  BlockCost: 0
+  skills:
+  - Level: 1
+    LevelMod: 10
+    SkillName: Marfa's Bless
+    Description: Generic Description
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 20
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 20
+  - Level: 1
+    LevelMod: 10
+    SkillName: Marfa Special
+    Description: Generic Description
+    SkillType: 1
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 10
+    DurationInSec: 0
+    ManaCost: 10
+  - Level: 1
+    LevelMod: 10
+    SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 2
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 20
+    DurationInSec: 0
+    ManaCost: 10
+  TeamBuff:
+    Name: Forest heart
+    Description: +10% HP
+    ModifierType: 0
+    StatType: 0
+    AmountInProcent: 10
+    Amount: 0
+    IsPermanent: 1
+    DurationInSecs: 0

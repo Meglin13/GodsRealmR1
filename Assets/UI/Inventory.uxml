@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="MainPanel" style="width: 90%; height: 90%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; background-color: rgba(255, 255, 255, 0.25); flex-direction: row;">
+        <ui:VisualElement name="EquipmentWindow" style="width: 100%; height: 100%; position: relative; left: auto; background-color: rgba(0, 0, 0, 0.5);" />
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="InventoryGrid" style="width: 100%; height: 100%;" />
+        <ui:VisualElement name="ItemInfoWindow" style="width: 100%; height: 100%; position: relative; right: auto; background-color: rgba(0, 0, 0, 0.5);" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="margin-left: auto; margin-right: 0; margin-top: 0; margin-bottom: auto; height: 40%; width: 30%;">
+        <ui:Label text="CharInfoLabel&#10;" display-tooltip-when-elided="true" name="CharInfoLabel" style="font-size: 25px; background-color: rgba(0, 0, 0, 0.65); -unity-text-align: middle-right; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+    </ui:ScrollView>
+</ui:UXML>

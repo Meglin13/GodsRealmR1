@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Character
+  - CameraCenter
+  - Marker
+  - ManaBar
+  - HealthBar
+  - StaminaBar
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - CharLayer
+  - GroundLayer
+  - EnemyLayer
+  - InteractLayer
+  - MiniMapLayer
+  - SurroundingsLayer
+  - PostProccesLayer
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: MarkerSortLayer
+    uniqueID: 343472897
+    locked: 0

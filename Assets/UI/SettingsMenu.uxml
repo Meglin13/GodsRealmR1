@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement name="Panel" class="panel" style="border-left-color: rgb(255, 199, 0); border-right-color: rgb(255, 199, 0); border-top-color: rgb(255, 199, 0); border-bottom-color: rgb(255, 199, 0); width: 50%; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; height: 90%; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(35, 35, 59); font-size: 35px; background-image: none;">
+        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgb(35, 35, 59); width: auto; max-height: none; height: 85%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
+            <ui:Label text="Settings" display-tooltip-when-elided="true" name="SettingsLB" class="header-label" />
+            <ui:VisualElement focusable="true" name="VolumeSettings">
+                <ui:Label text="Audio" display-tooltip-when-elided="true" name="VolumeLB" class="separator-label" />
+                <ui:Slider picking-mode="Ignore" label="Global" value="100" high-value="100" direction="Horizontal" tabindex="1" style="max-height: none; max-width: none; min-height: auto; align-items: stretch; flex-wrap: nowrap;" />
+                <ui:Slider picking-mode="Ignore" label="Music" value="100" high-value="100" tabindex="2" />
+                <ui:Slider picking-mode="Ignore" label="SFX" value="100" high-value="100" tabindex="3" />
+                <ui:Slider picking-mode="Ignore" label="Voice" value="100" high-value="100" tabindex="4" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VideoSettings">
+                <ui:Label text="Video" display-tooltip-when-elided="true" name="VideoLB" class="separator-label" style="-unity-text-align: middle-center;" />
+                <ui:DropdownField label="Quality" index="-1" name="QualityDDF" tabindex="5" />
+                <ui:DropdownField label="Resolution" index="-1" focusable="false" name="ResDDF" tabindex="6" />
+                <ui:DropdownField label="Ref Rate" index="-1" focusable="true" name="RefRateDDF" tabindex="7" />
+                <ui:Toggle label="Fullscreen" name="FullscreenTG" tabindex="8" />
+            </ui:VisualElement>
+            <ui:VisualElement name="LanguageSettings">
+                <ui:Label text="Language" display-tooltip-when-elided="true" name="LanguageLB" class="separator-label" style="-unity-text-align: middle-center;" />
+                <ui:DropdownField label="Language" index="-1" choices="Russian, English" name="LangDDF" tabindex="10" />
+            </ui:VisualElement>
+        </ui:ScrollView>
+        <ui:Button text="Save" display-tooltip-when-elided="true" focusable="false" name="SaveBT" style="overflow: hidden; background-color: rgba(88, 88, 88, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; font-size: 35px;" />
+        <ui:Button text="Back" display-tooltip-when-elided="true" focusable="false" name="BackBT" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); background-color: rgba(88, 88, 88, 0); margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; font-size: 35px;" />
+    </ui:VisualElement>
+</ui:UXML>

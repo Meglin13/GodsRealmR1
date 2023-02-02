@@ -1,0 +1,27 @@
+using System;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class #SCRIPTNAME# : EnemyScript, IEnemy
+{
+    public override void Start()
+    {
+        base.Start();
+        Enemy = this;
+    }
+
+    public override void Update()
+    {
+#NOTRIM#
+    }
+
+    public void Attack()
+    {
+#NOTRIM#
+    }
+
+    public void SpecialPower()
+    {
+#NOTRIM#     
+    }
+}

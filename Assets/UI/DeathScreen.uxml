@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8);">
+        <ui:VisualElement style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; width: 50%; height: 50%;">
+            <ui:Label text="You Died&#10;" display-tooltip-when-elided="true" name="YouDiedLabel" style="font-size: 100px; -unity-text-align: upper-center; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; color: rgba(255, 0, 0, 255);" />
+            <ui:VisualElement name="Panel" class="panel" style="width: 100%; height: 50%; background-color: rgba(35, 35, 59, 255);">
+                <ui:Label text="Score: 999999" display-tooltip-when-elided="true" name="ScoreLB" style="-unity-text-align: upper-center;" />
+                <ui:Button text="Restart" display-tooltip-when-elided="true" name="RestartBT" />
+                <ui:Button text="Return to Hub" display-tooltip-when-elided="true" name="ReturnBT" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

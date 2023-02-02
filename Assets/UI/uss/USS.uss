@@ -1,0 +1,141 @@
+* {
+    -unity-font: resource('Fonts & Materials/DolomanPavljenko');
+    -unity-font-definition: url('project://database/Assets/Misc/Fonts/DolomanPavljenko%20SDF.asset?fileID=11400000&guid=3972e06156cd0634897bdb371afbd904&type=2#DolomanPavljenko SDF');
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+}
+
+Label {
+    margin: 5px;
+    max-height: none;
+    height: auto;
+    width: auto;
+    font-size: 100%;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+Button {
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-font: resource('Fonts & Materials/DolomanPavljenko');
+    background-image: resource('Images/UI/Button');
+    font-size: 35px;
+    width: 450px;
+    -unity-slice-left: 1100;
+    -unity-slice-top: 0;
+    -unity-slice-right: 1100;
+    -unity-slice-bottom: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    height: 80px;
+    max-height: 120px;
+    min-height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+Slider {
+    justify-content: center;
+    flex-direction: row;
+    -unity-text-align: upper-left;
+    opacity: 1;
+    visibility: visible;
+    overflow: visible;
+    display: flex;
+    align-items: stretch;
+    -unity-font-style: normal;
+    font-size: 35px;
+}
+
+.separator-label {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    -unity-text-align: middle-center;
+    color: rgb(255, 199, 0);
+    margin-top: 30px;
+    font-size: 40px;
+}
+
+Button:hover {
+    -unity-background-image-tint-color: rgb(150, 160, 190);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.panel {
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgba(35, 35, 59, 0);
+    background-image: none;
+    -unity-slice-top: 1500;
+    -unity-slice-bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(52, 21, 126);
+    height: auto;
+    font-size: 20px;
+    -unity-text-align: middle-center;
+}
+
+.header-label {
+    font-size: 45px;
+    -unity-text-align: middle-center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.statusbar {
+    font-size: 20px;
+    -unity-text-align: upper-center;
+}
+
+.unity-progress-bar__title-container {
+    height: 100px;
+}

@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: 
+  Level: 1
+  Element: 4
+  BaseHealth: 150
+  BaseAttack: 10
+  BaseDefence: 50
+  SightRange: 20
+  AttackRange: 5
+  AttackCooldown: 5
+  Speed: 6
+  NormalAttackMult: 60
+  DamageBonus: 0
+  HealthMod: 10
+  DefenceMod: 10
+  AttackMod: 5
+  ManaMod: 0
+  StaminaMod: 0
+  CritChanceMod: 0
+  CritDamageMod: 0
+  Luck: 1
+  BaseCritDamage: 200
+  BaseMana: 100
+  ManaRecoveringBonus: 10
+  Endurance: 1
+  Agility: 1
+  BaseStamina: 100
+  StaminaConsumption: 0.1
+  AttackSpeed: 0
+  Sprint: 0
+  DodgeCost: 0
+  BlockCost: 0
+  skills:
+  - SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 0
+    SkillSprite: {fileID: 0}
+    DamageMultiplier: 200
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    SkillAnimation: {fileID: 0}
+  - SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 1
+    SkillSprite: {fileID: 0}
+    DamageMultiplier: 200
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    SkillAnimation: {fileID: 0}
+  - SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 2
+    SkillSprite: {fileID: 0}
+    DamageMultiplier: 200
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    SkillAnimation: {fileID: 0}
+  TeamBuff:
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 0
+    AmountInProcent: 0
+    Amount: 0
+    IsPermanent: 0
+    DurationInSecs: 0

@@ -1,0 +1,37 @@
+using MyBox;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
+
+public class #SCRIPTNAME# : CharacterScript, ICharacter
+{
+    public override void Awake()
+    {
+        base.Awake();
+        Character = this;
+    }
+
+    public void Attack()
+    {
+#NOTRIM#
+    }
+
+    public void DistractionAbility()
+    {
+#NOTRIM#
+    }
+
+    public void SpecialAbility()
+    {
+#NOTRIM#
+    }
+
+    public void UltimateAbility()
+    {
+#NOTRIM#
+    }
+}

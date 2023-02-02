@@ -1,0 +1,54 @@
+{
+    "name": "DebugActions",
+    "maps": [
+        {
+            "name": "Debug",
+            "id": "c3cc3f7c-0e3c-4016-a324-db678f1e841e",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "4d102623-2cd1-4b42-809c-eac5c7ce0c16",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Spawn Enemy",
+                    "type": "Button",
+                    "id": "369da27c-c7eb-44ae-ae0a-1dcc5bcd2ae2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "22c2ade6-0cc8-4617-bc5f-9c4f9015c0af",
+                    "path": "<Keyboard>/backslash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e5d7cdf-7add-44fd-b180-e27133ec036e",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spawn Enemy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
