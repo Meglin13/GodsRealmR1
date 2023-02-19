@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour, IManager
 {
     public static GameManager Instance { get; private set; }
 
+    public static GameManager GetInstance()
+    {
+        if (Instance == null)
+            Instance = new GameManager();
+        return Instance;
+    }
+
     [Range(0f, 2f)]
     public float TimeScale = 1f;
 
@@ -36,23 +43,22 @@ public class GameManager : MonoBehaviour, IManager
     [Header("Misc")]
     public List<CharacterScript> characters;
 
-    [Header("Misc")]
     public float CaptionLifeTime = 5f;
 
     [Header("Parry")]
     public float ParryTime = 0.8f;
-    [HideInInspector]
-    public Modifier ParryMod = new Modifier(StatType.CritChance, 100f);
+
+    public Modifier ParryMod = new Modifier(StatType.CritChance, 100f, ModType.Buff);
 
     private void Awake()
     {
+        Instance = this;
+
         Initialize();
     }
 
     public void Initialize()
     {
-        Instance = this;
-
         Time.timeScale = 1;
 
         DontDestroyOnLoad(this);
@@ -66,7 +72,6 @@ public class GameManager : MonoBehaviour, IManager
 
         MainCameraInitialize(Camera.main);
     }
-
 
     private void Start()
     {

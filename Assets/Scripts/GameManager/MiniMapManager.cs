@@ -9,13 +9,13 @@ public class MiniMapManager : MonoBehaviour, IManager
 
     public static MiniMapManager Instance { get; private set; } 
 
-    [ContextMenu("Initialize Minimap Markers")]
+    [ContextMenu("InitializeSettings Minimap Markers")]
     public void Initialize()
     {
         DeleteMarkers();
 
-        Color EnemyMarkerColor = GameManager.Instance.colorManager.EnemyMarkerColor;
-        Color CharMarkerColor = GameManager.Instance.colorManager.CharMarkerColor;
+        Color EnemyMarkerColor = GameManager.GetInstance().colorManager.EnemyMarkerColor;
+        Color CharMarkerColor = GameManager.GetInstance().colorManager.CharMarkerColor;
 
         EnemyMarkerColor = EnemyMarkerColor != Color.black ? EnemyMarkerColor : Color.red;
         CharMarkerColor = CharMarkerColor != Color.black ? CharMarkerColor : Color.green;

@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Класс состояния
+/// </summary>
 public abstract class State : MonoBehaviour
 {
     //Объекты взаимодействия
@@ -56,7 +59,12 @@ public abstract class State : MonoBehaviour
     public SidekickState sidekickState;
     #endregion
 
-    //Конструтор для взаимодействия с целью
+    /// <summary>
+    /// Конструктор для взаимодействия с заданной целью
+    /// </summary>
+    /// <param name="target">Цель</param>
+    /// <param name="actor">Исполнитель</param>
+    /// <param name="stateMachine">Машина состояний</param>
     public State(GameObject target, GameObject actor, StateMachine stateMachine)
     {
         this.target = target;
@@ -66,8 +74,11 @@ public abstract class State : MonoBehaviour
         this.gameObject = actor;
     }
 
-
-    //Для врагов
+    /// <summary>
+    /// Конструктор для врагов
+    /// </summary>
+    /// <param name="enemy">Враг</param>
+    /// <param name="stateMachine">Машина состояний</param>
     public State(EnemyScript enemy, StateMachine stateMachine)
     {
         this.agent = enemy.GetComponent<NavMeshAgent>();
@@ -76,7 +87,11 @@ public abstract class State : MonoBehaviour
         this.gameObject = enemy.gameObject;
     }
 
-    //Для общих состояний
+    /// <summary>
+    /// Общий конструктор
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <param name="stateMachine"></param>
     public State(GameObject gameObject, StateMachine stateMachine)
     {
         this.agent = gameObject.GetComponent<NavMeshAgent>();
@@ -85,7 +100,11 @@ public abstract class State : MonoBehaviour
         this.gameObject = gameObject;
     }
 
-    //Для игрока
+    /// <summary>
+    /// Конструктор для персонажей
+    /// </summary>
+    /// <param name="character"></param>
+    /// <param name="stateMachine"></param>
     public State(CharacterScript character, StateMachine stateMachine)
     {
         this.gameObject = character.gameObject;

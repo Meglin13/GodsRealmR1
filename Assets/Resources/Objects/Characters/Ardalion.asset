@@ -15,12 +15,13 @@ MonoBehaviour:
   Name: Ardalion
   Description: dude
   Type: 1
-  Icon: {fileID: 0}
-  Art: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 7c25c69517f73c94189f03f611390e0a, type: 3}
+  Art: {fileID: 21300000, guid: 7c25c69517f73c94189f03f611390e0a, type: 3}
   Rarity: 3
   Level: 1
   Element: 4
-  Weapon: 0
+  WeaponType: 0
+  IsHeavy: 0
   BaseHealth: 100
   HealthMod: 10
   BaseAttack: 15
@@ -30,7 +31,15 @@ MonoBehaviour:
   SightRange: 20
   AttackRange: 3
   AttackCooldown: 5
-  BaseSpeed: 7.5
+  Speed: 8.5
+  EnemyLayer: 8
+  EnemyTag: Enemy
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
   NormalAttackMult: 80
   Luck: 5
   BaseCritDamage: 200
@@ -38,16 +47,15 @@ MonoBehaviour:
   CritDamageMod: 0
   BaseMana: 100
   ManaMod: 0
-  ManaRecoveringBonus: 10
   Endurance: 4
   Agility: 5
   BaseStamina: 100
   StaminaMod: 0
-  StaminaConsumption: 0.1
-  AttackSpeed: 1.0714285
-  Sprint: 13.5
+  AttackSpeed: 1.4166666
+  Sprint: 12.75
   DodgeCost: 27
-  BlockCost: 0
+  BlockCost: 29
+  HeavyBlockCost: 43.5
   skills:
   - Level: 1
     LevelMod: 10
@@ -59,6 +67,19 @@ MonoBehaviour:
     CooldownInSecs: 5
     DurationInSec: 0
     ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 1
+      DurationInSecs: 0
+    StunTime: 0
   - Level: 1
     LevelMod: 10
     SkillName: Boom
@@ -69,6 +90,19 @@ MonoBehaviour:
     CooldownInSecs: 7
     DurationInSec: 0
     ManaCost: 15
+    Radius: 4
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 1
+      DurationInSecs: 0
+    StunTime: 0
   - Level: 1
     LevelMod: 10
     SkillName: Ultimate
@@ -79,12 +113,26 @@ MonoBehaviour:
     CooldownInSecs: 15
     DurationInSec: 0
     ManaCost: 100
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 1
+      DurationInSecs: 0
+    StunTime: 0
   TeamBuff:
     Name: Ardik's wide pockets
     Description: +5 Inventory Slots
     ModifierType: 0
-    StatType: 6
-    AmountInProcent: 0
-    Amount: 5
+    StatType: 1
+    ModifierAmountType: 0
+    Amount: 10
     IsPermanent: 1
+    IsVisible: 0
     DurationInSecs: 0

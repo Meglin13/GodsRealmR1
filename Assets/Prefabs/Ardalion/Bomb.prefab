@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6082506443281919398}
   - component: {fileID: 8509554064840530873}
-  - component: {fileID: 1559282686649190467}
-  - component: {fileID: 2637107047820109082}
-  - component: {fileID: 6606465254232214595}
+  - component: {fileID: 7257708511111141389}
+  - component: {fileID: -7374145500550012448}
+  - component: {fileID: -190916102125387444}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 7081723386632745398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.02, y: 2.02, z: 2.02}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5536629988616676852}
   m_Father: {fileID: 0}
@@ -52,8 +52,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &1559282686649190467
-CapsuleCollider:
+--- !u!135 &7257708511111141389
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -62,11 +62,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!82 &2637107047820109082
+--- !u!82 &-7374145500550012448
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +161,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6606465254232214595
+--- !u!114 &-190916102125387444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,12 +170,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 7081723386632745398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1fb064afe95f9849a39538db760c43c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b8d7c97e26cf4144956ee62dd0eff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoomVFX: {fileID: 0}
-  audioSource: {fileID: 0}
-  TargetLayer: 0
+  DealerStats: {fileID: 0}
+  hasHitted: []
+  Speed: 7
+  skill:
+    Level: 1
+    LevelMod: 10
+    SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      AmountInProcent: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 1
+      DurationInSecs: 0
+    StunTime: 0
 --- !u!1001 &5536629988616552308
 PrefabInstance:
   m_ObjectHideFlags: 0

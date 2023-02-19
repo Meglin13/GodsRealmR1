@@ -22,7 +22,7 @@ public class PlayerIdleState : State
 
         animator.applyRootMotion = false;
 
-        animator.SetFloat("Velocity", 0f);
+        animator.SetFloat("Velocity", 0f, -character.acceleration, Time.deltaTime);
     }
 
     public override void LogicUpdate()

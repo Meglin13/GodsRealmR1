@@ -13,8 +13,8 @@ public class DyingState : State
         {
             if (character.IsActive)
             {
-                SidekickState sidekickState = new(character, character.CharacterStateMachine);
-                character.CharacterStateMachine.ChangeState(sidekickState);
+                SidekickState sidekickState = new(character, character.EntityStateMachine);
+                character.EntityStateMachine.ChangeState(sidekickState);
 
                 GameObject.FindObjectOfType<CameraCenterBehaviour>().gameObject.transform.SetParent(null);
 

@@ -1,247 +1,238 @@
 using MyBox;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(PlayerInput))]
-
 [SelectionBase]
-public class CharacterScript : MonoBehaviour, IDamageable
+public abstract class CharacterScript : EntityScript
 {
     #region [Party Setup Settings]
+
     [Header("Party Setup Settings")]
     public int HotKeyNumber;
     public bool IsActive;
-    #endregion
+
+    #endregion [Party Setup Settings]
 
     #region [Character Script Stats]
+
     //Статы персонажа
     [Header("Character Stats")]
-    [Range(1, 100)]
-    public int Level = 1;
-    [SerializeField]
-    [MustBeAssigned]
-    private EntityStats CharStats;
+    [HideInInspector]
     public float blockingTime;
-    Camera _camera;
+    private Camera _camera;
 
     //Интерфейс персонажа
     internal ICharacter Character;
 
     //Текущее состояние атрибутов
-    [Header("Current Stats")]
     public float CurrentStamina;
     public float CurrentMana;
+
+    [HideInInspector]
     public bool IsBlocking, IsDodging;
-    private Stat WeaponLengthStat;
 
     //Скорость и стамина
     [Header("BaseSpeed and Stamina")]
     [HideInInspector]
     public float velocity = 0f;
+
+    public event Action OnStaminaChange = delegate { };
+    public event Action OnItemEquip = delegate { };
+
     [HideInInspector]
     public float acceleration = 0.2f;
 
     [HideInInspector]
     public float Speed, Sprint, AttackSpeed;
     private float RotationSpeed = 600f;
+
     [HideInInspector]
     public float StaminaConsumption = 10f;
+
     [HideInInspector]
     public bool IsStaminaRecovering;
 
     //Объекты Unity
     [HideInInspector]
-    public BarScript HPSB, MSB, SSB;
-    internal MeleeWeapon Weapon;
+    public BarScript ManaBar, StaminaBar;
 
     private InputAction switchCharacterAction;
     private InputAction specialAbilityAction;
     private InputAction distractAbilityAction;
     private InputAction ultimateAbilityAction;
 
-    private Animator animator;
-    private PlayerInput playerInput;
-
-    public GameObject NormalAttackBullet;
-
     //Инициализация статов персонажа
-    private void InitializePlayerStats()
+    public override void Initialize()
     {
-        gameObject.tag = "Character";
-        gameObject.layer = AIUtilities.CharsLayer;
+        base.Initialize();
 
-        //Объекты Unity
-        if (NormalAttackBullet)
-        {
-            BulletsScript bulletsScript = NormalAttackBullet.GetComponent<BulletsScript>();
-            bulletsScript.TargetLayer = AIUtilities.EnemyLayer;
-        }
+        CurrentMana = EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
+        CurrentStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
 
-        Weapon = GetComponentInChildren<MeleeWeapon>();
-
-        HPSB = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<BarScript>();
-        MSB = GameObject.FindGameObjectWithTag("ManaBar").GetComponentInChildren<BarScript>();
-        SSB = GameObject.FindGameObjectWithTag("StaminaBar").GetComponentInChildren<BarScript>();
-
-        //Инициализация объекта статов
-        EntityStats.Init(Level);
-
-        //PlayerInput
-        playerInput = gameObject.GetComponent<PlayerInput>();
-
-        playerInput.actions = GameManager.Instance.playerInput;
-        playerInput.defaultActionMap = "Player";
-
-        //Collider
-        CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
-        collider.height = 2;
-        collider.center = new Vector3(0, 1, 0);
-
-        //RigidBody
-        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-        rigidbody.freezeRotation = true;
+        HealthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<BarScript>();
+        ManaBar = GameObject.FindGameObjectWithTag("ManaBar").GetComponentInChildren<BarScript>();
+        StaminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponentInChildren<BarScript>();
 
         //Animator
-        animator = GetComponent<Animator>();
         animator.SetFloat("CharSpeedMult", AttackSpeed);
 
         //ICharacter
-        CharStats.SkillSet[SkillsType.Special].SkillAction = () => Character.SpecialAbility();
-        CharStats.SkillSet[SkillsType.Distract].SkillAction = () => Character.DistractionAbility();
-        CharStats.SkillSet[SkillsType.Ultimate].SkillAction = () => Character.UltimateAbility();
+        EntityStats.SkillSet[SkillsType.Special].OnSkillTrigger += Character.SpecialAbility;
+        EntityStats.SkillSet[SkillsType.Distract].OnSkillTrigger += Character.DistractionAbility;
+        EntityStats.SkillSet[SkillsType.Ultimate].OnSkillTrigger += Character.UltimateAbility;
+
+        EntityStats.SkillSet[SkillsType.Distract].ResetCooldown();
+        EntityStats.SkillSet[SkillsType.Special].ResetCooldown();
+        EntityStats.SkillSet[SkillsType.Ultimate].ResetCooldown();
+
+        //Events
+        OnDie += () => EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(dyingState);
+
+        OnTakeDamage += () =>
+        {
+            if (IsActive)
+            {
+                HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
+            }
+        };
+
+        OnManaChange += () =>
+        {
+            ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
+        };
+
+        OnStaminaChange += () =>
+        {
+            if (IsActive)
+            {
+                StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
+            }
+        };
+
+        InitializeInputEvents();
     }
 
     private void InitializeInputEvents()
     {
-        switchCharacterAction =  playerInput.actions["SwitchCharacter"];
+        PlayerInput playerInput = gameObject.GetComponent<PlayerInput>();
+        //playerInput.actions = GameManager.GetInstance().playerInput;
+        //playerInput.defaultActionMap = "Player";
+
+        switchCharacterAction = playerInput.actions["SwitchCharacter"];
         distractAbilityAction = playerInput.actions["Distract"];
         specialAbilityAction = playerInput.actions["Special"];
         ultimateAbilityAction = playerInput.actions["Ultimate"];
 
         switchCharacterAction.performed += SwitchCharacter;
 
-        distractAbilityAction.performed += ctx => animator.SetTrigger("Distract");
-        specialAbilityAction.performed += ctx => animator.SetTrigger("Special");
-        ultimateAbilityAction.performed += ctx => animator.SetTrigger("Ultimate");
+        distractAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
+        specialAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
+        ultimateAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
     }
-    #endregion
+
+    public void TriggerSkillAnim(string name)
+    {
+        SkillsType result;
+        Enum.TryParse(name, out result);
+        Skill skill = EntityStats.SkillSet[result];
+        if (CurrentMana >= skill.ManaCost & !skill.IsCooldown())
+        {
+            animator.SetTrigger(skill.SkillType.ToString());
+        }
+        else
+        {
+            Debug.Log($"Cannot activate skill!!! {skill.IsCooldown()}");
+        }
+    }
+
+    #endregion [Character Script Stats]
 
     #region [Inventory]
+
     //TODO: Слоты инветаря для каждого персонажа
-    private Dictionary<EquipmentType, Item> EquipmentSlots = new Dictionary<EquipmentType, Item>()
-    {
-        { EquipmentType.Helmet, null }
-    };
-    #endregion
+    public CharacterEquipment equipment;
+
+    #endregion [Inventory]
 
     #region [IDamageable]
-    //Здоровье
-    public float MaxHealth { get; set; }
-    public float CurrentHealth { get; set; }
-    public EntityStats EntityStats { get; set; }
-    public void TakeDamage(EntityStats enemyStats, float Multiplier, bool CanParry)
+    public override void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanBlock)
     {
-        int Damage = (int)Math.Floor(CombatManager.DamageCalc(enemyStats, CharStats, Multiplier));
+        int Damage = (int)Math.Floor(CombatManager.DamageCalc(DealerStats, EntityStats, Multiplier));
 
         if (!IsBlocking & !IsDodging)
         {
             CurrentHealth -= Damage;
-
             MiscUtilities.DamagePopUp(transform, Damage.ToString(), "#FFFFFF", 1);
-
-            if (CurrentHealth <= 0)
-                Death();
+            base.TakeDamage(DealerStats, Multiplier, CanBlock);
         }
-        else if (CanParry & blockingTime < GameManager.Instance.ParryTime)
+        else if (CanBlock & blockingTime <= GameManager.GetInstance().ParryTime)
         {
-            StartCoroutine(AddModifier(GameManager.Instance.ParryMod));
-            CharacterStateMachine.CurrentState.InnerStateMachine.ChangeState(new PlayerAttackState(this, CharacterStateMachine.CurrentState.InnerStateMachine));
+            StartCoroutine(AddModifier(GameManager.GetInstance().ParryMod));
+            EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(new PlayerAttackState(this, EntityStateMachine.CurrentState.InnerStateMachine));
         }
         else
         {
-            CurrentStamina -= enemyStats.IsHeavy ? enemyStats.HeavyBlockCost : enemyStats.BlockCost;
+            ChangeStamina(-(DealerStats.IsHeavy ? EntityStats.HeavyBlockCost : EntityStats.BlockCost));
 
-            if (CurrentStamina < 0)
+            if (CurrentStamina <= 0)
             {
                 CurrentStamina = 0;
                 CurrentHealth -= Damage;
-                Stun(2f);
+                Stun(4f);
             }
         }
     }
 
-    public void Stun(float Time)
+    public override void Stun(float Time)
     {
-        StunnedState StunnedState = new StunnedState(this, CharacterStateMachine.CurrentState.InnerStateMachine, Time);
-        CharacterStateMachine.CurrentState.InnerStateMachine.ChangeState(StunnedState);
+        base.Stun(Time);
+        EntityStateMachine.CurrentState.InnerStateMachine.
+        ChangeState(new StunnedState(this, EntityStateMachine.CurrentState.InnerStateMachine, Time));
     }
 
-    public virtual void Death()
-    {
-        CharacterStateMachine.CurrentState.InnerStateMachine.ChangeState(dyingState);
-    }
-
-    public void HitVFX(Vector3 hitPosition)
-    {
-        var hitVFX = GameManager.Instance.HitVFX;
-        GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
-        Destroy(hit, 0.5f);
-    }
-    #endregion
+    #endregion [IDamageable]
 
     #region [State Machine]
+
     [Header("State Machine")]
     //Машина состояний
     [HideInInspector]
-    public StateMachine CharacterStateMachine;
+    public StateMachine EntityStateMachine;
+
     public string CurrentStateName, CurrentSubStateName;
 
     //Состояния
     [HideInInspector]
     public PlayerState playerState;
+
     [HideInInspector]
     public SidekickState sidekickState;
+
     private DyingState dyingState;
 
     public void InitializeStateMachine()
     {
-        CharacterStateMachine = new StateMachine();
+        EntityStateMachine = new StateMachine();
 
-        dyingState = new DyingState(gameObject, CharacterStateMachine);
-        playerState = new PlayerState(this, CharacterStateMachine);
-        sidekickState = new SidekickState(this, CharacterStateMachine);
+        dyingState = new DyingState(gameObject, EntityStateMachine);
+        playerState = new PlayerState(this, EntityStateMachine);
+        sidekickState = new SidekickState(this, EntityStateMachine);
 
-        if (IsActive)
-        {
-            Debug.Log("Player");
-
-            CharacterStateMachine.Initialize(playerState);
-        }
-        else
-        {
-            Debug.Log("Side");
-
-            CharacterStateMachine.Initialize(sidekickState);
-        }
-
+        EntityStateMachine.Initialize(IsActive ? playerState : sidekickState);
     }
-    #endregion
+
+    #endregion [State Machine]
 
     #region [Unity Methods]
-    public virtual void Awake()
-    {
-        EntityStats = CharStats;
 
-        InitializePlayerStats();
+    public override void Awake()
+    {
+        base.Awake();
 
         _camera = Camera.main;
     }
@@ -250,42 +241,34 @@ public class CharacterScript : MonoBehaviour, IDamageable
     {
         InitializeStateMachine();
 
-        if (Weapon)
-            EntityStats.WeaponLengthStat = Weapon.WeaponLength;
-
-        InitializeInputEvents();
-
         //Текущие статы
-        CurrentStamina = CharStats.ModifiableStats[StatType.Stamina].GetFinalValue();
-        CurrentHealth = CharStats.ModifiableStats[StatType.Health].GetFinalValue();
-        CurrentMana = CharStats.ModifiableStats[StatType.Mana].GetFinalValue();
+        CurrentStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
+        CurrentMana = EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
+
+        equipment = new CharacterEquipment(this);
     }
 
     public virtual void Update()
     {
-        CharacterStateMachine.CurrentState.LogicUpdate();
+        EntityStateMachine.CurrentState?.LogicUpdate();
 
-        CurrentStateName = CharacterStateMachine.CurrentState.GetType().Name;
-        CurrentSubStateName = CharacterStateMachine.CurrentState.InnerStateMachine.CurrentState.GetType().Name;
+        CurrentStateName = EntityStateMachine.CurrentState?.GetType().Name;
+        CurrentSubStateName = EntityStateMachine.CurrentState.InnerStateMachine.CurrentState?.GetType().Name;
     }
 
     public void LateUpdate()
     {
-        //CharStats.SetLevel(Level);
+        EntityStats.SetLevel(this.Level);
 
-        CharStats.UpdateStats();
         Speed = EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
 
-        animator.SetFloat("CharSpeedMult", CharStats.AttackSpeed);
+        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
     }
 
-    //private void FixedUpdate()
-    //{
-    //    CharacterStateMachine.CurrentState.PhysicsUpdate();
-    //}
-    #endregion
+    #endregion [Unity Methods]
 
     #region [Utilities]
+
     public void Movement(Vector3 vector, float speed)
     {
         Vector3 MovementDirection = Quaternion.Euler(0, -45, 0) * vector;
@@ -299,33 +282,34 @@ public class CharacterScript : MonoBehaviour, IDamageable
 
     public void StaminaRecovering()
     {
-        float MaxStamina = CharStats.ModifiableStats[StatType.Stamina].GetFinalValue();
+        float MaxStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
 
-        if (CurrentStamina >= MaxStamina)
-            CurrentStamina = MaxStamina;
-        else if (CurrentStamina < 0)
-            CurrentStamina = 0;
-        else
+        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
+
+        if (CurrentStamina < MaxStamina)
             CurrentStamina += Time.deltaTime * 5f;
 
         CurrentStamina = CurrentStamina >= MaxStamina ? MaxStamina : CurrentStamina += Time.deltaTime * 5f;
 
-        IsStaminaRecovering = CurrentStamina <= CharStats.ModifiableStats[StatType.Stamina].GetProcent() * 30;
+        IsStaminaRecovering = CurrentStamina <= EntityStats.ModifiableStats[StatType.Stamina].GetProcent() * 30;
+
+        OnStaminaChange();
+    }
+
+    public void ChangeStamina(float Amount)
+    {
+        CurrentStamina += Amount;
+        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
+        OnStaminaChange();
     }
 
     private void SwitchCharacter(InputAction.CallbackContext obj)
     {
-        PartyManager partyManager = GameObject.FindObjectOfType<PartyManager>();
-
-        //TODO: Переключение на геймпаде
-
-        int.TryParse(obj.control.name, out int num);
-
-        if (num != 0)
-            partyManager.SwitchPlayer(this, num);
+        if (int.TryParse(obj.control.name, out int num) & num != 0)
+            GameManager.GetInstance().partyManager.SwitchPlayer(this, num);
     }
 
-    public void LookAtEnemy()
+    public void LookAtEnemy(float range)
     {
         List<EnemyScript> Enemies = GameObject.FindObjectsOfType<EnemyScript>().ToList();
 
@@ -334,90 +318,61 @@ public class CharacterScript : MonoBehaviour, IDamageable
             //Ближайший враг в радиусе
             GameObject NearestEnemy = AIUtilities.FindNearestEntity(gameObject.transform, AIUtilities.EnemyTag);
 
-            if (AIUtilities.IsCertainEntityInRadius(gameObject, NearestEnemy, CharStats.AttackRange))
+            if (AIUtilities.IsCertainEntityInRadius(gameObject, NearestEnemy, range))
                 gameObject.transform.LookAt(NearestEnemy.transform.position);
-            else
+        }
+        else
+        {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitData))
             {
-                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hitData))
-                {
-                    Vector3 lookAt = hitData.point;
-                    lookAt.y = 0;
-                    gameObject.transform.LookAt(lookAt);
-                }
+                Vector3 lookAt = hitData.point;
+                lookAt.y = 0;
+                gameObject.transform.LookAt(lookAt);
             }
         }
     }
 
-    public void StartDealMeleeDamage()
-    {
-        Weapon.StartDealDamage();
-        Weapon.Init(EntityStats, 70, false);
-    }
+    public void DistractTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Distract]);
 
-    public void EndDealMeleeDamage() => Weapon.EndDealDamage();
+    public void SpecialTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Special]);
 
-    //TODO: Bruh
-    public void DistractTrigger()
-    {
-        UseAbility(CharStats.SkillSet[SkillsType.Distract]);
-    }
-
-    public void SpecialTrigger()
-    {
-        UseAbility(CharStats.SkillSet[SkillsType.Special]);
-    }
-
-    public void UltimateTrigger()
-    {
-        UseAbility(CharStats.SkillSet[SkillsType.Ultimate]);
-    }
+    public void UltimateTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Ultimate]);
 
     private void UseAbility(Skill skill)
     {
         if (!skill.IsCooldown() & CurrentMana >= skill.ManaCost)
         {
-            CurrentMana -= skill.ManaCost;
+            float ManaCon = Mathf.Clamp(EntityStats.ModifiableStats[StatType.ManaConsumption].GetFinalValue(), 0, 80) / 100;
+            GiveSupport(-skill.ManaCost * (1 - ManaCon), StatType.Mana);
 
-            skill.SkillAction();
-            skill.OnSkillTriggered();
+            skill.ActivateSkill();
+            LookAtEnemy(10f);
 
-            skill.SetCooldown();
-            StartCoroutine(MiscUtilities.Instance.Cooldown(skill.CooldownInSecs, () => skill.ResetCooldown()));
+            StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
         else if (skill.IsCooldown())
-        {
             Debug.Log($"{skill.SkillName} is cooldown!!!");
-        }
         else
-        {
             Debug.Log($"Not enough mana! Need {skill.ManaCost}/{CurrentMana}");
-        }
     }
 
-    public IEnumerator AddModifier(Modifier modifier)
+    public override void GiveSupport(float Amount, StatType type)
     {
-        if (modifier != null)
+        switch (type)
         {
-            //Debug.Log($"Added modifier {modifier.Amount} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
-
-            CharStats.ModifiableStats[modifier.StatType].AddModifier(modifier);
-
-            //Debug.Log($"Stat after modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
-
-            yield return new WaitForSeconds(modifier.DurationInSecs);
-
-            if (!modifier.IsPermanent)
-            {
-                if (CharStats.ModifiableStats[modifier.StatType].ContainsModifier(modifier))
-                {
-                    CharStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
-                    //Debug.Log($"Removed modifier. Current stat value {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
-                }
-            }
+            case StatType.Stamina:
+                ChangeStamina(Amount);
+                break;
+            case StatType.Mana:
+                var ManaRecBonus = Mathf.Clamp(EntityStats.ModifiableStats[StatType.ManaRecoveryBonus].GetFinalValue(), 0, 80) / 100;
+                var AmountWithBouns = Amount * (1 + ManaRecBonus);
+                CurrentMana = Mathf.Clamp(CurrentMana + AmountWithBouns, 0, EntityStats.ModifiableStats[type].GetFinalValue());
+                break;
         }
-        else
-            throw new Exception("Modifier is NULL");
+
+        base.GiveSupport(Amount, type);
     }
-    #endregion
+
+    #endregion [Utilities]
 }

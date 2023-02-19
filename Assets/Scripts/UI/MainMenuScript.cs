@@ -2,40 +2,46 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class MainMenuScript : MonoBehaviour
+namespace UI
 {
-    private Button StartButton;
-    private Button ExitButton;
-    private Button SettingsButton;
-    public string SceneName = "TestScene";
-    public GameObject SettingsMenu;
-    public GameObject LoadingScreen;
-
-    void OnEnable()
+    public class MainMenuScript : UIScript
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        private Button StartButton;
+        private Button ExitButton;
+        private Button SettingsButton;
+        public string NextSceneName = "TestScene";
+        public GameObject SettingsMenu;
+        public GameObject LoadingScreen;
 
-        StartButton = root.Q<Button>("StartBT");
-        ExitButton = root.Q<Button>("ExitBT");
-        SettingsButton = root.Q<Button>("SettingsBT");
+        internal override void OnBind()
+        {
+            base.OnBind();
 
-        StartButton.clicked += StartButtonClicked;
-        SettingsButton.clicked += SettingsButtonClicked;
-        ExitButton.clicked += ExitButtonClicked;
-    }
+            Debug.Log("MainMenu Enabled");
 
-    void StartButtonClicked()
-    {
-        UIManager.Instance.ChangeScene(SceneName, gameObject);
-    }
+            StartButton = root.Q<Button>("StartBT");
+            ExitButton = root.Q<Button>("ExitBT");
+            SettingsButton = root.Q<Button>("SettingsBT");
 
-    void SettingsButtonClicked()
-    {
-        UIManager.Instance.ChangeMenu(gameObject, SettingsMenu, false);
-    }
+            StartButton.clicked += StartButtonClicked;
+            SettingsButton.clicked += SettingsButtonClicked;
+            ExitButton.clicked += ExitButtonClicked;
+        }
 
-    void ExitButtonClicked()
-    {
-        Application.Quit();
+        internal void OnDisable()
+        {
+            StartButton.clicked -= StartButtonClicked;
+            SettingsButton.clicked -= SettingsButtonClicked;
+            ExitButton.clicked -= ExitButtonClicked;
+        }
+
+        void StartButtonClicked() => UIManager.Instance.ChangeScene(NextSceneName, gameObject);
+
+        void SettingsButtonClicked()
+        {
+            UIManager.Instance.ChangeMenu(gameObject, SettingsMenu);
+        }
+
+        void ExitButtonClicked() => Application.Quit();
     }
 }

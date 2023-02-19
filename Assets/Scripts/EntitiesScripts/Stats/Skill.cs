@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillsType { Special = 0, Distract = 1, Ultimate = 2 }
+public enum SkillsType { Special = 0, Distract = 1, Ultimate = 2}
 
 [Serializable]
 public class Skill
@@ -22,21 +22,23 @@ public class Skill
     public float DurationInSec = 0f;
     public float ManaCost = 10f;
     public float Radius = 1f;
-    public Action SkillAction;
-    public List<Action> OnSkillMethodTrigger = new List<Action>();
+    [SerializeField]
+    private bool IsDebuffing = false;
+    [ConditionalField("IsDebuffing")]
+    public Modifier EnemyModifier;
+    [ConditionalField("IsDebuffing")]
+    public float StunTime = 0;
+    public event Action OnSkillTrigger = delegate { };
+
+    public void ActivateSkill()
+    {
+        OnSkillTrigger();
+        SetCooldown();
+    }
 
     public void SetCooldown() => Cooldown = true;
     public bool IsCooldown() => Cooldown;
     public void ResetCooldown() => Cooldown = false;
-
-    public void OnSkillTriggered()
-    {
-        foreach (Action item in OnSkillMethodTrigger)
-        {
-            if (item != null)
-                item();
-        }
-    }
 
     public void LevelUpSkill(byte newLevel) => Level += newLevel;
 }

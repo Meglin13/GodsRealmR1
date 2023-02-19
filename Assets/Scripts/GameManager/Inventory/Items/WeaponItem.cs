@@ -7,20 +7,7 @@ public enum WeaponType
 }
 
 [CreateAssetMenu(fileName = "WeaponItem", menuName = "Objects/WeaponType Item")]
-public class WeaponItem : Item
+public class WeaponItem : EquipmentItem
 {
-    public WeaponItem()
-    {
-        Type = ItemType.Equipment;
-        IsStackable = false;
-    }
-
-    public EquipmentType EquipmentType;
-    public Modifier[] Modifiers;
-
-    [ButtonMethod]
-    public void SetItemModifiers()
-    {
-        Modifiers = new Modifier[(int)Rarity];
-    }
+    public WeaponType WeaponType;
 }

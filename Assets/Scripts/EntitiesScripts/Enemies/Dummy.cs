@@ -28,6 +28,6 @@ public class Dummy : EnemyScript, IEnemy
 
     public override void Death()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
     }
 }

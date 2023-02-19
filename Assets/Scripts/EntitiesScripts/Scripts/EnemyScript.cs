@@ -2,37 +2,16 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
-
-[SelectionBase]
-public class EnemyScript : MonoBehaviour, IDamageable
+public class EnemyScript : EntityScript
 {
-    //Статы
     #region [Enemy Stats]
-    [Header("Enemy Stats")]
-    [Range(1, 100)]
-    public int Level = 1;
-    public EntityStats EnemyStats;
 
     [HideInInspector]
     public IEnemy Enemy;
 
-    [HideInInspector]
-    public MeleeWeapon Weapon;
-
-    private void InitiateEnemyStats()
+    public override void Initialize()
     {
-        gameObject.tag = AIUtilities.EnemyTag;
-        gameObject.layer = AIUtilities.EnemyLayer;
-
-        EntityStats = EnemyStats;
-
-        EntityStats.Init(Level);
-
-        MaxHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
-        CurrentHealth = MaxHealth;
+        base.Initialize();
 
         AttackRange = EntityStats.AttackRange;
         SightRange = EntityStats.SightRange;
@@ -42,97 +21,86 @@ public class EnemyScript : MonoBehaviour, IDamageable
         IdleState idleState = new IdleState(gameObject, EntityStateMachine);
 
         EntityStateMachine.Initialize(idleState);
-
-        Weapon = GetComponentInChildren<MeleeWeapon>();
-
-        //Collider
-        CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
-        collider.height = 2;
-        collider.center = new Vector3(0, 1, 0);
-
-        //RigidBody
-        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-        rigidbody.freezeRotation = true;
     }
-    #endregion
+
+    #endregion [Enemy Stats]
 
     #region [IDamageable and Health]
-    public float MaxHealth { get; set; }
-    public float CurrentHealth { get; set; }
-    public EntityStats EntityStats { get; set; }
 
-    public void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanParry)
+    public override void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanParry)
     {
-        //gameObject.GetComponent<Animator>().SetTrigger("TakeDamage");
-
-        float Damage = (int)Math.Floor(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
-
-        string color = "#" + GameManager.Instance.colorManager.ElementColor[DealerStats.Element];
-
+        float damage = (int)Math.Floor(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
+        string color = GameManager.GetInstance().colorManager.ElementColor[DealerStats.Element];
         float scale = 1;
 
         System.Random random = new();
         double chance = (random.NextDouble() * (100 - 1) + 1);
         if (chance <= DealerStats.ModifiableStats[StatType.CritChance].GetFinalValue())
         {
-            Damage += Damage * DealerStats.ModifiableStats[StatType.CritDamage].GetFinalValue() / 100;
-            scale = 1.5f;
+            damage += damage * DealerStats.ModifiableStats[StatType.CritDamage].GetFinalValue() / 100;
+            scale = 2f;
         }
 
-        CurrentHealth -= Damage;
+        CurrentHealth -= damage;
 
-        MiscUtilities.DamagePopUp(transform, Damage.ToString(), color, scale);
+        MiscUtilities.DamagePopUp(transform, damage.ToString(), color, scale);
 
-        if (CurrentHealth <= 0)
-            Death();
-
-        UpdateHealthBar();
+        base.TakeDamage(DealerStats, Multiplier, CanParry);
     }
 
-    public void Stun(float Time)
+    public override void Stun(float Time)
     {
-        StunnedState StunnedState = new StunnedState(gameObject, EntityStateMachine, Time);
-        EntityStateMachine.ChangeState(StunnedState);
+        base.Stun(Time);
+        EntityStateMachine.ChangeState(new StunnedState(gameObject, EntityStateMachine, Time));
     }
 
-    public virtual void Death()
+    public override void Death()
     {
+        base.Death();
         EntityStateMachine.ChangeState(new DyingState(gameObject, EntityStateMachine));
+        //TODO: Скорректировать количество маны с врага
+        GameManager.GetInstance().partyManager.GiveSupportToAll((int)(EntityStats.Rarity + 1) * 10, StatType.Mana);
     }
 
-    private BarScript HealthBar;
 
     internal void SpawnHealthBar()
     {
-        var HealthBarPrefab = GameObject.Instantiate(GameManager.Instance.HealthBar, gameObject.transform, false);
+        var HealthBarPrefab = GameObject.Instantiate(GameManager.GetInstance().HealthBar, gameObject.transform, false);
         HealthBarPrefab.transform.localPosition = new Vector3(0, 2.5f, 0);
         HealthBarPrefab.transform.localScale *= 0.25f;
         HealthBar = HealthBarPrefab.GetComponentInChildren<BarScript>();
+
+        OnTakeDamage += () => HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
+        HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
     }
 
-    public void UpdateHealthBar()
-    {
-        HealthBar.ChangeBarValue(CurrentHealth , MaxHealth);
-    }
-    #endregion
+    #endregion [IDamageable and Health]
 
     #region [AI]
+
     [Header("AI")]
     [HideInInspector]
     public StateMachine EntityStateMachine;
+
     public string CurrentState, TargetName;
 
     public bool IsCharInAttackRange, IsCharInSightRange;
     private float AttackRange, SightRange;
 
-    #endregion
+    #endregion [AI]
+
+    #region [Unity Methods]
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public virtual void Start()
     {
-        InitiateEnemyStats();
         SpawnHealthBar();
 
-        GameManager.Instance.miniMapManager.Initialize();
+        GameManager.GetInstance().miniMapManager.Initialize();
     }
 
     public virtual void Update()
@@ -142,18 +110,19 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     //private void FixedUpdate()
     //{
-    //    CharacterStateMachine.CurrentState.PhysicsUpdate();
+    //    EntityStateMachine.CurrentState.PhysicsUpdate();
     //}
 
+    #endregion [Unity Methods]
+
     #region [Behavior Patterns]
-    //TODO: Паттерны поведения врагов переделать под стратегии
+
+    //TODO: Паттерны поведения врагов переделать в новый ИИ
     internal void FollowAndAttack()
     {
-        //EXP: NullRef при отсутствии персонажей. УБРАТЬ ОБРАБОТКУ ИСКЛЮЧЕНИЙ
-        GameObject target = null;
-        try
+        GameObject target = AIUtilities.FindNearestEntity(transform, EnemyTag);
+        if (target)
         {
-            target = AIUtilities.FindNearestEntity(transform, AIUtilities.CharsTag);
             TargetName = target.ToString();
             CurrentState = EntityStateMachine.CurrentState.GetType().Name;
 
@@ -163,39 +132,15 @@ public class EnemyScript : MonoBehaviour, IDamageable
             if (!IsCharInAttackRange & IsCharInSightRange)
                 EntityStateMachine.ChangeState(new TargetFollowingState(target, gameObject, EntityStateMachine));
             else if (IsCharInAttackRange & IsCharInSightRange)
-                EntityStateMachine.ChangeState(new AttackingState(gameObject, EntityStateMachine));
+                EntityStateMachine.ChangeState(new AttackingState(this, EntityStateMachine));
             else
                 EntityStateMachine.ChangeState(new IdleState(gameObject, EntityStateMachine));
 
             EntityStateMachine.CurrentState.LogicUpdate();
         }
-        catch (System.Exception)
-        {
+        else
             Debug.Log("No characters found!");
-        }
     }
 
-    internal void AvoidAndAttack()
-    {
-
-    }
-    #endregion
-
-    #region [Combat]
-    public void HitVFX(Vector3 hitPosition)
-    {
-        var hitVFX = GameManager.Instance.HitVFX;
-
-        GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
-        Destroy(hit, 1f);
-    }
-
-    public void StartDealMeleeDamage()
-    {
-        Weapon.StartDealDamage();
-        Weapon.Init(EntityStats, EntityStats.NormalAttackMult, true);
-    }
-
-    public void EndDealMeleeDamage() => Weapon.EndDealDamage();
-    #endregion
+    #endregion [Behavior Patterns]
 }

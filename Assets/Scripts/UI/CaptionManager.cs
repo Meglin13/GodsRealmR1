@@ -6,27 +6,32 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CaptionManager : MonoBehaviour
+namespace UI
 {
-    public static CaptionManager Instance;
-
-    private float CaptionLifeTime;
-
-    public ScrollView CaptionListSV;
-
-    private void Awake()
+    [RequireComponent(typeof(UIDocumentLocalization))]
+    public class CaptionManager : UIScript
     {
-        Instance = this;
-        CaptionLifeTime = GameManager.Instance.CaptionLifeTime;
+        public static CaptionManager Instance;
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        private float CaptionLifeTime;
 
-        //CaptionListSV = root.Q<ScrollView>();
+        public ScrollView CaptionListSV;
 
-    }
+        private void Awake()
+        {
+            Instance = this;
+        }
 
-    public void ShowCaption(string CaptionText)
-    {
+        internal void OnEnable()
+        {
+            CaptionLifeTime = GameManager.GetInstance().CaptionLifeTime;
 
+            //CaptionListSV = root.Q<ScrollView>();
+        }
+
+        public void ShowCaption(string CaptionText)
+        {
+
+        }
     }
 }

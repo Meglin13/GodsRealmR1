@@ -2,37 +2,28 @@ using UnityEngine;
 
 public class CameraCenterBehaviour : MonoBehaviour
 {
-    private GameObject target;
+    public static CameraCenterBehaviour Instance;
+    private Transform target;
 
-    private void Start()
+    private void Awake()
     {
-        target = SetTarget();
-        transform.SetParent(null);
+        Instance = this;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        target = SetTarget();
-
         if (target)
         {
-            transform.position = target.transform.position;
-
-            gameObject.transform.SetParent(target.transform);
+            gameObject.transform.position = target.position;
 
             gameObject.transform.rotation = gameObject.transform.parent.rotation;
         }
     }
 
-    private GameObject SetTarget()
+    public void SetTarget(Transform transform)
     {
-        CharacterScript[] targets = GameObject.FindObjectsOfType<CharacterScript>();
-
-        foreach (var character in targets)
-        {
-            if (character.IsActive)
-                return character.gameObject;
-        }
-        return null;
+        target = transform;
+        //gameObject.transform.position = target.position;
+        gameObject.transform.SetParent(transform);
     }
 }

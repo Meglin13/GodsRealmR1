@@ -124,7 +124,7 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.069891974, g: 0, b: 0.764151, a: 1}
+    m_Value: {r: 0.027589884, g: 0.027589884, b: 0.18867922, a: 255}
   highlights:
     m_OverrideState: 1
     m_Value: {r: 0.9528302, g: 0.89058644, b: 0.16629584, a: 1}
@@ -164,7 +164,7 @@ MonoBehaviour:
     m_Value: 0
   skipIterations:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 5
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.376
+    m_Value: 0.4
   smoothness:
     m_OverrideState: 1
     m_Value: 0.23

@@ -17,18 +17,17 @@ public class Ardalion : CharacterScript, ICharacter
 
     public void DistractionAbility()
     {
-        LookAtEnemy();
-        GameObject bomb = Instantiate(DistractionThrowable);
+        GameObject bomb = Instantiate(DistractionThrowable, transform.position, transform.rotation);
         Skill skillInfo = EntityStats.SkillSet[SkillsType.Distract];
-        bomb.GetComponent<ExplosivesScript>().Init(EntityStats, skillInfo.DamageMultiplier.GetFinalValue(), skillInfo.Radius, skillInfo.DurationInSec);
-        bomb.GetComponent<Rigidbody>().AddForce((transform.forward + transform.up) * 5f, ForceMode.Impulse);
+
+        MiscUtilities.ThrowThrowable(bomb, this, skillInfo);
     }
 
     Modifier WeaponLengthPlus = new Modifier(StatType.WeaponLength, 2f);
 
     public void SpecialAbility()
     {
-        AddModifier(WeaponLengthPlus);
+        
     }
 
     public void UltimateAbility()

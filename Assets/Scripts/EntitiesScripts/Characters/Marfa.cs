@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Marfa : CharacterScript, ICharacter
 {
+    public GameObject NormalAttackBullet;
+
     public override void Awake()
     {
         Character = this;
@@ -10,7 +12,16 @@ public class Marfa : CharacterScript, ICharacter
 
     public void Attack()
     {
-        MiscUtilities.ThrowBullet(NormalAttackBullet, EntityStats.NormalAttackMult, transform.position + transform.forward, this);
+        LookAtEnemy(EntityStats.AttackRange);
+
+        Skill attackSkill = new Skill()
+        {
+            Radius = 1f,
+            BaseDamageMultiplier = EntityStats.NormalAttackMult,
+        };
+        attackSkill.DamageMultiplier = new Stat(attackSkill.BaseDamageMultiplier);
+
+        MiscUtilities.ThrowThrowable(NormalAttackBullet, this, attackSkill);
     }
 
     public void DistractionAbility()
@@ -20,7 +31,7 @@ public class Marfa : CharacterScript, ICharacter
 
     public void SpecialAbility()
     {
-        GameManager.Instance.partyManager.GiveHealToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillsType.Special].DamageMultiplier.GetFinalValue());
+        GameManager.GetInstance().partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillsType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
     }
 
     public void UltimateAbility()

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Класс хранящий цвета объектов
+/// </summary>
 public class ColorManager : MonoBehaviour, IManager
 {
     public static ColorManager Instance;
@@ -26,12 +29,19 @@ public class ColorManager : MonoBehaviour, IManager
     //TODO: Сделать цвета
     public Dictionary<Element, string> ElementColor = new Dictionary<Element, string>()
     {
-        { Element.Fire, "E95400" },
-        { Element.Water, "1A5ABA" },
-        { Element.Earth, "652A00" },
-        { Element.Air, "4BDDFD" },
-        { Element.Dark, "23233B" },
-        { Element.Light, "FFC700" },
+        { Element.Fire, "#E95400" },
+        { Element.Water, "#1A5ABA" },
+        { Element.Earth, "#652A00" },
+        { Element.Air, "#4BDDFD" },
+        { Element.Dark, "#23233B" },
+        { Element.Light, "#FFC700" },
+    };
+
+    public Dictionary<StatType, string> StatsColor = new Dictionary<StatType, string>()
+    {
+        { StatType.Mana, "#001FFF" },
+        { StatType.Health, "#45DA00" },
+        { StatType.Stamina, "#FFF300" },
     };
 
     private void Awake()

@@ -25,7 +25,7 @@ public class PlayerAttackState : State
         playerAttackState = new PlayerAttackState(character, stateMachine);
         playerIdleState = new PlayerIdleState(character, stateMachine);
 
-        character.LookAtEnemy();
+        character.LookAtEnemy(character.EntityStats.AttackRange);
     }
 
     public override void HandleInput()
@@ -44,12 +44,12 @@ public class PlayerAttackState : State
         //    currentClipLength = stateInfo.length / stateInfo.speed;
         //}
 
-        if (currentClipLength > 1.5f)
+        if (currentClipLength > 1.2f)
         {
             Debug.Log(currentClipLength + "/" + timePassed);
         }
 
-        if (timePassed >= currentClipLength/2 & IsAttackAction)
+        if (timePassed >= currentClipLength / 2 & IsAttackAction)
         {
             stateMachine.ChangeState(playerAttackState);
         }

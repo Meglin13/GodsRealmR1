@@ -15,12 +15,13 @@ MonoBehaviour:
   Name: Marfa
   Description: bruh
   Type: 1
-  Icon: {fileID: 0}
-  Art: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 16df6461aa90a384ea61f1e2515d5df2, type: 3}
+  Art: {fileID: 21300000, guid: 16df6461aa90a384ea61f1e2515d5df2, type: 3}
   Rarity: 3
   Level: 1
   Element: 2
-  Weapon: 6
+  WeaponType: 0
+  IsHeavy: 0
   BaseHealth: 150
   HealthMod: 15
   BaseAttack: 5
@@ -30,7 +31,15 @@ MonoBehaviour:
   SightRange: 20
   AttackRange: 20
   AttackCooldown: 5
-  BaseSpeed: 6.5
+  Speed: 7.3
+  EnemyLayer: 8
+  EnemyTag: Enemy
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
   NormalAttackMult: 60
   Luck: 3
   BaseCritDamage: 150
@@ -38,16 +47,15 @@ MonoBehaviour:
   CritDamageMod: 0
   BaseMana: 200
   ManaMod: 0
-  ManaRecoveringBonus: 10
   Endurance: 3
   Agility: 3
   BaseStamina: 100
   StaminaMod: 0
-  StaminaConsumption: 0.1
-  AttackSpeed: 0.9285714
-  Sprint: 11.7
+  AttackSpeed: 1.2166667
+  Sprint: 10.950001
   DodgeCost: 29
-  BlockCost: 0
+  BlockCost: 30.5
+  HeavyBlockCost: 45.75
   skills:
   - Level: 1
     LevelMod: 10
@@ -59,6 +67,19 @@ MonoBehaviour:
     CooldownInSecs: 5
     DurationInSec: 0
     ManaCost: 20
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
   - Level: 1
     LevelMod: 10
     SkillName: Marfa Special
@@ -69,6 +90,19 @@ MonoBehaviour:
     CooldownInSecs: 10
     DurationInSec: 0
     ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
   - Level: 1
     LevelMod: 10
     SkillName: Skill Name
@@ -79,12 +113,26 @@ MonoBehaviour:
     CooldownInSecs: 20
     DurationInSec: 0
     ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
   TeamBuff:
     Name: Forest heart
     Description: +10% HP
     ModifierType: 0
     StatType: 0
-    AmountInProcent: 10
-    Amount: 0
+    ModifierAmountType: 0
+    Amount: 10
     IsPermanent: 1
+    IsVisible: 0
     DurationInSecs: 0

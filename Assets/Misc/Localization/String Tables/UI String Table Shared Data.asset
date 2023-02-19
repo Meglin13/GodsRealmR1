@@ -39,6 +39,62 @@ MonoBehaviour:
     m_Key: Main_Menu
     m_Metadata:
       m_Items: []
+  - m_Id: 3995685061308416
+    m_Key: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4798892977074176
+    m_Key: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799306833244160
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799344988827648
+    m_Key: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799416208109568
+    m_Key: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799498634571776
+    m_Key: Ref_Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799680113717248
+    m_Key: Video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799727022813184
+    m_Key: Quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799779166400512
+    m_Key: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799906383835136
+    m_Key: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799945042735104
+    m_Key: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4799970074341376
+    m_Key: Global
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4801086476431360
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4808594981040128
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

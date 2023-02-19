@@ -1,19 +1,32 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class PartyManager : MonoBehaviour, IManager
 {
+    /// <summary>
+    /// Индекс лидела
+    /// </summary>
     public int LeaderIndex = 0;
+
+    /// <summary>
+    /// Определяет, можно ли переключаться
+    /// </summary>
     public bool CanSwitch = true;
     public CharacterScript Player { get; set; }
     public static PartyManager Instance { get; private set; }
 
+    /// <summary>
+    /// Список активных членов команды
+    /// </summary>
     [HideInInspector]
     public List<CharacterScript> PartyMembers = new List<CharacterScript>();
 
-    //Переключение персонажей
+    /// <summary>
+    /// Переключение персонажей
+    /// </summary>
+    /// <param name="CurrentPlayer"></param>
+    /// <param name="newPlayerIndex"></param>
     public void SwitchPlayer(CharacterScript CurrentPlayer, int newPlayerIndex)
     {
         if (newPlayerIndex > PartyMembers.Count | newPlayerIndex > 3 | !CanSwitch)
@@ -25,16 +38,17 @@ public class PartyManager : MonoBehaviour, IManager
         CharacterScript NewPlayer = PartyMembers[newPlayerIndex - 1];
 
         //Старый игрок
-        SidekickState sidekickState = new SidekickState(CurrentPlayer, CurrentPlayer.CharacterStateMachine);
-        CurrentPlayer.CharacterStateMachine.ChangeState(sidekickState);
+        SidekickState sidekickState = new SidekickState(CurrentPlayer, CurrentPlayer.EntityStateMachine);
+        CurrentPlayer.EntityStateMachine.ChangeState(sidekickState);
         CurrentPlayer.IsActive = false;
 
         //Новый игрок
-        PlayerState playerState = new PlayerState(NewPlayer, NewPlayer.CharacterStateMachine);
-        NewPlayer.CharacterStateMachine.ChangeState(playerState);
+        PlayerState playerState = new PlayerState(NewPlayer, NewPlayer.EntityStateMachine);
+        NewPlayer.EntityStateMachine.ChangeState(playerState);
         NewPlayer.IsActive = true;
 
-        LeaderIndex = newPlayerIndex-1;
+        LeaderIndex = newPlayerIndex - 1;
+        CameraCenterBehaviour.Instance.SetTarget(NewPlayer.gameObject.transform);
     }
 
     public void Initialize()
@@ -42,8 +56,11 @@ public class PartyManager : MonoBehaviour, IManager
         Instance = this;
     }
 
+    //TODO: Сделать выбор членов команды
     public void Initialize(List<CharacterScript> characters)
     {
+        Initialize();
+
         if (characters.Count == 0)
         {
             Debug.Log("No chars!!!");
@@ -56,20 +73,9 @@ public class PartyManager : MonoBehaviour, IManager
             i.HotKeyNumber = PartyMembers.IndexOf(i);
 
         PartyMembers[0].IsActive = true;
+        CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
     }
 
-    //TODO: Сделать выбор членов команды
-    //public void Initialize(List<CharacterScript> characters)
-    //{
-    //    //Добавление персонажей
-    //    PartyMembers = characters;
-
-    //    //Назначение клавиш
-    //    foreach (var item in PartyMembers)
-    //        item.HotKeyNumber = PartyMembers.IndexOf(item);
-
-    //    PartyMembers[0].IsActive = true;
-    //}
 
     public void CharDeath(CharacterScript character)
     {
@@ -78,7 +84,7 @@ public class PartyManager : MonoBehaviour, IManager
             PartyMembers.Remove(character);
             PartyMembers[0].IsActive = true;
 
-            PartyMembers[0].CharacterStateMachine.ChangeState(new PlayerState(PartyMembers[0], PartyMembers[0].CharacterStateMachine));
+            PartyMembers[0].EntityStateMachine.ChangeState(new PlayerState(PartyMembers[0], PartyMembers[0].EntityStateMachine));
 
             GameObject.FindObjectOfType<CameraCenterBehaviour>().gameObject.transform.SetParent(PartyMembers[0].transform);
 
@@ -96,6 +102,7 @@ public class PartyManager : MonoBehaviour, IManager
     }
 
     #region [Team Commands]
+
     public void GiveCommandToMember()
     {
         //TODO: Реализовать команды союзникам
@@ -108,8 +115,8 @@ public class PartyManager : MonoBehaviour, IManager
         {
             if (!item.IsActive)
             {
-                TargetFollowingState comeToPlayer = new TargetFollowingState(PartyMembers[LeaderIndex].gameObject, item.gameObject, item.CharacterStateMachine.CurrentState.InnerStateMachine);
-                item.CharacterStateMachine.CurrentState.InnerStateMachine.ChangeState(comeToPlayer);
+                TargetFollowingState comeToPlayer = new TargetFollowingState(PartyMembers[LeaderIndex].gameObject, item.gameObject, item.EntityStateMachine.CurrentState.InnerStateMachine);
+                item.EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(comeToPlayer);
             }
         }
     }
@@ -118,7 +125,7 @@ public class PartyManager : MonoBehaviour, IManager
     {
         foreach (var item in PartyMembers)
         {
-            if (item.EntityStats.TeamBuff != null)
+            if (item && item?.EntityStats.TeamBuff != null)
             {
                 ApplyBuffOnTeam(item.EntityStats.TeamBuff);
             }
@@ -127,41 +134,57 @@ public class PartyManager : MonoBehaviour, IManager
 
     public void ApplyBuffOnTeam(Modifier modifier)
     {
-        if (modifier.StatType == StatType.InventorySlots)
-            GameManager.Instance.inventory.Capacity += (int)Math.Round(modifier.Amount);
-        else
+        switch (modifier.StatType)
         {
-            foreach (var item in PartyMembers)
-                StartCoroutine(item.AddModifier(modifier));
+            case StatType.InventorySlots:
+                GameManager.GetInstance().inventory.Capacity += (int)Math.Round(modifier.Amount);
+                break;
+
+            case StatType.WeaponLength:
+                break;
+
+            default:
+                foreach (var item in PartyMembers)
+                    StartCoroutine(item.AddModifier(modifier));
+                break;
         }
     }
 
-    public void GiveHealToAll(float Amount)
+    /// <summary>
+    /// Метод для добавления маны, здоровья или выносливости
+    /// </summary>
+    /// <param name="Amount">Добавляемое количество</param>
+    /// <param name="type">Тип атрибута</param>
+    public void GiveSupportToAll(float Amount, StatType type)
     {
         foreach (var item in PartyMembers)
         {
-            GiveHealToTeammate(item, Amount);
-            MiscUtilities.DamagePopUp(item.transform, $"+{Math.Round(Amount)}", "#45DA00", 0.8f);
+            if (type == StatType.Health | type == StatType.Stamina | type == StatType.Mana)
+            {
+                item.GiveSupport(Amount, type);
+
+                string PopUpColor = GameManager.GetInstance().colorManager.StatsColor[type];
+
+                MiscUtilities.DamagePopUp(item.transform, $"+{Math.Round(Amount)}", PopUpColor, 0.8f);
+            }
+            else
+            {
+                Debug.Log("Wrong type to support!!!");
+            }
         }
     }
 
-    public void GiveHealToTeammate(CharacterScript character, float Amount)
+    public void GiveManaToTeammate(CharacterScript character, float Amount, StatType type)
     {
-        if (character.CurrentHealth + Amount <= character.EntityStats.ModifiableStats[StatType.Health].GetFinalValue())
-            character.CurrentHealth += Amount;
-        else
-            character.CurrentHealth = character.EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
+        character.GiveSupport(Amount, type);
     }
 
-    public void GiveManaToTeammate(CharacterScript character, float Amount)
-    {
-        if (character.CurrentMana + Amount <= character.EntityStats.ModifiableStats[StatType.Mana].GetFinalValue())
-            character.CurrentMana += Amount;
-        else
-            character.CurrentMana = character.EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
-    }
-    #endregion
+    #endregion [Team Commands]
 
+    /// <summary>
+    /// Получение персонажа, которым управляет игрок
+    /// </summary>
+    /// <returns>Персонаж</returns>
     public CharacterScript GetPlayer()
     {
         return PartyMembers[LeaderIndex];

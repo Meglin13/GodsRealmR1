@@ -53,42 +53,42 @@ public class SimpleCollectibleScript : MonoBehaviour
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
         if (CollectibleType == CollectibleTypes.Type1)
         {
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
         if (CollectibleType == CollectibleTypes.Type2)
         {
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
         if (CollectibleType == CollectibleTypes.Type3)
         {
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
         if (CollectibleType == CollectibleTypes.Type4)
         {
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
         if (CollectibleType == CollectibleTypes.Type5)
         {
 
             //Add in code here;
 
-            Debug.Log("Do NoType Command");
+            Debug.Log("Act NoType Command");
         }
 
         Destroy(gameObject);

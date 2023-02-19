@@ -5,7 +5,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum StatType{Health, Attack, Mana, Defence, CritChance, CritDamage, InventorySlots, Stamina, Speed, WeaponLength}
+public enum StatType
+{
+    Health, Attack, Defence, CritChance, CritDamage, 
+    InventorySlots, Stamina, Speed, WeaponLength, 
+    Mana, ManaConsumption, ManaRecoveryBonus
+}
+
 public enum EntityType { Enemy, Character }
 
 public class ElementSheet
@@ -51,7 +57,12 @@ public class EntityStats : ScriptableObject
     public float SightRange = 20f;
     public float AttackRange = 3f;
     public float AttackCooldown = 5f;
-    public float Speed = 6;
+    public float Speed = 5;
+
+    [HideInInspector]
+    public int EnemyLayer;
+    [HideInInspector]
+    public string EnemyTag;
 
     public Dictionary<Element, ElementSheet> ElementsResBonus;
 
@@ -77,7 +88,6 @@ public class EntityStats : ScriptableObject
     [Header("Mana")]
     public float BaseMana = 100f;
     public float ManaMod = 0;
-    public float ManaRecoveringBonus = 10f;
 
     //Характеристики связанные с выносливостью и ловкостью
     [Header("Attributes")]
@@ -113,45 +123,50 @@ public class EntityStats : ScriptableObject
 
     public Stat WeaponLengthStat;
 
-    public virtual void Init(int Level)
+    public virtual void Initialize(int Level)
     {
-        SkillSet = new Dictionary<SkillsType, Skill>(3)
+        if (this.Type == EntityType.Character)
+        {
+            SkillSet = new Dictionary<SkillsType, Skill>(3)
         {
             { SkillsType.Special, skills[0]},
             { SkillsType.Distract, skills[1]},
             { SkillsType.Ultimate, skills[2]},
         };
 
-        foreach (var item in SkillSet)
-        {
-            Skill skill = item.Value;
-            skill.DamageMultiplier = new Stat(skill.BaseDamageMultiplier, skill.Level, skill.LevelMod);
-        }
+            foreach (var item in SkillSet)
+            {
+                Skill skill = item.Value;
+                skill.DamageMultiplier = new Stat(skill.BaseDamageMultiplier, skill.Level, skill.LevelMod);
+            }
 
-        EnduranceStat = new Stat(Endurance);
-        AgilityStat = new Stat(Agility);
+            EnduranceStat = new Stat(Endurance);
+            AgilityStat = new Stat(Agility);
+        }
 
         ModifiableStats = new Dictionary<StatType, Stat>()
         {
             { StatType.Attack, new Stat(BaseAttack, Level, AttackMod)},
-            { StatType.Health, new Stat(BaseHealth, Level, HealthMod)},
-            { StatType.Defence, new Stat(BaseDefence, Level, DefenceMod)},
-            { StatType.Stamina, new Stat(BaseStamina, Level, StaminaMod)},
             { StatType.CritChance, new Stat(Luck * 1.5f, Level, CritChanceMod)},
             { StatType.CritDamage, new Stat(BaseCritDamage, Level, CritDamageMod)},
+            { StatType.Defence, new Stat(BaseDefence, Level, DefenceMod)},
+            { StatType.Health, new Stat(BaseHealth, Level, HealthMod)},
             { StatType.Mana, new Stat(BaseMana, Level, ManaMod)},
             { StatType.Speed, new Stat(5.5f + Agility * 0.6f) },
-            { StatType.WeaponLength, WeaponLengthStat }
+            { StatType.Stamina, new Stat(BaseStamina, Level, StaminaMod)},
+            { StatType.WeaponLength, WeaponLengthStat },
+            { StatType.ManaConsumption, new Stat() },
+            { StatType.ManaRecoveryBonus, new Stat() }
         };
 
         ElementsResBonus = new Dictionary<Element, ElementSheet>
         {
-            { Element.Fire, new ElementSheet (new Stat(FireRes), new Stat()) },
-            { Element.Water, new ElementSheet (new Stat(WaterRes), new Stat()) },
-            { Element.Earth, new ElementSheet (new Stat(EarthRes), new Stat()) },
             { Element.Air, new ElementSheet (new Stat(AirRes), new Stat()) },
+            { Element.Dark, new ElementSheet(new Stat(DarkRes), new Stat()) },
+            { Element.Earth, new ElementSheet (new Stat(EarthRes), new Stat()) },
+            { Element.Fire, new ElementSheet (new Stat(FireRes), new Stat()) },
             { Element.Light, new ElementSheet(new Stat(LightRes), new Stat()) },
-            { Element.Dark, new ElementSheet(new Stat(DarkRes), new Stat()) }
+            { Element.Water, new ElementSheet (new Stat(WaterRes), new Stat()) }
         };
 
         //agent.angularSpeed = 200f;
@@ -166,10 +181,14 @@ public class EntityStats : ScriptableObject
         Sprint = ModifiableStats[StatType.Speed].GetFinalValue() * 1.5f;
         Speed = ModifiableStats[StatType.Speed].GetFinalValue();
 
-        DodgeCost = 35 - EnduranceStat.GetFinalValue() * 2;
-        BlockCost = 35 - EnduranceStat.GetFinalValue() * 1.5f;
-        HeavyBlockCost = BlockCost * 1.5f;
+        if (this.Type == EntityType.Character)
+        {
+            DodgeCost = 35 - EnduranceStat.GetFinalValue() * 2;
+            BlockCost = 35 - EnduranceStat.GetFinalValue() * 1.5f;
+            HeavyBlockCost = BlockCost * 1.5f;
+        }
     }
+
 
     public void LevelUp(int LevelAmount)
     {
@@ -187,13 +206,10 @@ public class EntityStats : ScriptableObject
 
         for (int i = 0; i < ModifiableStats.Count-1; i++)
         {
-            ModifiableStats.ElementAt(i).Value.SetLevel(Level);
+            if (ModifiableStats.ElementAt(i).Value != null)
+            {
+                ModifiableStats.ElementAt(i).Value.SetLevel(Level);
+            }
         }
-
-        //foreach (var item in ModifiableStats)
-        //{
-        //    Debug.Log(item.Value);
-        //    item.Value.SetLevel(Level);
-        //}
     }
 }

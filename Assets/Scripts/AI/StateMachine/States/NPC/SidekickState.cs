@@ -26,7 +26,7 @@ public class SidekickState : State
         InnerStateMachine = new StateMachine();
 
         idleState = new IdleState(gameObject, InnerStateMachine);
-        attackingState = new AttackingState(gameObject, InnerStateMachine);
+        attackingState = new AttackingState(character, InnerStateMachine);
 
         InnerStateMachine.Initialize(idleState);
 
@@ -36,7 +36,7 @@ public class SidekickState : State
 
     public override void LogicUpdate()
     {
-        Player = AIUtilities.FindPlayer();
+        Player = PartyManager.Instance.GetPlayer().gameObject;
 
         List<EnemyScript> Enemies = GameObject.FindObjectsOfType<EnemyScript>().ToList();
 
@@ -63,13 +63,13 @@ public class SidekickState : State
             InnerStateMachine.ChangeState(IsEnemyNearby ? attackingState : enemyFollowing);
         }
 
-        InnerStateMachine.CurrentState.LogicUpdate();
+        InnerStateMachine.CurrentState?.LogicUpdate();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        InnerStateMachine.CurrentState.PhysicsUpdate();
+        InnerStateMachine.CurrentState?.PhysicsUpdate();
     }
 
     public override void ExitState()

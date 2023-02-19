@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
     <ui:VisualElement name="Panel" class="panel" style="height: 95%; width: 35%; -unity-background-scale-mode: stretch-to-fill; -unity-slice-top: 0; -unity-slice-bottom: 0; background-image: none; background-color: rgb(35, 35, 59); padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px; transition-duration: 1s;">
-        <ui:Label text="Pause" display-tooltip-when-elided="true" class="header-label" />
+        <ui:Label text="#Pause" display-tooltip-when-elided="true" name="Pause" class="header-label" />
         <ui:Button text="#Resume" display-tooltip-when-elided="true" name="ResumeBT" />
         <ui:Button text="#Restart" display-tooltip-when-elided="true" name="RestartBT" />
         <ui:Button text="#Run_Statistic" display-tooltip-when-elided="true" name="RunStatsBT" enable-rich-text="false" style="-unity-slice-right: 1100;" />

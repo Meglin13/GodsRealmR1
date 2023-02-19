@@ -42,7 +42,7 @@ public class PlayerMovementState : State
                 animator.SetFloat("Velocity", character.velocity, character.acceleration, Time.deltaTime);
 
                 character.Movement(input, character.velocity * character.EntityStats.Sprint);
-                character.CurrentStamina -= character.StaminaConsumption * Time.deltaTime;
+                character.ChangeStamina(-character.StaminaConsumption * Time.deltaTime);
             }
             else
             {

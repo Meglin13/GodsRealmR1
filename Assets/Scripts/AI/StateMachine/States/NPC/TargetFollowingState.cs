@@ -20,7 +20,7 @@ public class TargetFollowingState : State
 
         float velocity = dir.magnitude / 10;
 
-        float speed = 6;
+        float speed = 5;
         agent.speed = speed + velocity * 1.3f;
 
         animator.SetFloat("Velocity", agent.velocity.magnitude / agent.speed);

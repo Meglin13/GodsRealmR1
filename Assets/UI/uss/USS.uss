@@ -53,6 +53,12 @@ Button {
     margin-bottom: auto;
 }
 
+Button:hover {
+    -unity-background-image-tint-color: rgb(139, 146, 168);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
 Slider {
     justify-content: center;
     flex-direction: row;
@@ -64,6 +70,9 @@ Slider {
     align-items: stretch;
     -unity-font-style: normal;
     font-size: 35px;
+}
+
+ScrollView {
 }
 
 .separator-label {
@@ -79,12 +88,6 @@ Slider {
     color: rgb(255, 199, 0);
     margin-top: 30px;
     font-size: 40px;
-}
-
-Button:hover {
-    -unity-background-image-tint-color: rgb(150, 160, 190);
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .panel {
@@ -115,13 +118,6 @@ Button:hover {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.unity-progress-bar__progress {
-    background-color: rgb(52, 21, 126);
-    height: auto;
-    font-size: 20px;
-    -unity-text-align: middle-center;
-}
-
 .header-label {
     font-size: 45px;
     -unity-text-align: middle-center;
@@ -136,6 +132,92 @@ Button:hover {
     -unity-text-align: upper-center;
 }
 
+.unity-base-field__input {
+    -unity-text-align: middle-right;
+    width: auto;
+    height: 50px;
+    min-width: 0;
+    margin-left: auto;
+    max-width: 70%;
+}
+
+ProgressBar {
+    justify-content: center;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(52, 21, 126);
+    height: auto;
+    font-size: 20px;
+    -unity-text-align: middle-center;
+    justify-content: center;
+}
+
 .unity-progress-bar__title-container {
+    height: auto;
+    -unity-text-align: middle-center;
+    font-size: 25px;
+    -unity-font-style: normal;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.unity-progress-bar__background {
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.arrows-buttons {
+    width: 70px;
+    height: 70px;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-text-align: middle-center;
+    flex-direction: row;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.slot-container {
+}
+
+.inventory-slot {
+    width: 100px;
     height: 100px;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-image: resource('Images/UI/InventoryCell/SlotIcon');
+}
+
+.slot-icon {
+    background-image: none;
+    width: 100%;
+    height: 100%;
+}
+
+.slot-amount-label {
+    width: 100%;
+    flex-direction: column;
+    margin-top: auto;
 }

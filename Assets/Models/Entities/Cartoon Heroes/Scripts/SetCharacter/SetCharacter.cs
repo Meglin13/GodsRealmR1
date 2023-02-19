@@ -177,7 +177,7 @@ namespace CartoonHeroes
 
             /*List<Transform> allCharacterChildren_List = new List<Transform>();
             
-            for(int i = 0; i < allCharacterChildren.Length; i++){
+            for(int i = 0; i < allCharacterChildren.Range; i++){
                 if(allCharacterChildren[i].GetComponent<SkinnedMeshRenderer>() != null || allCharacterChildren[i].GetComponent<Animator>() != null)
                 {
                     continue;

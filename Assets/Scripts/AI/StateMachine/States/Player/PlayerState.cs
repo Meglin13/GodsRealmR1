@@ -19,6 +19,10 @@ public class PlayerState : State
         var playerIdleState = new PlayerIdleState(character, InnerStateMachine);
 
         InnerStateMachine.Initialize(playerIdleState);
+
+        character.HealthBar.ChangeBarValue(character.CurrentHealth, character.EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
+        character.ManaBar.ChangeBarValue(character.CurrentMana, character.EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
+        character.StaminaBar.ChangeBarValue(character.CurrentStamina, character.EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
     }
 
     public override void HandleInput()
@@ -31,16 +35,8 @@ public class PlayerState : State
         HandleInput();
 
         InnerStateMachine.CurrentState.LogicUpdate();
-
-        UpdateBars();
     }
 
-    private void UpdateBars()
-    {
-        character.HPSB.ChangeBarValue(character.CurrentHealth, character.EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
-        character.MSB.ChangeBarValue(character.CurrentMana, character.EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
-        character.SSB.ChangeBarValue(character.CurrentStamina, character.EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
-    }
 
     public override void PhysicsUpdate()
     {

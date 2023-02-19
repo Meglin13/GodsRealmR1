@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class AttackingState : State
 {
-    public AttackingState(GameObject gameObject,
-    StateMachine stateMachine) : base(gameObject, stateMachine)
+    IDamageable damageable;
+
+    public AttackingState(IDamageable damageable,
+    StateMachine stateMachine) : base(damageable.gameObject, stateMachine)
     {
-
+        this.damageable = damageable;
     }
-
-    float cooldown = 2f;
-
-    //TODO: Добавить кулдауны
 
     public override void EnterState()
     {
@@ -24,20 +22,11 @@ public class AttackingState : State
         animator.SetFloat("Velocity", 0, 0.01f, Time.deltaTime);
         animator.SetTrigger("Attack");
 
-        if (gameObject.TryGetComponent(out CharacterScript characterScript))
-        {
-            target = AIUtilities.FindNearestEntity(gameObject.transform, AIUtilities.EnemyTag);
-
-            animator.SetTrigger("Move");
-        }
-        else
-        {
-            target = AIUtilities.FindNearestEntity(gameObject.transform, AIUtilities.CharsTag);
-        }
+        target = AIUtilities.FindNearestEntity(gameObject.transform, damageable.EnemyTag);
 
         timePassed += Time.deltaTime;
 
-        if (target != null)
+        if (target)
             gameObject.transform.LookAt(target.transform.position);
     }
 }

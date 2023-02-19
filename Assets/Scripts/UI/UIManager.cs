@@ -1,71 +1,117 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
-public class UIManager : MonoBehaviour
+namespace UI
 {
-    public static UIManager Instance;
-    public GameObject PauseMenu;
-    public GameObject SettingsMenu;
-    public GameObject LoadingScreen;
-
-    private GameObject PreviousMenu;
-    private GameObject CurrentMenu;
-
-    public bool IsPausable;
-
-    //TODO: Сделать кнопку назад
-    private void Awake()
+    [RequireComponent(typeof(PlayerInput))]
+    public class UIManager : MonoBehaviour
     {
-        Instance = this;
+        public static UIManager Instance;
+        public GameObject PauseMenu;
+        public GameObject SettingsMenu;
+        public GameObject LoadingScreen;
+        public GameObject Inventory;
+        public GameObject InGameUI;
 
-        var ExitButton = GetComponent<PlayerInput>().actions["Exit"];
-        ExitButton.performed += ctx =>
+        private GameObject PreviousMenu;
+        private GameObject CurrentMenu;
+
+        public bool IsPausable;
+        public GameObject Blur;
+
+        public event Action OnMenuOpen = delegate { };
+        public event Action OnMenuClose = delegate { };
+
+        private List<GameObject> AvailableUI;
+
+        private void Awake()
         {
-            if (!PauseMenu.active | CurrentMenu == PauseMenu)
+            Instance = this;
+
+
+
+            var playerInput = GetComponent<PlayerInput>();
+
+            var ExitButton = playerInput.actions["Exit"];
+            var InventoryButton = playerInput.actions["Inventory"];
+
+            ExitButton.performed += ctx =>
             {
-                OpenPause();
+                if(CurrentMenu == null)
+                {
+                    this.OpenMenu(PauseMenu);
+                }
+                else
+                {
+                    GoBack();
+                }
+            };
+
+            InventoryButton.performed += ctx => this.OpenMenu(Inventory);
+
+            OnMenuOpen += () =>
+            {
+                Blur.SetActive(true);
+                InGameUI.SetActive(false);
+                Time.timeScale = 0;
+            };
+
+            OnMenuClose += () =>
+            {
+                Blur.SetActive(false);
+                InGameUI.SetActive(true);
+                Time.timeScale = 1;
+            };
+        }
+
+        public void ChangeMenu(GameObject CurrentMenu, GameObject NextMenu)
+        {
+            CurrentMenu.SetActive(false);
+            NextMenu.SetActive(true);
+
+            this.PreviousMenu = CurrentMenu;
+            this.CurrentMenu = NextMenu;
+        }
+
+        public void ChangeScene(string SceneName, GameObject PreviousMenu)
+        {
+            PreviousMenu.SetActive(false);
+            LoadingScreen.SetActive(true);
+            LoadingScreen.GetComponent<LoadingScreenScript>().LoadScene(SceneName);
+        }
+
+        public void GoBack()
+        {
+            CurrentMenu.SetActive(false);
+            if (PreviousMenu != null)
+            {
+                PreviousMenu.SetActive(true);
+                CurrentMenu = PreviousMenu;
+                PreviousMenu = null;
+            }
+            else
+            {
+                CurrentMenu = null;
+                OnMenuClose();
+            }
+        }
+
+        public void OpenMenu(GameObject menu)
+        {
+            if (menu == null) GoBack();
+
+            if (!menu.active & CurrentMenu != menu & PreviousMenu != menu)
+            {
+                menu.SetActive(true);
+                CurrentMenu = menu;
+                OnMenuOpen();
             }
             else
             {
                 GoBack();
             }
-        };
-    }
-
-    public void OpenPause()
-    {
-        if (!PauseMenu.active & CurrentMenu != PauseMenu)
-        {
-            PauseMenu.SetActive(true);
-            CurrentMenu = PauseMenu;
         }
-        else if (true)
-        {
-
-        }
-    }
-
-    public void ChangeMenu(GameObject CurrentMenu, GameObject NextMenu, bool IsPause)
-    {
-        CurrentMenu.SetActive(false);
-        NextMenu.SetActive(true);
-        Time.timeScale = IsPause ? 0 : 1;
-
-        this.PreviousMenu = CurrentMenu;
-        this.CurrentMenu = NextMenu;
-    }
-
-    public void ChangeScene(string SceneName, GameObject PreviousMenu)
-    {
-        PreviousMenu.SetActive(false);
-        LoadingScreen.SetActive(true);
-        LoadingScreen.GetComponent<LoadingScreenScript>().LoadScene(SceneName);
-    }
-
-    public void GoBack()
-    {
-        CurrentMenu.SetActive(false);
-        PreviousMenu.SetActive(true);
     }
 }

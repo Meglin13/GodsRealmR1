@@ -1,34 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering;
 
 public static class SettingsScript
 {
-    public static void SetScreen(string Resolution, bool IsFullscreen, int RefreshRate)
+    public static void SetScreen(string resolution, bool IsFullscreen, int refreshRate)
     {
-        if (Resolution == null)
-        {
-            Resolution = $"{Screen.width}X{Screen.height}";
-        }
+        string[] res = resolution.Split('X', StringSplitOptions.RemoveEmptyEntries);
 
-        string[] res = Resolution.Split('X', StringSplitOptions.RemoveEmptyEntries);
-
-        Application.targetFrameRate = RefreshRate;
+        Application.targetFrameRate = refreshRate;
 
         Screen.SetResolution(Int32.Parse(res[0]), Int32.Parse(res[1]), IsFullscreen);
 
-        Debug.Log($"Current resolution {Screen.width}X{Screen.height}. Fullscreen {Screen.fullScreen}" +
-            $"Current refreshrate {Application.targetFrameRate}. " +
-            $"\nCurrent Quality {QualitySettings.GetQualityLevel()}");
+        PlayerPrefs.SetString("Resolution", resolution);
+        PlayerPrefs.SetInt("RefreshRate", refreshRate);
+        PlayerPrefs.SetInt("Fullscreen", IsFullscreen ? 1 : 0);
     }
 
-    public static void SetQuality(int Value, RenderPipelineAsset asset)
+    public static void SetQuality(int index, RenderPipelineAsset asset)
     {
-        QualitySettings.SetQualityLevel(Value);
+        QualitySettings.SetQualityLevel(index);
         QualitySettings.renderPipeline = asset;
+
+        PlayerPrefs.SetInt("Quality", index);
+    }
+
+    public static void SetLocalization(int index)
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        PlayerPrefs.SetInt("Lang", index);
     }
 }

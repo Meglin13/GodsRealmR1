@@ -3,8 +3,8 @@ using UnityEngine;
 
 public enum EquipmentType
 {
-    Helmet, Gloves, Armor,
-    Ring, Bracelet, Amulet
+    Helmet, Armor, Gloves, Boots,
+    Ring, Bracelet, Amulet, Artefact
 }
 
 [CreateAssetMenu(fileName = "EquipmentItem", menuName = "Objects/Equipment Item")]
@@ -14,6 +14,8 @@ public class EquipmentItem : Item
     {
         Type = ItemType.Equipment;
         IsStackable = false;
+
+        SetItemModifiers();
     }
 
     public EquipmentType EquipmentType;
@@ -22,6 +24,10 @@ public class EquipmentItem : Item
     [ButtonMethod]
     public void SetItemModifiers()
     {
-        Modifiers = new Modifier[(int)Rarity];
+        Modifiers = new Modifier[(int)Rarity + 1];
+        //for (int i = 0; i < Modifiers.Length; i++)
+        //{
+        //    Modifiers[i].IsPermanent = true;
+        //}
     }
 }

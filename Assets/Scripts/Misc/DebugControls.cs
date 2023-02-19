@@ -21,7 +21,7 @@ public class DebugControls : MonoBehaviour
 
     private void SpawnEnemy(InputAction.CallbackContext obj)
     {
-        Transform spawnpoint = GameManager.Instance.partyManager.PartyMembers[GameManager.Instance.partyManager.LeaderIndex].transform;
+        Transform spawnpoint = GameManager.GetInstance().partyManager.PartyMembers[GameManager.GetInstance().partyManager.LeaderIndex].transform;
         Instantiate(Skeleton, spawnpoint.position, spawnpoint.rotation);
     }
 }

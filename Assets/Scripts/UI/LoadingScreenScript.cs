@@ -4,35 +4,39 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class LoadingScreenScript : MonoBehaviour
+namespace UI
 {
-    private ProgressBar progressBar;
-
-    private void OnEnable()
+    public class LoadingScreenScript : UIScript
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        progressBar = root.Q<ProgressBar>("ProgressBar");
-    }
+        private ProgressBar progressBar;
 
-    public void LoadScene(string SceneName)
-    {
-        StartCoroutine(LoadSceneAsync(SceneName));
-    }
-
-    private IEnumerator LoadSceneAsync(string SceneName)
-    {
-        AsyncOperation loadScene = SceneManager.LoadSceneAsync(SceneName);
-
-        loadScene.allowSceneActivation = false;
-
-        while (!loadScene.isDone)
+        internal override void OnBind()
         {
-            progressBar.value = Mathf.Clamp01(loadScene.progress / 0.9f);
+            base.OnBind();
 
-            if (loadScene.progress >= 0.9f)
-                loadScene.allowSceneActivation = true;
+            progressBar = root.Q<ProgressBar>("ProgressBar");
+        }
 
-            yield return null;
+        public void LoadScene(string SceneName)
+        {
+            StartCoroutine(LoadSceneAsync(SceneName));
+        }
+
+        private IEnumerator LoadSceneAsync(string SceneName)
+        {
+            AsyncOperation loadScene = SceneManager.LoadSceneAsync(SceneName);
+
+            loadScene.allowSceneActivation = false;
+
+            while (!loadScene.isDone)
+            {
+                progressBar.value = Mathf.Clamp01(loadScene.progress / 0.9f);
+
+                if (loadScene.progress >= 0.9f)
+                    loadScene.allowSceneActivation = true;
+
+                yield return null;
+            }
         }
     }
 }

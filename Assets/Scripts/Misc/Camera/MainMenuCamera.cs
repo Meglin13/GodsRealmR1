@@ -22,7 +22,10 @@ public class MainMenuCamera : MonoBehaviour
         RotateY = Random.Range(-0.02f, 0.02f);
         RotateZ = Random.Range(-0.02f, 0.02f);
 
-        RenderSettings.skybox = Skyboxes[Random.RandomRange(0, Skyboxes.Count)];
+        if (Skyboxes.Count > 0)
+        {
+            RenderSettings.skybox = Skyboxes[Random.RandomRange(0, Skyboxes.Count - 1)];
+        }
     }
 
     void Update()
