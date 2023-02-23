@@ -22,6 +22,8 @@ namespace UI
         public Label AmountLB;
         public Item slotContext;
 
+        public StyleColor defaultBG;
+
         public InventorySlotControl()
         {
             Icon = new Image();
@@ -34,6 +36,8 @@ namespace UI
             AmountLB.AddToClassList("slot-amount-label");
 
             AddToClassList("inventory-slot");
+
+            defaultBG = Icon.style.backgroundColor;
         }
 
         public void SetSlot(Item item)
@@ -41,8 +45,20 @@ namespace UI
             if (item != null)
             {
                 AmountLB.text = item.Amount == 1 ? "" : item.Amount.ToString();
-                this.style.backgroundColor = GameManager.Instance.colorManager.RarityColor[item.Rarity];
+
+                Icon.sprite = item.Icon;
+                Icon.style.backgroundColor = GameManager.Instance.colorManager.RarityColor[item.Rarity];
+
                 slotContext = item;
+            }
+            else
+            {
+                AmountLB.text = null;
+
+                Icon.sprite = null;
+                Icon.style.backgroundColor = defaultBG;
+
+                slotContext = null;
             }
         }
     }

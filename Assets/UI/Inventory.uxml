@@ -23,7 +23,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="SwitchCharButtons" style="flex-direction: row; margin-top: auto; margin-bottom: 20px; margin-left: 0; margin-right: 0; height: auto;">
                 <ui:Button display-tooltip-when-elided="true" name="PreviousCharBT" class="arrowsButtons arrows-buttons" style="background-image: resource(&apos;Images/UI/leftarrow&apos;); -unity-slice-left: 0; -unity-slice-right: 0; -unity-background-image-tint-color: rgb(255, 199, 0); margin-left: 20px; margin-bottom: 0; margin-top: 0; max-height: none; min-height: auto;" />
-                <ui:Label text="#Char_Name" display-tooltip-when-elided="true" name="CharNameLB" style="-unity-text-align: upper-center; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                <ui:Label text="#Char_Name" display-tooltip-when-elided="true" name="CharNameLB" style="-unity-text-align: upper-center; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 300px; white-space: normal;" />
                 <ui:Button display-tooltip-when-elided="true" name="NextCharBT" class="arrows-buttons" style="-unity-slice-left: 0; -unity-slice-right: 0; background-image: resource(&apos;Images/UI/rightarrow&apos;); -unity-background-image-tint-color: rgb(255, 199, 0); margin-left: auto; margin-right: 20px; margin-top: 0; margin-bottom: 0; max-height: none; min-height: auto; -unity-background-scale-mode: stretch-to-fill;" />
             </ui:VisualElement>
         </ui:VisualElement>
@@ -34,7 +34,7 @@
             </ui:VisualElement>
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="InventoryGrid" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; opacity: 1; flex-grow: 1;">
                 <ui:VisualElement name="InventoryContainer" style="height: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
-                    <UI.InventorySlotControl />
+                    <UI.InventorySlotControl style="border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(75, 66, 32); border-right-color: rgb(75, 66, 32); border-top-color: rgb(75, 66, 32); border-bottom-color: rgb(75, 66, 32);" />
                 </ui:VisualElement>
             </ui:ScrollView>
         </ui:VisualElement>
@@ -43,12 +43,12 @@
                 <ui:Label text="#Gold" display-tooltip-when-elided="true" name="GoldLB" style="color: rgb(255, 199, 0); margin-right: auto; margin-left: 10px;" />
             </ui:VisualElement>
             <ui:VisualElement name="ItemInfo">
-                <ui:Label text="#Item_Name" display-tooltip-when-elided="true" name="ItemNameLB" />
+                <ui:Label text="#Item_Name" display-tooltip-when-elided="true" name="ItemNameLB" style="height: 70px; white-space: normal; -unity-text-align: middle-left;" />
                 <ui:VisualElement name="ItemInfo" style="background-color: rgba(0, 0, 0, 0.2); height: 500px; width: 100%; margin-top: 20px; margin-bottom: 20px;">
-                    <ui:Label text="#Item_Desc" display-tooltip-when-elided="true" name="ItemDescLB" />
+                    <ui:Label text="#Item_Desc" display-tooltip-when-elided="true" name="ItemDescLB" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; white-space: normal; -unity-text-align: middle-left;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="ItemInfoButtons" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+            <ui:VisualElement name="ItemInfoButtonsPanel" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; visibility: visible; overflow: visible; display: flex;">
                 <ui:Button text="#Equip" display-tooltip-when-elided="true" name="EquipBT" style="width: 100%;" />
                 <ui:Button text="#Drop" display-tooltip-when-elided="true" name="DropBT" />
             </ui:VisualElement>

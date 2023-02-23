@@ -20,27 +20,38 @@ public class InventoryScript : MonoBehaviour
 
     public void Initialize()
     {
-        
+        Inventory.Capacity = Capacity;
     }
 
     public void AddItemToInventory(Item Item)
     {
         Item NewItem = Instantiate(Item);
 
-        if (Inventory.Count <= Inventory.Capacity)
+        if (Inventory.Count < Inventory.Capacity)
         {
-            if (Inventory.Contains(NewItem))
+            if (Inventory.Contains(NewItem) & NewItem.IsStackable)
             {
                 Inventory[Inventory.IndexOf(NewItem)].Amount += 1;
             }
             else
+            {
                 Inventory.Add(NewItem);
+            }
         }
     }
 
-    public void DeleteItem(Item ItemForDelete)
+    public void DeleteItem(string ItemID)
     {
-        Inventory.Remove(ItemForDelete);
+        Item ItemForDelete = Inventory.Where(x => x.ID == ItemID).First();
+
+        if (ItemForDelete.Amount > 1 & ItemForDelete.IsStackable)
+        {
+            ItemForDelete.Amount--;
+        }
+        else
+        {
+            Inventory.Remove(ItemForDelete);
+        }
     }
 
     public enum SortingMode { NoSort, Name, Quantity, Type }
@@ -61,8 +72,6 @@ public class InventoryScript : MonoBehaviour
 
             case SortingMode.Type:
                 SortedInventory = Inventory.OrderBy(x => (int)x.Type).ToList();
-                break;
-            default:
                 break;
         }
 

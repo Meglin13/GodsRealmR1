@@ -163,8 +163,19 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
             OnAddModifier();
 
             //Debug.Log($"Added modifier {modifier.Amount} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
-
-            this.EntityStats.ModifiableStats[modifier.StatType].AddModifier(modifier);
+            if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
+            {
+                if (modifier.StatType == StatType.Resistance)
+                {
+                    this.EntityStats.ElementsResBonus[modifier.Element].Resistance.AddModifier(modifier);
+                }
+                else
+                {
+                    this.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.AddModifier(modifier);
+                }
+            }
+            else
+                this.EntityStats.ModifiableStats[modifier.StatType].AddModifier(modifier);
 
             //Debug.Log($"Stat after modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
 

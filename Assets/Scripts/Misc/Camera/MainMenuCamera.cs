@@ -18,9 +18,9 @@ public class MainMenuCamera : MonoBehaviour
     {
         hue = Random.Range(0, 255);
 
-        RotateX = Random.Range(-0.02f, 0.02f);
-        RotateY = Random.Range(-0.02f, 0.02f);
-        RotateZ = Random.Range(-0.02f, 0.02f);
+        RotateX = Random.Range(-1f, 1f);
+        RotateY = Random.Range(-1f, 1f);
+        RotateZ = Random.Range(-1f, 1f);
 
         if (Skyboxes.Count > 0)
         {
@@ -30,7 +30,7 @@ public class MainMenuCamera : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.Rotate(RotateX, RotateY, RotateZ);
+        gameObject.transform.Rotate(RotateX * Time.deltaTime, RotateY * Time.deltaTime, RotateZ * Time.deltaTime);
 
         ChangeHue();
         color = Color.HSVToRGB(hue, 0.4f, 1);

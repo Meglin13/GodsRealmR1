@@ -103,13 +103,26 @@ public abstract class CharacterScript : EntityScript
 
         OnManaChange += () =>
         {
-            ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
+            if (IsActive)
+            {
+                ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
+            }
         };
 
         OnStaminaChange += () =>
         {
             if (IsActive)
             {
+                StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
+            }
+        };
+
+        OnAddModifier += () =>
+        {
+            if (IsActive)
+            {
+                HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
+                ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
                 StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
             }
         };
@@ -162,7 +175,7 @@ public abstract class CharacterScript : EntityScript
     #region [IDamageable]
     public override void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanBlock)
     {
-        int Damage = (int)Math.Floor(CombatManager.DamageCalc(DealerStats, EntityStats, Multiplier));
+        int Damage = (int)Math.Floor(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
 
         if (!IsBlocking & !IsDodging)
         {

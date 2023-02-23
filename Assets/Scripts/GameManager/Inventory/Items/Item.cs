@@ -1,5 +1,6 @@
 using MyBox;
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public enum ItemType
@@ -21,15 +22,27 @@ public enum Rarity
 [Serializable]
 public class Item : ScriptableObject
 {
+    [SerializeField] string id;
+    public string ID { get { return id; } }
+
     public string Name;
     public string Description;
     public Rarity Rarity;
     [HideInInspector]
-    public int Amount;
+    public int Amount = 1;
     public bool IsStackable;
     [ReadOnly]
     public ItemType Type;
     public Sprite Icon;
     public GameObject Prefab;
-    public int Weight;
+
+    #if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        string path = AssetDatabase.GetAssetPath(this);
+        id = AssetDatabase.AssetPathToGUID(path);
+    }
+
+    #endif
 }

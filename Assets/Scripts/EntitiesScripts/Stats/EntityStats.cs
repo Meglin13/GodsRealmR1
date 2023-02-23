@@ -8,22 +8,16 @@ using UnityEngine.AI;
 public enum StatType
 {
     Health, Attack, Defence, CritChance, CritDamage, 
-    InventorySlots, Stamina, Speed, WeaponLength, 
-    Mana, ManaConsumption, ManaRecoveryBonus
+    InventorySlots, Stamina, Speed,
+    [InspectorName(null)]
+    WeaponLength, 
+    Mana, ManaConsumption, ManaRecoveryBonus,
+    Resistance, ElementalDamageBonus
 }
 
 public enum EntityType { Enemy, Character }
 
-public class ElementSheet
-{
-    public ElementSheet(Stat Res, Stat Bonus)
-    {
-        Resistance = Res;
-        DamageBonus = Bonus;
-    }
-    public Stat Resistance { get; set; }
-    public Stat DamageBonus { get; set; }
-}
+
 
 [CreateAssetMenu(fileName = "EntityStats", menuName = "Objects/Entity Stats")]
 public class EntityStats : ScriptableObject
@@ -211,5 +205,15 @@ public class EntityStats : ScriptableObject
                 ModifiableStats.ElementAt(i).Value.SetLevel(Level);
             }
         }
+    }
+    public class ElementSheet
+    {
+        public ElementSheet(Stat Res, Stat Bonus)
+        {
+            Resistance = Res;
+            DamageBonus = Bonus;
+        }
+        public Stat Resistance { get; set; }
+        public Stat DamageBonus { get; set; }
     }
 }

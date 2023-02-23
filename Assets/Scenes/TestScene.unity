@@ -363,6 +363,7 @@ MonoBehaviour:
     Description: 
     ModifierType: 0
     StatType: 3
+    Element: 0
     ModifierAmountType: 1
     Amount: 200
     IsPermanent: 0
@@ -397,8 +398,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Capacity: 20
   Inventory:
-  - {fileID: 11400000, guid: 0ebd94c2eced183419bfa07db28d0128, type: 2}
   - {fileID: 11400000, guid: 7022cd393d11adc4bb7cc6808cb40901, type: 2}
+  - {fileID: 11400000, guid: 0ebd94c2eced183419bfa07db28d0128, type: 2}
   Gold: 0
   Tokens: 0
   Score: 0
@@ -897,7 +898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_AnchorMin.x
@@ -905,11 +906,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2.7
+      value: 2.3099976
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_SizeDelta.y
@@ -949,7 +950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -408.64
+      value: -430.9
       objectReference: {fileID: 0}
     - target: {fileID: 8022839205731647824, guid: ffa42d26b7134cf43b042a35bdf0ce27, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -6050,7 +6051,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.54167175, y: 0.35721588}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2066965187
 MonoBehaviour:

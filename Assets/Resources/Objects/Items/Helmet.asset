@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Helmet
   m_EditorClassIdentifier: 
   Name: Helmet
-  Description: Helmet
-  Rarity: 1
-  Amount: 0
+  Description: Helmet_Desc
+  Rarity: 0
+  Amount: 1
   IsStackable: 0
   Type: 0
   Icon: {fileID: 21300000, guid: fd6e4fc32c78509458fc45ea4a478ba8, type: 3}
@@ -26,18 +26,11 @@ MonoBehaviour:
   - Name: 
     Description: 
     ModifierType: 0
-    StatType: 0
-    ModifierAmountType: 0
-    Amount: 10
-    IsPermanent: 1
-    IsVisible: 0
-    DurationInSecs: 0
-  - Name: 
-    Description: 
-    ModifierType: 0
-    StatType: 4
+    StatType: 9
+    Element: 0
     ModifierAmountType: 1
     Amount: 20
     IsPermanent: 1
     IsVisible: 0
     DurationInSecs: 0
+  IsEquiped: 0

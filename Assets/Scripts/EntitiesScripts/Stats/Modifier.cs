@@ -39,6 +39,8 @@ public class Modifier
     public string Description;
     public ModType ModifierType;
     public StatType StatType;
+    [ConditionalField(nameof(StatType), false, new object[2] { StatType.ElementalDamageBonus, StatType.Resistance } )]
+    public Element Element;
     public ModifierAmountType ModifierAmountType;
     public float Amount;
     public bool IsPermanent = false;

@@ -18,6 +18,7 @@ namespace UI
             localization.OnCompleted += OnBind;
         }
 
+        //TODO: Обновление локализации
         internal virtual void OnBind()
         {
             root = GetComponent<UIDocument>().rootVisualElement;

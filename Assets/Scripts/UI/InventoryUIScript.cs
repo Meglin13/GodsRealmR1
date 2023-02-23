@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -10,22 +9,27 @@ namespace UI
     {
         //Context
         public CharacterScript CharacterContext;
+
         public int CurrentCharIndex;
         public List<CharacterScript> Party;
 
         public InventoryScript inventory;
         public Item ItemContext;
 
-        public enum IndexType { Next, Previous }
+        public enum IndexType
+        { Next, Previous }
 
         public event Action OnInventoryUpdate = delegate { };
         public event Action OnItemSelect = delegate { };
 
         //Inventory
+        public Label InventoryCapacityLB;
 
+        public VisualElement ItemInfoButtonsPanel;
 
         //Character menu
         public Label CharNameLB;
+
         public VisualElement CharImage;
 
         public Button PreviousCharBT;
@@ -33,7 +37,6 @@ namespace UI
 
         //EquipmentSlots
         public Dictionary<EquipmentType, InventorySlotControl> charSlots;
-
 
         public InventorySlotControl HelmetSlot;
         public InventorySlotControl ArmorSlot;
@@ -45,7 +48,9 @@ namespace UI
         public InventorySlotControl ArtefactSlot;
 
         //Item menu
-        public Button EquipButton;
+        public Button EquipBT;
+        public Button DropBT;
+
         public Label ItemNameLB;
         public Label ItemDescLB;
 
@@ -62,12 +67,15 @@ namespace UI
 
             OnInventoryUpdate += () => UpdateInventory();
             OnInventoryUpdate += () => UpdateCharacterInfo();
-            //OnInventoryUpdate += () =>
-            //{
-            //    //TODO: Обновление локализации
-            //};
+            OnInventoryUpdate += () => SetInventoryCapacity();
+
 
             OnItemSelect += () => LoadItemInfo();
+
+            InventoryCapacityLB = root.Q<Label>("InventoryCapacityLB");
+            ItemInfoButtonsPanel = root.Q<VisualElement>("ItemInfoButtonsPanel");
+
+            ItemInfoButtonsPanel.visible = false;
 
             //CharInfo
             CharNameLB = root.Q<Label>("CharNameLB");
@@ -85,21 +93,26 @@ namespace UI
             }
 
             //ItemInfo
-            EquipButton = root.Q<Button>("EquipBT");
+            EquipBT = root.Q<Button>("EquipBT");
+            DropBT = root.Q<Button>("DropBT");
+
             ItemNameLB = root.Q<Label>("ItemNameLB");
             ItemDescLB = root.Q<Label>("ItemDescLB");
 
+            //Inventory
             InventoryContainer = root.Q<VisualElement>("InventoryContainer");
 
             //Button events
-            EquipButton.clicked += EquipItemButtonClicked;
+            EquipBT.clicked += EquipItemButtonClicked;
+            DropBT.clicked += DropItemButtonClicked;
+
             PreviousCharBT.clicked += () => ChangeCharacterContext(IndexType.Previous);
             NextCharBT.clicked += () => ChangeCharacterContext(IndexType.Next);
 
             OnInventoryUpdate();
         }
 
-        public void UpdateInventory()
+        private void UpdateInventory()
         {
             InventoryContainer.Clear();
 
@@ -114,6 +127,7 @@ namespace UI
                     if (i < inventory.Inventory.Count)
                     {
                         item = Instantiate(inventory.Inventory[i]);
+                        item.name = inventory.Inventory[i].name;
 
                         inventorySlot.SetSlot(item);
 
@@ -125,7 +139,7 @@ namespace UI
             }
         }
 
-        public void UpdateCharacterInfo()
+        private void UpdateCharacterInfo()
         {
             CharNameLB.text = "#" + CharacterContext.EntityStats.Name;
             CharImage.style.backgroundImage = new StyleBackground(CharacterContext.EntityStats.Art);
@@ -138,29 +152,65 @@ namespace UI
             }
         }
 
-        public void SelectItem(Item item)
+        private void SelectItem(Item item)
         {
-            ItemContext = item;
+            if (item)
+            {
+                if (!ItemInfoButtonsPanel.visible)
+                {
+                    ItemInfoButtonsPanel.visible = true;
+                }
 
-            OnItemSelect();
+                EquipBT.text = IsItemEquiped(item) ? "#Unequip" : "#Equip";
+
+                ItemContext = item;
+
+                OnItemSelect();
+            }
         }
 
-        public void EquipItemButtonClicked()
+        private bool IsItemEquiped(Item item)
         {
-            
+            if (item is EquipmentItem)
+            {
+                EquipmentItem equipment = item as EquipmentItem;
+                return equipment.IsEquiped;
+            }
+            return false;
+        }
 
-            CharacterContext.equipment.EquipItem(ItemContext as EquipmentItem);
+        private void EquipItemButtonClicked()
+        {
+            if (IsItemEquiped(ItemContext))
+            {
+                if (inventory.Inventory.Count < inventory.Inventory.Capacity)
+                {
+                    CharacterContext.equipment.UnequipItem(ItemContext as EquipmentItem);
+                }
+            }
+            else
+            {
+                CharacterContext.equipment.EquipItem(ItemContext as EquipmentItem);
+            }
 
             OnInventoryUpdate();
         }
 
-        public void LoadItemInfo()
+        private void DropItemButtonClicked()
         {
-            ItemNameLB.text = "#" + ItemContext.Name;
-            ItemDescLB.text = "#" + ItemContext.Description;
+            throw new NotImplementedException();
         }
 
-        public void ChangeCharacterContext(IndexType indexType)
+        private void LoadItemInfo()
+        {
+            if (ItemContext)
+            {
+                ItemNameLB.text = "#" + ItemContext.Name;
+                ItemDescLB.text = "#" + ItemContext.Description;
+            }
+        }
+
+        private void ChangeCharacterContext(IndexType indexType)
         {
             if (indexType == IndexType.Next)
             {
@@ -174,6 +224,11 @@ namespace UI
             CharacterContext = Party[CurrentCharIndex];
 
             OnInventoryUpdate();
+        }
+
+        private void SetInventoryCapacity()
+        {
+            InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Inventory.Capacity}";
         }
     }
 }

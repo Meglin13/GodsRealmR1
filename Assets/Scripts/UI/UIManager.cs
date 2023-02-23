@@ -19,9 +19,11 @@ namespace UI
         private GameObject CurrentMenu;
 
         public bool IsPausable;
+        private bool IsCanGoBack = true;
         public GameObject Blur;
 
         public event Action OnMenuOpen = delegate { };
+
         public event Action OnMenuClose = delegate { };
 
         private List<GameObject> AvailableUI;
@@ -30,8 +32,6 @@ namespace UI
         {
             Instance = this;
 
-
-
             var playerInput = GetComponent<PlayerInput>();
 
             var ExitButton = playerInput.actions["Exit"];
@@ -39,9 +39,9 @@ namespace UI
 
             ExitButton.performed += ctx =>
             {
-                if(CurrentMenu == null)
+                if (CurrentMenu == null)
                 {
-                    this.OpenMenu(PauseMenu);
+                    OpenMenu(PauseMenu);
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace UI
                 }
             };
 
-            InventoryButton.performed += ctx => this.OpenMenu(Inventory);
+            InventoryButton.performed += ctx => OpenMenu(Inventory);
 
             OnMenuOpen += () =>
             {
@@ -79,22 +79,31 @@ namespace UI
         {
             PreviousMenu.SetActive(false);
             LoadingScreen.SetActive(true);
+
+            this.PreviousMenu = null;
+            this.CurrentMenu = null;
+
+            IsCanGoBack = false;
+
             LoadingScreen.GetComponent<LoadingScreenScript>().LoadScene(SceneName);
         }
 
         public void GoBack()
         {
-            CurrentMenu.SetActive(false);
-            if (PreviousMenu != null)
+            if (IsCanGoBack)
             {
-                PreviousMenu.SetActive(true);
-                CurrentMenu = PreviousMenu;
-                PreviousMenu = null;
-            }
-            else
-            {
-                CurrentMenu = null;
-                OnMenuClose();
+                CurrentMenu.SetActive(false);
+                if (PreviousMenu != null)
+                {
+                    PreviousMenu.SetActive(true);
+                    CurrentMenu = PreviousMenu;
+                    PreviousMenu = null;
+                }
+                else
+                {
+                    CurrentMenu = null;
+                    OnMenuClose();
+                }
             }
         }
 

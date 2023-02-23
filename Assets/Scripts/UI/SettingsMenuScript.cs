@@ -108,7 +108,7 @@ namespace UI
                 Debug.Log(res.refreshRate);
             }
 
-            return RefRateList.Distinct().ToList();
+            return RefRateList.OrderBy(x => x).Distinct().ToList();
         }
 
         List<string> GetLocales()

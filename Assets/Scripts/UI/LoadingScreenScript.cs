@@ -30,6 +30,8 @@ namespace UI
 
             while (!loadScene.isDone)
             {
+                Debug.Log(loadScene.progress);
+
                 progressBar.value = Mathf.Clamp01(loadScene.progress / 0.9f);
 
                 if (loadScene.progress >= 0.9f)

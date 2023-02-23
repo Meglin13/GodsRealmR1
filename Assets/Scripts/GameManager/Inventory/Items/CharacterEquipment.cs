@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
 public class CharacterEquipment
 {
-    CharacterScript character;
-    InventoryScript inventory;
+    private CharacterScript character;
+    private InventoryScript inventory;
 
     public CharacterEquipment(CharacterScript character)
     {
@@ -32,22 +29,10 @@ public class CharacterEquipment
     public Dictionary<EquipmentType, EquipmentItem> EquipmentSlots;
 
     [SerializeField]
-    private EquipmentItem Helmet;
-    [SerializeField]
-    private EquipmentItem Armor;
-    [SerializeField]
-    private EquipmentItem Boots;
-    [SerializeField]
-    private EquipmentItem Gloves;
+    private EquipmentItem Helmet, Armor, Boots, Gloves;
 
     [SerializeField]
-    private EquipmentItem Ring;
-    [SerializeField]
-    private EquipmentItem Bracelet;
-    [SerializeField]
-    private EquipmentItem Amulet;
-    [SerializeField]
-    private EquipmentItem Artefact;
+    private EquipmentItem Ring, Bracelet, Amulet, Artefact;
 
     public void EquipItem(EquipmentItem item)
     {
@@ -55,8 +40,15 @@ public class CharacterEquipment
         {
             if (EquipmentSlots[item.EquipmentType] != null)
             {
+                if (inventory.Inventory.Count == inventory.Inventory.Capacity)
+                {
+                    return;
+                }
+
                 UnequipItem(EquipmentSlots[item.EquipmentType]);
             }
+
+            item.IsEquiped = true;
 
             EquipmentSlots[item.EquipmentType] = item;
 
@@ -65,22 +57,21 @@ public class CharacterEquipment
                 character.EntityStats.ModifiableStats[ad.StatType].AddModifier(ad);
             }
 
-            inventory.DeleteItem(item);
+            inventory.DeleteItem(item.ID);
         }
     }
 
     public void UnequipItem(EquipmentItem item)
     {
-        if (item)
+        EquipmentSlots[item.EquipmentType] = null;
+
+        item.IsEquiped = false;
+
+        foreach (var ad in item.Modifiers)
         {
-            EquipmentSlots[item.EquipmentType] = null;
-
-            foreach (var ad in item.Modifiers)
-            {
-                character.EntityStats.ModifiableStats[ad.StatType].RemoveModifier(ad);
-            }
-
-            inventory.AddItemToInventory(item);
+            character.EntityStats.ModifiableStats[ad.StatType].RemoveModifier(ad);
         }
+
+        inventory.AddItemToInventory(item);
     }
 }

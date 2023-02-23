@@ -20,6 +20,8 @@ public class EquipmentItem : Item
 
     public EquipmentType EquipmentType;
     public Modifier[] Modifiers;
+    [HideInInspector]
+    public bool IsEquiped = false;
 
     [ButtonMethod]
     public void SetItemModifiers()

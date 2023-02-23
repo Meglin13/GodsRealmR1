@@ -15,6 +15,10 @@ Label {
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 Button {
@@ -133,20 +137,13 @@ ScrollView {
 }
 
 .unity-base-field__input {
-    -unity-text-align: middle-right;
+    -unity-text-align: middle-left;
     width: auto;
-    height: 50px;
+    height: 60px;
     min-width: 0;
     margin-left: auto;
     max-width: 70%;
-}
-
-ProgressBar {
-    justify-content: center;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    margin-right: 10px;
 }
 
 .unity-progress-bar__progress {
@@ -217,7 +214,15 @@ ProgressBar {
 }
 
 .slot-amount-label {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    flex-direction: column;
-    margin-top: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
