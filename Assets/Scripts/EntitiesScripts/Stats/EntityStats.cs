@@ -172,7 +172,7 @@ public class EntityStats : ScriptableObject
     public void UpdateStats()
     {
         AttackSpeed = ModifiableStats[StatType.Speed].GetFinalValue() / 6;
-        Sprint = ModifiableStats[StatType.Speed].GetFinalValue() * 1.5f;
+        Sprint = ModifiableStats[StatType.Speed].GetFinalValue() * 1.3f;
         Speed = ModifiableStats[StatType.Speed].GetFinalValue();
 
         if (this.Type == EntityType.Character)

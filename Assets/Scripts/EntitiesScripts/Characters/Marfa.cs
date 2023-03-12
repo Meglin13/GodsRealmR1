@@ -21,7 +21,12 @@ public class Marfa : CharacterScript, ICharacter
         };
         attackSkill.DamageMultiplier = new Stat(attackSkill.BaseDamageMultiplier);
 
-        MiscUtilities.ThrowThrowable(NormalAttackBullet, this, attackSkill);
+        MiscUtilities.Instance.ThrowThrowable(NormalAttackBullet, this, attackSkill);
+    }
+
+    public void HoldAttack()
+    {
+
     }
 
     public void DistractionAbility()

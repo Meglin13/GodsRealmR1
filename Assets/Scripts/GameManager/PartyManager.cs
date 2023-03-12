@@ -86,7 +86,7 @@ public class PartyManager : MonoBehaviour, IManager
 
             PartyMembers[0].EntityStateMachine.ChangeState(new PlayerState(PartyMembers[0], PartyMembers[0].EntityStateMachine));
 
-            GameObject.FindObjectOfType<CameraCenterBehaviour>().gameObject.transform.SetParent(PartyMembers[0].transform);
+            CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
 
             int i = 0;
             foreach (var item in PartyMembers)

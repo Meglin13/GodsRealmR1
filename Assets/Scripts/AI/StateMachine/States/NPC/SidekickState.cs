@@ -22,6 +22,7 @@ public class SidekickState : State
     public override void EnterState()
     {
         playerInput.enabled = false;
+        character.interactor.enabled = false;
 
         InnerStateMachine = new StateMachine();
 

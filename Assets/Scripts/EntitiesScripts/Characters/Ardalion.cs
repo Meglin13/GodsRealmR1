@@ -15,12 +15,16 @@ public class Ardalion : CharacterScript, ICharacter
 
     }
 
+    public void HoldAttack()
+    {
+
+    }
+
     public void DistractionAbility()
     {
-        GameObject bomb = Instantiate(DistractionThrowable, transform.position, transform.rotation);
         Skill skillInfo = EntityStats.SkillSet[SkillsType.Distract];
 
-        MiscUtilities.ThrowThrowable(bomb, this, skillInfo);
+        MiscUtilities.Instance.ThrowThrowable(DistractionThrowable, this, skillInfo);
     }
 
     Modifier WeaponLengthPlus = new Modifier(StatType.WeaponLength, 2f);

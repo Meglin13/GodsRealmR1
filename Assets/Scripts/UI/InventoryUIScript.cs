@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
+using UnityEngine;
 
 namespace UI
 {
@@ -14,12 +15,14 @@ namespace UI
         public List<CharacterScript> Party;
 
         public InventoryScript inventory;
-        public Item ItemContext;
+        public InventorySlotControl slotContext;
+        private int SelectedSlotIndex = 0;
 
         public enum IndexType
         { Next, Previous }
 
         public event Action OnInventoryUpdate = delegate { };
+
         public event Action OnItemSelect = delegate { };
 
         //Inventory
@@ -49,10 +52,14 @@ namespace UI
 
         //Item menu
         public Button EquipBT;
+
         public Button DropBT;
 
         public Label ItemNameLB;
         public Label ItemDescLB;
+
+        public Label GoldLB;
+        public Label TokenLB;
 
         public VisualElement InventoryContainer;
 
@@ -68,7 +75,7 @@ namespace UI
             OnInventoryUpdate += () => UpdateInventory();
             OnInventoryUpdate += () => UpdateCharacterInfo();
             OnInventoryUpdate += () => SetInventoryCapacity();
-
+            OnInventoryUpdate += () => SetCurrencies();
 
             OnItemSelect += () => LoadItemInfo();
 
@@ -89,7 +96,7 @@ namespace UI
             {
                 charSlots.Add((EquipmentType)i, root.Q<InventorySlotControl>((EquipmentType)i + "Slot"));
                 var slot = charSlots.ElementAt(i).Value;
-                slot.AddManipulator(new Clickable(evt => SelectItem(slot.slotContext)));
+                slot.AddManipulator(new Clickable(evt => SelectItemSlot(slot)));
             }
 
             //ItemInfo
@@ -97,7 +104,11 @@ namespace UI
             DropBT = root.Q<Button>("DropBT");
 
             ItemNameLB = root.Q<Label>("ItemNameLB");
+
             ItemDescLB = root.Q<Label>("ItemDescLB");
+
+            GoldLB = root.Q<Label>("GoldLB");
+            TokenLB = root.Q<Label>("TokenLB");
 
             //Inventory
             InventoryContainer = root.Q<VisualElement>("InventoryContainer");
@@ -116,7 +127,7 @@ namespace UI
         {
             InventoryContainer.Clear();
 
-            for (int i = 0; i < inventory.Capacity; i++)
+            for (int i = 0; i < inventory.Inventory.Capacity; i++)
             {
                 Item item = null;
 
@@ -131,43 +142,22 @@ namespace UI
 
                         inventorySlot.SetSlot(item);
 
-                        inventorySlot.AddManipulator(new Clickable(evt => SelectItem(inventorySlot.slotContext)));
+                        inventorySlot.AddManipulator(new Clickable(evt => SelectItemSlot(inventorySlot)));
                     }
                 }
 
                 InventoryContainer.Add(inventorySlot);
             }
-        }
 
-        private void UpdateCharacterInfo()
-        {
-            CharNameLB.text = "#" + CharacterContext.EntityStats.Name;
-            CharImage.style.backgroundImage = new StyleBackground(CharacterContext.EntityStats.Art);
-
-            //TODO: Оптимизировать
-
-            for (int i = 0; i < 8; i++)
+            if (inventory.Inventory.Count == 0)
             {
-                charSlots[(EquipmentType)i].SetSlot(CharacterContext.equipment.EquipmentSlots[(EquipmentType)i]);
+                ItemInfoButtonsPanel.visible = false;
+                ItemDescLB.text = string.Empty;
+                ItemNameLB.text = string.Empty;
             }
         }
 
-        private void SelectItem(Item item)
-        {
-            if (item)
-            {
-                if (!ItemInfoButtonsPanel.visible)
-                {
-                    ItemInfoButtonsPanel.visible = true;
-                }
-
-                EquipBT.text = IsItemEquiped(item) ? "#Unequip" : "#Equip";
-
-                ItemContext = item;
-
-                OnItemSelect();
-            }
-        }
+        #region [Equipment Managment]
 
         private bool IsItemEquiped(Item item)
         {
@@ -181,32 +171,70 @@ namespace UI
 
         private void EquipItemButtonClicked()
         {
-            if (IsItemEquiped(ItemContext))
+            if (IsItemEquiped(slotContext.itemContext))
             {
                 if (inventory.Inventory.Count < inventory.Inventory.Capacity)
                 {
-                    CharacterContext.equipment.UnequipItem(ItemContext as EquipmentItem);
+                    CharacterContext.equipment.UnequipItem(slotContext.itemContext as EquipmentItem);
+                    SelectedSlotIndex = inventory.Inventory.Count - 1;
                 }
             }
             else
             {
-                CharacterContext.equipment.EquipItem(ItemContext as EquipmentItem);
+                CharacterContext.equipment.EquipItem(slotContext.itemContext as EquipmentItem);
             }
 
             OnInventoryUpdate();
+
+            ChangeFocus();
         }
 
         private void DropItemButtonClicked()
         {
-            throw new NotImplementedException();
+            if (slotContext.itemContext)
+            {
+                Item item = slotContext.itemContext;
+
+                SelectedSlotIndex = InventoryContainer.IndexOf(slotContext);
+
+                if (IsItemEquiped(item))
+                {
+                    CharacterContext.equipment.UnequipItem(item as EquipmentItem);
+                    SelectedSlotIndex = inventory.Inventory.Count - 1;
+                }
+
+                inventory.DeleteItem(item.ID);
+
+                OnInventoryUpdate();
+
+                if (inventory.Inventory.Count > 0)
+                {
+                    ChangeFocus();
+                }
+            }
         }
 
-        private void LoadItemInfo()
+        #endregion [Equipment Managment]
+
+        #region [Context]
+
+        private void SelectItemSlot(InventorySlotControl inventorySlot)
         {
-            if (ItemContext)
+            if (inventorySlot.itemContext)
             {
-                ItemNameLB.text = "#" + ItemContext.Name;
-                ItemDescLB.text = "#" + ItemContext.Description;
+                if (!ItemInfoButtonsPanel.visible)
+                    ItemInfoButtonsPanel.visible = true;
+
+                ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip");
+
+                slotContext?.UnselectSlot();
+                inventorySlot.SelectSlot();
+
+                SelectedSlotIndex = InventoryContainer.IndexOf(inventorySlot);
+
+                slotContext = inventorySlot;
+
+                OnItemSelect();
             }
         }
 
@@ -226,9 +254,57 @@ namespace UI
             OnInventoryUpdate();
         }
 
+        private void ChangeFocus()
+        {
+            int index = SelectedSlotIndex;
+
+            if (index > inventory.Inventory.Count - 1)
+            {
+                index = inventory.Inventory.Count - 1;
+            }
+
+            SelectItemSlot((InventorySlotControl)InventoryContainer[index]);
+        }
+
+        #endregion [Context]
+
+        #region [Loading Info]
+
         private void SetInventoryCapacity()
         {
             InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Inventory.Capacity}";
         }
+
+        private void SetCurrencies()
+        {
+            ChangeLabelsText(GoldLB, "Gold");
+            GoldLB.text += " " + inventory.Gold;
+
+            ChangeLabelsText(TokenLB, "Token");
+            TokenLB.text += " " + inventory.Tokens;
+        }
+
+        private void UpdateCharacterInfo()
+        {
+            ChangeLabelsText(CharNameLB, CharacterContext.EntityStats.Name);
+
+            CharImage.style.backgroundImage = new StyleBackground(CharacterContext.EntityStats.Art);
+
+            for (int i = 0; i < 8; i++)
+            {
+                charSlots[(EquipmentType)i].SetSlot(CharacterContext.equipment.EquipmentSlots[(EquipmentType)i]);
+            }
+        }
+
+        private void LoadItemInfo()
+        {
+            if (slotContext.itemContext)
+            {
+                ChangeLabelsText(ItemNameLB, slotContext.itemContext.Name);
+                ChangeLabelsText(ItemDescLB, slotContext.itemContext.Description);
+            }
+        }
+
+        #endregion [Loading Info]
     }
 }

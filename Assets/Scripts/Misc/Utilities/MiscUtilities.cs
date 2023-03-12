@@ -45,17 +45,15 @@ public class MiscUtilities : MonoBehaviour
 
     public static void DamagePopUp(Transform transform, string Text, string ColorString, float Scale)
     {
-        GameObject DamagePopUp = Instantiate(GameManager.GetInstance().DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), UnityEngine.Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
+        GameObject DamagePopUp = Instantiate(GameManager.GetInstance().DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
         DamagePopUp.transform.localScale *= Scale;
         DamagePopUp.GetComponentInChildren<TextMeshProUGUI>().text = $"<color={ColorString}>{Text}</color>";
         Destroy(DamagePopUp, 1f);
     }
 
-    public static void ThrowThrowable(GameObject throwable, IDamageable dude, Skill skill)
+    public void ThrowThrowable(GameObject throwable, IDamageable dude, Skill skill)
     {
-        GameObject _throw = Instantiate(throwable, dude.gameObject.transform.position + dude.gameObject.transform.forward + dude.gameObject.transform.up, dude.gameObject.transform.rotation);
-        ThrowableScript throwableScript = _throw.GetComponent<ThrowableScript>();
-        throwableScript.Init(dude, skill);
+        Instantiate(throwable, dude.gameObject.transform.position + dude.gameObject.transform.forward + dude.gameObject.transform.up, dude.gameObject.transform.rotation).GetComponent<ThrowableScript>().Init(dude,skill);
     }
 
     /// <summary>

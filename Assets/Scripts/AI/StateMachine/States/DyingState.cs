@@ -9,7 +9,7 @@ public class DyingState : State
 
     public override void EnterState()
     {
-        if (gameObject.TryGetComponent<CharacterScript>(out CharacterScript character))
+        if (gameObject.TryGetComponent(out CharacterScript character))
         {
             if (character.IsActive)
             {
@@ -18,14 +18,14 @@ public class DyingState : State
 
                 GameObject.FindObjectOfType<CameraCenterBehaviour>().gameObject.transform.SetParent(null);
 
-                PartyManager partyManager = FindObjectOfType<PartyManager>();
+                PartyManager partyManager = GameObject.FindObjectOfType<PartyManager>();
                 partyManager.CharDeath(character);
             }
         }
 
         animator.SetTrigger("Death");
 
-        Destroy(gameObject, 1.5f);
+        GameObject.Destroy(gameObject, 1.5f);
     }
 
     public override void LogicUpdate()

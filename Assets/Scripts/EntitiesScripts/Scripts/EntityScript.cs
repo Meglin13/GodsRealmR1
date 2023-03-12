@@ -21,6 +21,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     public MeleeWeapon MeleeWeapon;
 
     [HideInInspector]
+    [SerializeField]
     public Animator animator;
 
     internal BarScript HealthBar;
@@ -72,6 +73,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         //NavMesh
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         agent.speed = 5f;
+        agent.stoppingDistance = 2f;
 
         OnAddModifier += () => EntityStats.UpdateStats();
     }
@@ -138,8 +140,9 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         switch (type)
         {
             case StatType.Health:
-                OnHeal();
+                Debug.Log("Bruh");
                 CurrentHealth = Mathf.Clamp(CurrentHealth + Amount, 0, EntityStats.ModifiableStats[type].GetFinalValue());
+                OnHeal();
                 break;
 
             case StatType.Mana:
@@ -163,6 +166,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
             OnAddModifier();
 
             //Debug.Log($"Added modifier {modifier.Amount} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
+            
             if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
             {
                 if (modifier.StatType == StatType.Resistance)
@@ -183,7 +187,20 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
             if (!modifier.IsPermanent)
             {
-                EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
+                if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
+                {
+                    if (modifier.StatType == StatType.Resistance)
+                    {
+                        this.EntityStats.ElementsResBonus[modifier.Element].Resistance.RemoveModifier(modifier);
+                    }
+                    else
+                    {
+                        this.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.RemoveModifier(modifier);
+                    }
+                }
+                else
+                    this.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
+
                 //Debug.Log($"Removed modifier. Current stat value {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
             }
         }

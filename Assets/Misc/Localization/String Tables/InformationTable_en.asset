@@ -46,6 +46,22 @@ MonoBehaviour:
     m_Localized: Some bad iron armor
     m_Metadata:
       m_Items: []
+  - m_Id: 6490186032001024
+    m_Localized: Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6490238444023808
+    m_Localized: Simple helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6846157476507648
+    m_Localized: Marfa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6846339626741760
+    m_Localized: 'Gold: '
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -7,7 +7,7 @@ using UnityEngine;
 public class InventoryScript : MonoBehaviour
 {
     public static InventoryScript Instance;
-    public int Capacity = 20;
+    public int Capacity = 30;
     public List<Item> Inventory;
     public int Gold;
     public int Tokens;
@@ -23,12 +23,17 @@ public class InventoryScript : MonoBehaviour
         Inventory.Capacity = Capacity;
     }
 
-    public void AddItemToInventory(Item Item)
+    /// <summary>
+    /// Добавление предметов в инвентарь. SO автоматически спавнятся, так что нет смысла несколько раз из разворачивать
+    /// </summary>
+    /// <param name="Item"></param>
+    /// <returns>Возвращает произошло ли добавление в инвентарь</returns>
+    public bool AddItemToInventory(Item Item)
     {
-        Item NewItem = Instantiate(Item);
-
         if (Inventory.Count < Inventory.Capacity)
         {
+            Item NewItem = Instantiate(Item);
+
             if (Inventory.Contains(NewItem) & NewItem.IsStackable)
             {
                 Inventory[Inventory.IndexOf(NewItem)].Amount += 1;
@@ -37,6 +42,11 @@ public class InventoryScript : MonoBehaviour
             {
                 Inventory.Add(NewItem);
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

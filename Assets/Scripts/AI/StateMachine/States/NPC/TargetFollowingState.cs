@@ -26,7 +26,12 @@ public class TargetFollowingState : State
         animator.SetFloat("Velocity", agent.velocity.magnitude / agent.speed);
 
         agent.SetDestination(target.transform.position);
-        gameObject.transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+        Quaternion r = Quaternion.LookRotation(agent.velocity.normalized);
+        if (r != Quaternion.identity)
+        {
+            gameObject.transform.rotation = r;
+        }
+        
     }
 
     public override void ExitState()

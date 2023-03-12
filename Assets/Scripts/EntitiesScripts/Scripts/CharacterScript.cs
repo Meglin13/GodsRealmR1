@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(InteractorScript))]
 [SelectionBase]
 public abstract class CharacterScript : EntityScript
 {
@@ -66,6 +67,9 @@ public abstract class CharacterScript : EntityScript
     private InputAction distractAbilityAction;
     private InputAction ultimateAbilityAction;
 
+    [HideInInspector]
+    public InteractorScript interactor;
+
     //Инициализация статов персонажа
     public override void Initialize()
     {
@@ -78,8 +82,8 @@ public abstract class CharacterScript : EntityScript
         ManaBar = GameObject.FindGameObjectWithTag("ManaBar").GetComponentInChildren<BarScript>();
         StaminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponentInChildren<BarScript>();
 
-        //Animator
-        animator.SetFloat("CharSpeedMult", AttackSpeed);
+        //Interactor
+        interactor = GetComponent<InteractorScript>();
 
         //ICharacter
         EntityStats.SkillSet[SkillsType.Special].OnSkillTrigger += Character.SpecialAbility;
@@ -127,6 +131,12 @@ public abstract class CharacterScript : EntityScript
             }
         };
 
+        OnAddModifier += () =>
+        {
+            animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
+            Speed = EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
+        };
+
         InitializeInputEvents();
     }
 
@@ -167,7 +177,6 @@ public abstract class CharacterScript : EntityScript
 
     #region [Inventory]
 
-    //TODO: Слоты инветаря для каждого персонажа
     public CharacterEquipment equipment;
 
     #endregion [Inventory]
@@ -217,7 +226,9 @@ public abstract class CharacterScript : EntityScript
     [HideInInspector]
     public StateMachine EntityStateMachine;
 
-    public string CurrentStateName, CurrentSubStateName;
+    #if UNITY_EDITOR
+        public string CurrentStateName, CurrentSubStateName;
+    #endif
 
     //Состояния
     [HideInInspector]
@@ -245,9 +256,14 @@ public abstract class CharacterScript : EntityScript
 
     public override void Awake()
     {
-        base.Awake();
+        Initialize();
 
         _camera = Camera.main;
+    }
+
+    public void OnLevelWasLoaded()
+    {
+        StopAllCoroutines();
     }
 
     public void Start()
@@ -257,6 +273,9 @@ public abstract class CharacterScript : EntityScript
         //Текущие статы
         CurrentStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
         CurrentMana = EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
+        CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
+
+        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
 
         equipment = new CharacterEquipment(this);
     }
@@ -265,17 +284,10 @@ public abstract class CharacterScript : EntityScript
     {
         EntityStateMachine.CurrentState?.LogicUpdate();
 
-        CurrentStateName = EntityStateMachine.CurrentState?.GetType().Name;
-        CurrentSubStateName = EntityStateMachine.CurrentState.InnerStateMachine.CurrentState?.GetType().Name;
-    }
-
-    public void LateUpdate()
-    {
-        EntityStats.SetLevel(this.Level);
-
-        Speed = EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
-
-        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
+        #if UNITY_EDITOR
+            CurrentStateName = EntityStateMachine.CurrentState?.GetType().Name;
+            CurrentSubStateName = EntityStateMachine.CurrentState.InnerStateMachine.CurrentState?.GetType().Name;
+        #endif
     }
 
     #endregion [Unity Methods]
@@ -346,11 +358,11 @@ public abstract class CharacterScript : EntityScript
         }
     }
 
+    #region [Animation Events]
     public void DistractTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Distract]);
-
     public void SpecialTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Special]);
-
     public void UltimateTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Ultimate]);
+    #endregion
 
     private void UseAbility(Skill skill)
     {

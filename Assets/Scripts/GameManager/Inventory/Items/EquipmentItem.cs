@@ -14,8 +14,6 @@ public class EquipmentItem : Item
     {
         Type = ItemType.Equipment;
         IsStackable = false;
-
-        SetItemModifiers();
     }
 
     public EquipmentType EquipmentType;
@@ -26,7 +24,8 @@ public class EquipmentItem : Item
     [ButtonMethod]
     public void SetItemModifiers()
     {
-        Modifiers = new Modifier[(int)Rarity + 1];
+        Modifiers = new Modifier[(int)_Rarity + 1];
+
         //for (int i = 0; i < Modifiers.Length; i++)
         //{
         //    Modifiers[i].IsPermanent = true;

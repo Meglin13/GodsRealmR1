@@ -54,7 +54,7 @@ public class CharacterEquipment
 
             foreach (var ad in item.Modifiers)
             {
-                character.EntityStats.ModifiableStats[ad.StatType].AddModifier(ad);
+               character.StartCoroutine(character.AddModifier(ad));
             }
 
             inventory.DeleteItem(item.ID);
@@ -67,9 +67,21 @@ public class CharacterEquipment
 
         item.IsEquiped = false;
 
-        foreach (var ad in item.Modifiers)
+        foreach (var modifier in item.Modifiers)
         {
-            character.EntityStats.ModifiableStats[ad.StatType].RemoveModifier(ad);
+            if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
+            {
+                if (modifier.StatType == StatType.Resistance)
+                {
+                    character.EntityStats.ElementsResBonus[modifier.Element].Resistance.RemoveModifier(modifier);
+                }
+                else
+                {
+                    character.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.RemoveModifier(modifier);
+                }
+            }
+            else
+                character.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
         }
 
         inventory.AddItemToInventory(item);

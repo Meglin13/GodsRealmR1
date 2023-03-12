@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryScript))]
@@ -48,7 +49,10 @@ public class GameManager : MonoBehaviour, IManager
     [Header("Parry")]
     public float ParryTime = 0.8f;
 
-    public Modifier ParryMod = new Modifier(StatType.CritChance, 100f, ModType.Buff);
+    public Modifier ParryMod = new Modifier(StatType.CritChance, 100F);
+
+    [Header("Items")]
+    public List<Item> ItemsList;
 
     private void Awake()
     {
@@ -61,7 +65,9 @@ public class GameManager : MonoBehaviour, IManager
     {
         Time.timeScale = 1;
 
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
+
+        GetItems();
 
         inventory = GetComponent<InventoryScript>();
         partyManager = GetComponent<PartyManager>();
@@ -77,13 +83,19 @@ public class GameManager : MonoBehaviour, IManager
     {
         partyManager.Initialize(characters);
 
-        partyManager.ApplyTeamBuff();
+        //TODO: Решить чо делать в баффами команды
+        //partyManager.ApplyTeamBuff();
         inventory.Initialize();
     }
 
     private void Update()
     {
         //Time.timeScale = TimeScale;
+    }
+
+    public void GetItems()
+    {
+        ItemsList = Resources.LoadAll("ScriptableObjects/Items", typeof(Item)).Cast<Item>().ToList();
     }
 
     void MainCameraInitialize(Camera camera)

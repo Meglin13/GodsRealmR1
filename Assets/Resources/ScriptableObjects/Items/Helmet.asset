@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295f40df41468944f916fbde97e13326, type: 3}
+  m_Name: Helmet
+  m_EditorClassIdentifier: 
+  id: 7022cd393d11adc4bb7cc6808cb40901
+  Name: Helmet
+  Description: Helmet_Desc
+  _Rarity: 1
+  Amount: 1
+  IsStackable: 0
+  Type: 0
+  Icon: {fileID: 21300000, guid: fd6e4fc32c78509458fc45ea4a478ba8, type: 3}
+  Prefab: {fileID: 0}
+  EquipmentType: 0
+  Modifiers:
+  - Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 3
+    Element: 0
+    ModifierAmountType: 1
+    Amount: 20
+    IsPermanent: 1
+    IsVisible: 0
+    DurationInSecs: 0
+  IsEquiped: 0

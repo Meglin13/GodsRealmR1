@@ -36,11 +36,27 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 281194674958336
-    m_Key: '#Iron_Armor'
+    m_Key: Iron_Armor
     m_Metadata:
       m_Items: []
   - m_Id: 281289294262272
     m_Key: Iron_Armor_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6490186032001024
+    m_Key: Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6490238444023808
+    m_Key: Helmet_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6846157476507648
+    m_Key: Marfa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6846339626741760
+    m_Key: Gold
     m_Metadata:
       m_Items: []
   m_Metadata:

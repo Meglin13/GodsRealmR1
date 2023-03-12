@@ -1,6 +1,7 @@
 ﻿using MyBox;
 using System;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 
 public enum ModType { Buff, Debuff }
 public enum ModifierAmountType { Procent, Value }
@@ -8,6 +9,11 @@ public enum ModifierAmountType { Procent, Value }
 [Serializable]
 public class Modifier
 {
+    public Modifier()
+    {
+
+    }
+
     //Бафф на 1 секунду
     public Modifier(StatType StatType, float Amount)
     {
@@ -17,11 +23,6 @@ public class Modifier
         this.Amount = Amount;
         ModifierAmountType = ModifierAmountType.Value;
         ModifierType = ModType.Buff;
-    }
-
-    public Modifier(StatType StatType, float Amount, ModType modType) : this (StatType, Amount)
-    {
-        ModifierType = modType;
     }
 
     //Продолжительный модификатор
@@ -43,8 +44,8 @@ public class Modifier
     public Element Element;
     public ModifierAmountType ModifierAmountType;
     public float Amount;
-    public bool IsPermanent = false;
-    public bool IsVisible = true;
+    public bool IsPermanent = true;
+    public bool IsVisible = false;
     [ConditionalField(nameof(IsPermanent), inverse: true)]
-    public float DurationInSecs;
+    public float DurationInSecs = 0;
 }

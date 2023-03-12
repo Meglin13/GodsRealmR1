@@ -6,13 +6,12 @@ using UnityEngine;
 public enum ItemType
 {
     Equipment,
-    Potion,
-    Artefact
+    Potion
 }
 
 public enum Rarity
 {
-    Common,
+    Common = 1,
     Uncommon,
     Rare,
     Epic,
@@ -27,14 +26,13 @@ public class Item : ScriptableObject
 
     public string Name;
     public string Description;
-    public Rarity Rarity;
+    public Sprite Icon;
+    public Rarity _Rarity;
     [HideInInspector]
     public int Amount = 1;
     public bool IsStackable;
     [ReadOnly]
     public ItemType Type;
-    public Sprite Icon;
-    public GameObject Prefab;
 
     #if UNITY_EDITOR
 

@@ -32,17 +32,10 @@ public class MainMenuCamera : MonoBehaviour
     {
         gameObject.transform.Rotate(RotateX * Time.deltaTime, RotateY * Time.deltaTime, RotateZ * Time.deltaTime);
 
-        ChangeHue();
+        ColorManager.ChangeHue(ref hue, hueChangeSpeed, Time.deltaTime);
+
         color = Color.HSVToRGB(hue, 0.4f, 1);
 
         RenderSettings.skybox.SetColor("_Tint", color);
-    }
-
-    void ChangeHue()
-    {
-        hue += hueChangeSpeed * Time.deltaTime;
-
-        if (hue > 1f | hue < 0f)
-            hue = 0f;
     }
 }

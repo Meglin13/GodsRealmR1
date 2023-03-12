@@ -17,6 +17,13 @@ public class DebugControls : MonoBehaviour
 
         var restart = playerInput.actions["Restart"];
         restart.performed += ctx => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        var FPS = playerInput.actions["SetFPS"];
+        FPS.performed += ctx =>
+        {
+            Application.targetFrameRate = 300;
+            Debug.Log(300);
+        };
     }
 
     private void SpawnEnemy(InputAction.CallbackContext obj)

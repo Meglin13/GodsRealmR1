@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Класс состояния
 /// </summary>
-public abstract class State : MonoBehaviour
+public abstract class State
 {
     //Объекты взаимодействия
     public NavMeshAgent agent;

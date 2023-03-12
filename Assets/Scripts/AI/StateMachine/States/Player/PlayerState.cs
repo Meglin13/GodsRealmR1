@@ -13,6 +13,7 @@ public class PlayerState : State
         CancelAnimation();
 
         playerInput.enabled = true;
+        character.interactor.enabled = true;
 
         InnerStateMachine = new StateMachine();
 

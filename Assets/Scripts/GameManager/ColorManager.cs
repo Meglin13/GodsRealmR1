@@ -53,4 +53,14 @@ public class ColorManager : MonoBehaviour, IManager
     {
         Instance = this;
     }
+
+    public static Color ChangeHue(ref float hue, float speed, float deltaTime)
+    {
+        hue += speed * deltaTime;
+
+        if (hue > 1f | hue < 0f)
+            hue = 0f;
+
+        return Color.HSVToRGB(hue, 0.4f, 1);
+    }
 }

@@ -68,8 +68,7 @@ namespace UI
             ResolutionDDF.RegisterValueChangedCallback(v => Resolution = v.newValue);
             RefreshRateDDF.RegisterValueChangedCallback(v =>
             {
-                int value = 60;
-                int.TryParse(v.newValue, out value);
+                int.TryParse(v.newValue, out int value);
                 RefreshRate = value;
             });
 
