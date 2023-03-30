@@ -137,7 +137,7 @@ public class PartyManager : MonoBehaviour, IManager
         switch (modifier.StatType)
         {
             case StatType.InventorySlots:
-                GameManager.GetInstance().inventory.Capacity += (int)Math.Round(modifier.Amount);
+                GameManager.Instance.inventory.Capacity += (int)Math.Round(modifier.Amount);
                 break;
 
             case StatType.WeaponLength:
@@ -163,7 +163,7 @@ public class PartyManager : MonoBehaviour, IManager
             {
                 item.GiveSupport(Amount, type);
 
-                string PopUpColor = GameManager.GetInstance().colorManager.StatsColor[type];
+                string PopUpColor = GameManager.Instance.colorManager.StatsColor[type];
 
                 MiscUtilities.DamagePopUp(item.transform, $"+{Math.Round(Amount)}", PopUpColor, 0.8f);
             }

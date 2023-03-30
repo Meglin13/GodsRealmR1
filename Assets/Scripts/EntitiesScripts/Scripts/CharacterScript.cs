@@ -143,7 +143,7 @@ public abstract class CharacterScript : EntityScript
     private void InitializeInputEvents()
     {
         PlayerInput playerInput = gameObject.GetComponent<PlayerInput>();
-        //playerInput.actions = GameManager.GetInstance().playerInput;
+        //playerInput.actions = GameManager.Instance.playerInput;
         //playerInput.defaultActionMap = "Player";
 
         switchCharacterAction = playerInput.actions["SwitchCharacter"];
@@ -192,9 +192,9 @@ public abstract class CharacterScript : EntityScript
             MiscUtilities.DamagePopUp(transform, Damage.ToString(), "#FFFFFF", 1);
             base.TakeDamage(DealerStats, Multiplier, CanBlock);
         }
-        else if (CanBlock & blockingTime <= GameManager.GetInstance().ParryTime)
+        else if (CanBlock & blockingTime <= GameManager.Instance.ParryTime)
         {
-            StartCoroutine(AddModifier(GameManager.GetInstance().ParryMod));
+            StartCoroutine(AddModifier(GameManager.Instance.ParryMod));
             EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(new PlayerAttackState(this, EntityStateMachine.CurrentState.InnerStateMachine));
         }
         else
@@ -331,7 +331,7 @@ public abstract class CharacterScript : EntityScript
     private void SwitchCharacter(InputAction.CallbackContext obj)
     {
         if (int.TryParse(obj.control.name, out int num) & num != 0)
-            GameManager.GetInstance().partyManager.SwitchPlayer(this, num);
+            GameManager.Instance.partyManager.SwitchPlayer(this, num);
     }
 
     public void LookAtEnemy(float range)

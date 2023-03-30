@@ -98,6 +98,34 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 23208187540189184
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208373570154496
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208498040320000
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208564578758656
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208606400163840
+    m_Localized: Impossible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208699719233536
+    m_Localized: Custom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208753095946240
+    m_Localized: Choose difficulty level
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

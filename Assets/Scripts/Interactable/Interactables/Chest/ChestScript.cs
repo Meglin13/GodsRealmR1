@@ -6,15 +6,16 @@ public class ChestScript : MonoBehaviour, IInteractable
     public ChestStats chestStats;
     private InventoryScript Inventory;
     private bool IsOpened = false;
+    public bool CanOpen = false;
 
     public void Awake()
     {
-        Inventory = GameManager.GetInstance().inventory;
+        Inventory = GameManager.Instance.inventory;
     }
 
     public bool CanInteract()
     {
-        return true;
+        return CanOpen;
     }
 
     public void Interaction()

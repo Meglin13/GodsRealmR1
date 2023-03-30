@@ -24,7 +24,7 @@ namespace UI
         {
             string Info = "Stat\tBase\tCurrent";
 
-            CharacterScript player = GameManager.GetInstance().partyManager.GetPlayer();
+            CharacterScript player = GameManager.Instance.partyManager.GetPlayer();
 
             foreach (var item in player.EntityStats.ModifiableStats)
             {

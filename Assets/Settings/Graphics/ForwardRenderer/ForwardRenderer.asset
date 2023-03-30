@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: EntityVisible
-    Event: 300
+    Event: 500
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -30,7 +30,7 @@ MonoBehaviour:
     stencilSettings:
       overrideStencilState: 0
       stencilReference: 0
-      stencilCompareFunction: 8
+      stencilCompareFunction: 1
       passOperation: 0
       failOperation: 0
       zFailOperation: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
---- !u!114 &-5764757503851559587
+--- !u!114 &-5373300244621890611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,14 +48,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7afc38c2d1fc5794db8af8261ba5f3b1, type: 3}
-  m_Name: Custom Pass
+  m_Script: {fileID: 11500000, guid: 52e2e32e102e44abeb72209e7ce030c3, type: 3}
+  m_Name: KawaseBlur
   m_EditorClassIdentifier: 
   m_Active: 1
-  mask:
-    serializedVersion: 2
-    m_Bits: 1
-  Event: 250
+  settings:
+    renderPassEvent: 450
+    blurMaterial: {fileID: 2100000, guid: a00afda211f274f6ca6cce958e4e13a5, type: 2}
+    blurPasses: 10
+    downsample: 1
+    copyToFramebuffer: 0
+    targetName: _blurTexture
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,11 +74,11 @@ MonoBehaviour:
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
   m_RendererFeatures:
+  - {fileID: 9026103697639517189}
+  - {fileID: -5373300244621890611}
   - {fileID: 6933266194962731827}
   - {fileID: -8088353125413993049}
-  - {fileID: 1599752016363340759}
-  - {fileID: -5764757503851559587}
-  m_RendererFeatureMap: 3353facbdee83760a745c7b5af65c08fd7430da8fb7533165d05a9de9777ffaf
+  m_RendererFeatureMap: 05aca49b7d29437dcdebca7fe5336eb53353facbdee83760a745c7b5af65c08f
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -113,26 +116,6 @@ MonoBehaviour:
   m_ClusteredRendering: 0
   m_TileSize: 32
   m_IntermediateTextureMode: 1
---- !u!114 &1599752016363340759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e2e32e102e44abeb72209e7ce030c3, type: 3}
-  m_Name: KawaseBlur
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    renderPassEvent: 450
-    blurMaterial: {fileID: 2100000, guid: a00afda211f274f6ca6cce958e4e13a5, type: 2}
-    blurPasses: 6
-    downsample: 1
-    copyToFramebuffer: 0
-    targetName: _blurTexture
 --- !u!114 &6933266194962731827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,12 +141,12 @@ MonoBehaviour:
     overrideMaterial: {fileID: 2100000, guid: 95920f7fe45f4ab4db8220195f6be441, type: 2}
     overrideMaterialPassIndex: 0
     overrideDepthState: 1
-    depthCompareFunction: 5
+    depthCompareFunction: 8
     enableWrite: 0
     stencilSettings:
       overrideStencilState: 0
       stencilReference: 0
-      stencilCompareFunction: 8
+      stencilCompareFunction: 2
       passOperation: 0
       failOperation: 0
       zFailOperation: 0
@@ -172,3 +155,26 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &9026103697639517189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
+  m_Name: Ambient Occlusion
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+  m_Settings:
+    Downsample: 1
+    AfterOpaque: 0
+    Source: 0
+    NormalSamples: 2
+    Intensity: 5
+    DirectLightingStrength: 0
+    Radius: 0.2
+    SampleCount: 20

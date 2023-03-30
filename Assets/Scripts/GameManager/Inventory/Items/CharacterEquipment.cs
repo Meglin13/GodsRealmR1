@@ -11,7 +11,7 @@ public class CharacterEquipment
     public CharacterEquipment(CharacterScript character)
     {
         this.character = character;
-        inventory = GameManager.GetInstance().inventory;
+        inventory = GameManager.Instance.inventory;
 
         EquipmentSlots = new Dictionary<EquipmentType, EquipmentItem>()
         {

@@ -24,7 +24,7 @@ namespace UI
 
         internal void OnEnable()
         {
-            CaptionLifeTime = GameManager.GetInstance().CaptionLifeTime;
+            CaptionLifeTime = GameManager.Instance.CaptionLifeTime;
 
             //CaptionListSV = root.Q<ScrollView>();
         }

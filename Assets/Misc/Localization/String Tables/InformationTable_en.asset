@@ -62,6 +62,10 @@ MonoBehaviour:
     m_Localized: 'Gold: '
     m_Metadata:
       m_Items: []
+  - m_Id: 14444842959941632
+    m_Localized: Use
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

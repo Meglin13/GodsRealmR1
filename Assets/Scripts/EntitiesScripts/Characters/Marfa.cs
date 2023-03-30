@@ -36,7 +36,7 @@ public class Marfa : CharacterScript, ICharacter
 
     public void SpecialAbility()
     {
-        GameManager.GetInstance().partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillsType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
+        GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillsType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
     }
 
     public void UltimateAbility()

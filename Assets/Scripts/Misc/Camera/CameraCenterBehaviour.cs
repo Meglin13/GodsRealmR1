@@ -4,12 +4,13 @@ public class CameraCenterBehaviour : MonoBehaviour
 {
     public static CameraCenterBehaviour Instance;
     private Transform target;
+    public GameObject InteractionButton;
 
     private void Awake()
     {
         Instance = this;
     }
-
+        
     private void Update()
     {
         if (target)

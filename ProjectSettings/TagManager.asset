@@ -11,6 +11,7 @@ TagManager:
   - ManaBar
   - HealthBar
   - StaminaBar
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - MiniMapLayer
   - SurroundingsLayer
   - PostProccesLayer
-  - 
-  - 
+  - BattleOverlay
+  - HiddenSecrets
   - 
   - 
   - 

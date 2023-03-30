@@ -14,8 +14,8 @@ public class MiniMapManager : MonoBehaviour, IManager
     {
         DeleteMarkers();
 
-        Color EnemyMarkerColor = GameManager.GetInstance().colorManager.EnemyMarkerColor;
-        Color CharMarkerColor = GameManager.GetInstance().colorManager.CharMarkerColor;
+        Color EnemyMarkerColor = GameManager.Instance.colorManager.EnemyMarkerColor;
+        Color CharMarkerColor = GameManager.Instance.colorManager.CharMarkerColor;
 
         EnemyMarkerColor = EnemyMarkerColor != Color.black ? EnemyMarkerColor : Color.red;
         CharMarkerColor = CharMarkerColor != Color.black ? CharMarkerColor : Color.green;

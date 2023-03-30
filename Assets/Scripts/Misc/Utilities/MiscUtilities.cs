@@ -45,7 +45,7 @@ public class MiscUtilities : MonoBehaviour
 
     public static void DamagePopUp(Transform transform, string Text, string ColorString, float Scale)
     {
-        GameObject DamagePopUp = Instantiate(GameManager.GetInstance().DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
+        GameObject DamagePopUp = Instantiate(GameManager.Instance.DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
         DamagePopUp.transform.localScale *= Scale;
         DamagePopUp.GetComponentInChildren<TextMeshProUGUI>().text = $"<color={ColorString}>{Text}</color>";
         Destroy(DamagePopUp, 1f);

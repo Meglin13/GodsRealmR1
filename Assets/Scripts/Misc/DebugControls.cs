@@ -22,13 +22,12 @@ public class DebugControls : MonoBehaviour
         FPS.performed += ctx =>
         {
             Application.targetFrameRate = 300;
-            Debug.Log(300);
         };
     }
 
     private void SpawnEnemy(InputAction.CallbackContext obj)
     {
-        Transform spawnpoint = GameManager.GetInstance().partyManager.PartyMembers[GameManager.GetInstance().partyManager.LeaderIndex].transform;
+        Transform spawnpoint = GameManager.Instance.partyManager.PartyMembers[GameManager.Instance.partyManager.LeaderIndex].transform;
         Instantiate(Skeleton, spawnpoint.position, spawnpoint.rotation);
     }
 }

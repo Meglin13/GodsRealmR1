@@ -34,13 +34,16 @@ public class Item : ScriptableObject
     [ReadOnly]
     public ItemType Type;
 
-    #if UNITY_EDITOR
-
+#if UNITY_EDITOR
     private void OnValidate()
     {
         string path = AssetDatabase.GetAssetPath(this);
         id = AssetDatabase.AssetPathToGUID(path);
     }
+#endif
 
-    #endif
+    public virtual void UseItem(CharacterScript character)
+    {
+
+    }
 }

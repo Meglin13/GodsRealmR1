@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MeleeWeaponTrail))]
 public class MeleeWeapon : MonoBehaviour
 {
     [HideInInspector]
@@ -16,9 +17,12 @@ public class MeleeWeapon : MonoBehaviour
     private float BaseWeaponLength = 1.4f;
     private float CurrentWeaponLength;
 
+    private MeleeWeaponTrail trail;
+
     public void Init(EntityStats entityStats, float Mult, bool CanParry)
     {
         StartDealDamage();
+        trail.Emit = true;
         DealerStats = entityStats;
         this.CanParry = CanParry;
         this.Mult = Mult;
@@ -29,6 +33,7 @@ public class MeleeWeapon : MonoBehaviour
     private void Awake()
     {
         WeaponLength = new Stat(BaseWeaponLength);
+        trail = GetComponent<MeleeWeaponTrail>();
     }
 
     void Start()
@@ -58,7 +63,11 @@ public class MeleeWeapon : MonoBehaviour
     }
 
     public void StartDealDamage() => canDealDamage = true;
-    public void EndDealDamage() => canDealDamage = false;
+    public void EndDealDamage()
+    {
+        canDealDamage = false;
+        trail.Emit = false;
+    }
 
     private void OnDrawGizmos()
     {

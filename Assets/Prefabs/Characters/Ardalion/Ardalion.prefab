@@ -3029,6 +3029,7 @@ GameObject:
   - component: {fileID: 6953989709162713213}
   - component: {fileID: 6953989709162713200}
   - component: {fileID: 6995450946665404181}
+  - component: {fileID: 8091562008809890821}
   m_Layer: 6
   m_Name: Ardalion
   m_TagString: Character
@@ -3122,6 +3123,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6995450946665404182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3259,6 +3261,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 2
+--- !u!114 &8091562008809890821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955241617536256676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.25
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 3.55
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0.1, y: 0.1, z: 0.1}
 --- !u!1 &6955243046324674492
 GameObject:
   m_ObjectHideFlags: 0
@@ -4851,28 +4906,64 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _emit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
       propertyPath: _lifeTime
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _material
+      value: 
+      objectReference: {fileID: 2100000, guid: 7ab6922abe596f14bbeacc00ae8c81be, type: 2}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
       propertyPath: _maxAngle
-      value: 10
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: subdivisions
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
       propertyPath: _sizes.Array.size
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _colors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _maxVertexDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _sizes.Array.data[0]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
       propertyPath: _sizes.Array.data[1]
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
-      propertyPath: _sizes.Array.data[2]
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _sizes.Array.data[2]
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
       propertyPath: _sizes.Array.data[3]
-      value: 0
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _colors.Array.data[0].a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _colors.Array.data[0].g
+      value: 0.78039217
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262599167612501042, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}
+      propertyPath: _colors.Array.data[0].r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446537a5e4bab814fb6203cbd4680b71, type: 3}

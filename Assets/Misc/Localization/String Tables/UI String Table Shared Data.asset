@@ -95,6 +95,34 @@ MonoBehaviour:
     m_Key: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 23208187540189184
+    m_Key: Star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208373570154496
+    m_Key: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208498040320000
+    m_Key: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208564578758656
+    m_Key: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208606400163840
+    m_Key: Impossible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208699719233536
+    m_Key: Custom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208753095946240
+    m_Key: Choose_Difficulty
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

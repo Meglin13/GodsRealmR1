@@ -15,7 +15,7 @@ TextureImporter:
       213: -7621343565879952321
     second: HitSpriteSheet_1
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -75,6 +75,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -172,6 +173,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -233,7 +246,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7917be4c668f3cd50800000000000000
-      internalID: -8689589990089077831
+      internalID: -7621343565879952321
       vertices: []
       indices: 
       edges: []
@@ -254,7 +267,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f3c348c086c8b3690800000000000000
-      internalID: 449326504519647273
+      internalID: -4440500551362187404
       vertices: []
       indices: 
       edges: []
@@ -270,10 +283,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HitSpriteSheet_1: 449326504519647273
-      HitSpriteSheet_3: -8689589990089077831
       HitSpriteSheet_0: -3998227212851844252
+      HitSpriteSheet_1: -4440500551362187404
       HitSpriteSheet_2: 6756516986259992983
+      HitSpriteSheet_3: -7621343565879952321
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

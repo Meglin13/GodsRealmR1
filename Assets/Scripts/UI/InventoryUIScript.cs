@@ -67,10 +67,10 @@ namespace UI
         {
             base.OnBind();
 
-            CharacterContext = GameManager.GetInstance().partyManager.GetPlayer();
-            CurrentCharIndex = GameManager.GetInstance().partyManager.LeaderIndex;
-            Party = GameManager.GetInstance().partyManager.PartyMembers;
-            inventory = GameManager.GetInstance().inventory;
+            CharacterContext = GameManager.Instance.partyManager.GetPlayer();
+            CurrentCharIndex = GameManager.Instance.partyManager.LeaderIndex;
+            Party = GameManager.Instance.partyManager.PartyMembers;
+            inventory = GameManager.Instance.inventory;
 
             OnInventoryUpdate += () => UpdateInventory();
             OnInventoryUpdate += () => UpdateCharacterInfo();
@@ -171,18 +171,10 @@ namespace UI
 
         private void EquipItemButtonClicked()
         {
-            if (IsItemEquiped(slotContext.itemContext))
-            {
-                if (inventory.Inventory.Count < inventory.Inventory.Capacity)
-                {
-                    CharacterContext.equipment.UnequipItem(slotContext.itemContext as EquipmentItem);
-                    SelectedSlotIndex = inventory.Inventory.Count - 1;
-                }
-            }
-            else
-            {
-                CharacterContext.equipment.EquipItem(slotContext.itemContext as EquipmentItem);
-            }
+            slotContext.itemContext.UseItem(CharacterContext);
+
+            if (inventory.Inventory.Count < inventory.Inventory.Capacity)
+                SelectedSlotIndex = inventory.Inventory.Count - 1;
 
             OnInventoryUpdate();
 
@@ -225,7 +217,14 @@ namespace UI
                 if (!ItemInfoButtonsPanel.visible)
                     ItemInfoButtonsPanel.visible = true;
 
-                ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip");
+                if (inventorySlot.itemContext is EquipmentItem)
+                {
+                    ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip");
+                }
+                else
+                {
+                    ChangeLabelsText(EquipBT, "Use");
+                }
 
                 slotContext?.UnselectSlot();
                 inventorySlot.SelectSlot();

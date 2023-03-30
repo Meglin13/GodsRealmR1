@@ -15,7 +15,7 @@ TextureImporter:
       213: -7771901801504630718
     second: HitSpriteSheet3_3
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -75,6 +75,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -162,6 +163,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -270,10 +283,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HitSpriteSheet3_3: -7771901801504630718
+      HitSpriteSheet3_0: -8817695140584141578
       HitSpriteSheet3_1: 3784292350650819000
       HitSpriteSheet3_2: -4278229676181817271
-      HitSpriteSheet3_0: -8817695140584141578
+      HitSpriteSheet3_3: -7771901801504630718
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

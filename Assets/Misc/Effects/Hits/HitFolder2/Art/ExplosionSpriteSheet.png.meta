@@ -39,7 +39,7 @@ TextureImporter:
       213: -5053805747646091763
     second: ExplosionSpriteSheet_12
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -99,6 +99,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -186,6 +187,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -462,18 +475,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ExplosionSpriteSheet_9: 887343772992815538
-      ExplosionSpriteSheet_7: 5674398883145378417
-      ExplosionSpriteSheet_6: 2740136108593845310
-      ExplosionSpriteSheet_11: -5857580625106253300
-      ExplosionSpriteSheet_5: -1937145164010623978
-      ExplosionSpriteSheet_12: -5053805747646091763
-      ExplosionSpriteSheet_4: -6428568535574981392
       ExplosionSpriteSheet_1: 1603361906975067749
-      ExplosionSpriteSheet_3: 7152785273673766528
       ExplosionSpriteSheet_10: -1115153654830404028
-      ExplosionSpriteSheet_8: 8383505542066883481
+      ExplosionSpriteSheet_11: -5857580625106253300
+      ExplosionSpriteSheet_12: -5053805747646091763
       ExplosionSpriteSheet_2: 5509605062950056265
+      ExplosionSpriteSheet_3: 7152785273673766528
+      ExplosionSpriteSheet_4: -6428568535574981392
+      ExplosionSpriteSheet_5: -1937145164010623978
+      ExplosionSpriteSheet_6: 2740136108593845310
+      ExplosionSpriteSheet_7: 5674398883145378417
+      ExplosionSpriteSheet_8: 8383505542066883481
+      ExplosionSpriteSheet_9: 887343772992815538
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

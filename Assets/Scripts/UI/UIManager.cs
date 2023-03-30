@@ -16,7 +16,7 @@ namespace UI
         public GameObject InGameUI;
 
         private GameObject PreviousMenu;
-        private GameObject CurrentMenu;
+        public GameObject CurrentMenu;
 
         public bool IsPausable;
         private bool IsCanGoBack = true;

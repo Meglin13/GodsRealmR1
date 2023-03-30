@@ -3,10 +3,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Cinemachine;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(CinemachineImpulseSource))]
 [SelectionBase]
 public abstract class EntityScript : MonoBehaviour, IDamageable
 {
@@ -21,8 +23,10 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     public MeleeWeapon MeleeWeapon;
 
     [HideInInspector]
-    [SerializeField]
     public Animator animator;
+
+    [HideInInspector]
+    internal CinemachineImpulseSource impulseSource;
 
     internal BarScript HealthBar;
 
@@ -75,6 +79,9 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         agent.speed = 5f;
         agent.stoppingDistance = 2f;
 
+        //Cinemachine
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+
         OnAddModifier += () => EntityStats.UpdateStats();
     }
 
@@ -101,6 +108,8 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         if (CurrentHealth <= 0)
             Death();
 
+        impulseSource.GenerateImpulse();
+
         OnTakeDamage();
     }
 
@@ -114,7 +123,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
     public void HitVFX(Vector3 hitPosition)
     {
-        var hitVFX = GameManager.GetInstance().HitVFX;
+        var hitVFX = GameManager.Instance.HitVFX;
         GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
         Destroy(hit, 0.5f);
     }
@@ -165,7 +174,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         {
             OnAddModifier();
 
-            //Debug.Log($"Added modifier {modifier.Amount} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
+            //Debug.Log($"Added modifier {modifier.AmountOfPotion} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
             
             if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
             {

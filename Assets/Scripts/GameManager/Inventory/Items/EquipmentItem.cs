@@ -1,4 +1,5 @@
 using MyBox;
+using System.Xml.Xsl;
 using UnityEngine;
 
 public enum EquipmentType
@@ -30,5 +31,22 @@ public class EquipmentItem : Item
         //{
         //    Modifiers[i].IsPermanent = true;
         //}
+    }
+
+    public override void UseItem(CharacterScript character)
+    {
+        var inventory = GameManager.Instance.inventory;
+
+        if (IsEquiped)
+        {
+            if (inventory.Inventory.Count < inventory.Inventory.Capacity)
+            {
+                character.equipment.UnequipItem(this);
+            }
+        }
+        else
+        {
+            character.equipment.EquipItem(this);
+        }
     }
 }

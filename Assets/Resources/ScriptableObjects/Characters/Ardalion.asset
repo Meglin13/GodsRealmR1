@@ -48,11 +48,11 @@ MonoBehaviour:
   BaseMana: 100
   ManaMod: 0
   Endurance: 4
-  Agility: 5
+  Agility: 6
   BaseStamina: 100
   StaminaMod: 0
   AttackSpeed: 1.4166666
-  Sprint: 12.75
+  Sprint: 11.049999
   DodgeCost: 27
   BlockCost: 29
   HeavyBlockCost: 43.5
@@ -74,6 +74,7 @@ MonoBehaviour:
       Description: 
       ModifierType: 0
       StatType: 0
+      Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
@@ -97,6 +98,7 @@ MonoBehaviour:
       Description: 
       ModifierType: 0
       StatType: 0
+      Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
@@ -120,6 +122,7 @@ MonoBehaviour:
       Description: 
       ModifierType: 0
       StatType: 0
+      Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
@@ -131,6 +134,7 @@ MonoBehaviour:
     Description: +5 Inventory Slots
     ModifierType: 0
     StatType: 1
+    Element: 0
     ModifierAmountType: 0
     Amount: 10
     IsPermanent: 1

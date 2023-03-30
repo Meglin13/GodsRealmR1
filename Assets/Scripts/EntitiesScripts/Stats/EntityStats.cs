@@ -7,17 +7,21 @@ using UnityEngine.AI;
 
 public enum StatType
 {
-    Health, Attack, Defence, CritChance, CritDamage, 
-    InventorySlots, Stamina, Speed,
+    Health,
+    Stamina,
+    Mana, ManaConsumption, ManaRecoveryBonus,
+    Attack, 
+    Defence, 
+    CritChance, CritDamage, 
+    InventorySlots, 
+    Speed,
     [InspectorName(null)]
     WeaponLength, 
-    Mana, ManaConsumption, ManaRecoveryBonus,
-    Resistance, ElementalDamageBonus
+    Resistance, 
+    ElementalDamageBonus
 }
 
 public enum EntityType { Enemy, Character }
-
-
 
 [CreateAssetMenu(fileName = "EntityStats", menuName = "Objects/Entity Stats")]
 public class EntityStats : ScriptableObject

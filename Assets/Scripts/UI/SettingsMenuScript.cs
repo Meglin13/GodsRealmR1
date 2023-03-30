@@ -104,7 +104,6 @@ namespace UI
             foreach (var res in Screen.resolutions)
             {
                 RefRateList.Add(res.refreshRate.ToString());
-                Debug.Log(res.refreshRate);
             }
 
             return RefRateList.OrderBy(x => x).Distinct().ToList();

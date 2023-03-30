@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Key: Gold
     m_Metadata:
       m_Items: []
+  - m_Id: 14444842959941632
+    m_Key: Use
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

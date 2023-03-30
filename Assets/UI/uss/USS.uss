@@ -58,9 +58,12 @@ Button {
 }
 
 Button:hover {
-    -unity-background-image-tint-color: rgb(139, 146, 168);
+    -unity-background-image-tint-color: rgb(190, 190, 190);
     background-color: rgba(0, 0, 0, 0);
     -unity-background-scale-mode: stretch-to-fill;
+    transition-property: -unity-background-image-tint-color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
 }
 
 Slider {
@@ -115,11 +118,13 @@ ScrollView {
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: rgba(35, 35, 59, 0);
+    background-color: rgb(35, 35, 59);
     background-image: none;
     -unity-slice-top: 1500;
     -unity-slice-bottom: 0;
     -unity-background-scale-mode: scale-to-fit;
+    height: 90%;
+    width: 60%;
 }
 
 .header-label {
@@ -129,6 +134,18 @@ ScrollView {
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.title {
+    border-bottom-color: rgb(255, 199, 0);
+    border-bottom-width: 2px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -unity-text-align: middle-center;
 }
 
 .statusbar {
@@ -194,9 +211,6 @@ ScrollView {
     -unity-background-scale-mode: stretch-to-fill;
 }
 
-.slot-container {
-}
-
 .inventory-slot {
     width: 100px;
     height: 100px;
@@ -207,10 +221,10 @@ ScrollView {
     margin-top: 5px;
     margin-bottom: 5px;
     background-image: resource('Images/UI/InventoryCell/SlotIcon');
-    border-left-color: rgb(75, 66, 32);
-    border-right-color: rgb(75, 66, 32);
-    border-top-color: rgb(75, 66, 32);
-    border-bottom-color: rgb(75, 66, 32);
+    border-left-color: rgb(75, 71, 57);
+    border-right-color: rgb(75, 71, 57);
+    border-top-color: rgb(75, 71, 57);
+    border-bottom-color: rgb(75, 71, 57);
     border-left-width: 3px;
     border-right-width: 3px;
     border-top-width: 3px;
@@ -222,6 +236,17 @@ ScrollView {
     height: 100%;
     background-image: resource('Images/UI/InventoryCell/SlotIcon');
     background-color: rgba(0, 0, 0, 0.42);
+}
+
+.inventory-slot:hover {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgb(168, 168, 168);
+    border-right-color: rgb(168, 168, 168);
+    border-top-color: rgb(168, 168, 168);
+    border-bottom-color: rgb(168, 168, 168);
 }
 
 .slot-amount-label {
@@ -243,4 +268,17 @@ ScrollView {
 
 .unity-scroller {
     height: 100%;
+}
+
+.unity-text-input {
+}
+
+.buttons-container {
+    flex-direction: row;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: space-around;
+    width: 100%;
 }

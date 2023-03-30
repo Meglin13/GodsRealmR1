@@ -30,7 +30,7 @@ public class EnemyScript : EntityScript
     public override void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanParry)
     {
         float damage = (int)Math.Floor(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
-        string color = GameManager.GetInstance().colorManager.ElementColor[DealerStats.Element];
+        string color = GameManager.Instance.colorManager.ElementColor[DealerStats.Element];
         float scale = 1;
 
         System.Random random = new();
@@ -59,13 +59,13 @@ public class EnemyScript : EntityScript
         base.Death();
         EntityStateMachine.ChangeState(new DyingState(gameObject, EntityStateMachine));
         //TODO: Скорректировать количество маны с врага
-        GameManager.GetInstance().partyManager.GiveSupportToAll((int)(EntityStats.Rarity + 1) * 10, StatType.Mana);
+        GameManager.Instance.partyManager.GiveSupportToAll((int)(EntityStats.Rarity + 1) * 10, StatType.Mana);
     }
 
 
     internal void SpawnHealthBar()
     {
-        var HealthBarPrefab = GameObject.Instantiate(GameManager.GetInstance().HealthBar, gameObject.transform, false);
+        var HealthBarPrefab = GameObject.Instantiate(GameManager.Instance.HealthBar, gameObject.transform, false);
         HealthBarPrefab.transform.localPosition = new Vector3(0, 2.5f, 0);
         HealthBarPrefab.transform.localScale *= 0.25f;
         HealthBar = HealthBarPrefab.GetComponentInChildren<BarScript>();
@@ -100,7 +100,7 @@ public class EnemyScript : EntityScript
     {
         SpawnHealthBar();
 
-        GameManager.GetInstance().miniMapManager.Initialize();
+        GameManager.Instance.miniMapManager.Initialize();
     }
 
     public virtual void Update()

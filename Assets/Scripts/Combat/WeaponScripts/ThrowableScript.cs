@@ -62,6 +62,7 @@ public class ThrowableScript : MonoBehaviour
                     foreach (IDamageable damageable in interfaceList)
                     {
                         damageable.TakeDamage(DealerStats, skill.DamageMultiplier.GetFinalValue(), false);
+                        
                         if (skill.StunTime > 0)
                             damageable.Stun(skill.StunTime);
 
@@ -75,7 +76,7 @@ public class ThrowableScript : MonoBehaviour
 
     public virtual void OnHit(Vector3 hitPoint)
     {
-        GameObject vfx = Instantiate(GameManager.GetInstance().HitVFX, hitPoint, Quaternion.Euler(0, 0, 0));
+        GameObject vfx = Instantiate(GameManager.Instance.HitVFX, hitPoint, Quaternion.Euler(0, 0, 0));
         Destroy(vfx, 0.6f);
     }
 

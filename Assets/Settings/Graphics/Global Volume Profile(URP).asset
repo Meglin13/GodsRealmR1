@@ -1,51 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5153521509872415700
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
-  m_EditorClassIdentifier: 
-  active: 0
-  mode:
-    m_OverrideState: 1
-    m_Value: 2
-  gaussianStart:
-    m_OverrideState: 1
-    m_Value: 4.44
-  gaussianEnd:
-    m_OverrideState: 0
-    m_Value: 30
-  gaussianMaxRadius:
-    m_OverrideState: 1
-    m_Value: 1.5
-  highQualitySampling:
-    m_OverrideState: 0
-    m_Value: 0
-  focusDistance:
-    m_OverrideState: 1
-    m_Value: 0.1
-  aperture:
-    m_OverrideState: 0
-    m_Value: 32
-  focalLength:
-    m_OverrideState: 0
-    m_Value: 300
-  bladeCount:
-    m_OverrideState: 0
-    m_Value: 3
-  bladeCurvature:
-    m_OverrideState: 0
-    m_Value: 1
-  bladeRotation:
-    m_OverrideState: 0
-    m_Value: 180
 --- !u!114 &-4736623386292586312
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -61,7 +15,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -30
+    m_Value: 0
   tint:
     m_OverrideState: 1
     m_Value: 35
@@ -108,7 +62,35 @@ MonoBehaviour:
   - {fileID: -1647644164481056234}
   - {fileID: 7864483422569619933}
   - {fileID: -4736623386292586312}
-  - {fileID: -5153521509872415700}
+  - {fileID: 3188331676267826348}
+--- !u!114 &3188331676267826348
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
+  m_Name: ColorAdjustments
+  m_EditorClassIdentifier: 
+  active: 1
+  postExposure:
+    m_OverrideState: 1
+    m_Value: 0.25
+  contrast:
+    m_OverrideState: 0
+    m_Value: -100
+  colorFilter:
+    m_OverrideState: 0
+    m_Value: {r: 0.08962262, g: 1, b: 0.16405891, a: 1}
+  hueShift:
+    m_OverrideState: 0
+    m_Value: 0
+  saturation:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &7864483422569619933
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -130,7 +112,7 @@ MonoBehaviour:
     m_Value: {r: 0.9528302, g: 0.89058644, b: 0.16629584, a: 1}
   balance:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 20
 --- !u!114 &8342626713359960923
 MonoBehaviour:
   m_ObjectHideFlags: 3

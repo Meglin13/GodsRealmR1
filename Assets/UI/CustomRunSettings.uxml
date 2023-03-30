@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement name="Panel" class="panel" style="-unity-slice-top: 0; background-color: rgb(35, 35, 59); height: 90%; width: 60%;">
+        <ui:Label text="#Run_Settings" display-tooltip-when-elided="true" name="Title" class="title" />
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="height: 75%;">
+            <ui:Label text="#RunInfo" display-tooltip-when-elided="true" class="title" style="color: rgb(255, 199, 0);" />
+            <ui:VisualElement name="BasicSettings">
+                <ui:TextField picking-mode="Ignore" label="#Difficulty" value="text" text="999" multiline="false" readonly="false" is-delayed="false" name="DifficultyTB" style="-unity-text-align: upper-left; color: rgb(35, 35, 59);" />
+                <ui:Toggle label="#CanSwitch" value="false" />
+            </ui:VisualElement>
+            <ui:VisualElement name="CustomSettings">
+                <ui:TextField picking-mode="Ignore" label="#Rooms_Number" password="false" text="999" name="Rooms_Number" />
+                <ui:TextField picking-mode="Ignore" label="#Rooms_Number" password="false" text="999" name="FloorNumber" />
+            </ui:VisualElement>
+            <ui:Label display-tooltip-when-elided="true" />
+        </ui:ScrollView>
+        <ui:VisualElement class="buttons-container" style="flex-direction: row; margin-left: 0; margin-right: 0; margin-top: auto; margin-bottom: auto;">
+            <ui:Button text="#Next" display-tooltip-when-elided="true" name="NextBT" />
+            <ui:Button text="#Back" display-tooltip-when-elided="true" name="BackBT" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

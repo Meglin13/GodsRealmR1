@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement name="Panel" style="width: 40%; margin-left: auto; height: 100%; justify-content: center; background-color: rgba(0, 0, 0, 0.7); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+        <ui:Label text="#Choose_Difficulty" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; border-left-color: rgb(255, 199, 0); border-right-color: rgb(255, 199, 0); border-top-color: rgb(255, 199, 0); border-bottom-color: rgb(255, 199, 0); border-bottom-width: 2px; margin-left: 0; margin-right: 0; margin-top: auto; margin-bottom: auto; -unity-font-style: normal;" />
+        <ui:VisualElement name="DifficultiesList" style="height: 50%; width: 100%; margin-left: auto; align-items: center; justify-content: space-around; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+            <ui:Button text="#Easy" display-tooltip-when-elided="true" name="EasyBT" style="color: rgb(0, 255, 31);" />
+            <ui:Button text="#Normal" display-tooltip-when-elided="true" name="NormalBT" style="color: rgb(255, 210, 0);" />
+            <ui:Button text="#Hard" display-tooltip-when-elided="true" name="HardBT" style="color: rgb(255, 119, 0);" />
+            <ui:Button text="#Impossible" display-tooltip-when-elided="true" name="ImpossibleBT" style="text-shadow: 0 0 0 rgb(0, 0, 0); letter-spacing: 0; -unity-font-style: normal; color: rgb(255, 255, 255);" />
+            <ui:Button text="#Custom" display-tooltip-when-elided="true" name="CustomBT" style="color: rgb(255, 199, 0);" />
+        </ui:VisualElement>
+        <ui:Button text="#Back" display-tooltip-when-elided="true" name="BackBT" style="-unity-text-outline-width: 0;" />
+    </ui:VisualElement>
+</ui:UXML>

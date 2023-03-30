@@ -37,21 +37,20 @@ public class PlayerMovementState : State
 
         if (IsMovementAction)
         {
+            float speed = IsSprintAction ? character.EntityStats.Sprint : character.EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
+
             if (IsSprintAction & !character.IsStaminaRecovering & character.CurrentStamina > 0)
             {
-                animator.SetFloat("Velocity", character.velocity, character.acceleration, Time.deltaTime);
-
-                character.Movement(input, character.velocity * character.EntityStats.Sprint);
                 character.ChangeStamina(-character.StaminaConsumption * Time.deltaTime);
             }
             else
             {
                 character.velocity /= 2;
-                animator.SetFloat("Velocity", character.velocity, character.acceleration, Time.deltaTime);
-
                 character.StaminaRecovering();
-                character.Movement(input, character.velocity * character.EntityStats.ModifiableStats[StatType.Speed].GetFinalValue());
             }
+
+            animator.SetFloat("Velocity", character.velocity, character.acceleration, Time.deltaTime);
+            character.Movement(input, character.velocity * speed);
         }
         else
         {
