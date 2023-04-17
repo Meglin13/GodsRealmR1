@@ -95,8 +95,8 @@ MonoBehaviour:
     m_Key: Exit
     m_Metadata:
       m_Items: []
-  - m_Id: 23208187540189184
-    m_Key: Star
+  - m_Id: 2280790601728
+    m_Key: Start
     m_Metadata:
       m_Items: []
   - m_Id: 23208373570154496
@@ -121,6 +121,98 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 23208753095946240
     m_Key: Choose_Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908937232384
+    m_Key: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981120
+    m_Key: Token
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981121
+    m_Key: Use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981122
+    m_Key: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175424
+    m_Key: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175425
+    m_Key: Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175426
+    m_Key: Unequip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175427
+    m_Key: Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175428
+    m_Key: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175429
+    m_Key: Seed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175430
+    m_Key: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175431
+    m_Key: Can_Switch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175432
+    m_Key: Rooms_Number
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175433
+    m_Key: Floor_Number
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175434
+    m_Key: Buff_Number
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175435
+    m_Key: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175436
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23208498040320000
+    m_Key: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175437
+    m_Key: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175438
+    m_Key: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175439
+    m_Key: Delete_Save_Caption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175440
+    m_Key: Delete_Save_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24681798532771840
+    m_Key: No
     m_Metadata:
       m_Items: []
   m_Metadata:

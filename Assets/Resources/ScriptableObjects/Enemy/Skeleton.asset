@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: 
+  id: 2
+  Name: Skeleton
+  Description: 
+  Type: 0
+  Icon: {fileID: 0}
+  Art: {fileID: 0}
+  Rarity: 1
+  Level: 1
+  Element: 4
+  WeaponType: 0
+  IsHeavy: 0
+  BaseHealth: 50
+  HealthMod: 10
+  BaseAttack: 10
+  AttackMod: 5
+  BaseDefence: 50
+  DefenceMod: 10
+  SightRange: 20
+  AttackRange: 3
+  AttackCooldown: 5
+  Speed: 6.1
+  EnemyLayer: 6
+  EnemyTag: Character
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
+  NormalAttackMult: 60
+  Luck: 1
+  BaseCritDamage: 200
+  CritChanceMod: 0
+  CritDamageMod: 0
+  BaseMana: 100
+  ManaMod: 0
+  Endurance: 1
+  Agility: 1
+  BaseStamina: 100
+  StaminaMod: 0
+  AttackSpeed: 1.0166667
+  Sprint: 9.15
+  DodgeCost: 0
+  BlockCost: 0
+  HeavyBlockCost: 0
+  skills:
+  - Level: 1
+    LevelMod: 10
+    SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 1
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Skill Name
+    Description: Generic Description
+    SkillType: 2
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSec: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      IsVisible: 0
+      DurationInSecs: 0
+    StunTime: 0
+  TeamBuff:
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 0
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 0
+    IsPermanent: 0
+    IsVisible: 0
+    DurationInSecs: 0

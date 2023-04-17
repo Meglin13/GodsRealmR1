@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
-public class PartyManagerUIScript : UIScript
+namespace UI
 {
-    internal override void OnBind()
+    public class PartyManagerUIScript : UIScript
     {
-        base.OnBind();
+        internal override void OnBind()
+        {
+            base.OnBind();
 
 
-    }
+        }
+    } 
 }

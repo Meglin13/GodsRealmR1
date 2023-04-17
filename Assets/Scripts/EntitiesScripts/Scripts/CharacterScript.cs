@@ -27,8 +27,13 @@ public abstract class CharacterScript : EntityScript
     public float blockingTime;
     private Camera _camera;
 
+    public CharacterEquipment equipment;
+
     //Интерфейс персонажа
     internal ICharacter Character;
+    internal Skill Special;
+    internal Skill Distract;
+    internal Skill Ultimate;
 
     //Текущее состояние атрибутов
     public float CurrentStamina;
@@ -43,7 +48,6 @@ public abstract class CharacterScript : EntityScript
     public float velocity = 0f;
 
     public event Action OnStaminaChange = delegate { };
-    public event Action OnItemEquip = delegate { };
 
     [HideInInspector]
     public float acceleration = 0.2f;
@@ -75,6 +79,8 @@ public abstract class CharacterScript : EntityScript
     {
         base.Initialize();
 
+        _camera = Camera.main;
+
         CurrentMana = EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
         CurrentStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
 
@@ -85,52 +91,31 @@ public abstract class CharacterScript : EntityScript
         //Interactor
         interactor = GetComponent<InteractorScript>();
 
-        //ICharacter
-        EntityStats.SkillSet[SkillsType.Special].OnSkillTrigger += Character.SpecialAbility;
-        EntityStats.SkillSet[SkillsType.Distract].OnSkillTrigger += Character.DistractionAbility;
-        EntityStats.SkillSet[SkillsType.Ultimate].OnSkillTrigger += Character.UltimateAbility;
+        //Animator
+        animator = GetComponent<Animator>();
 
-        EntityStats.SkillSet[SkillsType.Distract].ResetCooldown();
-        EntityStats.SkillSet[SkillsType.Special].ResetCooldown();
-        EntityStats.SkillSet[SkillsType.Ultimate].ResetCooldown();
+        //ICharacter
+        Special = EntityStats.SkillSet[SkillType.Special];
+        Distract = EntityStats.SkillSet[SkillType.Distract];
+        Ultimate = EntityStats.SkillSet[SkillType.Ultimate];
+
+        Special.OnSkillTrigger += Character.SpecialAbility;
+        Distract.OnSkillTrigger += Character.DistractionAbility;
+        Ultimate.OnSkillTrigger += Character.UltimateAbility;
+
+        Special.ResetCooldown();
+        Distract.ResetCooldown();
+        Ultimate.ResetCooldown();
 
         //Events
         OnDie += () => EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(dyingState);
 
-        OnTakeDamage += () =>
-        {
-            if (IsActive)
-            {
-                HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
-            }
-        };
+        OnTakeDamage += UpdateBars;
+        OnManaChange += UpdateBars;
+        OnStaminaChange += UpdateBars;
+        OnHeal += UpdateBars;
 
-        OnManaChange += () =>
-        {
-            if (IsActive)
-            {
-                ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
-            }
-        };
-
-        OnStaminaChange += () =>
-        {
-            if (IsActive)
-            {
-                StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
-            }
-        };
-
-        OnAddModifier += () =>
-        {
-            if (IsActive)
-            {
-                HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
-                ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
-                StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
-            }
-        };
-
+        OnAddModifier += UpdateBars;
         OnAddModifier += () =>
         {
             animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
@@ -158,39 +143,23 @@ public abstract class CharacterScript : EntityScript
         ultimateAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
     }
 
-    public void TriggerSkillAnim(string name)
-    {
-        SkillsType result;
-        Enum.TryParse(name, out result);
-        Skill skill = EntityStats.SkillSet[result];
-        if (CurrentMana >= skill.ManaCost & !skill.IsCooldown())
-        {
-            animator.SetTrigger(skill.SkillType.ToString());
-        }
-        else
-        {
-            Debug.Log($"Cannot activate skill!!! {skill.IsCooldown()}");
-        }
-    }
-
     #endregion [Character Script Stats]
-
-    #region [Inventory]
-
-    public CharacterEquipment equipment;
-
-    #endregion [Inventory]
 
     #region [IDamageable]
     public override void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanBlock)
     {
-        int Damage = (int)Math.Floor(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
+        int Damage = Mathf.FloorToInt(CombatManager.DamageCalc(EntityStats, DealerStats, Multiplier));
 
         if (!IsBlocking & !IsDodging)
         {
             CurrentHealth -= Damage;
             MiscUtilities.DamagePopUp(transform, Damage.ToString(), "#FFFFFF", 1);
             base.TakeDamage(DealerStats, Multiplier, CanBlock);
+
+            if (IsActive)
+            {
+                impulseSource.GenerateImpulse(0.1f);
+            }
         }
         else if (CanBlock & blockingTime <= GameManager.Instance.ParryTime)
         {
@@ -226,9 +195,9 @@ public abstract class CharacterScript : EntityScript
     [HideInInspector]
     public StateMachine EntityStateMachine;
 
-    #if UNITY_EDITOR
-        public string CurrentStateName, CurrentSubStateName;
-    #endif
+#if UNITY_EDITOR
+    public string CurrentStateName, CurrentSubStateName;
+#endif
 
     //Состояния
     [HideInInspector]
@@ -254,16 +223,24 @@ public abstract class CharacterScript : EntityScript
 
     #region [Unity Methods]
 
-    public override void Awake()
+    public override void OnEnable()
     {
         Initialize();
-
-        _camera = Camera.main;
     }
 
-    public void OnLevelWasLoaded()
+    public override void OnDisable()
     {
-        StopAllCoroutines();
+        ObjectsUtilities.UnsubscribeEvents(OnStaminaChange);
+
+        Special.ClearEvents();
+        Distract.ClearEvents();
+        Ultimate.ClearEvents();
+
+        switchCharacterAction.performed -= SwitchCharacter;
+
+        distractAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
+        specialAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
+        ultimateAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
     }
 
     public void Start()
@@ -284,10 +261,10 @@ public abstract class CharacterScript : EntityScript
     {
         EntityStateMachine.CurrentState?.LogicUpdate();
 
-        #if UNITY_EDITOR
-            CurrentStateName = EntityStateMachine.CurrentState?.GetType().Name;
-            CurrentSubStateName = EntityStateMachine.CurrentState.InnerStateMachine.CurrentState?.GetType().Name;
-        #endif
+#if UNITY_EDITOR
+        CurrentStateName = EntityStateMachine.CurrentState?.GetType().Name;
+        CurrentSubStateName = EntityStateMachine.CurrentState.InnerStateMachine.CurrentState?.GetType().Name;
+#endif
     }
 
     #endregion [Unity Methods]
@@ -309,13 +286,10 @@ public abstract class CharacterScript : EntityScript
     {
         float MaxStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
 
-        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
-
         if (CurrentStamina < MaxStamina)
             CurrentStamina += Time.deltaTime * 5f;
 
-        CurrentStamina = CurrentStamina >= MaxStamina ? MaxStamina : CurrentStamina += Time.deltaTime * 5f;
-
+        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
         IsStaminaRecovering = CurrentStamina <= EntityStats.ModifiableStats[StatType.Stamina].GetProcent() * 30;
 
         OnStaminaChange();
@@ -336,11 +310,10 @@ public abstract class CharacterScript : EntityScript
 
     public void LookAtEnemy(float range)
     {
-        List<EnemyScript> Enemies = GameObject.FindObjectsOfType<EnemyScript>().ToList();
+        Collider[] Enemies = Physics.OverlapSphere(transform.position, range, 1 << EnemyLayer);
 
-        if (Enemies.Count != 0)
+        if (Enemies.Length > 0)
         {
-            //Ближайший враг в радиусе
             GameObject NearestEnemy = AIUtilities.FindNearestEntity(gameObject.transform, AIUtilities.EnemyTag);
 
             if (AIUtilities.IsCertainEntityInRadius(gameObject, NearestEnemy, range))
@@ -354,15 +327,32 @@ public abstract class CharacterScript : EntityScript
                 Vector3 lookAt = hitData.point;
                 lookAt.y = 0;
                 gameObject.transform.LookAt(lookAt);
+
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * 250, Color.red);
             }
         }
     }
 
     #region [Animation Events]
-    public void DistractTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Distract]);
-    public void SpecialTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Special]);
-    public void UltimateTrigger() => UseAbility(EntityStats.SkillSet[SkillsType.Ultimate]);
+    public void DistractTrigger() => UseAbility(Distract);
+    public void SpecialTrigger() => UseAbility(Special);
+    public void UltimateTrigger() => UseAbility(Ultimate);
     #endregion
+
+    public void TriggerSkillAnim(string name)
+    {
+        Enum.TryParse(name, out SkillType result);
+        Skill skill = EntityStats.SkillSet[result];
+
+        if (CurrentMana >= skill.ManaCost & !skill.IsCooldown())
+        {
+            animator.SetTrigger(skill.SkillType.ToString());
+        }
+        else
+        {
+            Debug.Log($"Cannot activate skill!!! {skill.IsCooldown()}");
+        }
+    }
 
     private void UseAbility(Skill skill)
     {
@@ -372,7 +362,7 @@ public abstract class CharacterScript : EntityScript
             GiveSupport(-skill.ManaCost * (1 - ManaCon), StatType.Mana);
 
             skill.ActivateSkill();
-            LookAtEnemy(10f);
+            LookAtEnemy(EntityStats.AttackRange);
 
             StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
@@ -382,8 +372,20 @@ public abstract class CharacterScript : EntityScript
             Debug.Log($"Not enough mana! Need {skill.ManaCost}/{CurrentMana}");
     }
 
+    public void UpdateBars()
+    {
+        if (IsActive)
+        {
+            HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
+            ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
+            StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
+        }
+    }
+
     public override void GiveSupport(float Amount, StatType type)
     {
+        base.GiveSupport(Amount, type);
+
         switch (type)
         {
             case StatType.Stamina:
@@ -395,8 +397,6 @@ public abstract class CharacterScript : EntityScript
                 CurrentMana = Mathf.Clamp(CurrentMana + AmountWithBouns, 0, EntityStats.ModifiableStats[type].GetFinalValue());
                 break;
         }
-
-        base.GiveSupport(Amount, type);
     }
 
     #endregion [Utilities]

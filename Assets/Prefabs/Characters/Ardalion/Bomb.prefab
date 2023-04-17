@@ -175,7 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DealerStats: {fileID: 0}
   hasHitted: []
-  Speed: 8
+  Speed: 9.64
+  mode: 0
   skill:
     Level: 1
     LevelMod: 10
@@ -185,11 +186,14 @@ MonoBehaviour:
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
     CooldownInSecs: 5
-    DurationInSec: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
     ManaCost: 10
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
+      IsVisible: 1
       Name: 
       Description: 
       ModifierType: 0
@@ -198,7 +202,6 @@ MonoBehaviour:
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
-      IsVisible: 1
       DurationInSecs: 0
     StunTime: 0
 --- !u!1001 &5536629988616552308

@@ -1,14 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
-using UI;
-using UnityEngine;
+using UnityEngine.UIElements;
 
-public class CustomRunSettingsScript : UIScript
+namespace UI
 {
-    internal override void OnBind()
+    public class CustomRunSettingsScript : UIScript
     {
-        base.OnBind();
+        private int Difficulty = 0;
+        private RunParameters Params = new RunParameters();
 
+        private Button NextBT;
+        private Button ResetBT;
 
-    }
+        private TextField SeedTB;
+        private TextField DiffTB;
+
+        internal override void OnBind()
+        {
+            base.OnBind();
+
+            NextBT = root.Q<Button>("NextBT");
+            NextBT.clicked += SaveParams;
+
+            SeedTB = root.Q<TextField>("SeedTB");
+            int seed = 0;
+            SeedTB.RegisterValueChangedCallback(v => int.TryParse(v.newValue, out seed));
+            Params.Seed = seed;
+
+            DiffTB = root.Q<TextField>("DifficultyTB");
+            DiffTB.value = RunManager.Difficulty.ToString();
+            int diff = 0;
+            SeedTB.RegisterValueChangedCallback(v => int.TryParse(v.newValue, out diff));
+            Difficulty = diff;
+
+            ResetBT = root.Q<Button>("ResetBT");
+            ResetBT.clicked += ResetParams;
+        }
+
+        private void OnDisable()
+        {
+            NextBT.clicked -= SaveParams;
+            ResetBT.clicked -= ResetParams;
+        }
+
+        private void ResetParams()
+        {
+            SeedTB.value = string.Empty;
+        }
+
+        public void SaveParams()
+        {
+            if (Difficulty > 0)
+            {
+                RunManager.SetDifficulty(Difficulty, Params);
+            }
+        }
+    } 
 }

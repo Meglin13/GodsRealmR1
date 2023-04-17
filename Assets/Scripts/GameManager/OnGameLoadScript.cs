@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Rendering;
 
 public class OnGameLoadScript : MonoBehaviour
 {
+    public List<RenderPipelineAsset> Qualities;
+
+
     //TODO: Скрипт загрузки игры
     void Awake()
     {
@@ -21,6 +25,7 @@ public class OnGameLoadScript : MonoBehaviour
         int lang = LocalizationSettings.AvailableLocales.Locales.IndexOf(LocalizationSettings.SelectedLocale);
 
         SettingsScript.SetScreen(resolution, IsFullscreen, refRate);
+        SettingsScript.SetQuality(quality);
         SettingsScript.SetLocalization(lang);
     }
 }

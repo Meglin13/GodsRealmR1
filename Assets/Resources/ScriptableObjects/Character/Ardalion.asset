@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Ardalion
+  m_EditorClassIdentifier: 
+  id: 1
+  Name: Ardalion
+  Description: dude
+  Type: 1
+  Icon: {fileID: 21300000, guid: aabd0e2e06762904c95b4a8522b16a66, type: 3}
+  Art: {fileID: 21300000, guid: 933752f930da2ed47970af217c0c393e, type: 3}
+  Rarity: 3
+  Level: 1
+  Element: 4
+  WeaponType: 0
+  IsHeavy: 0
+  BaseHealth: 100
+  HealthMod: 10
+  BaseAttack: 15
+  AttackMod: 15
+  BaseDefence: 30
+  DefenceMod: 7
+  SightRange: 20
+  AttackRange: 3
+  AttackCooldown: 5
+  Speed: 9.1
+  EnemyLayer: 8
+  EnemyTag: Enemy
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
+  NormalAttackMult: 80
+  Luck: 6
+  BaseCritDamage: 200
+  CritChanceMod: 0
+  CritDamageMod: 0
+  BaseMana: 100
+  ManaMod: 0
+  Endurance: 4
+  Agility: 6
+  BaseStamina: 100
+  StaminaMod: 0
+  AttackSpeed: 1.5166668
+  Sprint: 11.83
+  DodgeCost: 27
+  BlockCost: 29
+  HeavyBlockCost: 43.5
+  skills:
+  - Level: 1
+    LevelMod: 10
+    SkillName: Ardalion Special
+    Description: Generic Description
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 120
+    CooldownInSecs: 10
+    DurationInSec: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 1
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Boom
+    Description: Generic Description
+    SkillType: 1
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 20
+    DurationInSec: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 15
+    Radius: 4
+    IsDebuffing: 1
+    EnemyModifier:
+      IsVisible: 1
+      Name: 
+      Description: 
+      ModifierType: 1
+      StatType: 6
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 10
+      IsPermanent: 0
+      DurationInSecs: 5
+    StunTime: 3
+  - Level: 1
+    LevelMod: 10
+    SkillName: Ultimate
+    Description: Generic Description
+    SkillType: 2
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 200
+    CooldownInSecs: 15
+    DurationInSec: 10
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 100
+    Radius: 5
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 1
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      DurationInSecs: 0
+    StunTime: 0
+  TeamBuff:
+    IsVisible: 0
+    Name: Ardik's wide pockets
+    Description: +5 Inventory Slots
+    ModifierType: 0
+    StatType: 1
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 1
+    DurationInSecs: 0
+  IsUnlocked: 1

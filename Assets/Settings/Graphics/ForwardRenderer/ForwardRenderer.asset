@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: EntityVisible
-    Event: 500
+    Event: 300
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -24,8 +24,8 @@ MonoBehaviour:
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
-    overrideDepthState: 0
-    depthCompareFunction: 4
+    overrideDepthState: 1
+    depthCompareFunction: 2
     enableWrite: 1
     stencilSettings:
       overrideStencilState: 0
@@ -170,11 +170,11 @@ MonoBehaviour:
   m_Active: 1
   m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
   m_Settings:
-    Downsample: 1
-    AfterOpaque: 0
+    Downsample: 0
+    AfterOpaque: 1
     Source: 0
-    NormalSamples: 2
-    Intensity: 5
+    NormalSamples: 0
+    Intensity: 0.15
     DirectLightingStrength: 0
-    Radius: 0.2
+    Radius: 0.66
     SampleCount: 20

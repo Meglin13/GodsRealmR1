@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057b8afdd78503c47abdb249445750de, type: 3}
+  m_Name: Weak_Attack_Potion
+  m_EditorClassIdentifier: 
+  id: e36e6ba971b176443b2196fb2e10956a
+  Name: Weak_Attack_Potion
+  Description: Weak_Attack_Potion_Desc
+  Icon: {fileID: 21300000, guid: 7902454d4b322ff4fa8df060512a4e7e, type: 3}
+  _Rarity: 1
+  Amount: 1
+  IsStackable: 1
+  Type: 1
+  PotionType: 3
+  PotionStrength: 0
+  Modifier:
+    IsVisible: 1
+    Name: Weak_Attack_Potion_Buff
+    Description: Weak_Attack_Potion_Buff_Desc
+    ModifierType: 0
+    StatType: 5
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 0
+    DurationInSecs: 60

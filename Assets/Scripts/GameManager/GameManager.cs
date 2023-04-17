@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour, IManager
     public GameObject DamagePopUp;
     public GameObject HitVFX;
     public GameObject HealthBar;
-    public GameObject InventoryCellPrefab;
 
     public InputActionAsset playerInput;
 
@@ -46,7 +45,10 @@ public class GameManager : MonoBehaviour, IManager
     public Modifier ParryMod = new Modifier(StatType.CritChance, 100F);
 
     [Header("Items")]
-    public List<Item> ItemsList;
+    [HideInInspector]
+    public List<EquipmentItem> EquipmentList;
+    [HideInInspector]
+    public List<PotionItem> PotionList;
 
     private void Awake()
     {
@@ -91,7 +93,8 @@ public class GameManager : MonoBehaviour, IManager
 
     public void GetItems()
     {
-        ItemsList = Resources.LoadAll("ScriptableObjects/Items", typeof(Item)).Cast<Item>().ToList();
+        EquipmentList = Resources.LoadAll("ScriptableObjects/Items/Equipment", typeof(EquipmentItem)).Cast<EquipmentItem>().ToList();
+        PotionList = Resources.LoadAll("ScriptableObjects/Items/Potions", typeof(PotionItem)).Cast<PotionItem>().ToList();
     }
 
     void MainCameraInitialize(Camera camera)

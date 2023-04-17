@@ -16,11 +16,17 @@ public class InventoryScript : MonoBehaviour
     public void Awake()
     {
         Instance = this;
+        Initialize();
     }
 
     public void Initialize()
     {
         Inventory.Capacity = Capacity;
+    }
+
+    public void AddCapacity(int cap)
+    {
+        Inventory.Capacity += cap;
     }
 
     /// <summary>
@@ -61,6 +67,7 @@ public class InventoryScript : MonoBehaviour
         else
         {
             Inventory.Remove(ItemForDelete);
+            Destroy(ItemForDelete);
         }
     }
 

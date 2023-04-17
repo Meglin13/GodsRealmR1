@@ -9,8 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ea0cf17ef75a64f4dbac15a61733cc35
   - enabled: 1
+    path: Assets/Scenes/HubScene.unity
+    guid: 6ce42728cb09fdf46b6d131112992166
+  - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: 4481720b3d442584aba9b22a07ff204b
+  - enabled: 1
+    path: Assets/Scenes/RunScene.unity
+    guid: e853d4c907da2e44c9c64a7f122bb6d9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 783620ac889b0e74ab35fcfae3aba578, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 5fbecbf919668c34e9ccef23e8718cd9, type: 2}

@@ -5,12 +5,11 @@
   <xs:import schemaLocation="UnityEditor.Rendering.LookDev.xsd" namespace="UnityEditor.Rendering.LookDev" />
   <xs:import schemaLocation="UnityEditor.U2D.Layout.xsd" namespace="UnityEditor.U2D.Layout" />
   <xs:import schemaLocation="UnityEditor.U2D.Animation.xsd" namespace="UnityEditor.U2D.Animation" />
-  <xs:import schemaLocation="Unity.Cloud.Collaborate.Views.xsd" namespace="Unity.Cloud.Collaborate.Views" />
-  <xs:import schemaLocation="Unity.Cloud.Collaborate.Components.xsd" namespace="Unity.Cloud.Collaborate.Components" />
-  <xs:import schemaLocation="Unity.Cloud.Collaborate.Components.ChangeListEntries.xsd" namespace="Unity.Cloud.Collaborate.Components.ChangeListEntries" />
   <xs:import schemaLocation="UnityEditor.Localization.UI.xsd" namespace="UnityEditor.Localization.UI" />
   <xs:import schemaLocation="UnityEditor.ShaderGraph.Drawing.xsd" namespace="UnityEditor.ShaderGraph.Drawing" />
   <xs:include schemaLocation="GlobalNamespace.xsd" />
+  <xs:import schemaLocation="UI.xsd" namespace="UI" />
+  <xs:import schemaLocation="Game.UI.xsd" namespace="Game.UI" />
   <xs:import schemaLocation="UnityEditor.ShortcutManagement.xsd" namespace="UnityEditor.ShortcutManagement" />
   <xs:import schemaLocation="UnityEditor.UIElements.Debugger.xsd" namespace="UnityEditor.UIElements.Debugger" />
   <xs:import schemaLocation="Unity.UI.Builder.xsd" namespace="Unity.UI.Builder" />

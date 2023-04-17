@@ -9,15 +9,13 @@ namespace UI
         private Button StartButton;
         private Button ExitButton;
         private Button SettingsButton;
-        public string NextSceneName = "TestScene";
+        public string NextSceneName = "HubScene";
         public GameObject SettingsMenu;
         public GameObject LoadingScreen;
 
         internal override void OnBind()
         {
             base.OnBind();
-
-            Debug.Log("MainMenu Enabled");
 
             StartButton = root.Q<Button>("StartBT");
             ExitButton = root.Q<Button>("ExitBT");
@@ -35,12 +33,9 @@ namespace UI
             ExitButton.clicked -= ExitButtonClicked;
         }
 
-        void StartButtonClicked() => UIManager.Instance.ChangeScene(NextSceneName, gameObject);
+        void StartButtonClicked() => manager.ChangeScene(NextSceneName, gameObject);
 
-        void SettingsButtonClicked()
-        {
-            UIManager.Instance.ChangeMenu(gameObject, SettingsMenu);
-        }
+        void SettingsButtonClicked() => manager.ChangeMenu(gameObject, SettingsMenu);
 
         void ExitButtonClicked() => Application.Quit();
     }

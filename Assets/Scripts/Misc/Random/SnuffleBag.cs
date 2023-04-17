@@ -24,6 +24,11 @@ public class SnuffleBag<T>
         this.random = random;
     }
 
+    public SnuffleBag(Random random)
+    {
+        this.random = random;
+    }
+
     public void Snuffle()
     {
         int i = items.Count;

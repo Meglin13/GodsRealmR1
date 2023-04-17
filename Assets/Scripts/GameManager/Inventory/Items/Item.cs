@@ -1,5 +1,6 @@
 using MyBox;
 using System;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,10 +22,25 @@ public enum Rarity
 [Serializable]
 public class Item : ScriptableObject
 {
-    [SerializeField] string id;
+#if UNITY_EDITOR
+    public virtual void OnValidate()
+    {
+        id = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(this));
+
+        string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
+        this.Name = Path.GetFileNameWithoutExtension(assetPath);
+        this.Description = Path.GetFileNameWithoutExtension(assetPath) + "_Desc";
+    }
+#endif
+
+    [ReadOnly]
+    [SerializeField]
+    private string id;
     public string ID { get { return id; } }
 
+    [ReadOnly]
     public string Name;
+    [ReadOnly]
     public string Description;
     public Sprite Icon;
     public Rarity _Rarity;
@@ -34,16 +50,5 @@ public class Item : ScriptableObject
     [ReadOnly]
     public ItemType Type;
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        string path = AssetDatabase.GetAssetPath(this);
-        id = AssetDatabase.AssetPathToGUID(path);
-    }
-#endif
-
-    public virtual void UseItem(CharacterScript character)
-    {
-
-    }
+    public virtual void UseItem(CharacterScript character) { }
 }

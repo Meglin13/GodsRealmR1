@@ -4,6 +4,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -32,6 +35,9 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
     public virtual void Initialize()
     {
+        //TODO: Посмотреть насколько все плохо будет при запуске нового этажа
+        StopAllCoroutines();
+
         this.EntityStats = Stats;
         EntityStats.Initialize(Level);
 
@@ -108,15 +114,13 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         if (CurrentHealth <= 0)
             Death();
 
-        impulseSource.GenerateImpulse();
-
         OnTakeDamage();
     }
 
     public virtual void Stun(float Time)
     {
         OnStun();
-        StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, 5f, ModType.Debuff)));
+        StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, Time, ModType.Debuff)));
     }
 
     public virtual void Death() => OnDie();
@@ -125,20 +129,38 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     {
         var hitVFX = GameManager.Instance.HitVFX;
         GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
+        hit.transform.SetParent(MiscUtilities.Instance.Dump.transform);
+
         Destroy(hit, 0.5f);
     }
     #endregion
 
-
     #region [Unity Methods]
-    public virtual void Awake()
+    public virtual void OnEnable()
     {
         Initialize();
+    }
+
+    public virtual void OnDisable()
+    {
+        var delList = new Action[]
+        {
+            OnAddModifier,
+            OnDie,
+            OnStun,
+            OnTakeDamage,
+            OnManaChange,
+            OnHeal,
+            OnLevelChange
+        };
+
+        ObjectsUtilities.UnsubscribeEvents(delList);
     }
 
     #endregion
 
     #region[Utilities]
+
     public void UpdateHealthBar()
     {
         HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
@@ -149,7 +171,6 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         switch (type)
         {
             case StatType.Health:
-                Debug.Log("Bruh");
                 CurrentHealth = Mathf.Clamp(CurrentHealth + Amount, 0, EntityStats.ModifiableStats[type].GetFinalValue());
                 OnHeal();
                 break;

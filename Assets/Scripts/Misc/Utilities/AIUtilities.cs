@@ -22,6 +22,7 @@ public static class AIUtilities
     //Теги
     public static string CharsTag = "Character";
     public static string EnemyTag = "Enemy";
+    public static string PlayerTag = "Player";
 
     /// <summary>
     /// Поиск ближайшего игрового объекта по тегу

@@ -21,89 +21,92 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 // and start them all with '#' char (so other labels will be left be)
 // example: https://i.imgur.com/H5RUIej.gif
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(UIDocument))]
-public class UIDocumentLocalization : MonoBehaviour
+namespace UI
 {
-
-    public LocalizedStringTable _table = null;
-    UIDocument _uiDocument;
-
-    /// <summary> Executed after hierarchy is cloned fresh and translated. </summary>
-    public event System.Action OnCompleted = () => { };
-
-    void OnEnable()
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(UIDocument))]
+    public class UIDocumentLocalization : MonoBehaviour
     {
-        if (_uiDocument == null)
-            _uiDocument = GetComponent<UIDocument>();
-        _table.TableChanged += OnTableChanged;
-    }
 
-    void OnDisable()
-    {
-        _table.TableChanged -= OnTableChanged;
-    }
+        public LocalizedStringTable _table = null;
+        UIDocument _uiDocument;
 
-    public void OnTableChanged(StringTable table)
-    {
-        _uiDocument.rootVisualElement.Clear();
-        _uiDocument.visualTreeAsset.CloneTree(_uiDocument.rootVisualElement);
+        /// <summary> Executed after hierarchy is cloned fresh and translated. </summary>
+        public event System.Action OnCompleted = () => { };
 
-        var op = _table.GetTableAsync();
-        if (op.IsDone)
+        void OnEnable()
         {
-            OnTableLoaded(op);
+            if (_uiDocument == null)
+                _uiDocument = GetComponent<UIDocument>();
+            _table.TableChanged += OnTableChanged;
         }
-        else
-        {
-            op.Completed -= OnTableLoaded;
-            op.Completed += OnTableLoaded;
-        }
-    }
 
-    void OnTableLoaded(AsyncOperationHandle<StringTable> op)
-    {
-        StringTable table = op.Result;
-        LocalizeChildrenRecursively(_uiDocument.rootVisualElement, table);
-        _uiDocument.rootVisualElement.MarkDirtyRepaint();
-        OnCompleted();
-    }
-
-    void LocalizeChildrenRecursively(VisualElement element, StringTable table)
-    {
-        VisualElement.Hierarchy elementHierarchy = element.hierarchy;
-        int numChildren = elementHierarchy.childCount;
-        for (int i = 0; i < numChildren; i++)
+        void OnDisable()
         {
-            VisualElement child = elementHierarchy.ElementAt(i);
-            Localize(child, table);
+            _table.TableChanged -= OnTableChanged;
         }
-        for (int i = 0; i < numChildren; i++)
-        {
-            VisualElement child = elementHierarchy.ElementAt(i);
-            VisualElement.Hierarchy childHierarchy = child.hierarchy;
-            int numGrandChildren = childHierarchy.childCount;
-            if (numGrandChildren != 0)
-                LocalizeChildrenRecursively(child, table);
-        }
-    }
 
-    void Localize(VisualElement next, StringTable table)
-    {
-        if (typeof(TextElement).IsInstanceOfType(next))
+        public void OnTableChanged(StringTable table)
         {
-            TextElement textElement = (TextElement)next;
-            string key = textElement.text;
-            if (!string.IsNullOrEmpty(key) && key[0] == '#')
+            _uiDocument.rootVisualElement.Clear();
+            _uiDocument.visualTreeAsset.CloneTree(_uiDocument.rootVisualElement);
+
+            var op = _table.GetTableAsync();
+            if (op.IsDone)
             {
-                key = key.TrimStart('#');
-                StringTableEntry entry = table[key];
-                if (entry != null)
-                    textElement.text = entry.LocalizedValue;
-                else
-                    Debug.LogWarning($"No {table.LocaleIdentifier.Code} translation for key: '{key}'");
+                OnTableLoaded(op);
+            }
+            else
+            {
+                op.Completed -= OnTableLoaded;
+                op.Completed += OnTableLoaded;
             }
         }
-    }
 
+        void OnTableLoaded(AsyncOperationHandle<StringTable> op)
+        {
+            StringTable table = op.Result;
+            LocalizeChildrenRecursively(_uiDocument.rootVisualElement, table);
+            _uiDocument.rootVisualElement.MarkDirtyRepaint();
+            OnCompleted();
+        }
+
+        void LocalizeChildrenRecursively(VisualElement element, StringTable table)
+        {
+            VisualElement.Hierarchy elementHierarchy = element.hierarchy;
+            int numChildren = elementHierarchy.childCount;
+            for (int i = 0; i < numChildren; i++)
+            {
+                VisualElement child = elementHierarchy.ElementAt(i);
+                Localize(child, table);
+            }
+            for (int i = 0; i < numChildren; i++)
+            {
+                VisualElement child = elementHierarchy.ElementAt(i);
+                VisualElement.Hierarchy childHierarchy = child.hierarchy;
+                int numGrandChildren = childHierarchy.childCount;
+                if (numGrandChildren != 0)
+                    LocalizeChildrenRecursively(child, table);
+            }
+        }
+
+        void Localize(VisualElement next, StringTable table)
+        {
+            if (typeof(TextElement).IsInstanceOfType(next))
+            {
+                TextElement textElement = (TextElement)next;
+                string key = textElement.text;
+                if (!string.IsNullOrEmpty(key) && key[0] == '#')
+                {
+                    key = key.TrimStart('#');
+                    StringTableEntry entry = table[key];
+                    if (entry != null)
+                        textElement.text = entry.LocalizedValue;
+                    else
+                        Debug.LogWarning($"No {table.LocaleIdentifier.Code} translation for key: '{key}'");
+                }
+            }
+        }
+
+    } 
 }

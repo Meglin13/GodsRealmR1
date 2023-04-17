@@ -1,18 +1,31 @@
 ﻿using UnityEngine;
 using UnityEngine.Localization.Tables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace UI
 {
+    [RequireComponent(typeof(UIDocumentLocalization))]
     public abstract class UIScript : MonoBehaviour
     {
         public VisualElement root;
         [HideInInspector]
-        public UIDocumentLocalization localization;
+        private UIDocumentLocalization localization;
+        [HideInInspector]
+        public UIManager manager;
+
+        internal StringTable UITable;
+        internal StringTable ItemsTable;
+        internal StringTable CharacterTable;
 
         private void OnEnable()
         {
             localization = GetComponent<UIDocumentLocalization>();
+            manager = UIManager.Instance;
+
+            UITable = manager.UITable;
+            CharacterTable = manager.CharacterTable;
+            ItemsTable = manager.ItemsTable;
 
             OnBind();
             localization.OnCompleted -= OnBind;
@@ -22,27 +35,13 @@ namespace UI
         internal virtual void OnBind()
         {
             root = GetComponent<UIDocument>().rootVisualElement;
-        }
-
-        /// <summary>
-        /// Установка нового текста и его локализация
-        /// </summary>
-        /// <param name="textElement">Текстовый элемент</param>
-        /// <param name="key">Ключ в таблице локализации</param>
-        internal void ChangeLabelsText(TextElement textElement, string key)
-        {
-            var table = localization._table.GetTable();
-
-            if (!string.IsNullOrEmpty(key))
+            var BackBT = root.Q<Button>("BackBT");
+            if (BackBT != null)
             {
-                StringTableEntry entry = table[key];
-                if (entry != null)
-                    textElement.text = entry.LocalizedValue;
-                else
-                    textElement.text = key;
+                BackBT.clicked += GoBack;
             }
         }
 
-        internal virtual void GoBack() => UIManager.Instance.GoBack();
+        internal virtual void GoBack() => manager.GoBack();
     }
 }

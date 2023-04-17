@@ -37,7 +37,7 @@ public class EnemyScript : EntityScript
         double chance = (random.NextDouble() * (100 - 1) + 1);
         if (chance <= DealerStats.ModifiableStats[StatType.CritChance].GetFinalValue())
         {
-            damage += damage * DealerStats.ModifiableStats[StatType.CritDamage].GetFinalValue() / 100;
+            damage += Mathf.FloorToInt(damage * DealerStats.ModifiableStats[StatType.CritDamage].GetFinalValue() / 100);
             scale = 2f;
         }
 
@@ -90,11 +90,6 @@ public class EnemyScript : EntityScript
     #endregion [AI]
 
     #region [Unity Methods]
-
-    public override void Awake()
-    {
-        base.Awake();
-    }
 
     public virtual void Start()
     {

@@ -2,7 +2,7 @@
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI
+namespace UI.CustomControls
 {
     public class InventorySlotControl : VisualElement
     {
@@ -36,7 +36,7 @@ namespace UI
             Icon.AddToClassList("slot-icon");
             AmountLB.AddToClassList("slot-amount-label");
 
-            this.AddToClassList("inventory-slot");
+            this.AddToClassList("slot");
 
             defaultBG = Icon.style.backgroundColor;
             defaultBorderColor = this.style.borderTopColor;

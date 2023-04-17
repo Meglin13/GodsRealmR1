@@ -59,7 +59,6 @@ MonoBehaviour:
   DamagePopUp: {fileID: 7713178584550804675, guid: eb4d3a8df44abe643a7f007587199af1, type: 3}
   HitVFX: {fileID: 1046644184196163445, guid: 9a27a02c3b605d24cb25148731b7165f, type: 3}
   HealthBar: {fileID: 1119549007976157607, guid: f7506636e2f2eff48bf20d79b46969e1, type: 3}
-  InventoryCellPrefab: {fileID: 8149717471994064862, guid: 549021db0e2a9c44eb0a627a3c4dedad, type: 3}
   playerInput: {fileID: -944628639613478452, guid: a525e602a1e5b044ea43cda829af3690, type: 3}
   characters:
   - {fileID: 0}
@@ -67,17 +66,18 @@ MonoBehaviour:
   CaptionLifeTime: 5
   ParryTime: 0.5
   ParryMod:
+    IsVisible: 0
     Name: Perfect Parry!
     Description: 
     ModifierType: 0
-    StatType: 3
+    StatType: 7
     Element: 0
     ModifierAmountType: 1
     Amount: 200
     IsPermanent: 0
-    IsVisible: 0
     DurationInSecs: 1
-  ItemsList: []
+  EquipmentList: []
+  PotionList: []
 --- !u!114 &5716090509274294091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   LeaderIndex: 0
   CanSwitch: 1
   PartyMembers: []
+  Characters: []
 --- !u!114 &5716090509274294089
 MonoBehaviour:
   m_ObjectHideFlags: 0

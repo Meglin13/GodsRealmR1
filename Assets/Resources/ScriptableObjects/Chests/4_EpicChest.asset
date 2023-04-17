@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4de2c28e33e4146aa2b2afa7de778d, type: 3}
   m_Name: 4_EpicChest
   m_EditorClassIdentifier: 
+  InputString: '5 10 40 80 8 16 '
   ChestType: 4
-  MaxItems: 12
-  MinItems: 7
-  MaxGold: 100
-  MinGold: 50
+  Items:
+    Min: 5
+    Max: 10
+  Gold:
+    Min: 40
+    Max: 80
+  Potions:
+    Min: 8
+    Max: 16

@@ -13,7 +13,13 @@ namespace UI
             base.OnBind();
 
             CharInfo = root.Q<Label>("CharInfoLabel");
+
+#if !UNITY_EDITOR
+            gameObject.SetActive(false);
+#endif
         }
+
+#if UNITY_EDITOR
 
         private void FixedUpdate()
         {
@@ -46,4 +52,6 @@ namespace UI
             return Info;
         }
     }
+
+#endif
 }

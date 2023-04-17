@@ -24,7 +24,7 @@ namespace UI
 
         private IEnumerator LoadSceneAsync(string SceneName)
         {
-            AsyncOperation loadScene = SceneManager.LoadSceneAsync(SceneName);
+            AsyncOperation loadScene = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Single);
 
             loadScene.allowSceneActivation = false;
 

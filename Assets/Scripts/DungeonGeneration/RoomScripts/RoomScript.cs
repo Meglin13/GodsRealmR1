@@ -21,6 +21,8 @@ public class DoorwayObject
 
     public bool IsDoorActive;
 
+
+
     /// <summary>
     /// Установка стены или прохода
     /// </summary>
@@ -46,16 +48,19 @@ public class DoorwayObject
 [SelectionBase]
 public class RoomScript : MonoBehaviour
 {
-    public Vector2 Size;
+    public Vector2Int Size;
 
+    public RoomBehaviour Behaviour;
     public bool IsRoomCleared = false;
 
     public event Action OnRoomClear = delegate { };
     public event Action OnRoomEnter = delegate { };
     public event Action OnRoomExit = delegate { };
 
-    public Vector2 coordinates;
+    public Vector2Int coordinates;
 
+    [HideInInspector]
+    public int OpenedDoorsCount;
     public List<DoorwayObject> DoorwaysList = new List<DoorwayObject>(4)
     {
         new DoorwayObject() { Side = WorldSide.North},
@@ -66,13 +71,13 @@ public class RoomScript : MonoBehaviour
 
     public void OnRoomEnterTrigger()
     {
-        Debug.Log("Enter the " + gameObject.name);
+        //Debug.Log("Enter the " + gameObject.name);
         OnRoomEnter();
     }
 
     public void OnRoomExitTrigger()
     {
-        Debug.Log("Exit the " + gameObject.name);
+        //Debug.Log("Exit the " + gameObject.name);
         OnRoomEnter();
     }
 
@@ -89,24 +94,29 @@ public class RoomScript : MonoBehaviour
         OnRoomClear();
     }
 
-    public void SetBehaviour()
+    public void SetBehaviour(RoomBehaviour behaviour)
     {
-
+        this.Behaviour = Instantiate(behaviour);
+        Behaviour.Initialize(this);
     }
 
+    #region [Doors]
     /// <summary>
-    /// 
+    /// Установка состояния дверей
     /// </summary>
     /// <param name="sides">Массив информации о ближайших комнатах. 
     /// Двери открываются по часовой стрелке, начиная с севера: СЕВЕР, ВОСТОК, ЮГ, ЗАПАД</param>
     public void SetDoorways(bool[] sides)
     {
+        OpenedDoorsCount = 0;
+
         for (int i = 0; i < sides.Length; i++)
         {
             if (sides[i])
             {
                 DoorwaysList[i].IsDoorActive = true;
                 DoorwaysList[i].SetDoorway();
+                OpenedDoorsCount++;
             }
         }
     }
@@ -150,4 +160,5 @@ public class RoomScript : MonoBehaviour
     }
 
 #endif
+    #endregion
 }

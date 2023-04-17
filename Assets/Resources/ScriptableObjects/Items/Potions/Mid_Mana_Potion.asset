@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81fd60e334b77d42893efdd3499435e, type: 3}
+  m_Name: Mid_Mana_Potion
+  m_EditorClassIdentifier: 
+  id: dad3600f4b006f74da808de0b62c0395
+  Name: Mid_Mana_Potion
+  Description: Mid_Mana_Potion_Desc
+  Icon: {fileID: 21300000, guid: f25acdfafd81edc4cba58781c28990ad, type: 3}
+  _Rarity: 2
+  Amount: 1
+  IsStackable: 1
+  Type: 1
+  PotionType: 2
+  PotionStrength: 1
+  AmountOfPotion: 30

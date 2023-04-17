@@ -1,3 +1,4 @@
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -6,11 +7,11 @@ namespace UI
 {
     public class PauseMenuScript : UIScript
     {
-        private Button ResumeButton;
-        private Button RestartButton;
-        private Button RunStatsButton;
-        private Button MainMenuButton;
-        private Button SettingsButton;
+        private Button RestartBT;
+        private Button RunStatsBT;
+        private Button MainMenuBT;
+        private Button SettingsBT;
+        private Button ReturnToHubBT;
 
         private string CurrentSceneName;
 
@@ -20,41 +21,42 @@ namespace UI
 
             CurrentSceneName = SceneManager.GetActiveScene().name;
 
-            ResumeButton = root.Q<Button>("ResumeBT");
-            RestartButton = root.Q<Button>("RestartBT");
-            RunStatsButton = root.Q<Button>("RunStatsBT");
-            SettingsButton = root.Q<Button>("SettingsBT");
-            MainMenuButton = root.Q<Button>("MainMenuBT");
+            RestartBT = root.Q<Button>("RestartBT");
+            RunStatsBT = root.Q<Button>("RunStatsBT");
+            SettingsBT = root.Q<Button>("SettingsBT");
+            MainMenuBT = root.Q<Button>("MainMenuBT");
+            ReturnToHubBT = root.Q<Button>("ReturnToHubBT");
 
-            ResumeButton.clicked += ResumeButtonClicked;
-            RestartButton.clicked += RestartButtonClicked;
-            MainMenuButton.clicked += MainMenuButtonClicked;
-            SettingsButton.clicked += SettingsButtonClicked;
-            RunStatsButton.clicked += RunButtonClicked;
+            RestartBT.clicked += RestartButtonClicked;
+            MainMenuBT.clicked += MainMenuButtonClicked;
+            SettingsBT.clicked += SettingsButtonClicked;
+            RunStatsBT.clicked += RunButtonClicked;
+
+            if (CurrentSceneName == "HubScene")
+            {
+                RestartBT.style.display = DisplayStyle.None;
+                ReturnToHubBT.style.display = DisplayStyle.None;
+                RunStatsBT.style.display = DisplayStyle.None;
+            }
         }
 
         void OnDisable()
         {
-            Time.timeScale = 1;
-
-            ResumeButton.clicked -= ResumeButtonClicked;
-            RestartButton.clicked -= RestartButtonClicked;
-            MainMenuButton.clicked -= MainMenuButtonClicked;
-            SettingsButton.clicked -= SettingsButtonClicked;
-            RunStatsButton.clicked += RunButtonClicked;
+            RestartBT.clicked -= RestartButtonClicked;
+            MainMenuBT.clicked -= MainMenuButtonClicked;
+            SettingsBT.clicked -= SettingsButtonClicked;
+            RunStatsBT.clicked -= RunButtonClicked;
         }
-
-        void ResumeButtonClicked() => UIManager.Instance.GoBack();
 
         void RunButtonClicked()
         {
 
         }
 
-        void RestartButtonClicked() => UIManager.Instance.ChangeScene(CurrentSceneName, gameObject);
+        void RestartButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        void MainMenuButtonClicked() => UIManager.Instance.ChangeScene("MainMenu", gameObject);
+        void MainMenuButtonClicked() => manager.ChangeScene("MainMenu", gameObject);
 
-        void SettingsButtonClicked() => UIManager.Instance.ChangeMenu(gameObject, UIManager.Instance.SettingsMenu);
+        void SettingsButtonClicked() => manager.ChangeMenu(gameObject, manager.SettingsMenu);
     }
 }

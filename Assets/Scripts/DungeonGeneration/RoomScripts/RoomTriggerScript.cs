@@ -21,13 +21,19 @@ public class RoomTriggerScript : MonoBehaviour
         Trigger.size = new Vector3(Room.Size.x - 1, 0, Room.Size.y - 1);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        Room.OnRoomEnterTrigger();
+        if (collider.tag == "Player")
+        {
+            Room.OnRoomEnterTrigger();
+        }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collider)
     {
-        Room.OnRoomExitTrigger();
+        if (collider.tag == "Player")
+        {
+            Room.OnRoomExitTrigger();
+        }
     }
 }

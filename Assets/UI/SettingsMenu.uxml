@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
     <ui:VisualElement name="Panel" class="panel">
-        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgb(35, 35, 59); width: auto; max-height: none; height: 85%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
+        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgb(35, 35, 59); width: auto; max-height: none; height: 90%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
             <ui:Label text="#Settings" display-tooltip-when-elided="true" name="SettingsLB" class="header-label" />
             <ui:VisualElement focusable="true" name="VolumeSettings">
                 <ui:Label text="#Audio" display-tooltip-when-elided="true" name="VolumeLB" class="separator-label title" />
-                <ui:Slider picking-mode="Ignore" label="#Global" value="100" high-value="100" direction="Horizontal" tabindex="0" inverted="false" style="max-height: none; max-width: none; min-height: auto; align-items: stretch; flex-wrap: nowrap;" />
-                <ui:Slider picking-mode="Ignore" label="#Music" value="100" high-value="100" tabindex="1" />
-                <ui:Slider picking-mode="Ignore" label="#SFX" value="100" high-value="100" tabindex="2" />
+                <ui:Slider picking-mode="Ignore" label="#Global" value="100" high-value="100" direction="Horizontal" tabindex="0" inverted="false" name="GlobalVolumeSlider" class="centered-slider" style="max-height: none; max-width: none; min-height: auto; align-items: stretch; flex-wrap: nowrap; -unity-text-align: middle-left;" />
+                <ui:Slider picking-mode="Ignore" label="#Music" value="100" high-value="100" tabindex="1" class="centered-slider" />
+                <ui:Slider picking-mode="Ignore" label="#SFX" value="100" high-value="100" tabindex="2" class="centered-slider" />
             </ui:VisualElement>
             <ui:VisualElement name="VideoSettings">
                 <ui:Label text="#Video" display-tooltip-when-elided="true" name="VideoLB" tabindex="-1" class="separator-label title" style="-unity-text-align: middle-center;" />
@@ -19,6 +19,10 @@
             <ui:VisualElement name="LanguageSettings">
                 <ui:Label text="#Language" display-tooltip-when-elided="true" name="LanguageLB" tabindex="-1" class="separator-label title" style="-unity-text-align: middle-center;" />
                 <ui:DropdownField label="#Language" index="-1" name="LangDDF" tabindex="6" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SaveSettings">
+                <ui:Label text="#SaveSettings" display-tooltip-when-elided="true" class="title" style="color: rgb(255, 199, 0);" />
+                <ui:Button text="ResetSave" display-tooltip-when-elided="true" name="ResetSaveBT" enable-rich-text="true" style="color: rgb(255, 0, 0);" />
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:VisualElement name="Buttons" class="buttons-container">

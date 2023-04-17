@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4de2c28e33e4146aa2b2afa7de778d, type: 3}
   m_Name: 5_LegendaryChest
   m_EditorClassIdentifier: 
+  InputString: '6 12 80 160 16 32 '
   ChestType: 5
-  MaxItems: 15
-  MinItems: 9
-  MaxGold: 150
-  MinGold: 75
+  Items:
+    Min: 6
+    Max: 12
+  Gold:
+    Min: 80
+    Max: 160
+  Potions:
+    Min: 16
+    Max: 32

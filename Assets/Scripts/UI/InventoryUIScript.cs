@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+using UI.CustomControls;
 
 namespace UI
 {
     public class InventoryUIScript : UIScript
     {
+
         //Context
         public CharacterScript CharacterContext;
 
@@ -86,8 +90,8 @@ namespace UI
 
             //CharInfo
             CharNameLB = root.Q<Label>("CharNameLB");
-            PreviousCharBT = root.Q<Button>("PreviousCharBT");
-            NextCharBT = root.Q<Button>("NextCharBT");
+            PreviousCharBT = root.Q<Button>("PreviousBT");
+            NextCharBT = root.Q<Button>("NextBT");
             CharImage = root.Q<VisualElement>("CharImage");
 
             charSlots = new Dictionary<EquipmentType, InventorySlotControl>(8);
@@ -121,6 +125,15 @@ namespace UI
             NextCharBT.clicked += () => ChangeCharacterContext(IndexType.Next);
 
             OnInventoryUpdate();
+        }
+
+        private void OnDisable()
+        {
+            EquipBT.clicked -= EquipItemButtonClicked;
+            DropBT.clicked -= DropItemButtonClicked;
+
+            PreviousCharBT.clicked -= () => ChangeCharacterContext(IndexType.Previous);
+            NextCharBT.clicked -= () => ChangeCharacterContext(IndexType.Next);
         }
 
         private void UpdateInventory()
@@ -219,11 +232,11 @@ namespace UI
 
                 if (inventorySlot.itemContext is EquipmentItem)
                 {
-                    ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip");
+                    manager.ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip", UITable);
                 }
                 else
                 {
-                    ChangeLabelsText(EquipBT, "Use");
+                    manager.ChangeLabelsText(EquipBT, "Use", UITable);
                 }
 
                 slotContext?.UnselectSlot();
@@ -261,6 +274,10 @@ namespace UI
             {
                 index = inventory.Inventory.Count - 1;
             }
+            else
+            {
+                return;
+            }
 
             SelectItemSlot((InventorySlotControl)InventoryContainer[index]);
         }
@@ -276,16 +293,16 @@ namespace UI
 
         private void SetCurrencies()
         {
-            ChangeLabelsText(GoldLB, "Gold");
+            manager.ChangeLabelsText(GoldLB, "Gold", UITable);
             GoldLB.text += " " + inventory.Gold;
 
-            ChangeLabelsText(TokenLB, "Token");
+            manager.ChangeLabelsText(TokenLB, "Token", UITable);
             TokenLB.text += " " + inventory.Tokens;
         }
 
         private void UpdateCharacterInfo()
         {
-            ChangeLabelsText(CharNameLB, CharacterContext.EntityStats.Name);
+            manager.ChangeLabelsText(CharNameLB, CharacterContext.EntityStats.Name, CharacterTable);
 
             CharImage.style.backgroundImage = new StyleBackground(CharacterContext.EntityStats.Art);
 
@@ -299,8 +316,8 @@ namespace UI
         {
             if (slotContext.itemContext)
             {
-                ChangeLabelsText(ItemNameLB, slotContext.itemContext.Name);
-                ChangeLabelsText(ItemDescLB, slotContext.itemContext.Description);
+                manager.ChangeLabelsText(ItemNameLB, slotContext.itemContext.Name, ItemsTable);
+                manager.ChangeLabelsText(ItemDescLB, slotContext.itemContext.Description, ItemsTable);
             }
         }
 

@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Marfa
+  m_EditorClassIdentifier: 
+  id: 3
+  Name: Marfa
+  Description: Marfa_Desc
+  Type: 1
+  Icon: {fileID: 21300000, guid: 321f6db22e115c6498f62bb7ccf86898, type: 3}
+  Art: {fileID: 21300000, guid: 16df6461aa90a384ea61f1e2515d5df2, type: 3}
+  Rarity: 3
+  Level: 1
+  Element: 2
+  WeaponType: 6
+  IsHeavy: 0
+  BaseHealth: 150
+  HealthMod: 15
+  BaseAttack: 5
+  AttackMod: 5
+  BaseDefence: 20
+  DefenceMod: 7
+  SightRange: 20
+  AttackRange: 10
+  AttackCooldown: 5
+  Speed: 7.3
+  EnemyLayer: 8
+  EnemyTag: Enemy
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
+  NormalAttackMult: 70
+  Luck: 3
+  BaseCritDamage: 150
+  CritChanceMod: 0
+  CritDamageMod: 0
+  BaseMana: 200
+  ManaMod: 0
+  Endurance: 3
+  Agility: 3
+  BaseStamina: 100
+  StaminaMod: 0
+  AttackSpeed: 1.2166667
+  Sprint: 9.49
+  DodgeCost: 29
+  BlockCost: 30.5
+  HeavyBlockCost: 45.75
+  skills:
+  - Level: 1
+    LevelMod: 10
+    SkillName: Marfa_Special
+    Description: Marfa_Special_Desc
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 10
+    CooldownInSecs: 5
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 20
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Marfa_Distract
+    Description: Marfa_Distract_Desc
+    SkillType: 1
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 20
+    DurationInSecs: 10
+    IsPeriodic: 1
+    PeriodicDamageTime: 2
+    ManaCost: 10
+    Radius: 5
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Marfa_Ultimate
+    Description: Marfa_Ultimate_Desc
+    SkillType: 2
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 20
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 0
+      DurationInSecs: 0
+    StunTime: 0
+  TeamBuff:
+    IsVisible: 0
+    Name: Forest heart
+    Description: +10% HP
+    ModifierType: 0
+    StatType: 0
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 1
+    DurationInSecs: 0
+  IsUnlocked: 1

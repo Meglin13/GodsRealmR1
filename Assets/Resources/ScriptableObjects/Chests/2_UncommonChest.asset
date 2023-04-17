@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4de2c28e33e4146aa2b2afa7de778d, type: 3}
   m_Name: 2_UncommonChest
   m_EditorClassIdentifier: 
+  InputString: '3 6 10 20 2 4 '
   ChestType: 2
-  MaxItems: 6
-  MinItems: 3
-  MaxGold: 30
-  MinGold: 15
+  Items:
+    Min: 3
+    Max: 6
+  Gold:
+    Min: 10
+    Max: 20
+  Potions:
+    Min: 2
+    Max: 4

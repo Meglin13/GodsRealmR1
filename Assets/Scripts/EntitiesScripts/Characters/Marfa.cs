@@ -3,23 +3,17 @@ using UnityEngine;
 public class Marfa : CharacterScript, ICharacter
 {
     public GameObject NormalAttackBullet;
+    public GameObject DistractSkillTotem;
 
-    public override void Awake()
+    public override void Initialize()
     {
         Character = this;
-        base.Awake();
+        base.Initialize();
     }
 
     public void Attack()
     {
-        LookAtEnemy(EntityStats.AttackRange);
-
-        Skill attackSkill = new Skill()
-        {
-            Radius = 1f,
-            BaseDamageMultiplier = EntityStats.NormalAttackMult,
-        };
-        attackSkill.DamageMultiplier = new Stat(attackSkill.BaseDamageMultiplier);
+        Skill attackSkill = new Skill(1f, EntityStats.NormalAttackMult);
 
         MiscUtilities.Instance.ThrowThrowable(NormalAttackBullet, this, attackSkill);
     }
@@ -31,12 +25,16 @@ public class Marfa : CharacterScript, ICharacter
 
     public void DistractionAbility()
     {
-        Debug.Log("Distraction Attack");
+        LookAtEnemy(5f);
+        Skill skill = EntityStats.SkillSet[SkillType.Distract];
+        
+        var totem = MiscUtilities.SpawnObjectInFrontOfObject(gameObject, DistractSkillTotem, 5);
+        totem.GetComponent<AreaOfEffectScript>().Init(EntityStats, skill);
     }
 
     public void SpecialAbility()
     {
-        GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillsType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
+        GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
     }
 
     public void UltimateAbility()

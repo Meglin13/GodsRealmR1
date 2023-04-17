@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PartyManager : MonoBehaviour, IManager
@@ -21,7 +22,7 @@ public class PartyManager : MonoBehaviour, IManager
     /// </summary>
     [HideInInspector]
     public List<CharacterScript> PartyMembers = new List<CharacterScript>();
-
+    public List<EntityStats> Characters = new List<EntityStats>();
     /// <summary>
     /// Переключение персонажей
     /// </summary>
@@ -41,11 +42,13 @@ public class PartyManager : MonoBehaviour, IManager
         SidekickState sidekickState = new SidekickState(CurrentPlayer, CurrentPlayer.EntityStateMachine);
         CurrentPlayer.EntityStateMachine.ChangeState(sidekickState);
         CurrentPlayer.IsActive = false;
+        CurrentPlayer.tag = AIUtilities.CharsTag;
 
         //Новый игрок
         PlayerState playerState = new PlayerState(NewPlayer, NewPlayer.EntityStateMachine);
         NewPlayer.EntityStateMachine.ChangeState(playerState);
         NewPlayer.IsActive = true;
+        NewPlayer.tag = AIUtilities.PlayerTag;
 
         LeaderIndex = newPlayerIndex - 1;
         CameraCenterBehaviour.Instance.SetTarget(NewPlayer.gameObject.transform);
@@ -54,6 +57,8 @@ public class PartyManager : MonoBehaviour, IManager
     public void Initialize()
     {
         Instance = this;
+
+        Characters = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList();
     }
 
     //TODO: Сделать выбор членов команды
@@ -73,6 +78,7 @@ public class PartyManager : MonoBehaviour, IManager
             i.HotKeyNumber = PartyMembers.IndexOf(i);
 
         PartyMembers[0].IsActive = true;
+        PartyMembers[0].tag = AIUtilities.PlayerTag;
         CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
     }
 
@@ -169,7 +175,7 @@ public class PartyManager : MonoBehaviour, IManager
             }
             else
             {
-                Debug.Log("Wrong type to support!!!");
+                Debug.Log("Wrong type of support!!!");
             }
         }
     }

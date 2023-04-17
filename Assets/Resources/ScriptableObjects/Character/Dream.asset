@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954987315c62984baa72fa0ea9f90ad, type: 3}
+  m_Name: Dream
+  m_EditorClassIdentifier: 
+  id: 2
+  Name: Dream
+  Description: Dream_Desc
+  Type: 1
+  Icon: {fileID: 0}
+  Art: {fileID: 0}
+  Rarity: 3
+  Level: 1
+  Element: 0
+  WeaponType: 4
+  IsHeavy: 0
+  BaseHealth: 100
+  HealthMod: 10
+  BaseAttack: 10
+  AttackMod: 10
+  BaseDefence: 20
+  DefenceMod: 10
+  SightRange: 20
+  AttackRange: 3
+  AttackCooldown: 5
+  Speed: 5
+  EnemyLayer: 0
+  EnemyTag: 
+  FireRes: 0
+  WaterRes: 0
+  EarthRes: 0
+  AirRes: 0
+  LightRes: 0
+  DarkRes: 0
+  NormalAttackMult: 70
+  Luck: 1
+  BaseCritDamage: 150
+  CritChanceMod: 0
+  CritDamageMod: 0
+  BaseMana: 100
+  ManaMod: 0
+  Endurance: 1
+  Agility: 1
+  BaseStamina: 100
+  StaminaMod: 0
+  AttackSpeed: 0
+  Sprint: 0
+  DodgeCost: 0
+  BlockCost: 0
+  HeavyBlockCost: 0
+  skills:
+  - Level: 1
+    LevelMod: 10
+    SkillName: Dream_Special
+    Description: Dream_Special_Desc
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 1
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Dream_Distract
+    Description: Dream_Distract_Desc
+    SkillType: 1
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 1
+      DurationInSecs: 0
+    StunTime: 0
+  - Level: 1
+    LevelMod: 10
+    SkillName: Dream_Ultimate
+    Description: Dream_Ultimate_Desc
+    SkillType: 2
+    SkillIcon: {fileID: 0}
+    BaseDamageMultiplier: 100
+    CooldownInSecs: 5
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 10
+    Radius: 1
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      Name: 
+      Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 1
+      DurationInSecs: 0
+    StunTime: 0
+  TeamBuff:
+    IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 0
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 0
+    IsPermanent: 1
+    DurationInSecs: 0
+  IsUnlocked: 1

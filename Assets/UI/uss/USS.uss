@@ -27,7 +27,7 @@ Button {
     -unity-font: resource('Fonts & Materials/DolomanPavljenko');
     background-image: resource('Images/UI/Button');
     font-size: 35px;
-    width: 430px;
+    width: 450px;
     -unity-slice-left: 1100;
     -unity-slice-top: 0;
     -unity-slice-right: 1100;
@@ -35,14 +35,14 @@ Button {
     -unity-background-scale-mode: stretch-to-fill;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     height: 80px;
-    max-height: 120px;
+    max-height: 80px;
     min-height: 80px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     -unity-text-align: middle-center;
     white-space: normal;
     border-left-width: 0;
@@ -55,31 +55,37 @@ Button {
     border-bottom-color: rgba(0, 0, 0, 0);
     margin-top: auto;
     margin-bottom: auto;
+    max-width: 500px;
+    min-width: 400px;
+    flex-shrink: 0;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    flex-basis: auto;
+    transition-duration: 0.2s;
 }
 
 Button:hover {
-    -unity-background-image-tint-color: rgb(190, 190, 190);
+    -unity-background-image-tint-color: rgb(171, 171, 171);
     background-color: rgba(0, 0, 0, 0);
     -unity-background-scale-mode: stretch-to-fill;
-    transition-property: -unity-background-image-tint-color;
-    transition-duration: 0.1s;
+    transition-property: all;
+    transition-duration: 0.4s;
     transition-timing-function: ease;
+    cursor: initial;
 }
 
-Slider {
-    justify-content: center;
-    flex-direction: row;
-    -unity-text-align: upper-left;
-    opacity: 1;
-    visibility: visible;
-    overflow: visible;
-    display: flex;
-    align-items: stretch;
-    -unity-font-style: normal;
-    font-size: 35px;
+Button:active {
+    -unity-background-image-tint-color: rgba(255, 244, 143, 255);
+    transition-duration: 0.1s;
 }
 
 ScrollView {
+}
+
+TextField {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .separator-label {
@@ -173,34 +179,6 @@ ScrollView {
     justify-content: center;
 }
 
-.unity-progress-bar__title-container {
-    height: auto;
-    -unity-text-align: middle-center;
-    font-size: 25px;
-    -unity-font-style: normal;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.unity-progress-bar__background {
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.25);
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-}
-
 .arrows-buttons {
     width: 70px;
     height: 70px;
@@ -209,9 +187,24 @@ ScrollView {
     -unity-text-align: middle-center;
     flex-direction: row;
     -unity-background-scale-mode: stretch-to-fill;
+    max-width: 70px;
+    max-height: 70px;
+    min-height: 70px;
+    min-width: 70px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.inventory-slot {
+.arrows-buttons:hover {
+    scale: 1 1;
+    translate: 0 0;
+    rotate: 0;
+    -unity-background-image-tint-color: rgba(79, 79, 79, 255);
+}
+
+.slot {
     width: 100px;
     height: 100px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.5);
@@ -238,7 +231,7 @@ ScrollView {
     background-color: rgba(0, 0, 0, 0.42);
 }
 
-.inventory-slot:hover {
+.slot:hover {
     border-left-width: 3px;
     border-right-width: 3px;
     border-top-width: 3px;
@@ -247,6 +240,7 @@ ScrollView {
     border-right-color: rgb(168, 168, 168);
     border-top-color: rgb(168, 168, 168);
     border-bottom-color: rgb(168, 168, 168);
+    transition-duration: 0.2s;
 }
 
 .slot-amount-label {
@@ -263,22 +257,148 @@ ScrollView {
     margin-bottom: 0;
 }
 
-.unity-base-slider {
-}
-
-.unity-scroller {
-    height: 100%;
-}
-
 .unity-text-input {
 }
 
 .buttons-container {
-    flex-direction: row;
+    flex-direction: row-reverse;
     margin-left: 0;
     margin-right: 0;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
     justify-content: space-around;
     width: 100%;
+    flex-shrink: 0;
+}
+
+.element-icon {
+}
+
+.charname-label {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    -unity-text-align: middle-center;
+}
+
+.char-slot {
+    flex-shrink: 0;
+    border-left-color: rgb(46, 46, 46);
+    border-right-color: rgb(46, 46, 46);
+    border-top-color: rgb(46, 46, 46);
+    border-bottom-color: rgb(46, 46, 46);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    flex-grow: 1;
+    background-image: resource('Images/Characters/dude dudesness');
+    -unity-background-scale-mode: scale-and-crop;
+    transition-duration: 0.2s;
+}
+
+.label-gradient-container {
+    background-image: resource('Images/UI/Gradients/gradient background');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.75);
+    margin-top: auto;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+.char-slot:hover {
+    flex-shrink: 0;
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    background-color: rgba(255, 199, 0, 0.05);
+    flex-grow: 1;
+    background-image: resource('Images/Characters/dude dudesness');
+    -unity-background-scale-mode: scale-and-crop;
+    transition-duration: 0.4s;
+    rotate: 0;
+    scale: 1 1;
+    translate: 0 0;
+    -unity-background-image-tint-color: rgb(250, 250, 250);
+    transition-delay: 0s;
+    -unity-text-align: upper-left;
+}
+
+.char-slot:hover .charname-label {
+    color: rgb(255, 199, 0);
+    font-size: 35px;
+    translate: 0 -10px;
+    transition-duration: 0.4s;
+    flex-shrink: 0;
+    scale: 1.1 1.1;
+}
+
+#unity-text-input {
+    color: rgb(128, 128, 128);
+}
+
+.modal-window-caption {
+    -unity-text-align: middle-center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.modal-window-container {
+    background-color: rgb(35, 35, 59);
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    height: auto;
+    width: 50%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: none;
+}
+
+.unity-slider #unity-drag-container {
+    justify-content: flex-start;
+}
+
+.centered-slider #unity-drag-container {
+    justify-content: center;
+    margin-left: auto;
+}
+
+.centered-slider #unity-dragger {
+    justify-content: center;
+    background-image: resource('Images/UI/InventoryCell/CellFrame');
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+#NextBT:hover {
+    translate: 5px 0;
+}
+
+#PreviousBT:hover {
+    translate: -5px 0;
 }

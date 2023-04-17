@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -21,8 +22,7 @@ namespace UI
         public RenderPipelineAsset[] QualityLevels = new RenderPipelineAsset[4];
 
         //Button
-        private Button BackButton;
-        private Button SaveButton;
+        private Button SaveBT;
 
         //Toggle
         private Toggle FullscreenTG;
@@ -38,8 +38,14 @@ namespace UI
             base.OnBind();
 
             //Buttons
-            BackButton = root.Q<Button>("BackBT");
-            SaveButton = root.Q<Button>("SaveBT");
+            SaveBT = root.Q<Button>("SaveBT");
+            var ResetSaveBT = root.Q<Button>("ResetSaveBT");
+            ResetSaveBT.clicked += () =>
+            {
+                manager.ShowModalWindow(ModalWindowType.YesNo, 
+                    "#Delete_Save_Caption", "#Delete_Save_Title", 
+                    () => SaveLoadSystem.SaveLoadSystem.DeleteSave());
+            };
 
             //Toggles
             FullscreenTG = root.Q<Toggle>("FullscreenTG");
@@ -62,26 +68,25 @@ namespace UI
             LangDDF.value = LocalizationSettings.AvailableLocales.Locales[Lang].LocaleName;
 
             //Events
-            BackButton.clicked += GoBack;
-            SaveButton.clicked += SaveButtonClicked;
+            SaveBT.clicked += SaveButtonClicked;
 
             ResolutionDDF.RegisterValueChangedCallback(v => Resolution = v.newValue);
-            RefreshRateDDF.RegisterValueChangedCallback(v =>
-            {
-                int.TryParse(v.newValue, out int value);
-                RefreshRate = value;
-            });
-
+            RefreshRateDDF.RegisterValueChangedCallback(v => int.TryParse(v.newValue, out RefreshRate));
             QualityDDF.RegisterValueChangedCallback(v => Quality = QualityDDF.choices.IndexOf(v.newValue));
             LangDDF.RegisterValueChangedCallback(v => Lang = LangDDF.choices.IndexOf(v.newValue));
 
             FullscreenTG.RegisterValueChangedCallback(v => IsFullscreen = v.newValue);
         }
 
+        private void OnDisable()
+        {
+            SaveBT.clicked -= SaveButtonClicked;
+        }
+
         void SaveButtonClicked()
         {
             SettingsScript.SetScreen(Resolution, IsFullscreen, RefreshRate);
-            SettingsScript.SetQuality(Quality, QualityLevels[Quality]);
+            SettingsScript.SetQuality(Quality);
             SettingsScript.SetLocalization(Lang);
         }
 

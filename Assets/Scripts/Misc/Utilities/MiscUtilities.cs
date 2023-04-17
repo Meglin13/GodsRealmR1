@@ -13,10 +13,13 @@ using Random = UnityEngine.Random;
 public class MiscUtilities : MonoBehaviour
 {
     public static MiscUtilities Instance;
+    public GameObject Dump;
 
-    private void Awake()
+    private void OnEnable()
     {
         Instance = this;
+
+        Dump = new GameObject("Dump");
     }
 
     public static GameObject FindChildWithTag(Transform transform, string tag)
@@ -45,7 +48,9 @@ public class MiscUtilities : MonoBehaviour
 
     public static void DamagePopUp(Transform transform, string Text, string ColorString, float Scale)
     {
-        GameObject DamagePopUp = Instantiate(GameManager.Instance.DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
+        var DamagePopUp = Instantiate(GameManager.Instance.DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
+        DamagePopUp.transform.SetParent(MiscUtilities.Instance.Dump.transform);
+
         DamagePopUp.transform.localScale *= Scale;
         DamagePopUp.GetComponentInChildren<TextMeshProUGUI>().text = $"<color={ColorString}>{Text}</color>";
         Destroy(DamagePopUp, 1f);
@@ -53,7 +58,9 @@ public class MiscUtilities : MonoBehaviour
 
     public void ThrowThrowable(GameObject throwable, IDamageable dude, Skill skill)
     {
-        Instantiate(throwable, dude.gameObject.transform.position + dude.gameObject.transform.forward + dude.gameObject.transform.up, dude.gameObject.transform.rotation).GetComponent<ThrowableScript>().Init(dude,skill);
+        var gm = Instantiate(throwable, dude.gameObject.transform.position + dude.gameObject.transform.forward + dude.gameObject.transform.up, dude.gameObject.transform.rotation);
+        gm.GetComponent<ThrowableScript>().Init(dude, skill);
+        gm.transform.parent = MiscUtilities.Instance.Dump.transform;
     }
 
     /// <summary>
@@ -62,9 +69,15 @@ public class MiscUtilities : MonoBehaviour
     /// <param name="spawner">Тот, кто спавнит</param>
     /// <param name="spawningObject">То, что спавнят</param>
     /// <param name="distance">Расстояние между тем, кто спавнит, и тем, что спавнят</param>
-    public static void SpawnObjectInFrontOfObject(GameObject spawner, GameObject spawningObject, float distance)
+    public static GameObject SpawnObjectInFrontOfObject(GameObject spawner, GameObject spawningObject, float spawnDistance)
     {
+        Vector3 playerPos = spawner.transform.position;
+        Vector3 playerDirection = spawner.transform.forward;
+        Quaternion playerRotation = spawner.transform.rotation;
 
+        Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
+
+        return Instantiate(spawningObject, spawnPos, playerRotation);
     }
 
     /// <summary>
@@ -97,7 +110,7 @@ public class MiscUtilities : MonoBehaviour
     {
         curIndex++;
 
-        if (curIndex > list.Count-1)
+        if (curIndex > list.Count - 1)
             curIndex = 0;
     }
 
@@ -106,26 +119,6 @@ public class MiscUtilities : MonoBehaviour
         curIndex--;
 
         if (curIndex < 0)
-            curIndex = list.Count-1;
-    }
-
-    public static void PrintAllProterties(object obj)
-    {
-        if (obj == null)
-        {
-            Debug.Log("Object is NULL!");
-            return;
-        }
-
-        string result = "bruh";
-
-        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(obj))
-        {
-            string name = descriptor.Name;
-            object value = descriptor.GetValue(obj);
-            result += $"{name} = {value}";
-        }
-
-        Debug.Log(result);
+            curIndex = list.Count - 1;
     }
 }

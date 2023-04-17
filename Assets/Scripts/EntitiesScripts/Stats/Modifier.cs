@@ -36,7 +36,21 @@ public class Modifier
         ModifierType = modType;
     }
 
+    public Modifier(StatType StatType, float Amount, bool IsPermanent)
+    {
+        IsVisible = false;
+        this.IsPermanent = IsPermanent;
+        DurationInSecs = 0;
+        this.StatType = StatType;
+        this.Amount = Amount;
+        ModifierAmountType = ModifierAmountType.Value;
+        ModifierType = ModType.Buff;
+    }
+
+    public bool IsVisible = false;
+    [ConditionalField(nameof(IsVisible))]
     public string Name;
+    [ConditionalField(nameof(IsVisible))]
     public string Description;
     public ModType ModifierType;
     public StatType StatType;
@@ -45,7 +59,7 @@ public class Modifier
     public ModifierAmountType ModifierAmountType;
     public float Amount;
     public bool IsPermanent = true;
-    public bool IsVisible = false;
+    
     [ConditionalField(nameof(IsPermanent), inverse: true)]
     public float DurationInSecs = 0;
 }

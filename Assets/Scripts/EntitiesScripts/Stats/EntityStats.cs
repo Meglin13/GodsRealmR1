@@ -17,17 +17,42 @@ public enum StatType
     Speed,
     [InspectorName(null)]
     WeaponLength, 
-    Resistance, 
-    ElementalDamageBonus
+    Resistance, ElementalDamageBonus
 }
 
 public enum EntityType { Enemy, Character }
 
-[CreateAssetMenu(fileName = "EntityStats", menuName = "Objects/Entity Stats")]
+[CreateAssetMenu(fileName = "Entity Stats", menuName = "Objects/Entity Stats")]
 public class EntityStats : ScriptableObject
 {
+#if UNITY_EDITOR
+    public void OnValidate()
+    {
+        var list = Resources.LoadAll($"ScriptableObjects/{Type}", typeof(EntityStats)).Cast<EntityStats>().ToList().OrderBy(x => x.Name);;
+        this.id = list.ToList().IndexOf(this) + 1;
+
+        if (this.Name == "Ardalion" | this.Name == "Marfa" | this.Name == "Dream")
+        {
+            IsUnlocked = true;
+        }
+
+        foreach (var item in skills)
+        {
+            item.SetName(this.Name);
+        }
+
+        this.Description = Name + "_Desc";
+    }
+#endif
+
     [Foldout("Info", true)]
-    public string Name, Description;
+    [SerializeField]
+    [ReadOnly]
+    private int id;
+    public int ID { get { return id - 1; } }
+    public string Name;
+    [ReadOnly]
+    public string Description;
     public EntityType Type;
     public Sprite Icon, Art;
     public Rarity Rarity;
@@ -106,14 +131,14 @@ public class EntityStats : ScriptableObject
 
     [Header("Abilities")]
     [SerializeField]
-    private Skill[] skills = new Skill[3]
+    public Skill[] skills = new Skill[3]
     {
-        new Skill() { SkillType = SkillsType.Special },
-        new Skill() { SkillType = SkillsType.Distract },
-        new Skill() { SkillType = SkillsType.Ultimate }
+        new Skill(SkillType.Special),
+        new Skill(SkillType.Distract),
+        new Skill(SkillType.Ultimate)
     };
 
-    public Dictionary<SkillsType, Skill> SkillSet;
+    public Dictionary<SkillType, Skill> SkillSet;
 
     [Header("Attributes")]
     public Dictionary<StatType, Stat> ModifiableStats;
@@ -121,16 +146,19 @@ public class EntityStats : ScriptableObject
 
     public Stat WeaponLengthStat;
 
+    [ReadOnly]
+    public bool IsUnlocked = false;
+
     public virtual void Initialize(int Level)
     {
         if (this.Type == EntityType.Character)
         {
-            SkillSet = new Dictionary<SkillsType, Skill>(3)
-        {
-            { SkillsType.Special, skills[0]},
-            { SkillsType.Distract, skills[1]},
-            { SkillsType.Ultimate, skills[2]},
-        };
+            SkillSet = new Dictionary<SkillType, Skill>(3)
+            {
+                { SkillType.Special, skills[0]},
+                { SkillType.Distract, skills[1]},
+                { SkillType.Ultimate, skills[2]},
+            };
 
             foreach (var item in SkillSet)
             {
@@ -210,6 +238,7 @@ public class EntityStats : ScriptableObject
             }
         }
     }
+
     public class ElementSheet
     {
         public ElementSheet(Stat Res, Stat Bonus)

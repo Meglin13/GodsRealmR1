@@ -16,6 +16,8 @@ public class ThrowableScript : MonoBehaviour
 
     [SerializeField]
     private float Speed;
+    [SerializeField]
+    private ForceMode mode;
     [HideInInspector]
     public Skill skill;
 
@@ -43,7 +45,7 @@ public class ThrowableScript : MonoBehaviour
 
     public virtual void Throw()
     {
-        rb.AddForce(dude.gameObject.transform.forward * Speed, ForceMode.Impulse);
+        rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
     }
 
     public void CheckHits()

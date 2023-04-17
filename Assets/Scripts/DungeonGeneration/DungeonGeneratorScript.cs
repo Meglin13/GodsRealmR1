@@ -1,15 +1,34 @@
 using MyBox;
+using MyBox.EditorTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.AI.Navigation;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = System.Random;
+
+[Serializable]
+public class GenerationParameters
+{
+    public Vector2Int GridSize;
+
+    public int numberOfRooms = 5;
+    public int numberOfEvents;
+
+    public int ChestRooms;
+    public int BattleRooms;
+    public int BuffRooms;
+
+    public int Seed = 0;
+}
+
 
 public class DungeonGeneratorScript : MonoBehaviour
 {
-    public int GridSizeX = 7;
-    public int GridSizeY;
+    public GenerationParameters GenerationParameters = new GenerationParameters();
+    public int SeedOutput;
 
     public RoomScript[,] Rooms;
 
@@ -17,35 +36,46 @@ public class DungeonGeneratorScript : MonoBehaviour
     public List<RoomScript> PlacedRooms = new List<RoomScript>();
     public GameObject Dungeon;
 
-    public int numberOfRooms = 5;
-
-    public int Seed;
     public Random random;
 
     public int TESTMODX = 1;
     public int TESTMODY = -1;
 
+    public List<RoomBehaviour> roomBehaviours;
+    public SnuffleBag<RoomBehaviour> behavioursBag;
+
     public event Action OnGenerationComplited = delegate { };
 
-    // Start is called before the first frame update
     private void Start()
     {
+        if (RunManager.Params.GenerationParameters != null)
+        {
+            Debug.Log("Bruh");
+            GenerationParameters = RunManager.Params.GenerationParameters;
+        }
+
         GenerateDungeon();
 
         foreach (var item in GameManager.Instance.partyManager.PartyMembers)
         {
             item.transform.position = PlacedRooms[0].transform.position;
+            item.GetComponent<NavMeshAgent>().enabled = false;
+            item.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 
     [ButtonMethod]
     private void GenerateDungeon()
     {
-        random = Seed != 0 ? (new(Seed)) : (new());
+        var seed = GenerationParameters.Seed == 0
+            ? UnityEngine.Random.Range(int.MinValue, int.MaxValue)
+            : GenerationParameters.Seed;
 
-        GridSizeY = Mathf.FloorToInt(GridSizeX * 1.5f);
+        SeedOutput = seed;
 
-        Rooms = new RoomScript[GridSizeX, GridSizeY];
+        random = new Random(seed);
+
+        Rooms = new RoomScript[GenerationParameters.GridSize.x, GenerationParameters.GridSize.y];
 
         ClearDungeon();
 
@@ -55,7 +85,9 @@ public class DungeonGeneratorScript : MonoBehaviour
 
         SetDoors();
 
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        SetRoomBehaviours();
+
+        GetComponent<Unity.AI.Navigation.NavMeshSurface>().BuildNavMesh();
 
         OnGenerationComplited();
     }
@@ -67,7 +99,7 @@ public class DungeonGeneratorScript : MonoBehaviour
 
         int i = 0;
 
-        while (i < numberOfRooms)
+        while (i < GenerationParameters.numberOfRooms)
         {
             int x = Mathf.FloorToInt(currentPosition.x);
             int y = Mathf.FloorToInt(currentPosition.y);
@@ -100,28 +132,23 @@ public class DungeonGeneratorScript : MonoBehaviour
 
     private void SetBossRoom()
     {
-        int y = 0;
-        for (int x = 0; x < Rooms.GetLength(0); x++)
-        {
-            if (Rooms[x, y] == null)
-            {
-                PlaceRoom(x, 0);
-            }
+        var list = PlacedRooms.OrderBy(x => x.coordinates.y).ToList();
 
-            if (x == Rooms.GetLength(0) - 1)
-            {
-                y = 0;
-                x = 0;
-            }
-        }
+        int x = list[0].coordinates.x;
+        int y = list[0].coordinates.y - 1;
+
+        PlaceRoom(x, y);
+
+        Rooms[x, y].gameObject.name = "BossRoom";
+        Rooms[x, y].gameObject.SetEditorIcon(true, 5);
     }
 
     private void ResetSpawnRoom(RoomScript room)
     {
-        room.coordinates = new Vector2(Mathf.FloorToInt(GridSizeX / 2), GridSizeY - 1);
+        room.coordinates = new Vector2Int(GenerationParameters.GridSize.x / 2, GenerationParameters.GridSize.y - 1);
 
-        int xR = Mathf.FloorToInt(room.coordinates.x);
-        int yR = Mathf.FloorToInt(room.coordinates.y);
+        int xR = room.coordinates.x;
+        int yR = room.coordinates.y;
 
         room.SetDoorways(new bool[] { false, false, false, false });
 
@@ -137,13 +164,18 @@ public class DungeonGeneratorScript : MonoBehaviour
     {
         RoomScript room = PlacedRooms[0];
 
-        for (int i = 1; i < PlacedRooms.Count; i++)
+        if (PlacedRooms.Count > 1)
         {
-            if (PlacedRooms[i].gameObject != null)
+            for (int i = 1; i < PlacedRooms.Count; i++)
             {
-                DestroyImmediate(PlacedRooms[i].gameObject);
+                if (PlacedRooms[i].gameObject != null)
+                {
+                    DestroyImmediate(PlacedRooms[i].gameObject);
+                }
             }
         }
+
+        GetComponent<Unity.AI.Navigation.NavMeshSurface>().RemoveData();
 
         PlacedRooms.Clear();
         PlacedRooms.Add(room);
@@ -158,7 +190,7 @@ public class DungeonGeneratorScript : MonoBehaviour
             GameObject room = Instantiate(RoomsPrefabs[UnityEngine.Random.RandomRange(0, RoomsPrefabs.Count - 1)].gameObject, Dungeon.transform);
 
             RoomScript roomScript = room.GetComponent<RoomScript>();
-            roomScript.coordinates = new Vector2(x, y);
+            roomScript.coordinates = new Vector2Int(x, y);
 
             int roomX = x * Mathf.FloorToInt(roomScript.Size.x);
             int roomY = y * Mathf.FloorToInt(roomScript.Size.y);
@@ -170,6 +202,14 @@ public class DungeonGeneratorScript : MonoBehaviour
 
             PlacedRooms.Add(roomScript);
         }
+    }
+
+    public void SetRoomBehaviours()
+    {
+        behavioursBag = new SnuffleBag<RoomBehaviour>(random);
+
+
+
     }
 
     public void SetDoors()

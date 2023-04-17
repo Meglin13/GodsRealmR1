@@ -31,7 +31,10 @@ public class VisionScript : MonoBehaviour
 
         foreach (var item in HiddenSecrets)
         {
-            item.SetActive(false);
+            if (item != null)
+            {
+                item.SetActive(false);
+            }
         }
     }
 
@@ -53,7 +56,10 @@ public class VisionScript : MonoBehaviour
 
             foreach (var item in HiddenSecrets)
             {
-                item.SetActive(IsAction);
+                if (item != null)
+                {
+                    item.SetActive(IsAction);
+                }
             }
         }
     }

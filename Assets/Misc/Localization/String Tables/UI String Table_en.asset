@@ -98,10 +98,6 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
-  - m_Id: 23208187540189184
-    m_Localized: Start
-    m_Metadata:
-      m_Items: []
   - m_Id: 23208373570154496
     m_Localized: Easy
     m_Metadata:
@@ -124,6 +120,94 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 23208753095946240
     m_Localized: Choose difficulty level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908937232384
+    m_Localized: 'Gold:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981120
+    m_Localized: 'Tokens:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981121
+    m_Localized: Use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908974981122
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175424
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175425
+    m_Localized: Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175426
+    m_Localized: Unequip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175427
+    m_Localized: Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175428
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175429
+    m_Localized: Seed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175430
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175431
+    m_Localized: Character switching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175432
+    m_Localized: Number of rooms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175433
+    m_Localized: Number of floors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175434
+    m_Localized: Number of buff stations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175435
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175436
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175437
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175438
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175439
+    m_Localized: Are you sure you want to delete save?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24675908979175440
+    m_Localized: Delete save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24681798532771840
+    m_Localized: No
     m_Metadata:
       m_Items: []
   references:

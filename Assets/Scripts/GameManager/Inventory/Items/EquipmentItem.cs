@@ -1,5 +1,4 @@
 using MyBox;
-using System.Xml.Xsl;
 using UnityEngine;
 
 public enum EquipmentType
@@ -8,7 +7,7 @@ public enum EquipmentType
     Ring, Bracelet, Amulet, Artefact
 }
 
-[CreateAssetMenu(fileName = "EquipmentItem", menuName = "Objects/Equipment Item")]
+[CreateAssetMenu(fileName = "EquipmentItem", menuName = "Objects/Items/Equipment/Equipment Item")]
 public class EquipmentItem : Item
 {
     public EquipmentItem()
@@ -19,6 +18,7 @@ public class EquipmentItem : Item
 
     public EquipmentType EquipmentType;
     public Modifier[] Modifiers;
+
     [HideInInspector]
     public bool IsEquiped = false;
 
@@ -26,11 +26,6 @@ public class EquipmentItem : Item
     public void SetItemModifiers()
     {
         Modifiers = new Modifier[(int)_Rarity + 1];
-
-        //for (int i = 0; i < Modifiers.Length; i++)
-        //{
-        //    Modifiers[i].IsPermanent = true;
-        //}
     }
 
     public override void UseItem(CharacterScript character)

@@ -44,10 +44,10 @@ public class PlayerAttackState : State
         //    currentClipLength = stateInfo.length / stateInfo.speed;
         //}
 
-        if (currentClipLength > 1.2f)
-        {
-            Debug.Log(currentClipLength + "/" + timePassed);
-        }
+        //if (currentClipLength > 1.2f)
+        //{
+        //    Debug.Log(currentClipLength + "/" + timePassed);
+        //}
 
         if (timePassed >= currentClipLength / 2 & IsAttackAction)
         {

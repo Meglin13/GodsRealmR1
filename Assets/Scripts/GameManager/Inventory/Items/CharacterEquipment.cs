@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class CharacterEquipment
 {
     private CharacterScript character;
@@ -52,9 +51,12 @@ public class CharacterEquipment
 
             EquipmentSlots[item.EquipmentType] = item;
 
-            foreach (var ad in item.Modifiers)
+            foreach (var modifier in item.Modifiers)
             {
-               character.StartCoroutine(character.AddModifier(ad));
+                if (modifier.StatType == StatType.InventorySlots)
+                    InventoryScript.Instance.AddCapacity(Mathf.FloorToInt(modifier.Amount));
+                else
+                    character.StartCoroutine(character.AddModifier(modifier));
             }
 
             inventory.DeleteItem(item.ID);
@@ -69,19 +71,26 @@ public class CharacterEquipment
 
         foreach (var modifier in item.Modifiers)
         {
-            if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
+            if (modifier.StatType == StatType.InventorySlots)
+                InventoryScript.Instance.AddCapacity(Mathf.FloorToInt(-modifier.Amount));
+            else
             {
-                if (modifier.StatType == StatType.Resistance)
+                if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
                 {
-                    character.EntityStats.ElementsResBonus[modifier.Element].Resistance.RemoveModifier(modifier);
+                    EntityStats.ElementSheet element = character.EntityStats.ElementsResBonus[modifier.Element];
+
+                    if (modifier.StatType == StatType.Resistance)
+                    {
+                        element.Resistance.RemoveModifier(modifier);
+                    }
+                    else
+                    {
+                        element.DamageBonus.RemoveModifier(modifier);
+                    }
                 }
                 else
-                {
-                    character.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.RemoveModifier(modifier);
-                }
+                    character.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
             }
-            else
-                character.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
         }
 
         inventory.AddItemToInventory(item);

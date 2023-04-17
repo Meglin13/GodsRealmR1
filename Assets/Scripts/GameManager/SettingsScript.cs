@@ -18,11 +18,9 @@ public static class SettingsScript
         PlayerPrefs.SetInt("Fullscreen", IsFullscreen ? 1 : 0);
     }
 
-    public static void SetQuality(int index, RenderPipelineAsset asset)
+    public static void SetQuality(int index)
     {
         QualitySettings.SetQualityLevel(index);
-        QualitySettings.renderPipeline = asset;
-
         PlayerPrefs.SetInt("Quality", index);
     }
 

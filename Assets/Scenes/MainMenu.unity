@@ -149,12 +149,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423788356}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.36628726, y: 1.9640281, z: -1.6078962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1845532374}
+  m_Father: {fileID: 989863149}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &423788358
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: f26379f8aae35454a9420f0d429ce5ac, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 05f4604b53cdb744c82638a9f3648382, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 54cbc66162c5be749aae855093c28b4e, type: 3}
   m_SortingOrder: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c3005cd9d7fe34d8397d80b6af7b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localization: {fileID: 0}
-  NextSceneName: TestScene
+  manager: {fileID: 0}
+  NextSceneName: HubScene
   SettingsMenu: {fileID: 670603406}
   LoadingScreen: {fileID: 1942339154}
 --- !u!114 &423788360
@@ -231,11 +231,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670603406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.100658, y: -0.24987876, z: 3.3054886}
+  m_LocalPosition: {x: 10.734371, y: 1.7141494, z: 1.6975924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1845532374}
+  m_Father: {fileID: 989863149}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &670603408
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: f26379f8aae35454a9420f0d429ce5ac, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 05f4604b53cdb744c82638a9f3648382, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 9586917c7d4327141aa5bfc87f8f9683, type: 3}
   m_SortingOrder: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8184ba9ac67fc4d9f5f8625123b3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localization: {fileID: 0}
+  manager: {fileID: 0}
   QualityLevels:
   - {fileID: 11400000, guid: 44ebb19aac348eb43b4b77163ae7466e, type: 2}
   - {fileID: 11400000, guid: 9ce32e40278c55343ab38d1af6e6dfe1, type: 2}
@@ -307,7 +307,7 @@ MonoBehaviour:
   LoadingScreen: {fileID: 1942339154}
   Inventory: {fileID: 0}
   InGameUI: {fileID: 0}
-  IsPausable: 0
+  CurrentMenu: {fileID: 0}
   Blur: {fileID: 0}
 --- !u!4 &989863149
 Transform:
@@ -316,13 +316,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989863147}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.36628726, y: -1.9640281, z: 1.6078962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 670603407}
+  - {fileID: 1942339155}
+  - {fileID: 423788357}
+  m_Father: {fileID: 1845532374}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &989863150
 MonoBehaviour:
@@ -555,9 +558,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 670603407}
-  - {fileID: 1942339155}
-  - {fileID: 423788357}
+  - {fileID: 989863149}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -754,12 +755,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1845532374}
+    m_TransformParent: {fileID: 989863149}
     m_Modifications:
     - target: {fileID: 6191932107648099586, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: MainMenu
       value: 
       objectReference: {fileID: 423788356}
+    - target: {fileID: 6191932107648099587, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
+      propertyPath: m_PanelSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 05f4604b53cdb744c82638a9f3648382, type: 2}
     - target: {fileID: 6191932107648099588, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: m_Name
       value: LoadingScreen
@@ -770,15 +775,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6191932107648099589, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.100658
+      value: 10.734371
       objectReference: {fileID: 0}
     - target: {fileID: 6191932107648099589, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24987876
+      value: 1.7141494
       objectReference: {fileID: 0}
     - target: {fileID: 6191932107648099589, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.3054886
+      value: 1.6975924
       objectReference: {fileID: 0}
     - target: {fileID: 6191932107648099589, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}
       propertyPath: m_LocalRotation.w
