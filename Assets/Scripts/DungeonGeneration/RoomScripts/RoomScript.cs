@@ -1,10 +1,10 @@
 using MyBox;
-using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.OnScreen.OnScreenStick;
 
-public enum WorldSide { North = 1, East, South, West}
+public enum WorldSide { North = 1, East, South, West }
 
 /// <summary>
 /// Класс хранящий информацию о проходах и опредлеяющий их логику
@@ -59,6 +59,10 @@ public class RoomScript : MonoBehaviour
 
     public Vector2Int coordinates;
 
+    public GameObject[] Props;
+
+    public GameObject[] PropsSpawnPositions;
+
     [HideInInspector]
     public int OpenedDoorsCount;
     public List<DoorwayObject> DoorwaysList = new List<DoorwayObject>(4)
@@ -69,23 +73,27 @@ public class RoomScript : MonoBehaviour
         new DoorwayObject() { Side = WorldSide.West}
     };
 
-    public void OnRoomEnterTrigger()
+    private void OnDisable()
     {
-        //Debug.Log("Enter the " + gameObject.name);
-        OnRoomEnter();
+        OnRoomClear = null;
+        OnRoomEnter = null;
+        OnRoomExit = null;
     }
 
-    public void OnRoomExitTrigger()
-    {
-        //Debug.Log("Exit the " + gameObject.name);
-        OnRoomEnter();
-    }
+    public void OnRoomEnterTrigger() => OnRoomEnter();
+
+    public void OnRoomExitTrigger() => OnRoomExit();
 
     private void Awake()
     {
         SetDoorways();
 
         OnRoomClear += () => SetDoorsState(true);
+
+        if (Behaviour)
+        {
+            SetBehaviour(Behaviour);
+        }
     }
 
     public void RoomClear()
@@ -98,13 +106,16 @@ public class RoomScript : MonoBehaviour
     {
         this.Behaviour = Instantiate(behaviour);
         Behaviour.Initialize(this);
+
+        OnRoomEnter += Behaviour.OnRoomEnter;
+        OnRoomExit += Behaviour.OnRoomExit;
     }
 
     #region [Doors]
     /// <summary>
     /// Установка состояния дверей
     /// </summary>
-    /// <param name="sides">Массив информации о ближайших комнатах. 
+    /// <param _name="sides">Массив информации о ближайших комнатах. 
     /// Двери открываются по часовой стрелке, начиная с севера: СЕВЕР, ВОСТОК, ЮГ, ЗАПАД</param>
     public void SetDoorways(bool[] sides)
     {
@@ -136,7 +147,7 @@ public class RoomScript : MonoBehaviour
     /// <summary>
     /// Метод используется для того, чтобы закрывать именно двери, а не проходы
     /// </summary>
-    /// <param name="IsOpened">Открыть двери или нет</param>
+    /// <param _name="IsOpened">Открыть двери или нет</param>
     public void SetDoorsState(bool IsOpened)
     {
         foreach (var door in DoorwaysList)

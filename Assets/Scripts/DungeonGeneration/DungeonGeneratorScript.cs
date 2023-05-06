@@ -3,8 +3,6 @@ using MyBox.EditorTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.AI.Navigation;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = System.Random;
@@ -50,7 +48,6 @@ public class DungeonGeneratorScript : MonoBehaviour
     {
         if (RunManager.Params.GenerationParameters != null)
         {
-            Debug.Log("Bruh");
             GenerationParameters = RunManager.Params.GenerationParameters;
         }
 
@@ -62,6 +59,11 @@ public class DungeonGeneratorScript : MonoBehaviour
             item.GetComponent<NavMeshAgent>().enabled = false;
             item.GetComponent<NavMeshAgent>().enabled = true;
         }
+    }
+
+    private void OnDisable()
+    {
+        OnGenerationComplited = null;
     }
 
     [ButtonMethod]
@@ -156,7 +158,7 @@ public class DungeonGeneratorScript : MonoBehaviour
 
         room.transform.position = new Vector3(room.Size.x * xR * TESTMODX, 0, room.Size.y * yR * TESTMODY);
 
-        this.transform.position = room.transform.position;
+        transform.position = room.transform.position;
     }
 
     [ButtonMethod]
@@ -204,20 +206,17 @@ public class DungeonGeneratorScript : MonoBehaviour
         }
     }
 
+    //TODO: Поведение комнат
     public void SetRoomBehaviours()
     {
         behavioursBag = new SnuffleBag<RoomBehaviour>(random);
-
-
 
     }
 
     public void SetDoors()
     {
         foreach (var item in PlacedRooms)
-        {
             item.SetDoorways(GetNeighbors(item.coordinates));
-        }
     }
 
     public bool[] GetNeighbors(Vector2 roomIndex)

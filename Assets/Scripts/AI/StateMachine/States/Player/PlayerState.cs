@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class PlayerState : State
+﻿public class PlayerState : State
 {
     public PlayerState(CharacterScript character,
     StateMachine stateMachine) : base(character, stateMachine)

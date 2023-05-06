@@ -3,10 +3,10 @@
     <ui:VisualElement style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); flex-shrink: 0; -unity-text-align: middle-center;">
         <ui:VisualElement style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; width: auto; height: 50%;">
             <ui:Label text="You Died&#10;" display-tooltip-when-elided="true" name="YouDiedLabel" style="font-size: 100px; -unity-text-align: upper-center; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; color: rgb(255, 0, 0);" />
-            <ui:VisualElement name="Panel" class="panel" style="width: 771px; height: 50%; background-color: rgb(35, 35, 59);">
+            <ui:VisualElement name="Panel" class="panel" style="width: 771px; height: 50%; background-color: rgb(35, 35, 59); align-items: center; justify-content: space-around;">
                 <ui:Label text="Score: 999999" display-tooltip-when-elided="true" name="ScoreLB" style="-unity-text-align: upper-center;" />
-                <ui:Button text="Restart" display-tooltip-when-elided="true" name="RestartBT" />
-                <ui:Button text="Return to Hub" display-tooltip-when-elided="true" name="ReturnBT" />
+                <ui:Button text="Restart" display-tooltip-when-elided="true" name="RestartBT" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button text="Return to Hub" display-tooltip-when-elided="true" name="ReturnBT" style="background-color: rgba(188, 188, 188, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

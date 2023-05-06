@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Iron Armor
   m_EditorClassIdentifier: 
   id: 0ebd94c2eced183419bfa07db28d0128
-  Name: Iron_Armor
-  Description: Iron_Armor_Desc
+  Name: Iron Armor
+  Description: Iron Armor_Desc
   Icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
   _Rarity: 2
   Amount: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
     Name: 
     Description: 
     ModifierType: 0
-    StatType: 0
+    StatType: 10
     Element: 0
     ModifierAmountType: 0
-    Amount: 10
+    Amount: 3
     IsPermanent: 1
     DurationInSecs: 0
   - IsVisible: 0
@@ -39,7 +39,17 @@ MonoBehaviour:
     StatType: 9
     Element: 0
     ModifierAmountType: 1
-    Amount: 6
+    Amount: 5
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 0
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
   IsEquiped: 0

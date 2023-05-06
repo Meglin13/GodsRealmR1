@@ -22,17 +22,17 @@ public class InteractorScript : MonoBehaviour
         interactionLayer = 1 << AIUtilities.InteractLayer;
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         interactColliders = Physics.OverlapSphere(transform.position, interactionRadius, interactionLayer);
 
         InteractionButton.SetActive(interactColliders.Length > 0);
-        
+
         if (interactColliders.Length > 0 & interact.triggered)
         {
-            if (interactColliders[0].TryGetComponent(out IInteractable interacable))
+            if (interactColliders[0].TryGetComponent(out IInteractable interactable))
             {
-                interacable.Interaction();
+                interactable.Interaction();
             }
         }
     }

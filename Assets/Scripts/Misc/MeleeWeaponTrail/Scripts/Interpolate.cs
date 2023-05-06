@@ -48,13 +48,15 @@ using UnityEngine;
  * @Traduzione Andrea85cs (andrea85cs@dynematica.it)
  */
 
-public class Interpolate {
+public class Interpolate
+{
 
 
     /**
  * Different methods of easing interpolation.
  */
-    public enum EaseType {
+    public enum EaseType
+    {
         Linear,
         EaseInQuad,
         EaseOutQuad,
@@ -85,22 +87,27 @@ public class Interpolate {
     * Note: elapsedTimes are calculated using the value of Time.deltatTime each
     * time a value is requested.
     */
-    static Vector3 Identity(Vector3 v) {
+    static Vector3 Identity(Vector3 v)
+    {
         return v;
     }
 
-    static Vector3 TransformDotPosition(Transform t) {
+    static Vector3 TransformDotPosition(Transform t)
+    {
         return t.position;
     }
 
 
-    static IEnumerable<float> NewTimer(float duration) {
+    static IEnumerable<float> NewTimer(float duration)
+    {
         float elapsedTime = 0.0f;
-        while (elapsedTime < duration) {
+        while (elapsedTime < duration)
+        {
             yield return elapsedTime;
             elapsedTime += Time.deltaTime;
             // make sure last value is never skipped
-            if (elapsedTime >= duration) {
+            if (elapsedTime >= duration)
+            {
                 yield return elapsedTime;
             }
         }
@@ -113,8 +120,10 @@ public class Interpolate {
      * Generates sequence of integers from start to end (inclusive) one step
      * at a time.
      */
-    static IEnumerable<float> NewCounter(int start, int end, int step) {
-        for (int i = start; i <= end; i += step) {
+    static IEnumerable<float> NewCounter(int start, int end, int step)
+    {
+        for (int i = start; i <= end; i += step)
+        {
             yield return i;
         }
     }
@@ -125,7 +134,8 @@ public class Interpolate {
      * using the Time.deltaTime to calculate the portion of duration that has
      * elapsed.
      */
-    public static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, float duration) {
+    public static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, float duration)
+    {
         IEnumerable<float> timer = Interpolate.NewTimer(duration);
         return NewEase(ease, start, end, duration, timer);
     }
@@ -134,7 +144,8 @@ public class Interpolate {
      * Instead of easing based on time, generate n interpolated points (slices)
      * between the start and end positions.
      */
-    public static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, int slices) {
+    public static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, int slices)
+    {
         IEnumerable<float> counter = Interpolate.NewCounter(0, slices + 1, 1);
         return NewEase(ease, start, end, slices + 1, counter);
     }
@@ -145,9 +156,11 @@ public class Interpolate {
      * Generic easing sequence generator used to implement the time and
      * slice variants. Normally you would not use this function directly.
      */
-    static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, float total, IEnumerable<float> driver) {
+    static IEnumerator NewEase(Function ease, Vector3 start, Vector3 end, float total, IEnumerable<float> driver)
+    {
         Vector3 distance = end - start;
-        foreach (float i in driver) {
+        foreach (float i in driver)
+        {
             yield return Ease(ease, start, distance, i, total);
         }
     }
@@ -156,7 +169,8 @@ public class Interpolate {
      * Vector3 interpolation using given easing method. Easing is done independently
      * on all three vector axis.
      */
-    static Vector3 Ease(Function ease, Vector3 start, Vector3 distance, float elapsedTime, float duration) {
+    static Vector3 Ease(Function ease, Vector3 start, Vector3 distance, float elapsedTime, float duration)
+    {
         start.x = ease(start.x, distance.x, elapsedTime, duration);
         start.y = ease(start.y, distance.y, elapsedTime, duration);
         start.z = ease(start.z, distance.z, elapsedTime, duration);
@@ -172,7 +186,8 @@ public class Interpolate {
      * var ease = Interpolate.Ease(EaseType.EaseInQuad);
      * i = ease(start, distance, elapsedTime, duration);
      */
-    public static Function Ease(EaseType type) {
+    public static Function Ease(EaseType type)
+    {
         // Source Flash easing functions:
         // http://gizma.com/easing/
         // http://www.robertpenner.com/easing/easing_demo.html
@@ -185,7 +200,8 @@ public class Interpolate {
         // duration = d (time duration)
 
         Function f = null;
-        switch (type) {
+        switch (type)
+        {
             case EaseType.Linear: f = Interpolate.Linear; break;
             case EaseType.EaseInQuad: f = Interpolate.EaseInQuad; break;
             case EaseType.EaseOutQuad: f = Interpolate.EaseOutQuad; break;
@@ -222,7 +238,8 @@ public class Interpolate {
      * is generated as it is accessed using the Time.deltaTime to calculate the
      * portion of duration that has elapsed.
      */
-    public static IEnumerable<Vector3> NewBezier(Function ease, Transform[] nodes, float duration) {
+    public static IEnumerable<Vector3> NewBezier(Function ease, Transform[] nodes, float duration)
+    {
         IEnumerable<float> timer = Interpolate.NewTimer(duration);
         return NewBezier<Transform>(ease, nodes, TransformDotPosition, duration, timer);
     }
@@ -231,7 +248,8 @@ public class Interpolate {
      * Instead of interpolating based on time, generate n interpolated points
      * (slices) between the first and last node.
      */
-    public static IEnumerable<Vector3> NewBezier(Function ease, Transform[] nodes, int slices) {
+    public static IEnumerable<Vector3> NewBezier(Function ease, Transform[] nodes, int slices)
+    {
         IEnumerable<float> counter = NewCounter(0, slices + 1, 1);
         return NewBezier<Transform>(ease, nodes, TransformDotPosition, slices + 1, counter);
     }
@@ -240,7 +258,8 @@ public class Interpolate {
      * A Vector3[] variation of the Transform[] NewBezier() function.
      * Same functionality but using Vector3s to define bezier curve.
      */
-    public static IEnumerable<Vector3> NewBezier(Function ease, Vector3[] points, float duration) {
+    public static IEnumerable<Vector3> NewBezier(Function ease, Vector3[] points, float duration)
+    {
         IEnumerable<float> timer = NewTimer(duration);
         return NewBezier<Vector3>(ease, points, Identity, duration, timer);
     }
@@ -249,7 +268,8 @@ public class Interpolate {
      * A Vector3[] variation of the Transform[] NewBezier() function.
      * Same functionality but using Vector3s to define bezier curve.
      */
-    public static IEnumerable<Vector3> NewBezier(Function ease, Vector3[] points, int slices) {
+    public static IEnumerable<Vector3> NewBezier(Function ease, Vector3[] points, int slices)
+    {
         IEnumerable<float> counter = NewCounter(0, slices + 1, 1);
         return NewBezier<Vector3>(ease, points, Identity, slices + 1, counter);
     }
@@ -258,15 +278,19 @@ public class Interpolate {
      * Generic bezier spline sequence generator used to implement the time and
      * slice variants. Normally you would not use this function directly.
      */
-    static IEnumerable<Vector3> NewBezier<T>(Function ease, IList nodes, ToVector3<T> toVector3, float maxStep, IEnumerable<float> steps) {
+    static IEnumerable<Vector3> NewBezier<T>(Function ease, IList nodes, ToVector3<T> toVector3, float maxStep, IEnumerable<float> steps)
+    {
         // need at least two nodes to spline between
-        if (nodes.Count >= 2) {
+        if (nodes.Count >= 2)
+        {
             // copy nodes array since Bezier is destructive
             Vector3[] points = new Vector3[nodes.Count];
 
-            foreach (float step in steps) {
+            foreach (float step in steps)
+            {
                 // re-initialize copy before each destructive call to Bezier
-                for (int i = 0; i < nodes.Count; i++) {
+                for (int i = 0; i < nodes.Count; i++)
+                {
                     points[i] = toVector3((T)nodes[i]);
                 }
                 yield return Bezier(ease, points, step, maxStep);
@@ -287,7 +311,8 @@ public class Interpolate {
      *
      * @param points start point, n control points, end point
      */
-    static Vector3 Bezier(Function ease, Vector3[] points, float elapsedTime, float duration) {
+    static Vector3 Bezier(Function ease, Vector3[] points, float elapsedTime, float duration)
+    {
         // Reference: http://ibiblio.org/e-notes/Splines/Bezier.htm
         // Interpolate the n starting points to generate the next j = (n - 1) points,
         // then interpolate those n - 1 points to generate the next n - 2 points,
@@ -296,8 +321,10 @@ public class Interpolate {
         // input points used to generate them. This works because we store the
         // result in the slot of the input point that is no longer used for this
         // iteration.
-        for (int j = points.Length - 1; j > 0; j--) {
-            for (int i = 0; i < j; i++) {
+        for (int j = points.Length - 1; j > 0; j--)
+        {
+            for (int i = 0; i < j; i++)
+            {
                 points[i].x = ease(points[i].x, points[i + 1].x - points[i].x, elapsedTime, duration);
                 points[i].y = ease(points[i].y, points[i + 1].y - points[i].y, elapsedTime, duration);
                 points[i].z = ease(points[i].z, points[i + 1].z - points[i].z, elapsedTime, duration);
@@ -311,7 +338,8 @@ public class Interpolate {
      * and to the last node. N points are generated between each node (slices)
      * using Catmull-Rom.
      */
-    public static IEnumerable<Vector3> NewCatmullRom(Transform[] nodes, int slices, bool loop) {
+    public static IEnumerable<Vector3> NewCatmullRom(Transform[] nodes, int slices, bool loop)
+    {
         return NewCatmullRom<Transform>(nodes, TransformDotPosition, slices, loop);
     }
 
@@ -319,7 +347,8 @@ public class Interpolate {
      * A Vector3[] variation of the Transform[] NewCatmullRom() function.
      * Same functionality but using Vector3s to define curve.
      */
-    public static IEnumerable<Vector3> NewCatmullRom(Vector3[] points, int slices, bool loop) {
+    public static IEnumerable<Vector3> NewCatmullRom(Vector3[] points, int slices, bool loop)
+    {
         return NewCatmullRom<Vector3>(points, Identity, slices, loop);
     }
 
@@ -328,9 +357,11 @@ public class Interpolate {
      * Vector3[] and Transform[] variants. Normally you would not use this
      * function directly.
      */
-    static IEnumerable<Vector3> NewCatmullRom<T>(IList nodes, ToVector3<T> toVector3, int slices, bool loop) {
+    static IEnumerable<Vector3> NewCatmullRom<T>(IList nodes, ToVector3<T> toVector3, int slices, bool loop)
+    {
         // need at least two nodes to spline between
-        if (nodes.Count >= 2) {
+        if (nodes.Count >= 2)
+        {
 
             // yield the first point explicitly, if looping the first point
             // will be generated again in the step for loop when interpolating
@@ -338,9 +369,11 @@ public class Interpolate {
             yield return toVector3((T)nodes[0]);
 
             int last = nodes.Count - 1;
-            for (int current = 0; loop || current < last; current++) {
+            for (int current = 0; loop || current < last; current++)
+            {
                 // wrap around when looping
-                if (loop && current > last) {
+                if (loop && current > last)
+                {
                     current = 0;
                 }
                 // handle edge cases for looping and non-looping scenarios
@@ -353,7 +386,8 @@ public class Interpolate {
 
                 // adding one guarantees yielding at least the end point
                 int stepCount = slices + 1;
-                for (int step = 1; step <= stepCount; step++) {
+                for (int step = 1; step <= stepCount; step++)
+                {
                     yield return CatmullRom(toVector3((T)nodes[previous]),
                                      toVector3((T)nodes[start]),
                                      toVector3((T)nodes[end]),
@@ -379,8 +413,9 @@ public class Interpolate {
      * @param next the point just after the end point or the end point itself if no
      *             next point is available
      */
-    static Vector3 CatmullRom(Vector3 previous, Vector3 start, Vector3 end, Vector3 next, 
-                                float elapsedTime, float duration) {
+    static Vector3 CatmullRom(Vector3 previous, Vector3 start, Vector3 end, Vector3 next,
+                                float elapsedTime, float duration)
+    {
         // References used:
         // p.266 GemsV1
         //
@@ -397,12 +432,12 @@ public class Interpolate {
         return previous * (-0.5f * percentCompleteCubed +
                                    percentCompleteSquared -
                             0.5f * percentComplete) +
-                start   * ( 1.5f * percentCompleteCubed +
+                start * (1.5f * percentCompleteCubed +
                            -2.5f * percentCompleteSquared + 1.0f) +
-                end     * (-1.5f * percentCompleteCubed +
+                end * (-1.5f * percentCompleteCubed +
                             2.0f * percentCompleteSquared +
                             0.5f * percentComplete) +
-                next    * ( 0.5f * percentCompleteCubed -
+                next * (0.5f * percentCompleteCubed -
                             0.5f * percentCompleteSquared);
     }
 
@@ -412,7 +447,8 @@ public class Interpolate {
     /**
      * Linear interpolation (same as Mathf.Lerp)
      */
-    static float Linear(float start, float distance, float elapsedTime, float duration) {
+    static float Linear(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime to be <= duration
         if (elapsedTime > duration) { elapsedTime = duration; }
         return distance * (elapsedTime / duration) + start;
@@ -421,7 +457,8 @@ public class Interpolate {
     /**
      * quadratic easing in - accelerating from zero velocity
      */
-    static float EaseInQuad(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInQuad(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return distance * elapsedTime * elapsedTime + start;
@@ -430,7 +467,8 @@ public class Interpolate {
     /**
      * quadratic easing out - decelerating to zero velocity
      */
-    static float EaseOutQuad(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutQuad(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return -distance * elapsedTime * (elapsedTime - 2) + start;
@@ -439,7 +477,8 @@ public class Interpolate {
     /**
      * quadratic easing in/out - acceleration until halfway, then deceleration
      */
-    static float EaseInOutQuad(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutQuad(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2);
         if (elapsedTime < 1) return distance / 2 * elapsedTime * elapsedTime + start;
@@ -450,7 +489,8 @@ public class Interpolate {
     /**
      * cubic easing in - accelerating from zero velocity
      */
-    static float EaseInCubic(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInCubic(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return distance * elapsedTime * elapsedTime * elapsedTime + start;
@@ -459,7 +499,8 @@ public class Interpolate {
     /**
      * cubic easing out - decelerating to zero velocity
      */
-    static float EaseOutCubic(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutCubic(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         elapsedTime--;
@@ -469,7 +510,8 @@ public class Interpolate {
     /**
      * cubic easing in/out - acceleration until halfway, then deceleration
      */
-    static float EaseInOutCubic(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutCubic(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2);
         if (elapsedTime < 1) return distance / 2 * elapsedTime * elapsedTime * elapsedTime + start;
@@ -480,7 +522,8 @@ public class Interpolate {
     /**
      * quartic easing in - accelerating from zero velocity
      */
-    static float EaseInQuart(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInQuart(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return distance * elapsedTime * elapsedTime * elapsedTime * elapsedTime + start;
@@ -489,7 +532,8 @@ public class Interpolate {
     /**
      * quartic easing out - decelerating to zero velocity
      */
-    static float EaseOutQuart(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutQuart(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         elapsedTime--;
@@ -499,7 +543,8 @@ public class Interpolate {
     /**
      * quartic easing in/out - acceleration until halfway, then deceleration
      */
-    static float EaseInOutQuart(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutQuart(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2);
         if (elapsedTime < 1) return distance / 2 * elapsedTime * elapsedTime * elapsedTime * elapsedTime + start;
@@ -511,7 +556,8 @@ public class Interpolate {
     /**
      * quintic easing in - accelerating from zero velocity
      */
-    static float EaseInQuint(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInQuint(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return distance * elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + start;
@@ -520,7 +566,8 @@ public class Interpolate {
     /**
      * quintic easing out - decelerating to zero velocity
      */
-    static float EaseOutQuint(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutQuint(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         elapsedTime--;
@@ -530,7 +577,8 @@ public class Interpolate {
     /**
      * quintic easing in/out - acceleration until halfway, then deceleration
      */
-    static float EaseInOutQuint(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutQuint(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2f);
         if (elapsedTime < 1) return distance / 2 * elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + start;
@@ -541,7 +589,8 @@ public class Interpolate {
     /**
      * sinusoidal easing in - accelerating from zero velocity
      */
-    static float EaseInSine(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInSine(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime to be <= duration
         if (elapsedTime > duration) { elapsedTime = duration; }
         return -distance * Mathf.Cos(elapsedTime / duration * (Mathf.PI / 2)) + distance + start;
@@ -550,7 +599,8 @@ public class Interpolate {
     /**
      * sinusoidal easing out - decelerating to zero velocity
      */
-    static float EaseOutSine(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutSine(float start, float distance, float elapsedTime, float duration)
+    {
         if (elapsedTime > duration) { elapsedTime = duration; }
         return distance * Mathf.Sin(elapsedTime / duration * (Mathf.PI / 2)) + start;
     }
@@ -558,7 +608,8 @@ public class Interpolate {
     /**
      * sinusoidal easing in/out - accelerating until halfway, then decelerating
      */
-    static float EaseInOutSine(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutSine(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime to be <= duration
         if (elapsedTime > duration) { elapsedTime = duration; }
         return -distance / 2 * (Mathf.Cos(Mathf.PI * elapsedTime / duration) - 1) + start;
@@ -567,7 +618,8 @@ public class Interpolate {
     /**
      * exponential easing in - accelerating from zero velocity
      */
-    static float EaseInExpo(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInExpo(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime to be <= duration
         if (elapsedTime > duration) { elapsedTime = duration; }
         return distance * Mathf.Pow(2, 10 * (elapsedTime / duration - 1)) + start;
@@ -576,7 +628,8 @@ public class Interpolate {
     /**
      * exponential easing out - decelerating to zero velocity
      */
-    static float EaseOutExpo(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutExpo(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime to be <= duration
         if (elapsedTime > duration) { elapsedTime = duration; }
         return distance * (-Mathf.Pow(2, -10 * elapsedTime / duration) + 1) + start;
@@ -585,10 +638,11 @@ public class Interpolate {
     /**
      * exponential easing in/out - accelerating until halfway, then decelerating
      */
-    static float EaseInOutExpo(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInOutExpo(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2);
-        if (elapsedTime < 1) return distance / 2 *  Mathf.Pow(2, 10 * (elapsedTime - 1)) + start;
+        if (elapsedTime < 1) return distance / 2 * Mathf.Pow(2, 10 * (elapsedTime - 1)) + start;
         elapsedTime--;
         return distance / 2 * (-Mathf.Pow(2, -10 * elapsedTime) + 2) + start;
     }
@@ -596,7 +650,8 @@ public class Interpolate {
     /**
      * circular easing in - accelerating from zero velocity
      */
-    static float EaseInCirc(float start, float distance, float elapsedTime, float duration) {
+    static float EaseInCirc(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         return -distance * (Mathf.Sqrt(1 - elapsedTime * elapsedTime) - 1) + start;
@@ -605,7 +660,8 @@ public class Interpolate {
     /**
      * circular easing out - decelerating to zero velocity
      */
-    static float EaseOutCirc(float start, float distance, float elapsedTime, float duration) {
+    static float EaseOutCirc(float start, float distance, float elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 1.0f : elapsedTime / duration;
         elapsedTime--;
@@ -616,7 +672,8 @@ public class Interpolate {
      * circular easing in/out - acceleration until halfway, then deceleration
      */
     static float EaseInOutCirc(float start, float distance, float
-                         elapsedTime, float duration) {
+                         elapsedTime, float duration)
+    {
         // clamp elapsedTime so that it cannot be greater than duration
         elapsedTime = (elapsedTime > duration) ? 2.0f : elapsedTime / (duration / 2);
         if (elapsedTime < 1) return -distance / 2 * (Mathf.Sqrt(1 - elapsedTime * elapsedTime) - 1) + start;

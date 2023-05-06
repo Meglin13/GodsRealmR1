@@ -12,11 +12,11 @@
                 <ui:TextField picking-mode="Ignore" label="#Floor_Number" password="false" text="999" name="FloorNumber" />
                 <ui:TextField picking-mode="Ignore" label="#Buff_Number" password="false" text="999" name="BuffNumber" />
             </ui:VisualElement>
-            <ui:Button text="#Reset" display-tooltip-when-elided="true" name="ResetBT" style="color: rgba(255, 0, 0, 255);" />
+            <ui:Button text="#Reset" display-tooltip-when-elided="true" name="ResetBT" style="color: rgb(255, 0, 0); margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(188, 188, 188, 0);" />
         </ui:ScrollView>
         <ui:VisualElement name="ButtonsCOntainer" class="buttons-container">
-            <ui:Button text="#Next" display-tooltip-when-elided="true" name="NextBT" />
-            <ui:Button text="#Back" display-tooltip-when-elided="true" name="BackBT" />
+            <ui:Button text="#Next" display-tooltip-when-elided="true" name="NextBT" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(188, 188, 188, 0);" />
+            <ui:Button text="#Back" display-tooltip-when-elided="true" name="BackBT" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(188, 188, 188, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

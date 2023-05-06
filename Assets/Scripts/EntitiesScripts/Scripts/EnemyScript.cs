@@ -57,11 +57,11 @@ public class EnemyScript : EntityScript
     public override void Death()
     {
         base.Death();
+
         EntityStateMachine.ChangeState(new DyingState(gameObject, EntityStateMachine));
         //TODO: Скорректировать количество маны с врага
         GameManager.Instance.partyManager.GiveSupportToAll((int)(EntityStats.Rarity + 1) * 10, StatType.Mana);
     }
-
 
     internal void SpawnHealthBar()
     {
@@ -138,4 +138,8 @@ public class EnemyScript : EntityScript
     }
 
     #endregion [Behavior Patterns]
+
+    #region [Utilities]
+
+    #endregion
 }

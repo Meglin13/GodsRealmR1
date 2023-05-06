@@ -12,10 +12,10 @@
 /// See the GNU General Public License for details https://www.gnu.org/licenses/
 ///
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UIElements;
 
 // NOTE: this class assumes that you designate StringTable keys in label fields (as seen in Label, Button, etc)
 // and start them all with '#' char (so other labels will be left be)
@@ -108,5 +108,5 @@ namespace UI
             }
         }
 
-    } 
+    }
 }

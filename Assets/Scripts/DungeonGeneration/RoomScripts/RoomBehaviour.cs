@@ -1,28 +1,35 @@
-﻿using UnityEngine;
+﻿using MyBox;
+using UnityEngine;
 
-public enum RoomBehaviourType { Battle, Shop, Buffer, FreeChest, Corridor, Heal, BossPortal }
+public enum RoomBehaviourType { Battle, Shop, Buffer, FreeChest, Corridor, Heal, BossPortal, Misc }
 
-public class RoomBehaviour : ScriptableObject
+public abstract class RoomBehaviour : ScriptableObject
 {
-    public readonly RoomBehaviourType BehaviourType;
+    [ReadOnly]
+    public RoomBehaviourType BehaviourType;
 
-    public GameObject Prop;
-    public ChestScript Chest;
-    public RoomScript Room;
+    public GameObject InstantiatingProp;
+    internal RoomScript Room;
 
+    [SerializeField]
 
     public virtual void Initialize(RoomScript room)
     {
         this.Room = room;
-        SetProp();
     }
 
-    public void SetProp()
+    public void SetProp(bool Active = true)
     {
-        GameObject prop = Instantiate(Prop);
-        prop.transform.position = Room.transform.position;
+        if (InstantiatingProp)
+        {
+            InstantiatingProp = Instantiate(InstantiatingProp);
+            InstantiatingProp.transform.position = Room.transform.position;
+            InstantiatingProp.SetActive(Active);
+
+            InstantiatingProp.transform.SetParent(Room.transform);
+        }
     }
 
-    public virtual void OnRoomEnter() { }
-    public virtual void OnRoomExit() { }
+    public abstract void OnRoomEnter();
+    public abstract void OnRoomExit();
 }

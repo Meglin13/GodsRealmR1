@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 45db81e45abd7a04d910c5ddd280f4b9
   Name: Mid_Health_Potion
   Description: Mid_Health_Potion_Desc
-  Icon: {fileID: 21300000, guid: e030cedfecbc78245bb3d527a5315055, type: 3}
+  Icon: {fileID: 21300000, guid: 9a8f615aa852fcb4f9557c6550ebd454, type: 3}
   _Rarity: 2
   Amount: 1
   IsStackable: 1

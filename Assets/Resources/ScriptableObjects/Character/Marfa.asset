@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Marfa
   m_EditorClassIdentifier: 
   id: 3
-  Name: Marfa
-  Description: Marfa_Desc
+  _Name: Marfa
+  _Description: Marfa_Desc
   Type: 1
+  Rarity: 3
   Icon: {fileID: 21300000, guid: 321f6db22e115c6498f62bb7ccf86898, type: 3}
   Art: {fileID: 21300000, guid: 16df6461aa90a384ea61f1e2515d5df2, type: 3}
-  Rarity: 3
   Level: 1
   Element: 2
   WeaponType: 6
@@ -34,7 +34,9 @@ MonoBehaviour:
   AttackCooldown: 5
   Speed: 7.3
   EnemyLayer: 8
+  EntityLayer: 6
   EnemyTag: Enemy
+  EntityTag: Character
   FireRes: 0
   WaterRes: 0
   EarthRes: 0
@@ -61,10 +63,11 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Marfa_Special
-    Description: Marfa_Special_Desc
+    _Description: Marfa_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 10
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 5
     DurationInSecs: 0
     IsPeriodic: 0
@@ -74,8 +77,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -87,10 +90,11 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Marfa_Distract
-    Description: Marfa_Distract_Desc
+    _Description: Marfa_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
+    SpawningObject: {fileID: 3280401585981765545, guid: 050c8c13087bcbe46967fcf1d545484e, type: 3}
     CooldownInSecs: 20
     DurationInSecs: 10
     IsPeriodic: 1
@@ -100,8 +104,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -113,10 +117,11 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Marfa_Ultimate
-    Description: Marfa_Ultimate_Desc
+    _Description: Marfa_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 20
     DurationInSecs: 0
     IsPeriodic: 0
@@ -126,8 +131,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -138,8 +143,8 @@ MonoBehaviour:
     StunTime: 0
   TeamBuff:
     IsVisible: 0
-    Name: Forest heart
-    Description: +10% HP
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 0
     Element: 0
@@ -147,4 +152,4 @@ MonoBehaviour:
     Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
-  IsUnlocked: 1
+  unlocked: 1

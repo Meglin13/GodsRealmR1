@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
-    <ui:VisualElement name="Panel" class="panel">
-        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgb(35, 35, 59); width: auto; max-height: none; height: 90%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
+    <ui:VisualElement name="Panel" class="panel" style="width: 60%;">
+        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgba(35, 35, 59, 0.2); width: auto; max-height: none; height: 90%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
             <ui:Label text="#Settings" display-tooltip-when-elided="true" name="SettingsLB" class="header-label" />
             <ui:VisualElement focusable="true" name="VolumeSettings">
                 <ui:Label text="#Audio" display-tooltip-when-elided="true" name="VolumeLB" class="separator-label title" />
@@ -14,15 +14,15 @@
                 <ui:DropdownField label="#Quality" index="-1" name="QualityDDF" tabindex="3" />
                 <ui:DropdownField label="#Resolution" index="-1" focusable="false" name="ResDDF" tabindex="4" />
                 <ui:DropdownField label="#Ref_Rate" index="-1" focusable="true" name="RefRateDDF" tabindex="5" />
-                <ui:Toggle label="#Fullscreen" name="FullscreenTG" tabindex="7" />
+                <ui:Toggle label="#Fullscreen" name="FullscreenTG" tabindex="7" style="justify-content: space-between;" />
             </ui:VisualElement>
             <ui:VisualElement name="LanguageSettings">
                 <ui:Label text="#Language" display-tooltip-when-elided="true" name="LanguageLB" tabindex="-1" class="separator-label title" style="-unity-text-align: middle-center;" />
-                <ui:DropdownField label="#Language" index="-1" name="LangDDF" tabindex="6" />
+                <ui:DropdownField label="#Language" index="-1" name="LangDDF" tabindex="6" style="justify-content: space-between; flex-direction: row; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="SaveSettings">
                 <ui:Label text="#SaveSettings" display-tooltip-when-elided="true" class="title" style="color: rgb(255, 199, 0);" />
-                <ui:Button text="ResetSave" display-tooltip-when-elided="true" name="ResetSaveBT" enable-rich-text="true" style="color: rgb(255, 0, 0);" />
+                <ui:Button text="#ResetSave" display-tooltip-when-elided="true" name="ResetSaveBT" enable-rich-text="true" style="color: rgb(255, 0, 0); margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: rgba(188, 188, 188, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:VisualElement name="Buttons" class="buttons-container">

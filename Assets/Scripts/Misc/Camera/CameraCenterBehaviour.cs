@@ -10,21 +10,16 @@ public class CameraCenterBehaviour : MonoBehaviour
     {
         Instance = this;
     }
-        
+
     private void Update()
     {
         if (target)
-        {
-            gameObject.transform.position = target.position;
-
-            gameObject.transform.rotation = gameObject.transform.parent.rotation;
-        }
+            transform.SetPositionAndRotation(target.position, transform.parent.rotation);
     }
 
     public void SetTarget(Transform transform)
     {
         target = transform;
-        //gameObject.transform.position = target.position;
-        gameObject.transform.SetParent(transform);
+        this.transform.SetParent(transform);
     }
 }

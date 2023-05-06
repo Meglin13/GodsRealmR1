@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Localization.Tables;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
@@ -41,7 +40,7 @@ namespace UI.CustomControls
 
             Caption = new Label();
             Caption.AddToClassList("modal-window-caption");
-            Caption.text = "Description";
+            Caption.text = "_Description";
             Add(Caption);
 
             ButtonsContainer = new VisualElement();

@@ -1,16 +1,13 @@
-using System;
+using ObjectPooling;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphereCollider))]
-public class ThrowableScript : MonoBehaviour
+public class ThrowableScript : SpawningObject
 {
     private Rigidbody rb;
-    public IDamageable dude;
 
-    [HideInInspector]
-    public EntityStats DealerStats;
     [HideInInspector]
     public List<Collider> hasHitted = new List<Collider>();
 
@@ -18,19 +15,16 @@ public class ThrowableScript : MonoBehaviour
     private float Speed;
     [SerializeField]
     private ForceMode mode;
-    [HideInInspector]
-    public Skill skill;
 
-    public virtual void Init(IDamageable dude, Skill skill)
+    public override void Spawn(IDamageable dude, Skill skill)
     {
-        this.dude = dude;
-        this.skill = skill;
-        this.DealerStats = dude.EntityStats;
-
-        rb = GetComponent<Rigidbody>();
         hasHitted = new List<Collider>();
-
         Throw();
+    }
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,14 +33,11 @@ public class ThrowableScript : MonoBehaviour
         {
             CheckHits();
             OnHit(collision.GetContact(0).point);
-            Destroy(gameObject, 0.1f);
+            gameObject.SetActive(false);
         }
     }
 
-    public virtual void Throw()
-    {
-        rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
-    }
+    public virtual void Throw() => rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
 
     public void CheckHits()
     {
@@ -61,10 +52,11 @@ public class ThrowableScript : MonoBehaviour
                     hasHitted.Add(item);
 
                     MiscUtilities.GetInterfaces(out List<IDamageable> interfaceList, item.gameObject);
+
                     foreach (IDamageable damageable in interfaceList)
                     {
                         damageable.TakeDamage(DealerStats, skill.DamageMultiplier.GetFinalValue(), false);
-                        
+
                         if (skill.StunTime > 0)
                             damageable.Stun(skill.StunTime);
 
@@ -76,14 +68,11 @@ public class ThrowableScript : MonoBehaviour
         }
     }
 
-    public virtual void OnHit(Vector3 hitPoint)
-    {
-        GameObject vfx = Instantiate(GameManager.Instance.HitVFX, hitPoint, Quaternion.Euler(0, 0, 0));
-        Destroy(vfx, 0.6f);
-    }
+    public virtual void OnHit(Vector3 hitPoint) => VFXPool.Instance.CreateObject(GameManager.Instance.HitVFX, hitPoint);
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, skill.Radius);
+        if (skill != null)
+            Gizmos.DrawWireSphere(transform.position, skill.Radius);
     }
 }

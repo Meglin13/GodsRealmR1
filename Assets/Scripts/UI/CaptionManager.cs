@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +9,7 @@ namespace UI
     {
         public static CaptionManager Instance;
 
-        private float CaptionLifeTime;
+        private float CaptionLifeTime = 5f;
 
         public ScrollView CaptionListSV;
 
@@ -24,14 +20,13 @@ namespace UI
 
         internal void OnEnable()
         {
-            CaptionLifeTime = GameManager.Instance.CaptionLifeTime;
 
             //CaptionListSV = root.Q<ScrollView>();
         }
-
-        public void ShowCaption(string CaptionText)
+        //TODO: Менеджер уведомлений
+        private IEnumerator ShowCaption(string CaptionText)
         {
-
+            yield return new WaitForSeconds(CaptionLifeTime);
         }
     }
 }

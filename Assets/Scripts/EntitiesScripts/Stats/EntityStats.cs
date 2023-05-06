@@ -1,69 +1,95 @@
-﻿using MyBox;
+﻿using Akaal.PvCustomizer.Scripts;
+using MyBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public enum StatType
 {
     Health,
     Stamina,
     Mana, ManaConsumption, ManaRecoveryBonus,
-    Attack, 
-    Defence, 
-    CritChance, CritDamage, 
-    InventorySlots, 
+    Attack,
+    Defence,
+    CritChance, CritDamage,
+    InventorySlots,
     Speed,
+
     [InspectorName(null)]
-    WeaponLength, 
+    WeaponLength,
+
     Resistance, ElementalDamageBonus
 }
 
 public enum EntityType { Enemy, Character }
 
+public enum WeaponType
+{
+    OneHandSword, TwoHandSword, Bow, Crossbow, Pistol, Book, Stave, Axe
+}
+
+
 [CreateAssetMenu(fileName = "Entity Stats", menuName = "Objects/Entity Stats")]
-public class EntityStats : ScriptableObject
+public class EntityStats : ScriptableObject, ICollectable, ILocalizable
 {
 #if UNITY_EDITOR
+
     public void OnValidate()
     {
-        var list = Resources.LoadAll($"ScriptableObjects/{Type}", typeof(EntityStats)).Cast<EntityStats>().ToList().OrderBy(x => x.Name);;
+        var list = Resources.LoadAll($"ScriptableObjects/{Type}", typeof(EntityStats)).Cast<EntityStats>().ToList().OrderBy(x => x.Name); ;
         this.id = list.ToList().IndexOf(this) + 1;
 
         if (this.Name == "Ardalion" | this.Name == "Marfa" | this.Name == "Dream")
-        {
-            IsUnlocked = true;
-        }
+            unlocked = true;
 
         foreach (var item in skills)
-        {
             item.SetName(this.Name);
-        }
 
-        this.Description = Name + "_Desc";
+        this._Description = Name + "_Desc";
+
+        this.EnemyLayer = this.Type == EntityType.Enemy ? AIUtilities.CharsLayer : AIUtilities.EnemyLayer;
+        this.EnemyTag = this.Type == EntityType.Enemy ? AIUtilities.CharsTag : AIUtilities.EnemyTag;
+
+        this.EntityLayer = this.Type == EntityType.Character ? AIUtilities.CharsLayer : AIUtilities.EnemyLayer;
+        this.EntityTag = this.Type == EntityType.Character ? AIUtilities.CharsTag : AIUtilities.EnemyTag;
     }
+
 #endif
 
     [Foldout("Info", true)]
     [SerializeField]
     [ReadOnly]
     private int id;
-    public int ID { get { return id - 1; } }
-    public string Name;
+
+    public int ID
+    { get { return id - 1; } }
+
+    public string Name => _Name;
+    public string Description => _Description;
+
+    [SerializeField]
+    private string _Name;
     [ReadOnly]
-    public string Description;
+    [SerializeField]
+    private string _Description;
+
     public EntityType Type;
-    public Sprite Icon, Art;
     public Rarity Rarity;
 
-    [Foldout("Base", true)]
+    [PvIcon]
+    public Sprite Icon;
 
+    public Sprite Art;
+
+    [Foldout("Base", true)]
     [HideInInspector]
     public int Level = 1;
 
     [Header("Base Stats")]
     public Element Element;
+
     public WeaponType WeaponType;
     public bool IsHeavy;
 
@@ -78,14 +104,16 @@ public class EntityStats : ScriptableObject
 
     [Header("AI")]
     public float SightRange = 20f;
+
     public float AttackRange = 3f;
     public float AttackCooldown = 5f;
     public float Speed = 5;
 
     [HideInInspector]
-    public int EnemyLayer;
+    public int EnemyLayer, EntityLayer;
+
     [HideInInspector]
-    public string EnemyTag;
+    public string EnemyTag, EntityTag;
 
     public Dictionary<Element, ElementSheet> ElementsResBonus;
 
@@ -102,14 +130,17 @@ public class EntityStats : ScriptableObject
     [Header("Luck and Critical")]
     [Range(1, 10)]
     public int Luck = 1;
+
     [Min(100)]
     public float BaseCritDamage = 150f;
+
     public float CritChanceMod = 0;
     public float CritDamageMod = 0;
 
     //Мана
     [Header("Mana")]
     public float BaseMana = 100f;
+
     public float ManaMod = 0;
 
     //Характеристики связанные с выносливостью и ловкостью
@@ -117,17 +148,22 @@ public class EntityStats : ScriptableObject
     [SerializeField]
     [Range(1, 10)]
     private int Endurance = 1;
+
     public Stat EnduranceStat;
+
     [SerializeField]
     [Range(1, 10)]
     private int Agility = 1;
+
     public Stat AgilityStat;
 
     [Header("Stamina and BaseSpeed")]
     public float BaseStamina = 100f;
+
     public float StaminaMod = 0;
-    [HideInInspector] public float AttackSpeed, Sprint, DodgeCost, BlockCost, HeavyBlockCost;
-    //TODO: Сделать зависимость блока от других параметров
+
+    [HideInInspector]
+    public float AttackSpeed, Sprint, DodgeCost, BlockCost, HeavyBlockCost;
 
     [Header("Abilities")]
     [SerializeField]
@@ -142,12 +178,18 @@ public class EntityStats : ScriptableObject
 
     [Header("Attributes")]
     public Dictionary<StatType, Stat> ModifiableStats;
+
     public Modifier TeamBuff;
 
     public Stat WeaponLengthStat;
 
-    [ReadOnly]
-    public bool IsUnlocked = false;
+    [SerializeField]
+    private bool unlocked = false;
+    public bool IsUnlocked
+    {
+        get => unlocked;
+        set => unlocked = value;
+    }
 
     public virtual void Initialize(int Level)
     {
@@ -215,7 +257,6 @@ public class EntityStats : ScriptableObject
         }
     }
 
-
     public void LevelUp(int LevelAmount)
     {
         this.Level = LevelAmount;
@@ -230,7 +271,7 @@ public class EntityStats : ScriptableObject
     {
         this.Level = Level;
 
-        for (int i = 0; i < ModifiableStats.Count-1; i++)
+        for (int i = 0; i < ModifiableStats.Count - 1; i++)
         {
             if (ModifiableStats.ElementAt(i).Value != null)
             {
@@ -246,6 +287,7 @@ public class EntityStats : ScriptableObject
             Resistance = Res;
             DamageBonus = Bonus;
         }
+
         public Stat Resistance { get; set; }
         public Stat DamageBonus { get; set; }
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ChestStats", menuName = "Objects/Chest Stats")]
 public class ChestStats : ScriptableObject
 {
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (InputString != string.Empty)
@@ -19,6 +20,7 @@ public class ChestStats : ScriptableObject
     }
 
     public string InputString;
+#endif
 
     [Header("Info")]
     public Rarity ChestType;

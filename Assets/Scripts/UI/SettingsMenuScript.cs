@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -19,7 +16,6 @@ namespace UI
         private int RefreshRate;
         private int Quality;
         private int Lang;
-        public RenderPipelineAsset[] QualityLevels = new RenderPipelineAsset[4];
 
         //Button
         private Button SaveBT;
@@ -42,8 +38,8 @@ namespace UI
             var ResetSaveBT = root.Q<Button>("ResetSaveBT");
             ResetSaveBT.clicked += () =>
             {
-                manager.ShowModalWindow(ModalWindowType.YesNo, 
-                    "#Delete_Save_Caption", "#Delete_Save_Title", 
+                manager.ShowModalWindow(ModalWindowType.YesNo,
+                    "#Delete_Save_Caption", "#Delete_Save_Title",
                     () => SaveLoadSystem.SaveLoadSystem.DeleteSave());
             };
 
@@ -65,7 +61,7 @@ namespace UI
             ResolutionDDF.value = PlayerPrefs.GetString("Resolution") ?? $"{Screen.width}X{Screen.height}";
             RefreshRateDDF.value = Screen.currentResolution.refreshRate.ToString();
             QualityDDF.value = QualityDDF.choices[PlayerPrefs.GetInt("Quality")];
-            LangDDF.value = LocalizationSettings.AvailableLocales.Locales[Lang].LocaleName;
+            LangDDF.value = LocalizationSettings.SelectedLocale.LocaleName;
 
             //Events
             SaveBT.clicked += SaveButtonClicked;

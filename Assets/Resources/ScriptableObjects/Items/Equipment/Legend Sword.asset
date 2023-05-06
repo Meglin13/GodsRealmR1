@@ -13,24 +13,73 @@ MonoBehaviour:
   m_Name: Legend Sword
   m_EditorClassIdentifier: 
   id: 12d6717f3afb714419445ba0512b9e7a
-  Name: Legendary Sword
-  Description: dfdsfsdf
+  Name: Legend Sword
+  Description: Legend Sword_Desc
+  Icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
   _Rarity: 5
   Amount: 1
   IsStackable: 0
   Type: 0
-  Icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
-  Prefab: {fileID: 0}
   EquipmentType: 7
   Modifiers:
-  - Name: 
+  - IsVisible: 0
+    Name: 
     Description: 
     ModifierType: 0
-    StatType: 4
+    StatType: 7
+    Element: 0
+    ModifierAmountType: 1
+    Amount: 5
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 8
+    Element: 0
+    ModifierAmountType: 1
+    Amount: 20
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 13
+    Element: 4
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 3
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 1
     Element: 0
     ModifierAmountType: 0
     Amount: 20
-    IsPermanent: 0
-    IsVisible: 0
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 0
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 0
+    IsPermanent: 1
     DurationInSecs: 0
   IsEquiped: 0

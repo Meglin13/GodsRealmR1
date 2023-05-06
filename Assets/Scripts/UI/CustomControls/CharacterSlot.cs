@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
-using static UnityEditorInternal.ReorderableList;
 
 namespace UI.CustomControls
 {
@@ -22,15 +21,20 @@ namespace UI.CustomControls
         public EntityStats entityStats;
 
         private StyleColor defaultBorderColor;
+        private Image Icon;
 
         public CharacterSlot()
         {
             AddToClassList("slot");
+
+            Icon = new Image();
+            Icon.AddToClassList("slot-icon");
+            Add(Icon);
+
             style.height = 150;
             style.width = 150;
 
             defaultBorderColor = this.style.borderTopColor;
-
         }
 
         public void SetSlot(EntityStats entityStats)
@@ -39,16 +43,12 @@ namespace UI.CustomControls
             {
                 this.entityStats = entityStats;
 
-                style.backgroundImage = new StyleBackground(entityStats.Icon);
+                Icon.sprite = entityStats.Icon;
 
                 Color color = GameManager.Instance.colorManager.RarityColor[entityStats.Rarity];
                 color.a = 0.8f;
-            }
-            else
-            {
-                style.backgroundImage = null;
 
-                this.entityStats = null;
+                style.backgroundColor = color;
             }
         }
 

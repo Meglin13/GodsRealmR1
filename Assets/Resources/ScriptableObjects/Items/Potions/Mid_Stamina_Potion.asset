@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 139380db2ab29934daa9acfb0235ec6c
   Name: Mid_Stamina_Potion
   Description: Mid_Stamina_Potion_Desc
-  Icon: {fileID: 21300000, guid: a9cfb8ee1a928334595fb7c8b4b168a6, type: 3}
+  Icon: {fileID: 21300000, guid: c5bc57633cfa0ee4cbbd1f4f4b8d63d0, type: 3}
   _Rarity: 2
   Amount: 1
   IsStackable: 1

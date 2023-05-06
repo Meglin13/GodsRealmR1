@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6af1e2529c69443b4f769d08c88c10, type: 3}
+  m_Name: Ardalion_Bolfri_Phone_Call_1
+  m_EditorClassIdentifier: 
+  _name: Ardalion_Bolfri_Phone_Call
+  Speakers:
+  - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+  - {fileID: 11400000, guid: 9815d61d5ba60a84d95a62d5b8512cc2, type: 2}
+  replicas:
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 9815d61d5ba60a84d95a62d5b8512cc2, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Ardalion_Bolfri_Phone_Call_Ardalion_1
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 9815d61d5ba60a84d95a62d5b8512cc2, type: 2}
+    Speaker: {fileID: 11400000, guid: 9815d61d5ba60a84d95a62d5b8512cc2, type: 2}
+    Line: Ardalion_Bolfri_Phone_Call_Bolfri_2

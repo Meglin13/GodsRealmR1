@@ -1,9 +1,10 @@
+using ObjectPooling;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Marfa : CharacterScript, ICharacter
 {
-    public GameObject NormalAttackBullet;
-    public GameObject DistractSkillTotem;
+    public ThrowableScript NormalAttackBullet;
 
     public override void Initialize()
     {
@@ -15,26 +16,21 @@ public class Marfa : CharacterScript, ICharacter
     {
         Skill attackSkill = new Skill(1f, EntityStats.NormalAttackMult);
 
-        MiscUtilities.Instance.ThrowThrowable(NormalAttackBullet, this, attackSkill);
-    }
+        Transform transform = gameObject.transform;
+        Vector3 gunpoint = transform.position + transform.forward + transform.up;
 
-    public void HoldAttack()
-    {
-
+        SpawnablePool.Instance.CreateObject(NormalAttackBullet, gunpoint, this, attackSkill);
     }
 
     public void DistractionAbility()
     {
-        LookAtEnemy(5f);
-        Skill skill = EntityStats.SkillSet[SkillType.Distract];
-        
-        var totem = MiscUtilities.SpawnObjectInFrontOfObject(gameObject, DistractSkillTotem, 5);
-        totem.GetComponent<AreaOfEffectScript>().Init(EntityStats, skill);
+        var totem = MiscUtilities.SpawnObjectInFrontOfObject(this, Distract.SpawningObject, 5);
+        totem.Spawn(this, Distract);
     }
 
     public void SpecialAbility()
     {
-        GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * EntityStats.SkillSet[SkillType.Special].DamageMultiplier.GetFinalValue(), StatType.Health);
+        GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Health].GetProcent() * Special.DamageMultiplier.GetFinalValue(), StatType.Health);
     }
 
     public void UltimateAbility()

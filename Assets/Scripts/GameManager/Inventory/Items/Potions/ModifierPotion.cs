@@ -1,9 +1,10 @@
-﻿using MyBox;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Modifier Potion", menuName = "Objects/Items/Potions/Modifier Potion")]
 public class ModifierPotion : PotionItem
 {
+#if UNITY_EDITOR
+
     public override void OnValidate()
     {
         base.OnValidate();
@@ -35,6 +36,8 @@ public class ModifierPotion : PotionItem
                 break;
         }
     }
+
+#endif
 
     [SerializeField]
     private Modifier Modifier;

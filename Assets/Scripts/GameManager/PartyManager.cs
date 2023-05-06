@@ -1,67 +1,108 @@
+using MyBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class PartyManager : MonoBehaviour, IManager
+public enum CommandType { ComeToLeader, GoToPoint, UseSpecial, UseDistract, UseUltimate }
+
+/// <summary>
+/// Тип переключения персонажей
+/// </summary>
+public enum PartySwitchingType
 {
+    /// <summary> На сцене находится только один персонаж и между ними можно переключаться </summary>
+    Manual,
+    /// <summary> Персонажи постоянно находятся на сцене, но между ними нельзя переключаться </summary>
+    Leader,
+    /// <summary> Персонажи постоянно находятся на сцене и между ними можно переключаться </summary>
+    Party
+}
+
+public class PartyManager : MonoBehaviour, ISingle
+{
+    public static PartyManager Instance { get; private set; }
+
     /// <summary>
     /// Индекс лидела
     /// </summary>
+    [ReadOnly]
     public int LeaderIndex = 0;
 
     /// <summary>
-    /// Определяет, можно ли переключаться
+    /// Тип переключения персонажей
     /// </summary>
-    public bool CanSwitch = true;
-    public CharacterScript Player { get; set; }
-    public static PartyManager Instance { get; private set; }
+    public PartySwitchingType switchingType = PartySwitchingType.Manual;
+
+    private GameObject Party;
+    public GameObject SpawnPoint;
 
     /// <summary>
     /// Список активных членов команды
     /// </summary>
     [HideInInspector]
     public List<CharacterScript> PartyMembers = new List<CharacterScript>();
-    public List<EntityStats> Characters = new List<EntityStats>();
-    /// <summary>
-    /// Переключение персонажей
-    /// </summary>
-    /// <param name="CurrentPlayer"></param>
-    /// <param name="newPlayerIndex"></param>
-    public void SwitchPlayer(CharacterScript CurrentPlayer, int newPlayerIndex)
-    {
-        if (newPlayerIndex > PartyMembers.Count | newPlayerIndex > 3 | !CanSwitch)
-        {
-            Debug.Log("Cannot switch");
-            return;
-        }
 
-        CharacterScript NewPlayer = PartyMembers[newPlayerIndex - 1];
-
-        //Старый игрок
-        SidekickState sidekickState = new SidekickState(CurrentPlayer, CurrentPlayer.EntityStateMachine);
-        CurrentPlayer.EntityStateMachine.ChangeState(sidekickState);
-        CurrentPlayer.IsActive = false;
-        CurrentPlayer.tag = AIUtilities.CharsTag;
-
-        //Новый игрок
-        PlayerState playerState = new PlayerState(NewPlayer, NewPlayer.EntityStateMachine);
-        NewPlayer.EntityStateMachine.ChangeState(playerState);
-        NewPlayer.IsActive = true;
-        NewPlayer.tag = AIUtilities.PlayerTag;
-
-        LeaderIndex = newPlayerIndex - 1;
-        CameraCenterBehaviour.Instance.SetTarget(NewPlayer.gameObject.transform);
-    }
 
     public void Initialize()
     {
         Instance = this;
 
-        Characters = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList();
+        Party = new GameObject("Party");
     }
 
-    //TODO: Сделать выбор членов команды
+    /// <summary>
+    /// Получение персонажа, которым управляет игрок
+    /// </summary>
+    /// <returns>Персонаж</returns>
+    public CharacterScript GetPlayer()
+    {
+        return PartyMembers[LeaderIndex];
+    }
+
+    /// <summary>
+    /// Переключение персонажей
+    /// </summary>
+    /// <param _name="CurrentPlayer"></param>
+    /// <param _name="newPlayerIndex"></param>
+    public void SwitchPlayer(CharacterScript CurrentPlayer, int newPlayerIndex)
+    {
+        if (newPlayerIndex > PartyMembers.Count - 1 | newPlayerIndex == LeaderIndex | switchingType == PartySwitchingType.Leader)
+        {
+            return;
+        }
+
+        CharacterScript NewPlayer = PartyMembers[newPlayerIndex];
+
+        if (switchingType == PartySwitchingType.Manual)
+        {
+            NewPlayer.gameObject.SetActive(true);
+            CurrentPlayer.gameObject.SetActive(false);
+
+            NewPlayer.transform.SetPositionAndRotation(CurrentPlayer.transform.position, CurrentPlayer.transform.rotation);
+
+            NewPlayer.agent.Warp(CurrentPlayer.transform.position);
+        }
+        else if (switchingType == PartySwitchingType.Party)
+        {
+            //Старый игрок
+            SidekickState sidekickState = new SidekickState(CurrentPlayer, CurrentPlayer.EntityStateMachine);
+            CurrentPlayer.EntityStateMachine.ChangeState(sidekickState);
+            CurrentPlayer.IsActive = false;
+
+            //Новый игрок
+            PlayerState playerState = new PlayerState(NewPlayer, NewPlayer.EntityStateMachine);
+            NewPlayer.EntityStateMachine.ChangeState(playerState);
+            NewPlayer.IsActive = true;
+        }
+
+        LeaderIndex = newPlayerIndex;
+
+        CameraCenterBehaviour.Instance.SetTarget(NewPlayer.gameObject.transform);
+    }
+
     public void Initialize(List<CharacterScript> characters)
     {
         Initialize();
@@ -72,25 +113,47 @@ public class PartyManager : MonoBehaviour, IManager
             return;
         }
 
-        PartyMembers = characters;
+        foreach (var item in characters)
+        {
+            var chara = Instantiate(item, SpawnPoint.transform.position, Quaternion.EulerAngles(0, 0, 0), Party.transform);
+            PartyMembers.Add(chara);
+            chara.gameObject.name = chara.EntityStats.Name;
+        }
 
         foreach (var i in PartyMembers)
             i.HotKeyNumber = PartyMembers.IndexOf(i);
 
         PartyMembers[0].IsActive = true;
-        PartyMembers[0].tag = AIUtilities.PlayerTag;
         CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
+
+        if (switchingType == PartySwitchingType.Manual)
+        {
+            foreach (var item in PartyMembers)
+            {
+                if (!item.IsActive)
+                {
+                    item.IsActive = true;
+                    item.gameObject.SetActive(false);
+                }
+            }
+        }
     }
 
-
-    public void CharDeath(CharacterScript character)
+    public void CharacterDeath(CharacterScript character)
     {
-        if (PartyMembers.Count > 0)
+        if (PartyMembers.Count > 1)
         {
             PartyMembers.Remove(character);
             PartyMembers[0].IsActive = true;
 
-            PartyMembers[0].EntityStateMachine.ChangeState(new PlayerState(PartyMembers[0], PartyMembers[0].EntityStateMachine));
+            if (switchingType == PartySwitchingType.Party | switchingType == PartySwitchingType.Leader)
+            {
+                PartyMembers[0].EntityStateMachine.ChangeState(new PlayerState(PartyMembers[0], PartyMembers[0].EntityStateMachine));
+            }
+            else
+            {
+                PartyMembers[0].gameObject.SetActive(true);
+            }
 
             CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
 
@@ -104,14 +167,58 @@ public class PartyManager : MonoBehaviour, IManager
         else
         {
             //TODO: ЭКРАН СМЕРТИ
+            UIManager.Instance.OpenMenu(UIManager.Instance.DeathScreen);
         }
     }
 
     #region [Team Commands]
 
-    public void GiveCommandToMember()
+    public void GiveCommandToMember(CommandType command, int index)
     {
-        //TODO: Реализовать команды союзникам
+        if (index < PartyMembers.Count & index != LeaderIndex)
+        {
+            CharacterScript character = PartyMembers[index];
+
+            switch (command)
+            {
+                case CommandType.UseSpecial:
+
+                    break;
+
+                case CommandType.UseDistract:
+
+                    break;
+
+                case CommandType.UseUltimate:
+
+                    break;
+            }
+        }
+    }
+
+    public void GiveCommandToMember(CommandType command, int index, Vector3 target)
+    {
+        if (index != LeaderIndex)
+        {
+            CharacterScript character = PartyMembers[index];
+            Debug.Log(command);
+            switch (command)
+            {
+                case CommandType.ComeToLeader:
+                    character.EntityStateMachine.CurrentState.InnerStateMachine.
+                        ChangeState(new TargetFollowingState(GetPlayer().gameObject, character.gameObject, character.EntityStateMachine.CurrentState.InnerStateMachine));
+                    break;
+
+                case CommandType.GoToPoint:
+                    Vector3 mousePos = Input.mousePosition;
+                    mousePos.z = Camera.main.nearClipPlane;
+                    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
+                    character.EntityStateMachine.CurrentState.InnerStateMachine.
+                        ChangeState(new TargetFollowingState(worldPosition, character.gameObject, character.EntityStateMachine.CurrentState.InnerStateMachine));
+                    break;
+            }
+        }
     }
 
     //TODO: Общие команды
@@ -159,8 +266,8 @@ public class PartyManager : MonoBehaviour, IManager
     /// <summary>
     /// Метод для добавления маны, здоровья или выносливости
     /// </summary>
-    /// <param name="Amount">Добавляемое количество</param>
-    /// <param name="type">Тип атрибута</param>
+    /// <param _name="Amount">Добавляемое количество</param>
+    /// <param _name="type">Тип атрибута</param>
     public void GiveSupportToAll(float Amount, StatType type)
     {
         foreach (var item in PartyMembers)
@@ -186,13 +293,4 @@ public class PartyManager : MonoBehaviour, IManager
     }
 
     #endregion [Team Commands]
-
-    /// <summary>
-    /// Получение персонажа, которым управляет игрок
-    /// </summary>
-    /// <returns>Персонаж</returns>
-    public CharacterScript GetPlayer()
-    {
-        return PartyMembers[LeaderIndex];
-    }
 }

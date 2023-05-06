@@ -1,36 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using UI;
 using UnityEngine;
 
 namespace SaveLoadSystem
 {
-    //TODO: Система сохранения
     [Serializable]
     public class GameData
     {
+        public GameData() { }
+
         public GameData(int tokens, List<int> unlockedCharactersId)
         {
-            this.Tokens = tokens;
-            this.UnlockedCharactersId = unlockedCharactersId;
+            this.tokens = tokens;
+            this.unlockedCharactersId = unlockedCharactersId;
         }
 
-        public int Tokens { get; set; }
-        public List<int> UnlockedCharactersId { get; set; }
+        [SerializeField] private int tokens;
+        public int Tokens { get { return tokens; } }
+
+        [SerializeField] private List<int> unlockedCharactersId;
+        public List<int> UnlockedCharactersId { get { return unlockedCharactersId; } }
     }
 
     public static class SaveLoadSystem
     {
+        private static GameData save;
+        public static GameData SavedData
+        {
+            get => save ??= Load();
+        }
+
         public static string savingPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\My Games\God's Realm\Saved Game";
 
-        private static GameData CollectGameData()
+        public static GameData CollectGameData()
         {
             var unlocked = new List<int>();
-            var list =  PartyManager.Instance.Characters.Where(x => x.IsUnlocked);
+            var list = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList().Where(x => x.IsUnlocked);
 
             foreach (var item in list)
             {
@@ -42,7 +50,7 @@ namespace SaveLoadSystem
             return result;
         }
 
-        public static void Save()
+        public static bool Save()
         {
             var data = CollectGameData();
 
@@ -61,14 +69,16 @@ namespace SaveLoadSystem
                 }
 
                 UnityEngine.Debug.Log("Saved");
+                return true;
             }
             catch (Exception ex)
             {
                 UnityEngine.Debug.Log("Something went wrong.\n" + ex.Message);
+                return false;
             }
         }
 
-        public static void Load()
+        public static GameData Load()
         {
             GameData state;
 
@@ -77,25 +87,37 @@ namespace SaveLoadSystem
             if (!File.Exists(path))
             {
                 UnityEngine.Debug.Log("No saved games");
-                return;
+                return null;
             }
 
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream stream = new FileStream(path, FileMode.Open))
+            try
             {
-                state = (GameData)formatter.Deserialize(stream);
+                BinaryFormatter formatter = new BinaryFormatter();
 
-                var list = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList();
-
-                for (int i = 0; i < list.Count; i++)
+                using (FileStream stream = new FileStream(path, FileMode.Open))
                 {
-                    if (state.UnlockedCharactersId.Contains(list[i].ID))
+                    state = (GameData)formatter.Deserialize(stream);
+
+                    var list = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList();
+
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        list[i].IsUnlocked = true;
+                        if (state.UnlockedCharactersId.Contains(list[i].ID))
+                        {
+                            list[i].IsUnlocked = true;
+                        }
                     }
                 }
+
+                UnityEngine.Debug.Log("Loaded");
             }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.Log("Something went wrong.\n" + ex.Message);
+                return null;
+            }
+
+            return state;
         }
 
         public static void DeleteSave()
@@ -115,14 +137,17 @@ namespace SaveLoadSystem
             }
 
             var list = Resources.LoadAll("ScriptableObjects/Character", typeof(EntityStats)).Cast<EntityStats>().ToList();
-            
+
             foreach (var entity in list)
             {
                 if (entity.Name != "Ardalion" | entity.Name != "Marfa" | entity.Name != "Dream")
-                {
                     entity.IsUnlocked = false;
-                }
             }
+
+            var collectebles = ObjectsUtilities.FindAllScriptableObjects<ICollectable>();
+
+            foreach (var item in collectebles)
+                item.IsUnlocked = false;
         }
     }
 }

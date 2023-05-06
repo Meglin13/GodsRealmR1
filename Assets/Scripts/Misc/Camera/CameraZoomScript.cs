@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +7,7 @@ public class CameraZoomScript : MonoBehaviour
     public Camera MinimapCamera;
 
     float CurrentSize;
-    public float scrollSpeed  = 0.001f;
+    public float scrollSpeed = 0.001f;
     public float MaxSize = 6;
     public float MinSize = 4;
 
@@ -20,7 +18,7 @@ public class CameraZoomScript : MonoBehaviour
     InputAction ZoomInMiniMap;
     InputAction ZoomOutMiniMap;
 
-    private void Start()
+    private void OnEnable()
     {
         _camera = Camera.main;
         CurrentSize = _camera.orthographicSize;
@@ -32,7 +30,13 @@ public class CameraZoomScript : MonoBehaviour
         ZoomInMiniMap = playerInput.actions["ZoomInMinimap"];
 
         ZoomInMiniMap.performed += ctx => ZoomMiniMap(0.5f);
-        ZoomOutMiniMap.started += ctx => ZoomMiniMap(-0.5f);
+        ZoomOutMiniMap.performed += ctx => ZoomMiniMap(-0.5f);
+    }
+
+    private void OnDisable()
+    {
+        ZoomInMiniMap.performed -= ctx => ZoomMiniMap(0.5f);
+        ZoomOutMiniMap.performed -= ctx => ZoomMiniMap(-0.5f);
     }
 
     private void ZoomMiniMap(float zoom)

@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.UIElements;
-using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Tables;
 using UI.CustomControls;
+using UnityEngine;
+using UnityEngine.UIElements;
 
+public enum IndexType { Next, Previous }
 namespace UI
 {
     public class InventoryUIScript : UIScript
     {
-
         //Context
         public CharacterScript CharacterContext;
 
@@ -22,11 +20,7 @@ namespace UI
         public InventorySlotControl slotContext;
         private int SelectedSlotIndex = 0;
 
-        public enum IndexType
-        { Next, Previous }
-
         public event Action OnInventoryUpdate = delegate { };
-
         public event Action OnItemSelect = delegate { };
 
         //Inventory
@@ -55,15 +49,17 @@ namespace UI
         public InventorySlotControl ArtefactSlot;
 
         //Item menu
-        public Button EquipBT;
+        private Button EquipBT;
 
-        public Button DropBT;
+        private Button DropBT;
 
-        public Label ItemNameLB;
-        public Label ItemDescLB;
+        private Label ItemNameLB;
+        private Label ItemDescLB;
 
-        public Label GoldLB;
-        public Label TokenLB;
+        private Label GoldLB;
+        private Label TokenLB;
+
+        private VisualElement ModsContainer;
 
         public VisualElement InventoryContainer;
 
@@ -108,11 +104,12 @@ namespace UI
             DropBT = root.Q<Button>("DropBT");
 
             ItemNameLB = root.Q<Label>("ItemNameLB");
-
             ItemDescLB = root.Q<Label>("ItemDescLB");
 
             GoldLB = root.Q<Label>("GoldLB");
             TokenLB = root.Q<Label>("TokenLB");
+
+            ModsContainer = root.Q<VisualElement>("ModsScrollView");
 
             //Inventory
             InventoryContainer = root.Q<VisualElement>("InventoryContainer");
@@ -127,13 +124,15 @@ namespace UI
             OnInventoryUpdate();
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
-            EquipBT.clicked -= EquipItemButtonClicked;
-            DropBT.clicked -= DropItemButtonClicked;
+            ObjectsUtilities.UnsubscribeEvents(new Action[2] { OnInventoryUpdate, OnItemSelect });
 
-            PreviousCharBT.clicked -= () => ChangeCharacterContext(IndexType.Previous);
-            NextCharBT.clicked -= () => ChangeCharacterContext(IndexType.Next);
+            EquipBT.clickable = null;
+            DropBT.clickable = null;
+
+            PreviousCharBT.clickable = null;
+            NextCharBT.clickable = null;
         }
 
         private void UpdateInventory()
@@ -208,7 +207,7 @@ namespace UI
                     SelectedSlotIndex = inventory.Inventory.Count - 1;
                 }
 
-                inventory.DeleteItem(item.ID);
+                inventory.DeleteItem(item.ID, true);
 
                 OnInventoryUpdate();
 
@@ -244,22 +243,30 @@ namespace UI
 
                 SelectedSlotIndex = InventoryContainer.IndexOf(inventorySlot);
 
+                ChangeFocus();
+
                 slotContext = inventorySlot;
 
                 OnItemSelect();
             }
         }
 
+        private void LoadItemModifiers(EquipmentItem item)
+        {
+            ModsContainer.Clear();
+
+            foreach (var mod in item.Modifiers)
+            {
+                var modListItem = new ModifierListItem();
+                modListItem.SetModifier(mod);
+
+                ModsContainer.Add(modListItem);
+            }
+        }
+
         private void ChangeCharacterContext(IndexType indexType)
         {
-            if (indexType == IndexType.Next)
-            {
-                MiscUtilities.Instance.NextIndex(Party, ref CurrentCharIndex);
-            }
-            else
-            {
-                MiscUtilities.Instance.PreviousIndex(Party, ref CurrentCharIndex);
-            }
+            CurrentCharIndex = MiscUtilities.NextIndex(Party, CurrentCharIndex, indexType);
 
             CharacterContext = Party[CurrentCharIndex];
 
@@ -271,13 +278,9 @@ namespace UI
             int index = SelectedSlotIndex;
 
             if (index > inventory.Inventory.Count - 1)
-            {
                 index = inventory.Inventory.Count - 1;
-            }
             else
-            {
                 return;
-            }
 
             SelectItemSlot((InventorySlotControl)InventoryContainer[index]);
         }
@@ -318,6 +321,11 @@ namespace UI
             {
                 manager.ChangeLabelsText(ItemNameLB, slotContext.itemContext.Name, ItemsTable);
                 manager.ChangeLabelsText(ItemDescLB, slotContext.itemContext.Description, ItemsTable);
+
+                if (slotContext.itemContext is EquipmentItem)
+                {
+                    LoadItemModifiers(slotContext.itemContext as EquipmentItem);
+                }
             }
         }
 

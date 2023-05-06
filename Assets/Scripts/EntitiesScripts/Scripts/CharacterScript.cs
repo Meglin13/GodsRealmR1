@@ -1,9 +1,6 @@
 using MyBox;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -11,6 +8,20 @@ using UnityEngine.InputSystem;
 [SelectionBase]
 public abstract class CharacterScript : EntityScript
 {
+#if UNITY_EDITOR
+    [ButtonMethod]
+    public override void OnValidate()
+    {
+        base.OnValidate();
+
+        if (EntityStats)
+        {
+            GetComponent<PlayerInput>().actions = Resources.Load<InputActionAsset>("InputSystem/PlayerActions");
+        }
+    }
+#endif
+
+
     #region [Party Setup Settings]
 
     [Header("Party Setup Settings")]
@@ -66,10 +77,16 @@ public abstract class CharacterScript : EntityScript
     [HideInInspector]
     public BarScript ManaBar, StaminaBar;
 
+    [HideInInspector]
+    public PlayerInput playerInput;
+
     private InputAction switchCharacterAction;
     private InputAction specialAbilityAction;
     private InputAction distractAbilityAction;
     private InputAction ultimateAbilityAction;
+    //private InputAction commanderAction;
+    //private InputAction leftAction;
+    //private InputAction rightAction;
 
     [HideInInspector]
     public InteractorScript interactor;
@@ -116,31 +133,28 @@ public abstract class CharacterScript : EntityScript
         OnHeal += UpdateBars;
 
         OnAddModifier += UpdateBars;
-        OnAddModifier += () =>
-        {
-            animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
-            Speed = EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
-        };
+        OnAddModifier += UpdateSpeed;
 
         InitializeInputEvents();
     }
 
     private void InitializeInputEvents()
     {
-        PlayerInput playerInput = gameObject.GetComponent<PlayerInput>();
-        //playerInput.actions = GameManager.Instance.playerInput;
-        //playerInput.defaultActionMap = "Player";
+        playerInput = gameObject.GetComponent<PlayerInput>();
 
         switchCharacterAction = playerInput.actions["SwitchCharacter"];
         distractAbilityAction = playerInput.actions["Distract"];
         specialAbilityAction = playerInput.actions["Special"];
         ultimateAbilityAction = playerInput.actions["Ultimate"];
+        //commanderAction = playerInput.actions["Commander"];
+        //leftAction = playerInput.actions["Attack"];
+        //rightAction = playerInput.actions["Block"];
 
         switchCharacterAction.performed += SwitchCharacter;
+        distractAbilityAction.performed += TriggerSkillAnim;
+        specialAbilityAction.performed += TriggerSkillAnim;
+        ultimateAbilityAction.performed += TriggerSkillAnim;
 
-        distractAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
-        specialAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
-        ultimateAbilityAction.performed += ctx => TriggerSkillAnim(ctx.action.name);
     }
 
     #endregion [Character Script Stats]
@@ -223,24 +237,36 @@ public abstract class CharacterScript : EntityScript
 
     #region [Unity Methods]
 
-    public override void OnEnable()
+    public override void Awake()
     {
         Initialize();
+
+        equipment = new CharacterEquipment(this);
     }
 
-    public override void OnDisable()
+    public void OnEnable()
     {
+        UpdateSpeed();
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+
         ObjectsUtilities.UnsubscribeEvents(OnStaminaChange);
 
         Special.ClearEvents();
         Distract.ClearEvents();
         Ultimate.ClearEvents();
 
+        ultimateAbilityAction.performed -= TriggerSkillAnim;
+        specialAbilityAction.performed -= TriggerSkillAnim;
+        distractAbilityAction.performed -= TriggerSkillAnim;
         switchCharacterAction.performed -= SwitchCharacter;
 
-        distractAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
-        specialAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
-        ultimateAbilityAction.performed -= ctx => TriggerSkillAnim(ctx.action.name);
+        Special.OnSkillTrigger -= Character.SpecialAbility;
+        Distract.OnSkillTrigger -= Character.DistractionAbility;
+        Ultimate.OnSkillTrigger -= Character.UltimateAbility;
     }
 
     public void Start()
@@ -253,8 +279,6 @@ public abstract class CharacterScript : EntityScript
         CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
 
         animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
-
-        equipment = new CharacterEquipment(this);
     }
 
     public virtual void Update()
@@ -305,7 +329,23 @@ public abstract class CharacterScript : EntityScript
     private void SwitchCharacter(InputAction.CallbackContext obj)
     {
         if (int.TryParse(obj.control.name, out int num) & num != 0)
-            GameManager.Instance.partyManager.SwitchPlayer(this, num);
+        {
+            //if (commanderAction.activeControl != null | commanderAction.triggered)
+            //{
+            //    if (leftAction.triggered || leftAction.activeControl != null)
+            //    {
+            //        GameManager.Instance.partyManager.GiveCommandToMember(CommandType.GoToPoint, num);
+            //    }
+            //    else if (rightAction.triggered || rightAction.activeControl != null)
+            //    {
+            //        GameManager.Instance.partyManager.GiveCommandToMember(CommandType.ComeToLeader, num);
+            //    }
+            //}
+            //else
+            {
+                GameManager.Instance.partyManager.SwitchPlayer(this, num - 1);
+            }
+        }
     }
 
     public void LookAtEnemy(float range)
@@ -339,8 +379,10 @@ public abstract class CharacterScript : EntityScript
     public void UltimateTrigger() => UseAbility(Ultimate);
     #endregion
 
-    public void TriggerSkillAnim(string name)
+    public void TriggerSkillAnim(InputAction.CallbackContext ctx)
     {
+        string name = ctx.action.name;
+
         Enum.TryParse(name, out SkillType result);
         Skill skill = EntityStats.SkillSet[result];
 
@@ -367,7 +409,7 @@ public abstract class CharacterScript : EntityScript
             StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
         else if (skill.IsCooldown())
-            Debug.Log($"{skill.SkillName} is cooldown!!!");
+            Debug.Log($"{skill.Name} is cooldown!!!");
         else
             Debug.Log($"Not enough mana! Need {skill.ManaCost}/{CurrentMana}");
     }
@@ -380,6 +422,12 @@ public abstract class CharacterScript : EntityScript
             ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
             StaminaBar.ChangeBarValue(CurrentStamina, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
         }
+    }
+
+    private void UpdateSpeed()
+    {
+        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
+        Speed = EntityStats.ModifiableStats[StatType.Speed].GetFinalValue();
     }
 
     public override void GiveSupport(float Amount, StatType type)

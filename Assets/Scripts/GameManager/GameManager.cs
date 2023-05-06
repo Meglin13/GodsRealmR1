@@ -1,3 +1,4 @@
+using ObjectPooling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MiniMapManager))]
 [RequireComponent(typeof(ColorManager))]
 [RequireComponent(typeof(RunManager))]
-public class GameManager : MonoBehaviour, IManager
+public class GameManager : MonoBehaviour, ISingle
 {
     public static GameManager Instance { get; private set; }
 
@@ -28,16 +29,16 @@ public class GameManager : MonoBehaviour, IManager
     public RunManager runManager;
 
     [Header("Default Prefabs")]
-    public GameObject DamagePopUp;
-    public GameObject HitVFX;
+    public VFXScript DamagePopUp;
+    public VFXScript HitVFX;
     public GameObject HealthBar;
 
     public InputActionAsset playerInput;
 
     [Header("Misc")]
-    public List<CharacterScript> characters;
-
-    public float CaptionLifeTime = 5f;
+    [SerializeField]
+    private List<CharacterScript> characters;
+    public static List<CharacterScript> Characters;
 
     [Header("Parry")]
     public float ParryTime = 0.8f;
@@ -79,19 +80,54 @@ public class GameManager : MonoBehaviour, IManager
 
     private void Start()
     {
-        partyManager.Initialize(characters);
+        if (characters != null & characters.Count > 0)
+        {
+            Debug.Log("Using preselected chars");
+            partyManager.Initialize(characters);
+        }
+        else
+        {
+            Debug.Log("Using selected chars " + Characters.Count);
+            partyManager.Initialize(Characters);
+        }
+
+        SetPoolers();
 
         //TODO: Решить чо делать в баффами команды
         //partyManager.ApplyTeamBuff();
         inventory.Initialize();
     }
 
-    private void Update()
+    [SerializeField]
+    PoolerScript<SpawningObject> spawnings;
+    [SerializeField]
+    PoolerScript<VFXScript> vfxs;
+    [SerializeField]
+    PoolerScript<EnemyScript> enemies;
+
+    private void SetPoolers()
     {
-        //Time.timeScale = TimeScale;
+        if (spawnings)
+        {
+            foreach (var item in partyManager.PartyMembers)
+            {
+                foreach (var skill in item.EntityStats.skills)
+                {
+                    if (skill.SpawningObject)
+                    {
+                        spawnings.objectsList.AddItem(skill.SpawningObject, 2);
+                    }
+                }
+            }
+        }
     }
 
-    public void GetItems()
+    public void SetCharacters(List<CharacterScript> characters)
+    {
+        Characters = characters;
+    }
+
+    private void GetItems()
     {
         EquipmentList = Resources.LoadAll("ScriptableObjects/Items/Equipment", typeof(EquipmentItem)).Cast<EquipmentItem>().ToList();
         PotionList = Resources.LoadAll("ScriptableObjects/Items/Potions", typeof(PotionItem)).Cast<PotionItem>().ToList();

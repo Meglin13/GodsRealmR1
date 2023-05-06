@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Localization.Tables;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -9,14 +8,17 @@ namespace UI
     public abstract class UIScript : MonoBehaviour
     {
         public VisualElement root;
+        public Button BackBT;
         [HideInInspector]
         private UIDocumentLocalization localization;
         [HideInInspector]
-        public UIManager manager;
+        internal UIManager manager;
 
         internal StringTable UITable;
         internal StringTable ItemsTable;
         internal StringTable CharacterTable;
+        internal StringTable DialogueTable;
+        internal StringTable TutorialTable;
 
         private void OnEnable()
         {
@@ -26,6 +28,8 @@ namespace UI
             UITable = manager.UITable;
             CharacterTable = manager.CharacterTable;
             ItemsTable = manager.ItemsTable;
+            DialogueTable = manager.DialogueTable;
+            TutorialTable = manager.TutorialTable;
 
             OnBind();
             localization.OnCompleted -= OnBind;
@@ -35,9 +39,12 @@ namespace UI
         internal virtual void OnBind()
         {
             root = GetComponent<UIDocument>().rootVisualElement;
-            var BackBT = root.Q<Button>("BackBT");
+
+            BackBT = root.Q<Button>("BackBT");
+
             if (BackBT != null)
             {
+                BackBT.clicked -= GoBack;
                 BackBT.clicked += GoBack;
             }
         }

@@ -1,3 +1,4 @@
+using Akaal.PvCustomizer.Scripts;
 using MyBox;
 using System;
 using System.IO;
@@ -20,7 +21,7 @@ public enum Rarity
 }
 
 [Serializable]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, ILocalizable
 {
 #if UNITY_EDITOR
     public virtual void OnValidate()
@@ -28,8 +29,10 @@ public class Item : ScriptableObject
         id = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(this));
 
         string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
-        this.Name = Path.GetFileNameWithoutExtension(assetPath);
-        this.Description = Path.GetFileNameWithoutExtension(assetPath) + "_Desc";
+        this._Name = Path.GetFileNameWithoutExtension(assetPath);
+        this._Description = Path.GetFileNameWithoutExtension(assetPath) + "_Desc";
+
+
     }
 #endif
 
@@ -38,14 +41,22 @@ public class Item : ScriptableObject
     private string id;
     public string ID { get { return id; } }
 
+    public string Name => _Name;
+    public string Description => _Description;
+
     [ReadOnly]
-    public string Name;
+    [SerializeField]
+    private string _Name;
     [ReadOnly]
-    public string Description;
+    [SerializeField]
+    private string _Description;
+
+    [PvIcon]
     public Sprite Icon;
     public Rarity _Rarity;
     [HideInInspector]
     public int Amount = 1;
+    [ReadOnly]
     public bool IsStackable;
     [ReadOnly]
     public ItemType Type;

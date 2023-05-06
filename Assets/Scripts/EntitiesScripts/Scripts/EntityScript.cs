@@ -1,12 +1,11 @@
-﻿using MyBox;
+﻿using Cinemachine;
+using MyBox;
+using ObjectPooling;
 using System;
 using System.Collections;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.AI;
-using Cinemachine;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -15,6 +14,44 @@ using Debug = UnityEngine.Debug;
 [SelectionBase]
 public abstract class EntityScript : MonoBehaviour, IDamageable
 {
+#if UNITY_EDITOR
+
+    public virtual void OnValidate()
+    {
+        if (Stats)
+        {
+            GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>($"AnimatorControllers/{EntityStats.Type}/{EntityStats.Name}");
+
+            //Collider
+            CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
+            collider.height = 2;
+            collider.center = new Vector3(0, 1, 0);
+
+            //RigidBody
+            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            rigidbody.useGravity = false;
+            rigidbody.freezeRotation = true;
+
+            //NavMesh
+            NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            agent.speed = 5f;
+            agent.stoppingDistance = 2f;
+
+            gameObject.tag = EntityStats.EntityTag;
+            gameObject.layer = EntityStats.EntityLayer;
+
+            EntityStats.EntityLayer = gameObject.layer;
+
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = gameObject.layer;
+            }
+        }
+    }
+
+#endif
+
     [MustBeAssigned]
     [SerializeField]
     private EntityStats Stats;
@@ -29,61 +66,30 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     public Animator animator;
 
     [HideInInspector]
+    public NavMeshAgent agent;
+
+    [HideInInspector]
     internal CinemachineImpulseSource impulseSource;
 
     internal BarScript HealthBar;
 
     public virtual void Initialize()
     {
-        //TODO: Посмотреть насколько все плохо будет при запуске нового этажа
-        StopAllCoroutines();
-
-        this.EntityStats = Stats;
         EntityStats.Initialize(Level);
 
         CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
-
-        if (EntityStats.Type == EntityType.Enemy)
-        {
-            EntityStats.EnemyLayer = EnemyLayer = AIUtilities.CharsLayer;
-            EntityStats.EnemyTag = EnemyTag = AIUtilities.CharsTag;
-
-            gameObject.tag = AIUtilities.EnemyTag;
-            gameObject.layer = AIUtilities.EnemyLayer;
-        }
-        else
-        {
-            EntityStats.EnemyLayer = EnemyLayer = AIUtilities.EnemyLayer;
-            EntityStats.EnemyTag = EnemyTag = AIUtilities.EnemyTag;
-
-            gameObject.tag = AIUtilities.CharsTag;
-            gameObject.layer = AIUtilities.CharsLayer;
-        }
-
-        //Collider
-        CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
-        collider.height = 2;
-        collider.center = new Vector3(0, 1, 0);
-
-        //RigidBody
-        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-        rigidbody.freezeRotation = true;
 
         //MeleeWeapon
         MeleeWeapon = GetComponentInChildren<MeleeWeapon>();
 
         if (MeleeWeapon)
-        {
             EntityStats.WeaponLengthStat = MeleeWeapon.WeaponLength;
-        }
 
         //Animator
         animator = GetComponent<Animator>();
 
         //NavMesh
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.speed = 5f;
-        agent.stoppingDistance = 2f;
+        agent = GetComponent<NavMeshAgent>();
 
         //Cinemachine
         impulseSource = GetComponent<CinemachineImpulseSource>();
@@ -104,10 +110,13 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     #endregion [Delegates]
 
     #region [IDamageable]
-    public float CurrentHealth { get; set; }
-    public EntityStats EntityStats { get; set; }
-    public int EnemyLayer { get; set; }
-    public string EnemyTag { get; set; }
+    private float health;
+    public float CurrentHealth { 
+        get => health; 
+        set => health = Mathf.Clamp(value, 0, EntityStats.ModifiableStats[StatType.Health].GetFinalValue()); }
+    public EntityStats EntityStats { get => Stats; }
+    public int EnemyLayer { get => EntityStats.EnemyLayer; }
+    public string EnemyTag { get => EntityStats.EnemyTag; }
 
     public virtual void TakeDamage(EntityStats DealerStats, float Multiplier, bool CanParry)
     {
@@ -125,25 +134,20 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
     public virtual void Death() => OnDie();
 
-    public void HitVFX(Vector3 hitPosition)
-    {
-        var hitVFX = GameManager.Instance.HitVFX;
-        GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
-        hit.transform.SetParent(MiscUtilities.Instance.Dump.transform);
+    public void HitVFX(Vector3 hitPosition) => VFXPool.Instance.CreateObject(GameManager.Instance.HitVFX, hitPosition);
 
-        Destroy(hit, 0.5f);
-    }
-    #endregion
+    #endregion [IDamageable]
 
     #region [Unity Methods]
-    public virtual void OnEnable()
+
+    public virtual void Awake()
     {
         Initialize();
     }
 
-    public virtual void OnDisable()
+    public virtual void OnDestroy()
     {
-        var delList = new Action[]
+        Action[] delList = new Action[]
         {
             OnAddModifier,
             OnDie,
@@ -157,9 +161,20 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         ObjectsUtilities.UnsubscribeEvents(delList);
     }
 
-    #endregion
+    private void OnEnable()
+    {
+        ResetAgent();
+    }
+
+    #endregion [Unity Methods]
 
     #region[Utilities]
+
+    public void ResetAgent()
+    {
+        agent.enabled = false;
+        agent.enabled = true;
+    }
 
     public void UpdateHealthBar()
     {
@@ -171,7 +186,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         switch (type)
         {
             case StatType.Health:
-                CurrentHealth = Mathf.Clamp(CurrentHealth + Amount, 0, EntityStats.ModifiableStats[type].GetFinalValue());
+                CurrentHealth += Amount;
                 OnHeal();
                 break;
 
@@ -195,23 +210,19 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         {
             OnAddModifier();
 
-            //Debug.Log($"Added modifier {modifier.AmountOfPotion} for {modifier.DurationInSecs} sec. Stat before modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
-            
+            //Debug.Log($"Added modifier {modifier.StatType} {modifier.Amount} for {modifier.DurationInSecs} sec. Stat before modifier {EntityStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
+
             if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
             {
                 if (modifier.StatType == StatType.Resistance)
-                {
                     this.EntityStats.ElementsResBonus[modifier.Element].Resistance.AddModifier(modifier);
-                }
                 else
-                {
                     this.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.AddModifier(modifier);
-                }
             }
             else
                 this.EntityStats.ModifiableStats[modifier.StatType].AddModifier(modifier);
 
-            //Debug.Log($"Stat after modifier {CharStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
+            //Debug.Log($"Stat after modifier {EntityStats.ModifiableStats[modifier.StatType].GetFinalValue()}");
 
             yield return new WaitForSeconds(modifier.DurationInSecs);
 
@@ -220,13 +231,9 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
                 if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
                 {
                     if (modifier.StatType == StatType.Resistance)
-                    {
                         this.EntityStats.ElementsResBonus[modifier.Element].Resistance.RemoveModifier(modifier);
-                    }
                     else
-                    {
                         this.EntityStats.ElementsResBonus[modifier.Element].DamageBonus.RemoveModifier(modifier);
-                    }
                 }
                 else
                     this.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);

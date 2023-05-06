@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement name="Panel" class="panel" style="width: 90%; flex-direction: row; flex-shrink: 0; flex-grow: 0; align-items: stretch;">
+        <ui:VisualElement name="CharacterArt" style="flex-shrink: 1; flex-grow: 0; background-image: resource(&apos;Images/Characters/dude dudesness&apos;); width: 30%; -unity-background-scale-mode: scale-and-crop;">
+            <ui:Label text="PLACEHOLDER" display-tooltip-when-elided="true" name="CharacterName" style="margin-top: auto; background-color: rgba(35, 35, 59, 0.5); margin-bottom: 80px; padding-left: 18px; padding-right: 18px; padding-top: 18px; padding-bottom: 18px;" />
+        </ui:VisualElement>
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="flex-shrink: 0; flex-grow: 2;" />
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" style="flex-shrink: 1; flex-grow: 0; width: 30%;">
+            <ui:VisualElement name="CharacterList" style="flex-shrink: 0; flex-grow: 1; height: auto; width: 100%; flex-direction: row; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+                <UI.CustomControls.CharacterSlot />
+                <UI.CustomControls.CharacterSlot />
+                <UI.CustomControls.CharacterSlot />
+                <UI.CustomControls.CharacterSlot />
+                <UI.CustomControls.CharacterSlot />
+                <UI.CustomControls.CharacterSlot />
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

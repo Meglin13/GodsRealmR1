@@ -1,18 +1,14 @@
 ﻿using MyBox;
 using System;
-using System.Data.SqlTypes;
-using System.Diagnostics;
+using UnityEngine;
 
 public enum ModType { Buff, Debuff }
 public enum ModifierAmountType { Procent, Value }
 
 [Serializable]
-public class Modifier
+public class Modifier : ILocalizable
 {
-    public Modifier()
-    {
-
-    }
+    public Modifier() { }
 
     //Бафф на 1 секунду
     public Modifier(StatType StatType, float Amount)
@@ -47,19 +43,33 @@ public class Modifier
         ModifierType = ModType.Buff;
     }
 
+    public string Name
+    {
+        get => _Name;
+        set => _Name = value;
+    }
+
+    public string Description
+    {
+        get => _Description;
+        set => _Description = value;
+    }
+
     public bool IsVisible = false;
     [ConditionalField(nameof(IsVisible))]
-    public string Name;
+    [SerializeField]
+    private string _Name;
     [ConditionalField(nameof(IsVisible))]
-    public string Description;
+    [SerializeField]
+    private string _Description;
     public ModType ModifierType;
     public StatType StatType;
-    [ConditionalField(nameof(StatType), false, new object[2] { StatType.ElementalDamageBonus, StatType.Resistance } )]
+    [ConditionalField(nameof(StatType), false, new object[2] { StatType.ElementalDamageBonus, StatType.Resistance })]
     public Element Element;
     public ModifierAmountType ModifierAmountType;
     public float Amount;
     public bool IsPermanent = true;
-    
+
     [ConditionalField(nameof(IsPermanent), inverse: true)]
     public float DurationInSecs = 0;
 }

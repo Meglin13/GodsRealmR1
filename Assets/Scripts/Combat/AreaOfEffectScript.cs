@@ -1,38 +1,45 @@
 using MyBox;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(ShowRadiusCircleScript))]
-public class AreaOfEffectScript : MonoBehaviour
+public class AreaOfEffectScript : SpawningObject
 {
     [SerializeField]
+    private AreaType areaType;
+
+    [SerializeField]
+    [ReadOnly]
     private float LifeTime;
+
     [SerializeField]
+    [ReadOnly]
     private float TimeBetweenAttacks;
-    private float Radius;
-
-    private EntityStats DealerStats;
-    private Skill skill;
 
     [SerializeField]
+    [ReadOnly]
     private float passedTime;
+
     [SerializeField]
+    [ReadOnly]
     private float passedTimeBetweenAttacks;
 
-    public void Init(EntityStats entityStats, Skill skill)
+    ShowRadiusCircleScript area;
+
+    public override void Spawn(IDamageable dude, Skill skill)
     {
-        this.skill = skill;
-
+        base.Spawn(dude, skill);
         LifeTime = skill.DurationInSecs;
-        Radius = skill.Radius;
         TimeBetweenAttacks = skill.PeriodicDamageTime;
+        area.Draw(Radius);
 
-        DealerStats = entityStats;
+        passedTime = 0;
+        passedTimeBetweenAttacks = 0;
+    }
 
-        GetComponent<ShowRadiusCircleScript>().radius = Radius;
-        GetComponent<ShowRadiusCircleScript>().Draw();
+    private void Awake()
+    {
+        area = GetComponent<ShowRadiusCircleScript>();
     }
 
     private void Update()
@@ -50,13 +57,15 @@ public class AreaOfEffectScript : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
     public void CheckHits()
     {
-        Collider[] hits = Physics.OverlapSphere(gameObject.transform.position, Radius, 1 << DealerStats.EnemyLayer);
+        int layer = areaType == AreaType.Attack ? 1 << DealerStats.EnemyLayer : 1 << DealerStats.EntityLayer;
+
+        Collider[] hits = Physics.OverlapSphere(gameObject.transform.position, Radius, layer);
 
         if (hits.Length > 0)
         {
@@ -65,13 +74,20 @@ public class AreaOfEffectScript : MonoBehaviour
                 MiscUtilities.GetInterfaces(out List<IDamageable> interfaceList, item.gameObject);
                 foreach (IDamageable damageable in interfaceList)
                 {
-                    damageable.TakeDamage(DealerStats, skill.DamageMultiplier.GetFinalValue(), false);
+                    if (areaType == AreaType.Attack)
+                    {
+                        damageable.TakeDamage(DealerStats, skill.DamageMultiplier.GetFinalValue(), false);
 
-                    if (skill.StunTime > 0)
-                        damageable.Stun(skill.StunTime);
+                        if (skill.StunTime > 0)
+                            damageable.Stun(skill.StunTime);
 
-                    if (skill.EnemyModifier != null)
-                        damageable.AddModifier(skill.EnemyModifier);
+                        if (skill.EnemyModifier != null)
+                            damageable.AddModifier(skill.EnemyModifier);
+                    }
+                    else
+                    {
+                        damageable.GiveSupport(skill.DamageMultiplier.GetFinalValue() * DealerStats.ModifiableStats[StatType.Health].GetFinalValue(), StatType.Health);
+                    }
                 }
             }
         }

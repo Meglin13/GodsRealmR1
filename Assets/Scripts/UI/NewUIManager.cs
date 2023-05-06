@@ -88,12 +88,12 @@ public class NewUIManager : MonoBehaviour
 
     public void ChangeMenu(GameObject NextMenu)
     {
-        
+
     }
 
     public void ChangeScene(string SceneName, GameObject PreviousMenu)
     {
-        
+
     }
 
     public void GoBack()
@@ -139,9 +139,9 @@ public class NewUIManager : MonoBehaviour
     /// <summary>
     /// Установка нового текста и его локализация
     /// </summary>
-    /// <param name="textElement">Текстовый элемент</param>
-    /// <param name="key">Ключ в таблице локализации</param>
-    /// <param name="table">Таблица локализации</param>
+    /// <param _name="textElement">Текстовый элемент</param>
+    /// <param _name="key">Ключ в таблице локализации</param>
+    /// <param _name="table">Таблица локализации</param>
     public void ChangeLabelsText(TextElement textElement, string key, StringTable table)
     {
         if (!string.IsNullOrEmpty(key))

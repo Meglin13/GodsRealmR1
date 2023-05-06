@@ -62,9 +62,9 @@ public abstract class State
     /// <summary>
     /// Конструктор для взаимодействия с заданной целью
     /// </summary>
-    /// <param name="target">Цель</param>
-    /// <param name="actor">Исполнитель</param>
-    /// <param name="stateMachine">Машина состояний</param>
+    /// <param _name="target">Цель</param>
+    /// <param _name="actor">Исполнитель</param>
+    /// <param _name="stateMachine">Машина состояний</param>
     public State(GameObject target, GameObject actor, StateMachine stateMachine)
     {
         this.target = target;
@@ -74,11 +74,16 @@ public abstract class State
         this.gameObject = actor;
     }
 
+    public State(Vector3 target, GameObject actor, StateMachine stateMachine) : this(null, actor, stateMachine)
+    {
+
+    }
+
     /// <summary>
     /// Конструктор для врагов
     /// </summary>
-    /// <param name="enemy">Враг</param>
-    /// <param name="stateMachine">Машина состояний</param>
+    /// <param _name="enemy">Враг</param>
+    /// <param _name="stateMachine">Машина состояний</param>
     public State(EnemyScript enemy, StateMachine stateMachine)
     {
         this.agent = enemy.GetComponent<NavMeshAgent>();
@@ -90,8 +95,8 @@ public abstract class State
     /// <summary>
     /// Общий конструктор
     /// </summary>
-    /// <param name="gameObject"></param>
-    /// <param name="stateMachine"></param>
+    /// <param _name="gameObject"></param>
+    /// <param _name="stateMachine"></param>
     public State(GameObject gameObject, StateMachine stateMachine)
     {
         this.agent = gameObject.GetComponent<NavMeshAgent>();
@@ -103,8 +108,8 @@ public abstract class State
     /// <summary>
     /// Конструктор для персонажей
     /// </summary>
-    /// <param name="character"></param>
-    /// <param name="stateMachine"></param>
+    /// <param _name="character"></param>
+    /// <param _name="stateMachine"></param>
     public State(CharacterScript character, StateMachine stateMachine)
     {
         this.gameObject = character.gameObject;

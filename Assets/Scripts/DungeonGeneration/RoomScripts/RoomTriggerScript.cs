@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 public class RoomTriggerScript : MonoBehaviour
@@ -23,7 +18,7 @@ public class RoomTriggerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Character")
         {
             Room.OnRoomEnterTrigger();
         }
@@ -31,7 +26,7 @@ public class RoomTriggerScript : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Character")
         {
             Room.OnRoomExitTrigger();
         }

@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  NextSceneName: HubScene
   SettingsMenu: {fileID: 670603406}
   LoadingScreen: {fileID: 1942339154}
 --- !u!114 &423788360
@@ -302,12 +301,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f8f6d115307334684af6820c1b51b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UILocalTable:
+    m_TableReference:
+      m_TableCollectionName: 
+  ItemsLocalTable:
+    m_TableReference:
+      m_TableCollectionName: 
+  CharacterLocalTable:
+    m_TableReference:
+      m_TableCollectionName: 
+  UITable: {fileID: 0}
+  ItemsTable: {fileID: 0}
+  CharacterTable: {fileID: 0}
   PauseMenu: {fileID: 0}
   SettingsMenu: {fileID: 670603406}
   LoadingScreen: {fileID: 1942339154}
   Inventory: {fileID: 0}
   InGameUI: {fileID: 0}
+  ModalWindow: {fileID: 0}
   CurrentMenu: {fileID: 0}
+  IsModalWindow: 0
   Blur: {fileID: 0}
 --- !u!4 &989863149
 Transform:
@@ -740,6 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3b314ab0e232c43a9d5c823ad86efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Qualities: []
 --- !u!1 &1942339154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6191932107648099588, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}

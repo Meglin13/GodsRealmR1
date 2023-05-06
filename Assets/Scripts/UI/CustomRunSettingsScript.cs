@@ -20,6 +20,9 @@ namespace UI
             NextBT = root.Q<Button>("NextBT");
             NextBT.clicked += SaveParams;
 
+            ResetBT = root.Q<Button>("ResetBT");
+            ResetBT.clicked += ResetParams;
+
             SeedTB = root.Q<TextField>("SeedTB");
             int seed = 0;
             SeedTB.RegisterValueChangedCallback(v => int.TryParse(v.newValue, out seed));
@@ -30,12 +33,9 @@ namespace UI
             int diff = 0;
             SeedTB.RegisterValueChangedCallback(v => int.TryParse(v.newValue, out diff));
             Difficulty = diff;
-
-            ResetBT = root.Q<Button>("ResetBT");
-            ResetBT.clicked += ResetParams;
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             NextBT.clicked -= SaveParams;
             ResetBT.clicked -= ResetParams;
@@ -53,5 +53,5 @@ namespace UI
                 RunManager.SetDifficulty(Difficulty, Params);
             }
         }
-    } 
+    }
 }

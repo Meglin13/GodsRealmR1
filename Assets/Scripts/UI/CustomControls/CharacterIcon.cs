@@ -18,11 +18,13 @@ namespace UI.CustomControls
 
         #endregion UXML
 
-        private EntityStats entityStats;
+        public EntityStats entityStats;
 
         private Image ElementIcon;
         private Label CharName;
         private VisualElement LabelContainer;
+
+        public Button DeleteButton;
 
         private StyleColor defaultBorderColor;
 
@@ -43,8 +45,19 @@ namespace UI.CustomControls
 
             AddToClassList("char-slot");
 
+            DeleteButton = new Button();
+            DeleteButton.AddToClassList("char-slot-delete-button");
+            DeleteButton.RemoveFromClassList("unity-button");
+            DeleteButton.RemoveFromClassList("Button");
+            DeleteButton.text = "#Delete";
+            LabelContainer.Add(DeleteButton);
+
             defaultBorderColor = this.style.borderTopColor;
+
+            DeleteButton.clicked += ClearSlot;
         }
+
+        private void ClearSlot() => SetSlot(null);
 
         public void SetSlot(EntityStats entityStats)
         {
@@ -57,11 +70,15 @@ namespace UI.CustomControls
 
                 ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.ElementColor[entityStats.Element], out Color color);
                 ElementIcon.style.backgroundColor = new StyleColor(color);
+
+                DeleteButton.style.visibility = Visibility.Visible;
             }
             else
             {
                 this.style.backgroundImage = null;
-                CharName.text = null;
+                CharName.text = string.Empty;
+
+                DeleteButton.style.visibility = Visibility.Hidden;
             }
         }
 

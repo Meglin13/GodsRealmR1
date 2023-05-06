@@ -37,6 +37,8 @@ public class SidekickState : State
 
     public override void LogicUpdate()
     {
+        character.StaminaRecovering();
+
         Player = PartyManager.Instance.GetPlayer().gameObject;
 
         List<EnemyScript> Enemies = GameObject.FindObjectsOfType<EnemyScript>().ToList();
@@ -55,7 +57,7 @@ public class SidekickState : State
         if (NearestEnemy == null)
         {
             InnerStateMachine.ChangeState(IsPlayerNearby ? idleState : playerFollowing);
-            character.StaminaRecovering();
+
         }
         else
         {

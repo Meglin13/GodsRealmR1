@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "InstantPotion", menuName = "Objects/Items/Potions/Instant Potion")]
 public class InstantPotion : PotionItem
 {
+#if UNITY_EDITOR
+
     public override void OnValidate()
     {
         base.OnValidate();
@@ -29,6 +26,8 @@ public class InstantPotion : PotionItem
                 break;
         }
     }
+
+#endif
 
     public float AmountOfPotion;
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Firecracker1 : MonoBehaviour {
+public class Firecracker1 : MonoBehaviour
+{
 
     public Rigidbody rig;
     public ConstantForce cf;

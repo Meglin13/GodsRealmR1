@@ -16,20 +16,15 @@ public class DyingState : State
                 SidekickState sidekickState = new(character, character.EntityStateMachine);
                 character.EntityStateMachine.ChangeState(sidekickState);
 
-                GameObject.FindObjectOfType<CameraCenterBehaviour>().gameObject.transform.SetParent(null);
-
-                PartyManager partyManager = GameObject.FindObjectOfType<PartyManager>();
-                partyManager.CharDeath(character);
+                CameraCenterBehaviour.Instance.gameObject.transform.SetParent(null);
+                PartyManager.Instance.CharacterDeath(character);
             }
         }
 
         animator.SetTrigger("Death");
 
-        GameObject.Destroy(gameObject, 1.5f);
+        GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(2f, () => gameObject.SetActive(false)));
     }
 
-    public override void LogicUpdate()
-    {
-
-    }
+    public override void LogicUpdate() { }
 }

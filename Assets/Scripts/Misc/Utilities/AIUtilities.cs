@@ -22,13 +22,12 @@ public static class AIUtilities
     //Теги
     public static string CharsTag = "Character";
     public static string EnemyTag = "Enemy";
-    public static string PlayerTag = "Player";
 
     /// <summary>
     /// Поиск ближайшего игрового объекта по тегу
     /// </summary>
-    /// <param name="transform"></param>
-    /// <param name="tag">Тег искомого объекта</param>
+    /// <param _name="transform"></param>
+    /// <param _name="tag">Тег искомого объекта</param>
     /// <returns>Ближайший игровой объект</returns>
     public static GameObject FindNearestEntity(Transform transform, string tag)
     {
@@ -44,7 +43,10 @@ public static class AIUtilities
             if (DistanceToClosestEntity > Distance)
             {
                 DistanceToClosestEntity = Distance;
-                ClosestEntity = entity;
+                if (entity.active)
+                {
+                    ClosestEntity = entity;
+                }
             }
         }
 
@@ -57,7 +59,7 @@ public static class AIUtilities
     /// <summary>
     /// Метод, возвращающий то, достиг ли агент пункта назначения
     /// </summary>
-    /// <param name="agent">Агент NavMesh</param>
+    /// <param _name="agent">Агент NavMesh</param>
     /// <returns>Достиг ли агент пункта назначения</returns>
     public static bool IsAgentReachedDistanation(NavMeshAgent agent)
     {
@@ -75,9 +77,9 @@ public static class AIUtilities
     /// <summary>
     /// Поиск заданного игрового объекта в радиусе
     /// </summary>
-    /// <param name="gameObject">Объект, являющийся центром области поиска</param>
-    /// <param name="certainGameObject">Искомый объект</param>
-    /// <param name="radius">Радиус поиска</param>
+    /// <param _name="gameObject">Объект, являющийся центром области поиска</param>
+    /// <param _name="certainGameObject">Искомый объект</param>
+    /// <param _name="radius">Радиус поиска</param>
     /// <returns>Находится ли объект в радиусе</returns>
     public static bool IsCertainEntityInRadius(GameObject gameObject, GameObject certainGameObject, float radius)
     {

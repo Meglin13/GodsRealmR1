@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6af1e2529c69443b4f769d08c88c10, type: 3}
+  m_Name: Marfa_First_Appearance
+  m_EditorClassIdentifier: 
+  _name: Marfa_First_Appearance
+  Speakers:
+  - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+  - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+  replicas:
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_1
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_2
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_3
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_4

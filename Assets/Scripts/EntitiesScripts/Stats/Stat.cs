@@ -29,9 +29,9 @@ public class Stat
     /// <summary>
     /// Конструктор с базовым значением, уровнем и модификатором уровня
     /// </summary>
-    /// <param name="baseValue"></param>
-    /// <param name="level"></param>
-    /// <param name="levelModifier"></param>
+    /// <param _name="baseValue"></param>
+    /// <param _name="level"></param>
+    /// <param _name="levelModifier"></param>
     public Stat(float baseValue, int level, float levelModifier)
     {
         BaseValue = baseValue;
@@ -42,7 +42,7 @@ public class Stat
     /// <summary>
     /// Конструктор для стата без зависимости от уровня
     /// </summary>
-    /// <param name="baseValue">Базовое значение</param>
+    /// <param _name="baseValue">Базовое значение</param>
     public Stat(float baseValue)
     {
         BaseValue = baseValue;
@@ -86,7 +86,7 @@ public class Stat
     /// <summary>
     /// Увеличение уровня стата на определенное количество уровней
     /// </summary>
-    /// <param name="LevelUp">Количество уровней</param>
+    /// <param _name="LevelUp">Количество уровней</param>
     public void NewLevel(int LevelUp)
     {
         if (this.Level == 0)
@@ -99,7 +99,7 @@ public class Stat
     /// <summary>
     /// Увеличение уровня стата до уровня
     /// </summary>
-    /// <param name="Level">Уровень</param>
+    /// <param _name="Level">Уровень</param>
     public void SetLevel(int Level)
     {
         if (this.Level == 0)
@@ -113,7 +113,7 @@ public class Stat
     /// <summary>
     /// Добавления модификатора
     /// </summary>
-    /// <param name="modifier">Добавляемый модификатор</param>
+    /// <param _name="modifier">Добавляемый модификатор</param>
     public void AddModifier(Modifier modifier)
     {
         if (!Modifiers.Contains(modifier))
@@ -123,7 +123,7 @@ public class Stat
     /// <summary>
     /// Удаление модификатора
     /// </summary>
-    /// <param name="modifier">Удаляемый модификатор</param>
+    /// <param _name="modifier">Удаляемый модификатор</param>
     public void RemoveModifier(Modifier modifier)
     {
         if (Modifiers.Contains(modifier))
@@ -133,7 +133,7 @@ public class Stat
     /// <summary>
     /// Проверка на наличие модификатора
     /// </summary>
-    /// <param name="modifier">Модификатор</param>
+    /// <param _name="modifier">Модификатор</param>
     /// <returns></returns>
     public bool ContainsModifier(Modifier modifier) => Modifiers.Contains(modifier);
 

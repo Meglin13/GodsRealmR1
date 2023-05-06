@@ -1,9 +1,8 @@
+using ObjectPooling;
 using UnityEngine;
 
 public class Ardalion : CharacterScript, ICharacter
 {
-    public GameObject DistractionThrowable;
-    public GameObject UltimateSlash;
 
     private bool IsUltimateActive = false;
 
@@ -11,32 +10,33 @@ public class Ardalion : CharacterScript, ICharacter
     {
         Character = this;
         base.Initialize();
+        IsUltimateActive = false;
     }
 
     public void Attack()
     {
         if (IsUltimateActive)
         {
-            MiscUtilities.Instance.ThrowThrowable(UltimateSlash, this, Ultimate);
+            Transform transform = gameObject.transform;
+            Vector3 gunpoint = transform.position + transform.forward + transform.up;
+
+            SpawnablePool.Instance.CreateObject(Ultimate.SpawningObject, gunpoint, this, Ultimate);
         }
-    }
-
-    public void HoldAttack()
-    {
-
     }
 
     public void DistractionAbility()
     {
-        Skill skill = EntityStats.skills[1];
+        Transform transform = gameObject.transform;
+        Vector3 gunpoint = transform.position + transform.forward + transform.up;
 
-        MiscUtilities.Instance.ThrowThrowable(DistractionThrowable, this, skill);
+        Debug.Log($"{this} {Distract}");
+        SpawnablePool.Instance.CreateObject(Distract.SpawningObject, gunpoint, this, Distract);
     }
-
-    Modifier WeaponLengthPlus = new Modifier(StatType.WeaponLength, 3f);
 
     public void SpecialAbility()
     {
+        Modifier WeaponLengthPlus = new Modifier(StatType.WeaponLength, 3f);
+
         StartCoroutine(AddModifier(WeaponLengthPlus));
 
         MeleeWeapon.Init(EntityStats, Special.DamageMultiplier.GetFinalValue(), false);

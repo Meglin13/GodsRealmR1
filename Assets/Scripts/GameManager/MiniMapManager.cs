@@ -3,11 +3,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniMapManager : MonoBehaviour, IManager
+public class MiniMapManager : MonoBehaviour, ISingle
 {
     public GameObject MarkerPrefab;
 
-    public static MiniMapManager Instance { get; private set; } 
+    public static MiniMapManager Instance { get; private set; }
 
     [ContextMenu("InitializeSettings Minimap Markers")]
     public void Initialize()

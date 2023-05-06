@@ -18,8 +18,10 @@ public class PlayerDodgeState : State
         animator.SetTrigger("Dodge");
         CooldownTimer = 0;
 
-        rigidbody.isKinematic = false;
-        rigidbody.velocity = gameObject.transform.forward * 5f;
+        //rigidbody.isKinematic = false;
+        //rigidbody.velocity = gameObject.transform.forward * 5f;
+
+        animator.applyRootMotion = true;
 
         character.CurrentStamina -= character.EntityStats.DodgeCost;
         character.IsDodging = true;
@@ -50,5 +52,7 @@ public class PlayerDodgeState : State
         base.ExitState();
         character.IsDodging = false;
         rigidbody.isKinematic = true;
+
+        animator.applyRootMotion = false;
     }
 }

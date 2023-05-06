@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Класс хранящий цвета объектов
 /// </summary>
-public class ColorManager : MonoBehaviour, IManager
+public class ColorManager : MonoBehaviour, ISingle
 {
     public static ColorManager Instance;
 
@@ -26,7 +26,6 @@ public class ColorManager : MonoBehaviour, IManager
         { Rarity.Legendary, Color.yellow },
     };
 
-    //TODO: Сделать цвета
     public Dictionary<Element, string> ElementColor = new Dictionary<Element, string>()
     {
         { Element.Fire, "#E95400" },
@@ -42,6 +41,14 @@ public class ColorManager : MonoBehaviour, IManager
         { StatType.Mana, "#001FFF" },
         { StatType.Health, "#45DA00" },
         { StatType.Stamina, "#FFF300" },
+        { StatType.Speed, "#FFF300"},
+        { StatType.Attack, "#F78502"},
+        { StatType.Defence, "#0095FF"},
+        { StatType.CritChance, "#ff9494"},
+        { StatType.CritDamage, "#f00"},
+        { StatType.ManaConsumption, "#001FFF"},
+        { StatType.ManaRecoveryBonus, "#001FFF"},
+        { StatType.InventorySlots, "#FFFFFF"},
     };
 
     private void Awake()

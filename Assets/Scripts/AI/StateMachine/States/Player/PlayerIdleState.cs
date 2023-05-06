@@ -51,7 +51,7 @@ public class PlayerIdleState : State
         //else
         //{
         //    animator.SetTrigger("Idle");
-        //    IdleTime = 4f + animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        //    IdleTime = 7f;
         //}
     }
 

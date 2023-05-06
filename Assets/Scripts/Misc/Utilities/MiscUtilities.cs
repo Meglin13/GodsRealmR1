@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ObjectPooling;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 public class MiscUtilities : MonoBehaviour
 {
     public static MiscUtilities Instance;
+    [HideInInspector]
     public GameObject Dump;
 
     private void OnEnable()
@@ -48,43 +49,38 @@ public class MiscUtilities : MonoBehaviour
 
     public static void DamagePopUp(Transform transform, string Text, string ColorString, float Scale)
     {
-        var DamagePopUp = Instantiate(GameManager.Instance.DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, 0));
-        DamagePopUp.transform.SetParent(MiscUtilities.Instance.Dump.transform);
-
+        var DamagePopUp = VFXPool.Instance.CreateObject(GameManager.Instance.DamagePopUp, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f)));
         DamagePopUp.transform.localScale *= Scale;
         DamagePopUp.GetComponentInChildren<TextMeshProUGUI>().text = $"<color={ColorString}>{Text}</color>";
-        Destroy(DamagePopUp, 1f);
     }
 
-    public void ThrowThrowable(GameObject throwable, IDamageable dude, Skill skill)
-    {
-        var gm = Instantiate(throwable, dude.gameObject.transform.position + dude.gameObject.transform.forward + dude.gameObject.transform.up, dude.gameObject.transform.rotation);
-        gm.GetComponent<ThrowableScript>().Init(dude, skill);
-        gm.transform.parent = MiscUtilities.Instance.Dump.transform;
-    }
-
+    //TODO: Использовать пул
     /// <summary>
     /// Спавнит игровой объект перед другим игровым объектом на заданном расстоянии от него
     /// </summary>
-    /// <param name="spawner">Тот, кто спавнит</param>
-    /// <param name="spawningObject">То, что спавнят</param>
-    /// <param name="distance">Расстояние между тем, кто спавнит, и тем, что спавнят</param>
-    public static GameObject SpawnObjectInFrontOfObject(GameObject spawner, GameObject spawningObject, float spawnDistance)
+    /// <param _name="spawner">Тот, кто спавнит</param>
+    /// <param _name="spawningObject">То, что спавнят</param>
+    /// <param _name="distance">Расстояние между тем, кто спавнит, и тем, что спавнят</param>
+    public static T SpawnObjectInFrontOfObject<T>(IDamageable spawner, T spawningObject, float spawnDistance) where T : SpawningObject
     {
-        Vector3 playerPos = spawner.transform.position;
-        Vector3 playerDirection = spawner.transform.forward;
-        Quaternion playerRotation = spawner.transform.rotation;
+        Transform transform = spawner.gameObject.transform;
+
+        Vector3 playerPos = transform.position;
+        Vector3 playerDirection = transform.forward;
+        Quaternion playerRotation = transform.rotation;
 
         Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
 
-        return Instantiate(spawningObject, spawnPos, playerRotation);
+        T spawnedObject = (T)SpawnablePool.Instance.CreateObject(spawningObject, spawnPos);
+
+        return spawnedObject;
     }
 
     /// <summary>
     /// Отложенное выполнение функции
     /// </summary>
-    /// <param name="delaySeconds">Время, через которое будет вызван метод</param>
-    /// <param name="action">Вызывемый метод</param>
+    /// <param _name="delaySeconds">Время, через которое будет вызван метод</param>
+    /// <param _name="action">Вызывемый метод</param>
     /// <returns></returns>
     public IEnumerator ActionWithDelay(float delaySeconds, Action action)
     {
@@ -92,33 +88,25 @@ public class MiscUtilities : MonoBehaviour
         action();
     }
 
-    public string GetCurrentClipName(Animator animator)
-    {
-        var clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        return clipInfo[0].clip.name;
-    }
-
     /// <summary>
     /// Метод для получения следующего индекса списка. 
     /// Если следующий индекс выходит за список, то он будет равен 0.
     /// </summary>
-    /// <typeparam name="T">Универсальный тип</typeparam>
-    /// <param name="list">Список</param>
-    /// <param name="curIndex">Текущий индекс</param>
+    /// <typeparam _name="T">Универсальный тип</typeparam>
+    /// <param _name="list">Список</param>
+    /// <param _name="curIndex">Текущий индекс</param>
     /// <returns></returns>
-    public void NextIndex<T>(List<T> list, ref int curIndex)
+    public static int NextIndex<T>(List<T> list, int curIndex, IndexType indexType)
     {
-        curIndex++;
+        int index = curIndex;
 
-        if (curIndex > list.Count - 1)
-            curIndex = 0;
-    }
+        index += indexType == IndexType.Next ? +1 : -1;
 
-    public void PreviousIndex<T>(List<T> list, ref int curIndex)
-    {
-        curIndex--;
+        if (index < 0)
+            index = list.Count - 1;
+        else if (index > list.Count - 1)
+            index = 0;
 
-        if (curIndex < 0)
-            curIndex = list.Count - 1;
+        return index;
     }
 }

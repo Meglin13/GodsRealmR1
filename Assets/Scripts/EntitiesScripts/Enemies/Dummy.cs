@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 [SelectionBase]
 public class Dummy : EnemyScript, IEnemy
@@ -23,7 +21,7 @@ public class Dummy : EnemyScript, IEnemy
 
     public void SpecialPower()
     {
-     
+
     }
 
     public override void Death()

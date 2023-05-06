@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +12,7 @@ public class RunParameters
 
 public class RunManager : MonoBehaviour
 {
-    public static RunManager Instance { get; private set; }
-
-    public static List<CharacterScript> Party = new List<CharacterScript>(3);
-
-    public static int Difficulty = 0;
+    public static int Difficulty = 1;
     public static RunParameters Params { get; set; }
     private static float dropChanceAffix = 1;
 

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Dream
   m_EditorClassIdentifier: 
   id: 2
-  Name: Dream
-  Description: Dream_Desc
+  _Name: Dream
+  _Description: Dream_Desc
   Type: 1
+  Rarity: 3
   Icon: {fileID: 0}
   Art: {fileID: 0}
-  Rarity: 3
   Level: 1
   Element: 0
   WeaponType: 4
@@ -33,8 +33,10 @@ MonoBehaviour:
   AttackRange: 3
   AttackCooldown: 5
   Speed: 5
-  EnemyLayer: 0
-  EnemyTag: 
+  EnemyLayer: 8
+  EntityLayer: 6
+  EnemyTag: Enemy
+  EntityTag: Character
   FireRes: 0
   WaterRes: 0
   EarthRes: 0
@@ -61,7 +63,7 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Dream_Special
-    Description: Dream_Special_Desc
+    _Description: Dream_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
@@ -74,8 +76,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -87,7 +89,7 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Dream_Distract
-    Description: Dream_Distract_Desc
+    _Description: Dream_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
@@ -100,8 +102,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -113,7 +115,7 @@ MonoBehaviour:
   - Level: 1
     LevelMod: 10
     SkillName: Dream_Ultimate
-    Description: Dream_Ultimate_Desc
+    _Description: Dream_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
@@ -126,8 +128,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -138,8 +140,8 @@ MonoBehaviour:
     StunTime: 0
   TeamBuff:
     IsVisible: 0
-    Name: 
-    Description: 
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 0
     Element: 0
@@ -147,4 +149,4 @@ MonoBehaviour:
     Amount: 0
     IsPermanent: 1
     DurationInSecs: 0
-  IsUnlocked: 1
+  unlocked: 1

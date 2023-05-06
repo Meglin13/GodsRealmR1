@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -9,7 +8,6 @@ namespace UI
         private Button StartButton;
         private Button ExitButton;
         private Button SettingsButton;
-        public string NextSceneName = "HubScene";
         public GameObject SettingsMenu;
         public GameObject LoadingScreen;
 
@@ -33,7 +31,13 @@ namespace UI
             ExitButton.clicked -= ExitButtonClicked;
         }
 
-        void StartButtonClicked() => manager.ChangeScene(NextSceneName, gameObject);
+        void StartButtonClicked()
+        {
+            if (SaveLoadSystem.SaveLoadSystem.SavedData == null)
+                manager.ChangeScene("TutorialScene", gameObject);
+            else
+                manager.ChangeScene("HubScene", gameObject);
+        }
 
         void SettingsButtonClicked() => manager.ChangeMenu(gameObject, SettingsMenu);
 

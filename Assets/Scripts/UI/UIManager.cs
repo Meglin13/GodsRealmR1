@@ -1,5 +1,5 @@
+using DialogueSystem;
 using System;
-using System.Collections.Generic;
 using UI.CustomControls;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +21,10 @@ namespace UI
         private LocalizedStringTable ItemsLocalTable;
         [SerializeField]
         private LocalizedStringTable CharacterLocalTable;
+        [SerializeField]
+        private LocalizedStringTable DialogueLocalTable; 
+        [SerializeField]
+        private LocalizedStringTable TutorialLocalTable;
 
         [HideInInspector]
         public StringTable UITable;
@@ -28,6 +32,10 @@ namespace UI
         public StringTable ItemsTable;
         [HideInInspector]
         public StringTable CharacterTable;
+        [HideInInspector]
+        public StringTable DialogueTable;
+        [HideInInspector]
+        public StringTable TutorialTable;
 
         public static UIManager Instance;
         public GameObject PauseMenu;
@@ -36,61 +44,73 @@ namespace UI
         public GameObject Inventory;
         public GameObject InGameUI;
         public UIDocument ModalWindow;
+        public GameObject DialogueWindow;
+        public GameObject DeathScreen;
+        public GameObject TutorialScreen;
 
         private GameObject PreviousMenu;
         public GameObject CurrentMenu;
 
-        private bool CanGoBack = true;
+        private bool CanOpenMenus = true;
         public bool IsModalWindow = false;
         public GameObject Blur;
 
+        private InputAction ExitButton;
+        private InputAction InventoryButton;
+
         public event Action OnMenuOpen = delegate { };
-
         public event Action OnMenuClose = delegate { };
-
-        private List<GameObject> AvailableUI;
 
         private void Awake()
         {
             Instance = this;
 
-            var playerInput = GetComponent<PlayerInput>();
+            CanOpenMenus = true;
 
-            var ExitButton = playerInput.actions["Exit"];
-            var InventoryButton = playerInput.actions["Inventory"];
+            PlayerInput playerInput = GetComponent<PlayerInput>();
 
-            ExitButton.performed += ctx =>
-            {
-                if (CurrentMenu == null)
-                {
-                    OpenMenu(PauseMenu);
-                }
-                else
-                {
-                    GoBack();
-                }
-            };
+            ExitButton = playerInput.actions["Exit"];
+            InventoryButton = playerInput.actions["Inventory"];
 
+            ExitButton.performed += ExitButton_performed;
             InventoryButton.performed += ctx => OpenMenu(Inventory);
 
-            OnMenuOpen += () =>
-            {
-                Blur.SetActive(true);
-                InGameUI.SetActive(false);
-                Time.timeScale = 0;
-            };
+            OnMenuOpen += () => SetMenus(true);
+            OnMenuClose += () => SetMenus(false);
 
-            OnMenuClose += () =>
-            {
-                Blur.SetActive(false);
-                InGameUI.SetActive(true);
-                Time.timeScale = 1;
-            };
-
-            //Loaclization
+            //Localization
             UITable = UILocalTable.GetTable();
             CharacterTable = CharacterLocalTable.GetTable();
             ItemsTable = ItemsLocalTable.GetTable();
+            DialogueTable = DialogueLocalTable.GetTable();
+            TutorialTable = TutorialLocalTable.GetTable();
+        }
+
+        private void OnDestroy()
+        {
+            InventoryButton.performed -= ctx => OpenMenu(Inventory);
+            OnMenuClose -= () => SetMenus(false);
+            OnMenuOpen -= () => SetMenus(true);
+            ExitButton.performed -= ExitButton_performed;
+
+        }
+
+        private void ExitButton_performed(InputAction.CallbackContext obj)
+        {
+            if (!IsModalWindow)
+            {
+                if (CurrentMenu == null)
+                    OpenMenu(PauseMenu);
+                else
+                    GoBack();
+            }
+        }
+
+        void SetMenus(bool IsOpen)
+        {
+            Blur.SetActive(IsOpen);
+            InGameUI.SetActive(!IsOpen);
+            Time.timeScale = IsOpen ? 0 : 1;
         }
 
         public void ChangeMenu(GameObject CurrentMenu, GameObject NextMenu)
@@ -110,57 +130,61 @@ namespace UI
             this.PreviousMenu = null;
             this.CurrentMenu = null;
 
-            CanGoBack = false;
+            CanOpenMenus = false;
 
             LoadingScreen.GetComponent<LoadingScreenScript>().LoadScene(SceneName);
         }
 
         public void GoBack()
         {
-            if (CanGoBack)
+            if (CurrentMenu)
+                CurrentMenu.SetActive(false); 
+
+            if (PreviousMenu != null & !IsModalWindow)
             {
-                CurrentMenu.SetActive(false);
-                if (PreviousMenu != null & !IsModalWindow)
-                {
-                    PreviousMenu.SetActive(true);
-                    CurrentMenu = PreviousMenu;
-                    PreviousMenu = null;
-                }
-                else if (IsModalWindow)
-                {
-                    ModalWindow.rootVisualElement.Q<ModalWindow>().style.display = DisplayStyle.None;
-                    CurrentMenu.SetActive(true);
-                }
-                else
-                {
-                    CurrentMenu = null;
-                    OnMenuClose();
-                }
+                PreviousMenu.SetActive(true);
+                CurrentMenu = PreviousMenu;
+                PreviousMenu = null;
             }
-        }
-
-        public void OpenMenu(GameObject menu)
-        {
-            if (menu == null) GoBack();
-
-            if (!menu.active & CurrentMenu != menu & PreviousMenu != menu)
+            else if (IsModalWindow)
             {
-                menu.SetActive(true);
-                CurrentMenu = menu;
-                OnMenuOpen();
+                ModalWindow.rootVisualElement.Q<ModalWindow>().style.display = DisplayStyle.None;
+                CurrentMenu.SetActive(true);
             }
             else
             {
+                CurrentMenu = null;
+                CanOpenMenus = true;
+                OnMenuClose();
+            }
+        }
+
+        public void OpenMenu(GameObject menu, bool canOpenMenu = true)
+        {
+            if (menu == null)
                 GoBack();
+
+            if (CanOpenMenus)
+            {
+                CanOpenMenus = canOpenMenu;
+
+                if (!menu.active & CurrentMenu != menu & PreviousMenu != menu)
+                {
+                    menu.SetActive(true);
+                    CurrentMenu = menu;
+                    OnMenuOpen();
+                }
+                else
+                    GoBack();
             }
         }
 
         /// <summary>
         /// Установка нового текста и его локализация
         /// </summary>
-        /// <param name="textElement">Текстовый элемент</param>
-        /// <param name="key">Ключ в таблице локализации</param>
-        /// <param name="table">Таблица локализации</param>
+        /// <param _name="textElement">Текстовый элемент</param>
+        /// <param _name="key">Ключ в таблице локализации</param>
+        /// <param _name="table">Таблица локализации</param>
         public void ChangeLabelsText(TextElement textElement, string key, StringTable table)
         {
             if (!string.IsNullOrEmpty(key))
@@ -173,12 +197,24 @@ namespace UI
             }
         }
 
-        public void ShowModalWindow(ModalWindowType type, string Caption, string Title, Action Success)
+        public string GetLocalizedString(string key, StringTable table)
+        {
+            if (!string.IsNullOrEmpty(key))
+            {
+                StringTableEntry entry = table[key];
+                if (entry != null)
+                    return entry.LocalizedValue;
+            }
+            return key;
+        }
+
+        public void ShowModalWindow(ModalWindowType type, string Caption, string Title, Action Success = null)
         {
             ModalWindow.gameObject.SetActive(false);
             ModalWindow.gameObject.SetActive(true);
 
             IsModalWindow = true;
+
             ModalWindow.rootVisualElement.Q<ModalWindow>().Show(type, Caption, Title, Success, CurrentMenu);
         }
     }

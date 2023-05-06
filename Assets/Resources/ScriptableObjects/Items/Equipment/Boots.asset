@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   id: 7f00b071902729140816ba34e23328d4
-  Name: Super Boots
-  Description: Suuuper Boots
+  Name: Boots
+  Description: Boots_Desc
   Icon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
   _Rarity: 3
   Amount: 1
@@ -22,37 +22,18 @@ MonoBehaviour:
   Type: 0
   EquipmentType: 3
   Modifiers:
-  - Name: 
+  - IsVisible: 0
+    Name: 
     Description: 
-    ModifierType: 0
-    StatType: 7
-    Element: 0
-    ModifierAmountType: 1
-    Amount: 2
-    IsPermanent: 1
-    IsVisible: 0
-    DurationInSecs: 0
-  - Name: 
-    Description: 
-    ModifierType: 0
+    ModifierType: 1
     StatType: 1
     Element: 0
     ModifierAmountType: 0
-    Amount: 10
+    Amount: 5
     IsPermanent: 1
-    IsVisible: 0
     DurationInSecs: 0
-  - Name: 
-    Description: 
-    ModifierType: 0
-    StatType: 6
-    Element: 0
-    ModifierAmountType: 0
-    Amount: 20
-    IsPermanent: 1
-    IsVisible: 0
-    DurationInSecs: 0
-  - Name: 
+  - IsVisible: 0
+    Name: 
     Description: 
     ModifierType: 0
     StatType: 10
@@ -60,6 +41,25 @@ MonoBehaviour:
     ModifierAmountType: 0
     Amount: 10
     IsPermanent: 1
-    IsVisible: 0
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 5
+    Element: 0
+    ModifierAmountType: 0
+    Amount: 5
+    IsPermanent: 1
+    DurationInSecs: 0
+  - IsVisible: 0
+    Name: 
+    Description: 
+    ModifierType: 0
+    StatType: 12
+    Element: 5
+    ModifierAmountType: 0
+    Amount: 10
+    IsPermanent: 1
     DurationInSecs: 0
   IsEquiped: 0

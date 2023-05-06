@@ -37,13 +37,13 @@ public class ChestScript : MonoBehaviour, IInteractable
 
             foreach (Item item in items)
             {
-                if (!Inventory.AddItemToInventory(item))
+                if (!Inventory.AddItemToInventory(item, true))
                     break;
             }
 
             Inventory.Gold += Random.RandomRange(chestStats.Gold.Min, chestStats.Gold.Max);
 
-            Destroy(gameObject, 1f);
+            StartCoroutine(MiscUtilities.Instance.ActionWithDelay(2f, () => gameObject.SetActive(false)));
         }
     }
 }

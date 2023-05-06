@@ -7,8 +7,10 @@ public class SpherizeNormalCenterObject : MonoBehaviour
 {
     [SerializeField]
     private Renderer m_renderer;
+
     [SerializeField]
     private int m_targetMaterialSubMeshIndex;
+
     private int m_spherizeNormalPropId;
 
     private void Awake()
@@ -17,17 +19,20 @@ public class SpherizeNormalCenterObject : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
     }
+
+#if UNITY_EDITOR
 
     private void OnValidate()
     {
     }
 
+#endif
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (m_renderer == null)
             return;

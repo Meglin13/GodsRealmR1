@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   id: 2
-  Name: Skeleton
-  Description: 
+  _Name: Skeleton
+  _Description: Skeleton_Desc
   Type: 0
+  Rarity: 1
   Icon: {fileID: 0}
   Art: {fileID: 0}
-  Rarity: 1
   Level: 1
   Element: 4
   WeaponType: 0
@@ -34,7 +34,9 @@ MonoBehaviour:
   AttackCooldown: 5
   Speed: 6.1
   EnemyLayer: 6
+  EntityLayer: 8
   EnemyTag: Character
+  EntityTag: Enemy
   FireRes: 0
   WaterRes: 0
   EarthRes: 0
@@ -60,84 +62,91 @@ MonoBehaviour:
   skills:
   - Level: 1
     LevelMod: 10
-    SkillName: Skill Name
-    Description: Generic Description
+    SkillName: Skeleton_Special
+    _Description: Skeleton_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
     CooldownInSecs: 5
-    DurationInSec: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
     ManaCost: 10
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
-      Name: 
-      Description: 
+      IsVisible: 0
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
-      IsVisible: 0
       DurationInSecs: 0
     StunTime: 0
   - Level: 1
     LevelMod: 10
-    SkillName: Skill Name
-    Description: Generic Description
+    SkillName: Skeleton_Distract
+    _Description: Skeleton_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
     CooldownInSecs: 5
-    DurationInSec: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
     ManaCost: 10
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
-      Name: 
-      Description: 
+      IsVisible: 0
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
-      IsVisible: 0
       DurationInSecs: 0
     StunTime: 0
   - Level: 1
     LevelMod: 10
-    SkillName: Skill Name
-    Description: Generic Description
+    SkillName: Skeleton_Ultimate
+    _Description: Skeleton_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
     CooldownInSecs: 5
-    DurationInSec: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
     ManaCost: 10
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
-      Name: 
-      Description: 
+      IsVisible: 0
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
       ModifierAmountType: 0
       Amount: 0
       IsPermanent: 0
-      IsVisible: 0
       DurationInSecs: 0
     StunTime: 0
   TeamBuff:
-    Name: 
-    Description: 
+    IsVisible: 0
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 0
     Element: 0
     ModifierAmountType: 0
     Amount: 0
     IsPermanent: 0
-    IsVisible: 0
     DurationInSecs: 0
+  unlocked: 0

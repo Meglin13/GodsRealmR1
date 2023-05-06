@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tutorial_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 628e52cc827e150489fabdcef09f1a1a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 8811622400
+    m_Localized: 'Use WASD to move.
+
+      Hold Left Shift to run. Run wastes Stamina.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24536068096
+    m_Localized: 'Left Click to Attack.
+
+
+
+
+
+      Press X, E, U to use Skills.
+
+      Skills
+      waste Mana whick recovers from defeated enemies'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 44995883008
+    m_Localized: 'It seems we are at a crossroads.
+
+      Hold Middle Mouse Button
+      to see Hidden Entities which can help us at our journery or at least show us
+      something interesting'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7841993109504
+    m_Localized: 'Chests contains useful items like Equipment and Potions.
+
+
+      Press
+      I to open Inventory.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8073845846016
+    m_Localized: Press F to Interact.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7551545946112
+    m_Localized: 'Hold Right Click to Block. Block wastes Stamina.
+
+      Press Space
+      to Dodge'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33334524030976
+    m_Localized: We were tricked! or were we?
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

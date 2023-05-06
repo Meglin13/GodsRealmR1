@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Rendering;
 
 public static class SettingsScript
 {

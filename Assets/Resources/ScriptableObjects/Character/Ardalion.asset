@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Ardalion
   m_EditorClassIdentifier: 
   id: 1
-  Name: Ardalion
-  Description: dude
+  _Name: Ardalion
+  _Description: Ardalion_Desc
   Type: 1
+  Rarity: 3
   Icon: {fileID: 21300000, guid: aabd0e2e06762904c95b4a8522b16a66, type: 3}
   Art: {fileID: 21300000, guid: 933752f930da2ed47970af217c0c393e, type: 3}
-  Rarity: 3
   Level: 1
   Element: 4
   WeaponType: 0
@@ -34,7 +34,9 @@ MonoBehaviour:
   AttackCooldown: 5
   Speed: 9.1
   EnemyLayer: 8
+  EntityLayer: 6
   EnemyTag: Enemy
+  EntityTag: Character
   FireRes: 0
   WaterRes: 0
   EarthRes: 0
@@ -60,13 +62,14 @@ MonoBehaviour:
   skills:
   - Level: 1
     LevelMod: 10
-    SkillName: Ardalion Special
-    Description: Generic Description
+    SkillName: Ardalion_Special
+    _Description: Ardalion_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 120
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 10
-    DurationInSec: 0
+    DurationInSecs: 0
     IsPeriodic: 0
     PeriodicDamageTime: 0
     ManaCost: 10
@@ -74,8 +77,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 1
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -86,13 +89,14 @@ MonoBehaviour:
     StunTime: 0
   - Level: 1
     LevelMod: 10
-    SkillName: Boom
-    Description: Generic Description
+    SkillName: Ardalion_Distract
+    _Description: Ardalion_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 100
+    SpawningObject: {fileID: -190916102125387444, guid: 6f164c77b76a4cd43993ec10a495828e, type: 3}
     CooldownInSecs: 20
-    DurationInSec: 0
+    DurationInSecs: 0
     IsPeriodic: 0
     PeriodicDamageTime: 0
     ManaCost: 15
@@ -100,8 +104,8 @@ MonoBehaviour:
     IsDebuffing: 1
     EnemyModifier:
       IsVisible: 1
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 1
       StatType: 6
       Element: 0
@@ -112,13 +116,14 @@ MonoBehaviour:
     StunTime: 3
   - Level: 1
     LevelMod: 10
-    SkillName: Ultimate
-    Description: Generic Description
+    SkillName: Ardalion_Ultimate
+    _Description: Ardalion_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
     BaseDamageMultiplier: 200
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 15
-    DurationInSec: 10
+    DurationInSecs: 0
     IsPeriodic: 0
     PeriodicDamageTime: 0
     ManaCost: 100
@@ -126,8 +131,8 @@ MonoBehaviour:
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 1
-      Name: 
-      Description: 
+      _Name: 
+      _Description: 
       ModifierType: 0
       StatType: 0
       Element: 0
@@ -138,8 +143,8 @@ MonoBehaviour:
     StunTime: 0
   TeamBuff:
     IsVisible: 0
-    Name: Ardik's wide pockets
-    Description: +5 Inventory Slots
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 1
     Element: 0
@@ -147,4 +152,4 @@ MonoBehaviour:
     Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
-  IsUnlocked: 1
+  unlocked: 1

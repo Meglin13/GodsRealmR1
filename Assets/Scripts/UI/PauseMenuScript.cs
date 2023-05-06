@@ -1,5 +1,3 @@
-using UnityEditor.Search;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -12,6 +10,7 @@ namespace UI
         private Button MainMenuBT;
         private Button SettingsBT;
         private Button ReturnToHubBT;
+        private Button TutorialBT;
 
         private string CurrentSceneName;
 
@@ -26,11 +25,14 @@ namespace UI
             SettingsBT = root.Q<Button>("SettingsBT");
             MainMenuBT = root.Q<Button>("MainMenuBT");
             ReturnToHubBT = root.Q<Button>("ReturnToHubBT");
+            TutorialBT = root.Q<Button>("TutorialBT");
 
             RestartBT.clicked += RestartButtonClicked;
             MainMenuBT.clicked += MainMenuButtonClicked;
             SettingsBT.clicked += SettingsButtonClicked;
             RunStatsBT.clicked += RunButtonClicked;
+            ReturnToHubBT.clicked += ReturnToHubButtonclicked;
+            TutorialBT.clicked += TutorialBT_clicked;
 
             if (CurrentSceneName == "HubScene")
             {
@@ -42,11 +44,17 @@ namespace UI
 
         void OnDisable()
         {
-            RestartBT.clicked -= RestartButtonClicked;
-            MainMenuBT.clicked -= MainMenuButtonClicked;
-            SettingsBT.clicked -= SettingsButtonClicked;
-            RunStatsBT.clicked -= RunButtonClicked;
+            //RestartBT.clicked -= RestartButtonClicked;
+            //MainMenuBT.clicked -= MainMenuButtonClicked;
+            //SettingsBT.clicked -= SettingsButtonClicked;
+            //RunStatsBT.clicked -= RunButtonClicked;
         }
+
+
+        private void TutorialBT_clicked() => UIManager.Instance.OpenMenu(UIManager.Instance.TutorialScreen);
+
+        private void ReturnToHubButtonclicked() => UIManager.Instance.ChangeScene("HubScene", gameObject);
+
 
         void RunButtonClicked()
         {

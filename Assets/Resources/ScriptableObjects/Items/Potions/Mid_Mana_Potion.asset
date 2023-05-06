@@ -15,7 +15,7 @@ MonoBehaviour:
   id: dad3600f4b006f74da808de0b62c0395
   Name: Mid_Mana_Potion
   Description: Mid_Mana_Potion_Desc
-  Icon: {fileID: 21300000, guid: f25acdfafd81edc4cba58781c28990ad, type: 3}
+  Icon: {fileID: 21300000, guid: d988a648dc2c84d41b75c6ac3dc8c9b2, type: 3}
   _Rarity: 2
   Amount: 1
   IsStackable: 1

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,13 +30,13 @@ public class InventoryScript : MonoBehaviour
     /// <summary>
     /// Добавление предметов в инвентарь. SO автоматически спавнятся, так что нет смысла несколько раз из разворачивать
     /// </summary>
-    /// <param name="Item"></param>
+    /// <param _name="Item"></param>
     /// <returns>Возвращает произошло ли добавление в инвентарь</returns>
-    public bool AddItemToInventory(Item Item)
+    public bool AddItemToInventory(Item Item, bool IsNew)
     {
         if (Inventory.Count < Inventory.Capacity)
         {
-            Item NewItem = Instantiate(Item);
+            Item NewItem = IsNew ? Instantiate(Item) : Item;
 
             if (Inventory.Contains(NewItem) & NewItem.IsStackable)
             {
@@ -56,7 +54,7 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
-    public void DeleteItem(string ItemID)
+    public void DeleteItem(string ItemID, bool IsDestroy)
     {
         Item ItemForDelete = Inventory.Where(x => x.ID == ItemID).First();
 
@@ -67,7 +65,8 @@ public class InventoryScript : MonoBehaviour
         else
         {
             Inventory.Remove(ItemForDelete);
-            Destroy(ItemForDelete);
+            if (IsDestroy)
+                Destroy(ItemForDelete);
         }
     }
 

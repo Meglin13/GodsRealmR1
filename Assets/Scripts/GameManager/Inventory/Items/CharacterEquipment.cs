@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterEquipment
@@ -40,9 +39,7 @@ public class CharacterEquipment
             if (EquipmentSlots[item.EquipmentType] != null)
             {
                 if (inventory.Inventory.Count == inventory.Inventory.Capacity)
-                {
                     return;
-                }
 
                 UnequipItem(EquipmentSlots[item.EquipmentType]);
             }
@@ -59,7 +56,7 @@ public class CharacterEquipment
                     character.StartCoroutine(character.AddModifier(modifier));
             }
 
-            inventory.DeleteItem(item.ID);
+            inventory.DeleteItem(item.ID, false);
         }
     }
 
@@ -80,19 +77,15 @@ public class CharacterEquipment
                     EntityStats.ElementSheet element = character.EntityStats.ElementsResBonus[modifier.Element];
 
                     if (modifier.StatType == StatType.Resistance)
-                    {
                         element.Resistance.RemoveModifier(modifier);
-                    }
                     else
-                    {
                         element.DamageBonus.RemoveModifier(modifier);
-                    }
                 }
                 else
                     character.EntityStats.ModifiableStats[modifier.StatType].RemoveModifier(modifier);
             }
         }
 
-        inventory.AddItemToInventory(item);
+        inventory.AddItemToInventory(item, false);
     }
 }
