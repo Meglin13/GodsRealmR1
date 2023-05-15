@@ -1,73 +1,88 @@
-using DungeonGeneration;
 using MyBox;
 using ObjectPooling;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class EnemySpawnerScript : MonoBehaviour
+namespace DungeonGeneration
 {
-    [SerializeField]
-    private float TimeBetweenSpawn = 5f;
-
-    [SerializeField]
-    [ReadOnly]
-    private int EnemiesAmount;
-    private int EnemiesLevel;
-
-    private List<EnemyScript> SpawnedEnemies;
-
-    private BattleRoom behaviour;
-
-    public void Init(BattleRoom behaviour)
+    public class EnemySpawnerScript : MonoBehaviour
     {
-        this.behaviour = behaviour;
-        gameObject.SetActive(true);
+        [SerializeField]
+        private float TimeBetweenSpawn = 3f;
 
-        EnemiesAmount = RunManager.Params.EnemiesInOneRoom;
-        EnemiesLevel = RunManager.Params.EnemiesLevel;
+        [SerializeField]
+        [ReadOnly]
+        private int EnemiesAmount;
+        private int EnemiesLevel;
 
-        StartCoroutine(SpawnEnemies());
-    }
+        [SerializeField]
+        [ReadOnly]
+        private int spawnedEnemiesCount = 0;
 
-    IEnumerator SpawnEnemies()
-    {
-        int i = 0;
-
-        while (i < EnemiesAmount)
-        {
-            Vector3 position = gameObject.transform.position;
-            //position.x += Random.Range(-1, 1);
-            //position.z += Random.Range(-1, 1);
-
-            var enemy = PoolerScript<EnemyScript>.Instance.
-                CreateObject(behaviour.enemies[Random.Range(0, behaviour.enemies.Length - 1)], position);
-
-            enemy.agent.Warp(position);
-
-            enemy.EntityStats.Initialize(Random.Range(EnemiesLevel - 2, EnemiesLevel + 5));
-            enemy.OnDie += () => OnEnemyDie(enemy);
-
-            i++;
-
-            yield return new WaitForSeconds(TimeBetweenSpawn);
+        public int SpawnedEnemiesCount 
+        { 
+            get => spawnedEnemiesCount; 
+            set
+            {
+                spawnedEnemiesCount = value;
+                if (spawnedEnemiesCount <= 0 & IsInited & !behaviour.Room.IsRoomCleared)
+                    behaviour.Room.RoomClear();
+            }
         }
-    }
 
-    //EXP: Не работает
-    private void OnEnemyDie(EnemyScript enemy)
-    {
-        SpawnedEnemies.Remove(enemy);
+        [SerializeField]
+        [ReadOnly]
+        private bool IsInited = false;
 
-        if (SpawnedEnemies.Count == 0)
+        private BattleRoom behaviour;
+
+        public void Init(BattleRoom behaviour, int EnemiesAmount = 0)
         {
-            behaviour.Room.RoomClear();
+            IsInited = false;
+            spawnedEnemiesCount = 0;
 
-            gameObject.SetActive(false);
+            this.behaviour = behaviour;
+
+            this.EnemiesAmount = EnemiesAmount > 0 ? EnemiesAmount : RunManager.Params.EnemiesInOneRoom;
+            EnemiesLevel = RunManager.Params.EnemiesLevel;
+
+            gameObject.SetActive(true);
+            StartCoroutine(SpawnEnemies());
+        }
+
+        IEnumerator SpawnEnemies()
+        {
+            int i = 0;
+
+            while (i < EnemiesAmount)
+            {
+                yield return new WaitForSeconds(TimeBetweenSpawn);
+
+                Vector3 position = gameObject.transform.position;
+                position.x += Random.Range(-5, 5f);
+                position.z += Random.Range(-5, 5f);
+
+                var enemy = PoolerScript<EnemyScript>.Instance.
+                    CreateObject(behaviour.enemies[Random.Range(0, behaviour.enemies.Length - 1)], position);
+
+                enemy.agent.Warp(position);
+
+                enemy.EntityStats.Initialize(Random.Range(EnemiesLevel - 2, EnemiesLevel + 5));
+                
+                enemy.OnDie -= OnEnemyDie;
+                enemy.OnDie += OnEnemyDie;
+
+                i++;
+                SpawnedEnemiesCount++;
+            }
+
+            IsInited = true;
+        }
+
+        private void OnEnemyDie()
+        {
+            SpawnedEnemiesCount--;
         }
     }
 }

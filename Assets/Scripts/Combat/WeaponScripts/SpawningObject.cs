@@ -15,4 +15,12 @@ public abstract class SpawningObject : MonoBehaviour
         Radius = skill.Radius;
         DealerStats = dude.EntityStats;
     }
+
+    public virtual void OnDisable()
+    {
+        dude = null;
+        skill = null;
+        Radius = 0;
+        DealerStats = null;
+    }
 }

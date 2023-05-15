@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class MiniMapManager : MonoBehaviour, ISingle
 {
-    public GameObject MarkerPrefab;
-
+    [SerializeField]
+    private GameObject MarkerPrefab;
+    [SerializeField]
+    private Camera minimapCamera;
     public static MiniMapManager Instance { get; private set; }
 
     [ContextMenu("InitializeSettings Minimap Markers")]

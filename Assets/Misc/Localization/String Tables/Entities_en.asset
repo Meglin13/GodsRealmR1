@@ -21,23 +21,19 @@ MonoBehaviour:
   - m_Id: 10254148473106432
     m_Localized: Ardalion
     m_Metadata:
-      m_Items:
-      - rid: 5642383183492415503
+      m_Items: []
   - m_Id: 10254148502466561
     m_Localized: Dream
     m_Metadata:
-      m_Items:
-      - rid: 5642383183492415504
+      m_Items: []
   - m_Id: 10254148502466563
     m_Localized: Marfa
     m_Metadata:
-      m_Items:
-      - rid: 5642383183492415505
+      m_Items: []
   - m_Id: 10254148502466566
     m_Localized: Bolfri
     m_Metadata:
-      m_Items:
-      - rid: 5642383183492415506
+      m_Items: []
   - m_Id: 10254148502466567
     m_Localized: Dummy
     m_Metadata:
@@ -49,28 +45,7 @@ MonoBehaviour:
   - m_Id: 10254148502466569
     m_Localized: Skeleton
     m_Metadata:
-      m_Items:
-      - rid: 2915361755277033474
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 2915361755277033474
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: 10254148502466569
-    - rid: 5642383183492415503
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: 10254148473106432
-    - rid: 5642383183492415504
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: 10254148502466561
-    - rid: 5642383183492415505
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: 10254148502466563
-    - rid: 5642383183492415506
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: 10254148502466566
+    RefIds: []

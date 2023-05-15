@@ -4752,7 +4752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6900285931711903514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 1.9677019, z: -8.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4851,6 +4851,8 @@ MonoBehaviour:
   MeleeWeapon: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
+  priority: 1
+  SightTrigger: {fileID: 0}
   CurrentState: 
   TargetName: 
   IsCharInAttackRange: 0
@@ -6805,6 +6807,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6900285931248648916}
     m_Modifications:
+    - target: {fileID: 1976397795694666483, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_RootOrder
       value: 1

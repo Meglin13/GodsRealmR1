@@ -38,9 +38,11 @@ namespace UI
             var ResetSaveBT = root.Q<Button>("ResetSaveBT");
             ResetSaveBT.clicked += () =>
             {
-                manager.ShowModalWindow(ModalWindowType.YesNo,
-                    "#Delete_Save_Caption", "#Delete_Save_Title",
-                    () => SaveLoadSystem.SaveLoadSystem.DeleteSave());
+                //manager.ShowModalWindow(ModalWindowType.YesNo,
+                //    "#Delete_Save_Caption", "#Delete_Save_Title",
+                //    () => 
+                SaveLoadSystem.SaveLoadSystem.DeleteSave();
+                    //);
             };
 
             //Toggles

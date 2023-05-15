@@ -238,6 +238,98 @@ MonoBehaviour:
     m_Localized: Skip >>
     m_Metadata:
       m_Items: []
+  - m_Id: 38066840420134912
+    m_Localized: FAILED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38066840453689344
+    m_Localized: 'Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38066840453689345
+    m_Localized: You are here
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38129765591724032
+    m_Localized: Save settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38129765629472768
+    m_Localized: Reset save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818275944476672
+    m_Localized: Character information
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196928
+    m_Localized: Skills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196929
+    m_Localized: Stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196930
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196931
+    m_Localized: Water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196932
+    m_Localized: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196933
+    m_Localized: Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196934
+    m_Localized: Dark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39908107412221952
+    m_Localized: Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196936
+    m_Localized: Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196937
+    m_Localized: Defence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196938
+    m_Localized: Mana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196939
+    m_Localized: ManaRecoveryBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196940
+    m_Localized: ManaConsumption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196941
+    m_Localized: Crit. damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38818276003196942
+    m_Localized: Crit. chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39910027816251392
+    m_Localized: Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39910027828834304
+    m_Localized: Speed
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

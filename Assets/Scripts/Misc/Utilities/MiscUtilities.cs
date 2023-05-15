@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 
@@ -54,7 +55,6 @@ public class MiscUtilities : MonoBehaviour
         DamagePopUp.GetComponentInChildren<TextMeshProUGUI>().text = $"<color={ColorString}>{Text}</color>";
     }
 
-    //TODO: Использовать пул
     /// <summary>
     /// Спавнит игровой объект перед другим игровым объектом на заданном расстоянии от него
     /// </summary>
@@ -72,6 +72,11 @@ public class MiscUtilities : MonoBehaviour
         Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
 
         T spawnedObject = (T)SpawnablePool.Instance.CreateObject(spawningObject, spawnPos);
+
+        if (spawnedObject.TryGetComponent(out NavMeshAgent agent))
+        {
+            agent.Warp(spawnPos);
+        }
 
         return spawnedObject;
     }

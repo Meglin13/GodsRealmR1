@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(InteractorScript))]
+[RequireComponent(typeof(Animator))]
 [SelectionBase]
 public abstract class CharacterScript : EntityScript
 {
@@ -20,7 +21,6 @@ public abstract class CharacterScript : EntityScript
         }
     }
 #endif
-
 
     #region [Party Setup Settings]
 
@@ -171,13 +171,12 @@ public abstract class CharacterScript : EntityScript
             base.TakeDamage(DealerStats, Multiplier, CanBlock);
 
             if (IsActive)
-            {
-                impulseSource.GenerateImpulse(0.1f);
-            }
+                impulseSource.GenerateImpulse(0.05f);
         }
         else if (CanBlock & blockingTime <= GameManager.Instance.ParryTime)
         {
-            StartCoroutine(AddModifier(GameManager.Instance.ParryMod));
+            GameManager.Instance.StartCoroutine(AddModifier(GameManager.Instance.ParryMod));
+            
             EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(new PlayerAttackState(this, EntityStateMachine.CurrentState.InnerStateMachine));
         }
         else
@@ -188,7 +187,7 @@ public abstract class CharacterScript : EntityScript
             {
                 CurrentStamina = 0;
                 CurrentHealth -= Damage;
-                Stun(4f);
+                Stun(3f);
             }
         }
     }
@@ -406,7 +405,7 @@ public abstract class CharacterScript : EntityScript
             skill.ActivateSkill();
             LookAtEnemy(EntityStats.AttackRange);
 
-            StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
+            GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
         else if (skill.IsCooldown())
             Debug.Log($"{skill.Name} is cooldown!!!");

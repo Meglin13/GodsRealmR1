@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
+    <ui:VisualElement class="panel">
+        <ui:VisualElement style="flex-shrink: 0; flex-grow: 1; background-image: resource(&apos;Images/UI/MiniMap&apos;); -unity-background-scale-mode: scale-to-fit;">
+            <ui:Label text="#You_Are_Here" display-tooltip-when-elided="true" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; width: 200px; white-space: normal; display: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

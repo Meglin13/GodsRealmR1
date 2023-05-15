@@ -3,7 +3,6 @@ using MyBox;
 using ObjectPooling;
 using System;
 using System.Collections;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +11,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(CinemachineImpulseSource))]
 [SelectionBase]
-public abstract class EntityScript : MonoBehaviour, IDamageable
+public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
 {
 #if UNITY_EDITOR
 
@@ -20,7 +19,10 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     {
         if (Stats)
         {
-            GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>($"AnimatorControllers/{EntityStats.Type}/{EntityStats.Name}");
+            if (GetComponent<Animator>().runtimeAnimatorController == null)
+            {
+                GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>($"AnimatorControllers/{EntityStats.Type}/{EntityStats.Name}"); 
+            }
 
             //Collider
             CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
@@ -94,7 +96,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
         //Cinemachine
         impulseSource = GetComponent<CinemachineImpulseSource>();
 
-        OnAddModifier += () => EntityStats.UpdateStats();
+        OnAddModifier += EntityStats.UpdateStats;
     }
 
     #region [Delegates]
@@ -109,11 +111,21 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
     #endregion [Delegates]
 
-    #region [IDamageable]
+    #region [Interfaces]
+    [SerializeField]
+    private byte priority = 1;
+    public byte Priority { get => priority; }
+
     private float health;
-    public float CurrentHealth { 
-        get => health; 
-        set => health = Mathf.Clamp(value, 0, EntityStats.ModifiableStats[StatType.Health].GetFinalValue()); }
+    public float CurrentHealth
+    {
+        get => health;
+        set
+        {
+            health = Mathf.Clamp(value, 0, EntityStats.Health.GetFinalValue());
+        }
+    }
+
     public EntityStats EntityStats { get => Stats; }
     public int EnemyLayer { get => EntityStats.EnemyLayer; }
     public string EnemyTag { get => EntityStats.EnemyTag; }
@@ -129,7 +141,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     public virtual void Stun(float Time)
     {
         OnStun();
-        StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, Time, ModType.Debuff)));
+        GameManager.Instance.StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, Time, ModType.Debuff)));
     }
 
     public virtual void Death() => OnDie();
@@ -147,6 +159,8 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
 
     public virtual void OnDestroy()
     {
+        EntityStats.Clear();
+
         Action[] delList = new Action[]
         {
             OnAddModifier,
@@ -199,7 +213,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable
     public void StartDealMeleeDamage()
     {
         MeleeWeapon.enabled = true;
-        MeleeWeapon.Init(EntityStats, EntityStats.NormalAttackMult, true);
+        MeleeWeapon.Init(EntityStats, EntityStats.NormalAttackSkill.DamageMultiplier.GetFinalValue(), true);
     }
 
     public void EndDealMeleeDamage() => MeleeWeapon.EndDealDamage();

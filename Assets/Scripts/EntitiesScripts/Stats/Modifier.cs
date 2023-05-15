@@ -10,7 +10,11 @@ public class Modifier : ILocalizable
 {
     public Modifier() { }
 
-    //Бафф на 1 секунду
+    /// <summary>
+    /// Бафф на 1 секунду
+    /// </summary>
+    /// <param name="StatType"></param>
+    /// <param name="Amount"></param>
     public Modifier(StatType StatType, float Amount)
     {
         IsVisible = false;
@@ -21,7 +25,14 @@ public class Modifier : ILocalizable
         ModifierType = ModType.Buff;
     }
 
-    //Продолжительный модификатор
+    /// <summary>
+    /// Продолжительный модификатор
+    /// </summary>
+    /// <param name="StatType"></param>
+    /// <param name="Amount"></param>
+    /// <param name="amountType"></param>
+    /// <param name="Duration"></param>
+    /// <param name="modType"></param>
     public Modifier(StatType StatType, float Amount, ModifierAmountType amountType, float Duration, ModType modType)
     {
         IsVisible = true;
@@ -30,17 +41,6 @@ public class Modifier : ILocalizable
         this.Amount = Amount;
         ModifierAmountType = amountType;
         ModifierType = modType;
-    }
-
-    public Modifier(StatType StatType, float Amount, bool IsPermanent)
-    {
-        IsVisible = false;
-        this.IsPermanent = IsPermanent;
-        DurationInSecs = 0;
-        this.StatType = StatType;
-        this.Amount = Amount;
-        ModifierAmountType = ModifierAmountType.Value;
-        ModifierType = ModType.Buff;
     }
 
     public string Name

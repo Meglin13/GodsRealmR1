@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Marfa_First_Appearance
   m_EditorClassIdentifier: 
   _name: Marfa_First_Appearance
+  unlocked: 0
   Speakers:
   - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
   - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
@@ -41,3 +42,39 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
     Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
     Line: Marfa_First_Appearance_Marfa_4
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_5
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_6
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_7
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_8
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Marfa_9
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_10

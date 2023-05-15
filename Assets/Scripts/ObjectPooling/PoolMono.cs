@@ -20,11 +20,10 @@ namespace ObjectPooling
             this.Prefabs = prefabs;
             this.Container = container;
 
-            this.CreatePool(count);
-
+            this.CreatePool();
         }
 
-        private void CreatePool(int count)
+        private void CreatePool()
         {
             this.pool = new List<T>();
 
@@ -50,7 +49,8 @@ namespace ObjectPooling
         {
             foreach (var item in pool)
             {
-                if (!item.gameObject.activeInHierarchy & prefab == PrefabUtility.GetCorrespondingObjectFromSource(item))
+                if (!item.gameObject.activeInHierarchy &
+                    item.gameObject.name == string.Format("{0}(Clone)", prefab.gameObject.name))
                 {
                     element = item;
                     item.gameObject.SetActive(true);
@@ -70,7 +70,7 @@ namespace ObjectPooling
             if (AutoExpand)
                 return CreateObject(prefab, true);
 
-            throw new System.Exception($"No elements of type {typeof(T)}");
+            throw new Exception($"No elements of type {typeof(T)}");
         }
     }
 }

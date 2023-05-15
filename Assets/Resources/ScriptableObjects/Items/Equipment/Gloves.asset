@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Gloves
   m_EditorClassIdentifier: 
   id: 9f562c34e344a9149896edc82a9e9b0e
-  Name: Golden_Gloves
-  Description: Gold_Gloves
-  Icon: {fileID: 21300000, guid: d4f5634edede200468fc1ccf30e6f3a1, type: 3}
+  _Name: Gloves
+  _Description: Gloves_Desc
+  Icon: {fileID: 21300000, guid: 4bb85e9d81dd972438a5d43bf3dd0a87, type: 3}
   _Rarity: 4
   Amount: 1
   IsStackable: 0
@@ -23,18 +23,18 @@ MonoBehaviour:
   EquipmentType: 2
   Modifiers:
   - IsVisible: 0
-    Name: 
-    Description: 
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 13
     Element: 1
-    ModifierAmountType: 0
+    ModifierAmountType: 1
     Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
   - IsVisible: 0
-    Name: 
-    Description: 
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 1
     Element: 0
@@ -43,8 +43,8 @@ MonoBehaviour:
     IsPermanent: 1
     DurationInSecs: 0
   - IsVisible: 0
-    Name: 
-    Description: 
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 2
     Element: 0
@@ -53,12 +53,12 @@ MonoBehaviour:
     IsPermanent: 1
     DurationInSecs: 0
   - IsVisible: 0
-    Name: 
-    Description: 
+    _Name: 
+    _Description: 
     ModifierType: 0
     StatType: 13
     Element: 0
-    ModifierAmountType: 0
+    ModifierAmountType: 1
     Amount: 20
     IsPermanent: 1
     DurationInSecs: 0

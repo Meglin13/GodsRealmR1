@@ -24,19 +24,6 @@ MonoBehaviour:
       Hold Left Shift to run. Run wastes Stamina.'
     m_Metadata:
       m_Items: []
-  - m_Id: 24536068096
-    m_Localized: 'Left Click to Attack.
-
-
-
-
-
-      Press X, E, U to use Skills.
-
-      Skills
-      waste Mana whick recovers from defeated enemies'
-    m_Metadata:
-      m_Items: []
   - m_Id: 44995883008
     m_Localized: 'It seems we are at a crossroads.
 
@@ -57,15 +44,40 @@ MonoBehaviour:
     m_Localized: Press F to Interact.
     m_Metadata:
       m_Items: []
-  - m_Id: 7551545946112
+  - m_Id: 33334524030976
+    m_Localized: We were tricked! or were we?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2989736288759808
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2989736364257282
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2989736364257283
+    m_Localized: Interaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5202440428630016
+    m_Localized: 'Left Click to Attack.
+
+
+
+
+
+      Press X, E, U to use Skills.
+
+      Skills
+      waste Mana whick recovers from defeated enemies'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5202440483155968
     m_Localized: 'Hold Right Click to Block. Block wastes Stamina.
 
       Press Space
       to Dodge'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 33334524030976
-    m_Localized: We were tricked! or were we?
     m_Metadata:
       m_Items: []
   references:

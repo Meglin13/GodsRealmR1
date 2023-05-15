@@ -32,5 +32,7 @@ namespace Tutorial
         public Sprite Image;
         [PvIcon]
         public Sprite Icon;
+
+        public int Order = 0;
     }
 }

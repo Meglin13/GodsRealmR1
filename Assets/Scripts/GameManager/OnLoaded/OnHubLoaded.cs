@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using UI;
+using UnityEngine;
 
 namespace OnLoaded
 {
     internal class OnHubLoaded : MonoBehaviour
     {
-        private void Awake()
+        [SerializeField]
+        private DialogueSystem.Dialogue firstDialogue;
+
+        private void Start()
         {
-            SaveLoadSystem.SaveLoadSystem.Save();
+            if (SaveLoadSystem.SaveLoadSystem.SavedData == null)
+            {
+                StartCoroutine(MiscUtilities.Instance.ActionWithDelay(0.1f, () =>
+                {
+                    DialogueSystem.DialogueManager.Instance.gameObject.SetActive(true);
+                    DialogueSystem.DialogueManager.Instance.StartDialogue(firstDialogue);
+                }));
+            }
+
+            RunManager.ResetSettings();
+
+#if !UNITY_EDITOR
+            SaveLoadSystem.SaveLoadSystem.Save(); 
+#endif
         }
     }
 }

@@ -82,7 +82,7 @@ public class AreaOfEffectScript : SpawningObject
                             damageable.Stun(skill.StunTime);
 
                         if (skill.EnemyModifier != null)
-                            damageable.AddModifier(skill.EnemyModifier);
+                            GameManager.Instance.StartCoroutine(damageable.AddModifier(skill.EnemyModifier));
                     }
                     else
                     {

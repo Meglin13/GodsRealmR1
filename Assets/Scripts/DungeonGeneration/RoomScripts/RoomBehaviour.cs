@@ -1,35 +1,40 @@
 ﻿using MyBox;
 using UnityEngine;
 
-public enum RoomBehaviourType { Battle, Shop, Buffer, FreeChest, Corridor, Heal, BossPortal, Misc }
-
-public abstract class RoomBehaviour : ScriptableObject
+namespace DungeonGeneration
 {
-    [ReadOnly]
-    public RoomBehaviourType BehaviourType;
+    public enum RoomBehaviourType
+    { Battle, Shop, Buffer, FreeChest, Corridor, Heal, BossPortal, Misc }
 
-    public GameObject InstantiatingProp;
-    internal RoomScript Room;
-
-    [SerializeField]
-
-    public virtual void Initialize(RoomScript room)
+    public abstract class RoomBehaviour : ScriptableObject
     {
-        this.Room = room;
-    }
+        [ReadOnly]
+        public RoomBehaviourType BehaviourType;
 
-    public void SetProp(bool Active = true)
-    {
-        if (InstantiatingProp)
+        public GameObject InstantiatingProp;
+        internal RoomScript Room;
+        public float SpawnRate;
+
+        [SerializeField]
+        public virtual void Initialize(RoomScript room)
         {
-            InstantiatingProp = Instantiate(InstantiatingProp);
-            InstantiatingProp.transform.position = Room.transform.position;
-            InstantiatingProp.SetActive(Active);
-
-            InstantiatingProp.transform.SetParent(Room.transform);
+            this.Room = room;
         }
-    }
 
-    public abstract void OnRoomEnter();
-    public abstract void OnRoomExit();
+        public void SetProp(GameObject Prop, bool Active = true)
+        {
+            if (Prop)
+            {
+                InstantiatingProp = Instantiate(Prop);
+                InstantiatingProp.transform.position = Room.transform.position;
+                InstantiatingProp.SetActive(Active);
+
+                InstantiatingProp.transform.SetParent(Room.PropsContainer.transform);
+            }
+        }
+
+        public abstract void OnRoomEnter();
+
+        public abstract void OnRoomExit();
+    }
 }

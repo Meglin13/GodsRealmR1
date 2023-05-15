@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c3005cd9d7fe34d8397d80b6af7b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   SettingsMenu: {fileID: 670603406}
   LoadingScreen: {fileID: 1942339154}
 --- !u!114 &423788360
@@ -265,12 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8184ba9ac67fc4d9f5f8625123b3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  QualityLevels:
-  - {fileID: 11400000, guid: 44ebb19aac348eb43b4b77163ae7466e, type: 2}
-  - {fileID: 11400000, guid: 9ce32e40278c55343ab38d1af6e6dfe1, type: 2}
-  - {fileID: 11400000, guid: 847ccc389f8d1f848a812975bf72288b, type: 2}
-  - {fileID: 11400000, guid: ef2506208d39cc14784a91fd1f70e886, type: 2}
 --- !u!1 &989863147
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,15 +303,27 @@ MonoBehaviour:
   CharacterLocalTable:
     m_TableReference:
       m_TableCollectionName: 
+  DialogueLocalTable:
+    m_TableReference:
+      m_TableCollectionName: 
+  TutorialLocalTable:
+    m_TableReference:
+      m_TableCollectionName: 
   UITable: {fileID: 0}
   ItemsTable: {fileID: 0}
   CharacterTable: {fileID: 0}
+  DialogueTable: {fileID: 0}
+  TutorialTable: {fileID: 0}
   PauseMenu: {fileID: 0}
   SettingsMenu: {fileID: 670603406}
   LoadingScreen: {fileID: 1942339154}
   Inventory: {fileID: 0}
   InGameUI: {fileID: 0}
   ModalWindow: {fileID: 0}
+  DialogueWindow: {fileID: 0}
+  DeathScreen: {fileID: 0}
+  TutorialScreen: {fileID: 0}
+  Map: {fileID: 0}
   CurrentMenu: {fileID: 0}
   IsModalWindow: 0
   Blur: {fileID: 0}
@@ -652,7 +657,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845532371}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 18da873e1030649f4a4ebfaf4ef23798, type: 3}
@@ -753,7 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3b314ab0e232c43a9d5c823ad86efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Qualities: []
 --- !u!1 &1942339154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6191932107648099588, guid: fcce8278264b6aa478dd9d9c56f8f815, type: 3}

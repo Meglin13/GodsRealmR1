@@ -9,6 +9,7 @@ public class CameraCenterBehaviour : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        transform.SetParent(null);
     }
 
     private void Update()

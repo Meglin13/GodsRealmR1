@@ -26,7 +26,11 @@ public class EquipmentItem : Item
     {
         for (int i = 0; i < Modifiers.Length; i++)
         {
-            Modifiers[i] = new Modifier((StatType)UnityEngine.Random.RandomRange(0, Enum.GetNames(typeof(StatType)).Length), UnityEngine.Random.RandomRange(5, (int)_Rarity + 10) * 2, true);
+            Modifiers[i] = new Modifier()
+            {
+                StatType = (StatType)UnityEngine.Random.RandomRange(0, Enum.GetNames(typeof(StatType)).Length),
+                Amount = UnityEngine.Random.RandomRange(5, (int)_Rarity + 10) * 2,
+                IsPermanent =  true};
 
             Modifiers[i].ModifierAmountType = ModifierAmountType.Procent;
 

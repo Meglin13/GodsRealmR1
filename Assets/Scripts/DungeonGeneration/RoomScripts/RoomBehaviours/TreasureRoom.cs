@@ -1,25 +1,29 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Treasure Room", menuName = "Objects/Dungeon Generator/RoomBehaviour/Treasure Room")]
-public class TreasureRoom : RoomBehaviour
+namespace DungeonGeneration
 {
-    public TreasureRoom()
+    [CreateAssetMenu(fileName = "Treasure Room", menuName = "Objects/Dungeon Generator/RoomBehaviour/Treasure Room")]
+    public class TreasureRoom : RoomBehaviour
     {
-        BehaviourType = RoomBehaviourType.FreeChest;
-    }
+        public TreasureRoom()
+        {
+            BehaviourType = RoomBehaviourType.FreeChest;
+        }
 
-    public override void Initialize(RoomScript room)
-    {
-        base.Initialize(room);
-    }
+        public override void Initialize(RoomScript room)
+        {
+            base.Initialize(room);
+            SetProp(InstantiatingProp, true);
+        }
 
-    public override void OnRoomEnter()
-    {
-        
-    }
+        public override void OnRoomEnter()
+        {
 
-    public override void OnRoomExit()
-    {
-        
-    }
+        }
+
+        public override void OnRoomExit()
+        {
+
+        }
+    } 
 }

@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
     <ui:VisualElement name="MainPanel" class="panel" style="width: 90%; height: 90%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px; background-color: rgba(35, 35, 59, 0.8); flex-direction: row; border-left-color: rgb(255, 199, 0); border-right-color: rgb(255, 199, 0); border-top-color: rgb(255, 199, 0); border-bottom-color: rgb(255, 199, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; -unity-background-image-tint-color: rgb(255, 255, 255); display: flex;">
         <ui:VisualElement name="EquipmentWindow" class="inventory-panel" style="width: 30%;">
-            <ui:VisualElement name="LevelPanel" style="flex-direction: row; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0;">
+            <ui:VisualElement name="LevelPanel" style="flex-direction: row; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; display: flex; visibility: hidden;">
                 <ui:Label text="#Level" display-tooltip-when-elided="true" name="LevelLabel" style="width: 150px; -unity-text-align: middle-center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
                 <ui:ProgressBar value="0.5" name="LevelBar" high-value="1" style="width: 300px; -unity-text-align: middle-center; white-space: normal; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
             </ui:VisualElement>

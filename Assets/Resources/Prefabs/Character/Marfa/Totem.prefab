@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8904621752995668613}
   - component: {fileID: 3817202586400270260}
   - component: {fileID: -322983186120999596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Totem
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9570e5ddd5e99194999388aac7e16b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priority: 2
   areaType: 0
   LifeTime: 0
   TimeBetweenAttacks: 0
@@ -212,7 +213,7 @@ GameObject:
   - component: {fileID: 8310889692391354136}
   - component: {fileID: 5422855932129577972}
   - component: {fileID: 6670386371292234869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

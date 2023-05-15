@@ -13,60 +13,140 @@ MonoBehaviour:
   m_Name: Ardalion
   m_EditorClassIdentifier: 
   id: 1
+  Level: 1
   _Name: Ardalion
   _Description: Ardalion_Desc
   Type: 1
   Rarity: 3
-  Icon: {fileID: 21300000, guid: aabd0e2e06762904c95b4a8522b16a66, type: 3}
-  Art: {fileID: 21300000, guid: 933752f930da2ed47970af217c0c393e, type: 3}
-  Level: 1
   Element: 4
   WeaponType: 0
   IsHeavy: 0
-  BaseHealth: 100
-  HealthMod: 10
-  BaseAttack: 15
-  AttackMod: 15
-  BaseDefence: 30
-  DefenceMod: 7
+  Icon: {fileID: 21300000, guid: aabd0e2e06762904c95b4a8522b16a66, type: 3}
+  Art: {fileID: 21300000, guid: 933752f930da2ed47970af217c0c393e, type: 3}
+  unlocked: 1
+  Health:
+    BaseValue: 100
+    LevelModifier: 10
+  Attack:
+    BaseValue: 15
+    LevelModifier: 5
+  Defence:
+    BaseValue: 10
+    LevelModifier: 5
+  Mana:
+    BaseValue: 100
+    LevelModifier: 10
+  ManaRecoveryBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  ManaConsumption:
+    BaseValue: 0
+    LevelModifier: 0
+  FireRes:
+    BaseValue: 0
+    LevelModifier: 0
+  WaterRes:
+    BaseValue: 0
+    LevelModifier: 0
+  EarthRes:
+    BaseValue: 0
+    LevelModifier: 0
+  AirRes:
+    BaseValue: 0
+    LevelModifier: 0
+  LightRes:
+    BaseValue: 0
+    LevelModifier: 0
+  DarkRes:
+    BaseValue: 0
+    LevelModifier: 0
+  FireBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  WaterBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  EarthBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  AirBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  LightBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  DarkBonus:
+    BaseValue: 0
+    LevelModifier: 0
   SightRange: 20
   AttackRange: 3
-  AttackCooldown: 5
-  Speed: 9.1
+  MovementSpeed: 8
   EnemyLayer: 8
   EntityLayer: 6
   EnemyTag: Enemy
   EntityTag: Character
-  FireRes: 0
-  WaterRes: 0
-  EarthRes: 0
-  AirRes: 0
-  LightRes: 0
-  DarkRes: 0
-  NormalAttackMult: 80
-  Luck: 6
-  BaseCritDamage: 200
-  CritChanceMod: 0
-  CritDamageMod: 0
-  BaseMana: 100
-  ManaMod: 0
-  Endurance: 4
-  Agility: 6
-  BaseStamina: 100
-  StaminaMod: 0
-  AttackSpeed: 1.5166668
-  Sprint: 11.83
-  DodgeCost: 27
-  BlockCost: 29
-  HeavyBlockCost: 43.5
+  CritDamage:
+    BaseValue: 100
+    LevelModifier: 0
+  CritChance:
+    BaseValue: 5
+    LevelModifier: 0
+  Endurance:
+    BaseValue: 5
+    LevelModifier: 0
+  Agility:
+    BaseValue: 5
+    LevelModifier: 0
+  Luck:
+    BaseValue: 5
+    LevelModifier: 0
+  Stamina:
+    BaseValue: 100
+    LevelModifier: 0
+  Speed:
+    BaseValue: 8
+    LevelModifier: 0
+  AttackSpeed: 1.3333334
+  Sprint: 10.4
+  DodgeCost: 25
+  BlockCost: 27.5
+  HeavyBlockCost: 41.25
+  NormalAttackSkill:
+    SkillName: 
+    _Description: 
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    DamageMultiplier:
+      BaseValue: 70
+      LevelModifier: 7
+    SpawningObject: {fileID: 0}
+    CooldownInSecs: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 0
+    Radius: 0
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      _Name: 
+      _Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 1
+      DurationInSecs: 0
+    StunTime: 0
   skills:
-  - Level: 1
-    LevelMod: 10
-    SkillName: Ardalion_Special
+  - SkillName: Ardalion_Special
     _Description: Ardalion_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 120
+    DamageMultiplier:
+      BaseValue: 100
+      LevelModifier: 0
     SpawningObject: {fileID: 0}
     CooldownInSecs: 10
     DurationInSecs: 0
@@ -87,13 +167,13 @@ MonoBehaviour:
       IsPermanent: 0
       DurationInSecs: 0
     StunTime: 0
-  - Level: 1
-    LevelMod: 10
-    SkillName: Ardalion_Distract
+  - SkillName: Ardalion_Distract
     _Description: Ardalion_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 100
+    DamageMultiplier:
+      BaseValue: 150
+      LevelModifier: 0
     SpawningObject: {fileID: -190916102125387444, guid: 6f164c77b76a4cd43993ec10a495828e, type: 3}
     CooldownInSecs: 20
     DurationInSecs: 0
@@ -114,14 +194,14 @@ MonoBehaviour:
       IsPermanent: 0
       DurationInSecs: 5
     StunTime: 3
-  - Level: 1
-    LevelMod: 10
-    SkillName: Ardalion_Ultimate
+  - SkillName: Ardalion_Ultimate
     _Description: Ardalion_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 200
-    SpawningObject: {fileID: 0}
+    DamageMultiplier:
+      BaseValue: 0
+      LevelModifier: 0
+    SpawningObject: {fileID: 5442969445125295048, guid: ffb8cdf5d1f34c4419d257f49ee8e44d, type: 3}
     CooldownInSecs: 15
     DurationInSecs: 0
     IsPeriodic: 0
@@ -152,4 +232,6 @@ MonoBehaviour:
     Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
-  unlocked: 1
+  WeaponLengthStat:
+    BaseValue: 0
+    LevelModifier: 0

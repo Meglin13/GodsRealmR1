@@ -59,7 +59,11 @@ public class PartyManager : MonoBehaviour, ISingle
     /// <returns>œÂÒÓÌ‡Ê</returns>
     public CharacterScript GetPlayer()
     {
-        return PartyMembers[LeaderIndex];
+        if (PartyMembers.Count > 0)
+        {
+            return PartyMembers[LeaderIndex];
+        }
+        return null;
     }
 
     /// <summary>
@@ -69,12 +73,13 @@ public class PartyManager : MonoBehaviour, ISingle
     /// <param _name="newPlayerIndex"></param>
     public void SwitchPlayer(CharacterScript CurrentPlayer, int newPlayerIndex)
     {
-        if (newPlayerIndex > PartyMembers.Count - 1 | newPlayerIndex == LeaderIndex | switchingType == PartySwitchingType.Leader)
+        if (newPlayerIndex >= PartyMembers.Count | newPlayerIndex == LeaderIndex | switchingType == PartySwitchingType.Leader)
         {
             return;
         }
 
         CharacterScript NewPlayer = PartyMembers[newPlayerIndex];
+        LeaderIndex = newPlayerIndex;
 
         if (switchingType == PartySwitchingType.Manual)
         {
@@ -97,8 +102,6 @@ public class PartyManager : MonoBehaviour, ISingle
             NewPlayer.EntityStateMachine.ChangeState(playerState);
             NewPlayer.IsActive = true;
         }
-
-        LeaderIndex = newPlayerIndex;
 
         CameraCenterBehaviour.Instance.SetTarget(NewPlayer.gameObject.transform);
     }
@@ -153,6 +156,7 @@ public class PartyManager : MonoBehaviour, ISingle
             else
             {
                 PartyMembers[0].gameObject.SetActive(true);
+                PartyMembers[0].agent.Warp(character.transform.position);
             }
 
             CameraCenterBehaviour.Instance.SetTarget(PartyMembers[0].transform);
@@ -165,10 +169,7 @@ public class PartyManager : MonoBehaviour, ISingle
             }
         }
         else
-        {
-            //TODO: › –¿Õ —Ã≈–“»
             UIManager.Instance.OpenMenu(UIManager.Instance.DeathScreen);
-        }
     }
 
     #region [Team Commands]
@@ -238,7 +239,7 @@ public class PartyManager : MonoBehaviour, ISingle
     {
         foreach (var item in PartyMembers)
         {
-            if (item && item?.EntityStats.TeamBuff != null)
+            if (item && item.EntityStats.TeamBuff != null)
             {
                 ApplyBuffOnTeam(item.EntityStats.TeamBuff);
             }
@@ -253,12 +254,9 @@ public class PartyManager : MonoBehaviour, ISingle
                 GameManager.Instance.inventory.Capacity += (int)Math.Round(modifier.Amount);
                 break;
 
-            case StatType.WeaponLength:
-                break;
-
             default:
                 foreach (var item in PartyMembers)
-                    StartCoroutine(item.AddModifier(modifier));
+                    GameManager.Instance.StartCoroutine(item.AddModifier(modifier));
                 break;
         }
     }

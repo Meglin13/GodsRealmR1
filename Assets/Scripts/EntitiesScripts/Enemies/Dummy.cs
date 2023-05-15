@@ -9,11 +9,6 @@ public class Dummy : EnemyScript, IEnemy
         Enemy = this;
     }
 
-    public override void Update()
-    {
-        base.Update();
-    }
-
     public void Attack()
     {
 
@@ -26,6 +21,6 @@ public class Dummy : EnemyScript, IEnemy
 
     public override void Death()
     {
-        CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
+        CurrentHealth = 1000;
     }
 }

@@ -50,6 +50,6 @@ public class ModifierPotion : PotionItem
     public override void UseItem(CharacterScript character)
     {
         base.UseItem(character);
-        character.StartCoroutine(character.AddModifier(Modifier));
+        GameManager.Instance.StartCoroutine(character.AddModifier(Modifier));
     }
 }

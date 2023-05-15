@@ -15,28 +15,128 @@ MonoBehaviour:
   m_TableCollectionName: Dialogues
   m_TableCollectionNameGuidString: 6d1f1a21c902d9f4eb9ef6abb8775c46
   m_Entries:
-  - m_Id: 1758101828448256
-    m_Key: Ardalion_Bolfri_Phone_Call_1__2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1758101794893824
-    m_Key: Ardalion_Bolfri_Phone_Call_1_Ardalion_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1758101828448257
+  - m_Id: 5139768924352512
     m_Key: Marfa_First_Appearance_Ardalion_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1758101828448259
-    m_Key: Marfa_First_Appearance_Ardalion_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1758101828448258
+  - m_Id: 5139768995655680
     m_Key: Marfa_First_Appearance_Marfa_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1758101828448260
+  - m_Id: 5139768995655681
+    m_Key: Marfa_First_Appearance_Ardalion_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655682
     m_Key: Marfa_First_Appearance_Marfa_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655683
+    m_Key: Marfa_First_Appearance_Ardalion_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655684
+    m_Key: Marfa_First_Appearance_Marfa_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655685
+    m_Key: Marfa_First_Appearance_Ardalion_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655686
+    m_Key: Marfa_First_Appearance_Marfa_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655687
+    m_Key: Marfa_First_Appearance_Ardalion_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655688
+    m_Key: Marfa_First_Appearance_Marfa_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655689
+    m_Key: Marfa_First_Appearance_Ardalion_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655690
+    m_Key: Marfa_First_Appearance_Marfa_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655691
+    m_Key: Marfa_First_Appearance_Ardalion_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655692
+    m_Key: Marfa_First_Appearance_Marfa_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655693
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655694
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768995655695
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849984
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849985
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849986
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849987
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849988
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849989
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849990
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849991
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849992
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5139768999849993
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5141198599008256
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5141198611591168
+    m_Key: Realmkeeper_First_Dialogue_Hub_Realmkeeper_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5141198611591169
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5141198611591170
+    m_Key: Realmkeeper_First_Dialogue_Hub_Ardalion_17
     m_Metadata:
       m_Items: []
   m_Metadata:

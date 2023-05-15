@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6af1e2529c69443b4f769d08c88c10, type: 3}
+  m_Name: Realmkeeper_First_Dialogue_Hub
+  m_EditorClassIdentifier: 
+  _name: Realmkeeper_First_Dialogue_Hub
+  unlocked: 1
+  Speakers:
+  - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+  - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+  replicas:
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_1
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_2
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_3
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_4
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_5
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_6
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_7
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_8
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_9
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_10
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_11
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_12
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_13
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_14
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Realmkeeper_15
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_16
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: a95ea1a4896096a47be846058edc2943, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Realmkeeper_First_Dialogue_Hub_Ardalion_17

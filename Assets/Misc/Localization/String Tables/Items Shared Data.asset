@@ -14,7 +14,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: Items
   m_TableCollectionNameGuidString: 0316aaac01ae2d545a1b6abd8ac8c0a3
-  m_Entries: []
+  m_Entries:
+  - m_Id: 30032441229357056
+    m_Key: Amethyst_Earrings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522880
+    m_Key: Amethyst_Earrings_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522881
+    m_Key: Blackskin_Bracers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522882
+    m_Key: Blackskin_Bracers_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522883
+    m_Key: Cape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522884
+    m_Key: Cape_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522885
+    m_Key: Emerald_Amulet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522886
+    m_Key: Emerald_Amulet_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522887
+    m_Key: Gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522888
+    m_Key: Gloves_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522889
+    m_Key: Golden_Ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522890
+    m_Key: Golden_Ring_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522891
+    m_Key: Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522892
+    m_Key: Helmet_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522893
+    m_Key: Iron_Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522894
+    m_Key: Iron_Armor_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522895
+    m_Key: Iron_Boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522896
+    m_Key: Iron_Boots_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522897
+    m_Key: Iron_Gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522898
+    m_Key: Iron_Gloves_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522899
+    m_Key: Iron_Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522900
+    m_Key: Iron_Helmet_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522901
+    m_Key: Legend_Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522902
+    m_Key: Legend_Belt_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522903
+    m_Key: Ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522904
+    m_Key: Ring_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522905
+    m_Key: Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522906
+    m_Key: Shield_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522907
+    m_Key: Violet_Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522908
+    m_Key: Violet_Armor_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522909
+    m_Key: Violet_Earrings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522910
+    m_Key: Violet_Earrings_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522911
+    m_Key: Violet_Gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522912
+    m_Key: Violet_Gloves_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522913
+    m_Key: Violet_Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522914
+    m_Key: Violet_Helmet_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522915
+    m_Key: Big_Health_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522916
+    m_Key: Big_Health_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522917
+    m_Key: Mid_Health_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522918
+    m_Key: Mid_Health_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522919
+    m_Key: Mid_Mana_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522920
+    m_Key: Mid_Mana_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522921
+    m_Key: Mid_Stamina_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522922
+    m_Key: Mid_Stamina_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522923
+    m_Key: Small_Health_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522924
+    m_Key: Small_Health_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522925
+    m_Key: Small_Mana_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522926
+    m_Key: Small_Mana_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522927
+    m_Key: Small_Stamina_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522928
+    m_Key: Small_Stamina_Potion_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522929
+    m_Key: Weak_Attack_Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032441254522930
+    m_Key: Weak_Attack_Potion_Desc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

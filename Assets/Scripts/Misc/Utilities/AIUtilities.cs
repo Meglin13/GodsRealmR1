@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
@@ -54,6 +56,30 @@ public static class AIUtilities
         Debug.DrawLine(transform.position, ClosestEntity.transform.position, lineColor);
 
         return ClosestEntity;
+    }
+
+    //TODO: ЗАМЕНИТЬ
+    public static ITarget GetTarget(Transform transform, EntityStats stats)
+    {
+        ITarget target = null;
+
+        Collider[] targets = Physics.OverlapSphere(transform.position, 30, 1 << stats.EnemyLayer);
+
+        var list = new List<ITarget>();
+
+        foreach (var item in targets)
+        {
+            MiscUtilities.GetInterfaces(out List<ITarget> l, item.gameObject);
+            list.Add(l.FirstOrDefault());
+        }
+
+        if (list.Count > 0)
+        {
+            int maxP = list.Max(x => x.Priority);
+            target = list.Where(x => x.Priority == maxP).FirstOrDefault();
+        }
+
+        return target;
     }
 
     /// <summary>

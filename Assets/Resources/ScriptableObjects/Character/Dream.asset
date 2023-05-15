@@ -13,60 +13,141 @@ MonoBehaviour:
   m_Name: Dream
   m_EditorClassIdentifier: 
   id: 2
+  Level: 1
   _Name: Dream
   _Description: Dream_Desc
   Type: 1
   Rarity: 3
-  Icon: {fileID: 0}
-  Art: {fileID: 0}
-  Level: 1
   Element: 0
   WeaponType: 4
   IsHeavy: 0
-  BaseHealth: 100
-  HealthMod: 10
-  BaseAttack: 10
-  AttackMod: 10
-  BaseDefence: 20
-  DefenceMod: 10
+  Icon: {fileID: 21300000, guid: a8d1b0dc38337154a9dcb453b659ed96, type: 3}
+  Art: {fileID: 21300000, guid: 5d0c9b02897b5184b93159588322e677, type: 3}
+  unlocked: 1
+  Health:
+    BaseValue: 100
+    LevelModifier: 0
+  Attack:
+    BaseValue: 20
+    LevelModifier: 10
+  Defence:
+    BaseValue: 15
+    LevelModifier: 0
+  Mana:
+    BaseValue: 100
+    LevelModifier: 10
+  ManaRecoveryBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  ManaConsumption:
+    BaseValue: 0
+    LevelModifier: 0
+  FireRes:
+    BaseValue: 0
+    LevelModifier: 0
+  WaterRes:
+    BaseValue: 0
+    LevelModifier: 0
+  EarthRes:
+    BaseValue: 0
+    LevelModifier: 0
+  AirRes:
+    BaseValue: 0
+    LevelModifier: 0
+  LightRes:
+    BaseValue: 0
+    LevelModifier: 0
+  DarkRes:
+    BaseValue: 0
+    LevelModifier: 0
+  FireBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  WaterBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  EarthBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  AirBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  LightBonus:
+    BaseValue: 0
+    LevelModifier: 0
+  DarkBonus:
+    BaseValue: 0
+    LevelModifier: 0
   SightRange: 20
-  AttackRange: 3
-  AttackCooldown: 5
-  Speed: 5
+  AttackRange: 10
+  MovementSpeed: 5
   EnemyLayer: 8
   EntityLayer: 6
   EnemyTag: Enemy
   EntityTag: Character
-  FireRes: 0
-  WaterRes: 0
-  EarthRes: 0
-  AirRes: 0
-  LightRes: 0
-  DarkRes: 0
-  NormalAttackMult: 70
-  Luck: 1
-  BaseCritDamage: 150
-  CritChanceMod: 0
-  CritDamageMod: 0
-  BaseMana: 100
-  ManaMod: 0
-  Endurance: 1
-  Agility: 1
-  BaseStamina: 100
-  StaminaMod: 0
+  CritDamage:
+    BaseValue: 100
+    LevelModifier: 0
+  CritChance:
+    BaseValue: 5
+    LevelModifier: 0
+  Endurance:
+    BaseValue: 4
+    LevelModifier: 0
+  Agility:
+    BaseValue: 6
+    LevelModifier: 0
+  Luck:
+    BaseValue: 4
+    LevelModifier: 0
+  Stamina:
+    BaseValue: 100
+    LevelModifier: 0
+  Speed:
+    BaseValue: 7
+    LevelModifier: 0
   AttackSpeed: 0
   Sprint: 0
   DodgeCost: 0
   BlockCost: 0
   HeavyBlockCost: 0
+  NormalAttackSkill:
+    SkillName: 
+    _Description: 
+    SkillType: 0
+    SkillIcon: {fileID: 0}
+    DamageMultiplier:
+      BaseValue: 70
+      LevelModifier: 5
+    SpawningObject: {fileID: 3396563686935728398, guid: 600143fbd001b4a4daec6e19ccdaebb8, type: 3}
+    CooldownInSecs: 0
+    DurationInSecs: 0
+    IsPeriodic: 0
+    PeriodicDamageTime: 0
+    ManaCost: 0
+    Radius: 0
+    IsDebuffing: 0
+    EnemyModifier:
+      IsVisible: 0
+      _Name: 
+      _Description: 
+      ModifierType: 0
+      StatType: 0
+      Element: 0
+      ModifierAmountType: 0
+      Amount: 0
+      IsPermanent: 1
+      DurationInSecs: 0
+    StunTime: 0
   skills:
-  - Level: 1
-    LevelMod: 10
-    SkillName: Dream_Special
+  - SkillName: Dream_Special
     _Description: Dream_Special_Desc
     SkillType: 0
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 100
+    DamageMultiplier:
+      BaseValue: 50
+      LevelModifier: 0
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 5
     DurationInSecs: 0
     IsPeriodic: 0
@@ -86,18 +167,19 @@ MonoBehaviour:
       IsPermanent: 1
       DurationInSecs: 0
     StunTime: 0
-  - Level: 1
-    LevelMod: 10
-    SkillName: Dream_Distract
+  - SkillName: Dream_Distract
     _Description: Dream_Distract_Desc
     SkillType: 1
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 100
+    DamageMultiplier:
+      BaseValue: 50
+      LevelModifier: 0
+    SpawningObject: {fileID: 0}
     CooldownInSecs: 5
     DurationInSecs: 0
     IsPeriodic: 0
     PeriodicDamageTime: 0
-    ManaCost: 10
+    ManaCost: 20
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
@@ -112,18 +194,19 @@ MonoBehaviour:
       IsPermanent: 1
       DurationInSecs: 0
     StunTime: 0
-  - Level: 1
-    LevelMod: 10
-    SkillName: Dream_Ultimate
+  - SkillName: Dream_Ultimate
     _Description: Dream_Ultimate_Desc
     SkillType: 2
     SkillIcon: {fileID: 0}
-    BaseDamageMultiplier: 100
-    CooldownInSecs: 5
-    DurationInSecs: 0
+    DamageMultiplier:
+      BaseValue: 10
+      LevelModifier: 5
+    SpawningObject: {fileID: 0}
+    CooldownInSecs: 15
+    DurationInSecs: 10
     IsPeriodic: 0
     PeriodicDamageTime: 0
-    ManaCost: 10
+    ManaCost: 100
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:
@@ -143,10 +226,12 @@ MonoBehaviour:
     _Name: 
     _Description: 
     ModifierType: 0
-    StatType: 0
+    StatType: 5
     Element: 0
-    ModifierAmountType: 0
-    Amount: 0
+    ModifierAmountType: 1
+    Amount: 20
     IsPermanent: 1
     DurationInSecs: 0
-  unlocked: 1
+  WeaponLengthStat:
+    BaseValue: 0
+    LevelModifier: 0

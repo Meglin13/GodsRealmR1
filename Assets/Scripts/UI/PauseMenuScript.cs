@@ -51,7 +51,7 @@ namespace UI
         }
 
 
-        private void TutorialBT_clicked() => UIManager.Instance.OpenMenu(UIManager.Instance.TutorialScreen);
+        private void TutorialBT_clicked() => UIManager.Instance.ChangeMenu(gameObject, UIManager.Instance.TutorialScreen);
 
         private void ReturnToHubButtonclicked() => UIManager.Instance.ChangeScene("HubScene", gameObject);
 

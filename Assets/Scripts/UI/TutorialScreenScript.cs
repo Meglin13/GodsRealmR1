@@ -19,7 +19,7 @@ namespace UI
         {
             base.OnBind();
 
-            infoSheets = Resources.LoadAll<InfoSheet>("ScriptableObjects/TextInfo/Tutorial").ToList();
+            infoSheets = Resources.LoadAll<InfoSheet>("ScriptableObjects/TextInfo/Tutorial").OrderBy(x => x.Order).ToList();
 
             SheetsContainer = root.Q<VisualElement>("SheetsContainer");
             InfoName = root.Q<Label>("NameLB");

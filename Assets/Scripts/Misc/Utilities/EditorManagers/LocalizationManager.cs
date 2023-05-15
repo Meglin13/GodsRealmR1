@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,8 +6,6 @@ using MyBox;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.Settings;
 using DialogueSystem;
-using UnityEditor.Localization;
-using UnityEditor.Localization.Plugins.Google;
 
 namespace Localization
 {

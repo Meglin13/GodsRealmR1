@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Aim NOT IMPLEMENTED",
-                    "type": "Button",
-                    "id": "b89e7f3d-9ced-4e06-b38d-dcfbec3689bb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Block",
                     "type": "Button",
                     "id": "c80cc84b-27ae-44bb-aab3-4cb915ae9727",
@@ -103,15 +94,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Commander",
-                    "type": "Button",
-                    "id": "c130fd4a-73af-4d24-b303-c7465ec7b1a8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -119,17 +101,6 @@
                     "name": "",
                     "id": "95b11e69-4263-4bf2-ad77-4e0d0ffb104a",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c34922df-26a1-403f-a275-5833761214c3",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -150,30 +121,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c954eb77-5b3d-428b-bc1d-68a6d16b3793",
-                    "path": "<Gamepad>/rightStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5fe90386-0153-453b-a3dc-70853731e0a2",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dodge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0e1cf4d8-2fac-4246-8a20-8c793e4e0f31",
-                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -194,17 +143,6 @@
                 },
                 {
                     "name": "",
-                    "id": "cd104a2e-c59f-4a72-9cd0-01db6a777e95",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8271421b-0216-4f08-aa69-4a093f7825d3",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -216,30 +154,8 @@
                 },
                 {
                     "name": "",
-                    "id": "60e34223-8a59-4901-bb12-85323230a26a",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ultimate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cd98ae3d-ebcb-4e90-9b77-f5e41e1c482c",
                     "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Distract",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5536b580-c17d-42e5-8370-653811bccdd0",
-                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -273,39 +189,6 @@
                     "name": "",
                     "id": "b9e8bfb1-403d-40c6-bbf6-a7896c26ef05",
                     "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "Scale(factor=3)",
-                    "groups": "",
-                    "action": "SwitchCharacter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6642f9e4-db2e-4923-a782-8af9be140a95",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "Scale",
-                    "groups": "",
-                    "action": "SwitchCharacter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ed96d4f2-1c27-44bb-a628-e495171e28a9",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "Scale(factor=2)",
-                    "groups": "",
-                    "action": "SwitchCharacter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d8568a8e-d7e8-4483-82b4-e72fcb93fc86",
-                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "Scale(factor=3)",
                     "groups": "",
@@ -436,39 +319,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4a741a3a-87ba-4795-ba85-3b8c3fe633ee",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "676d628a-9b3b-4066-8eea-5976feafbeee",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim NOT IMPLEMENTED",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9fcd18c7-fcef-411d-ac58-66fea93548bd",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim NOT IMPLEMENTED",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a9164923-602f-493e-9511-7f7384f005c7",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -477,20 +327,21 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9684ab33-e02c-4dc4-a9a1-f7e99b235842",
-                    "path": "<Keyboard>/alt",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Commander",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "New control scheme",
+            "bindingGroup": "New control scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

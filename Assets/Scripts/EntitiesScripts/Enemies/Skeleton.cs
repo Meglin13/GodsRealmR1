@@ -8,9 +8,8 @@ public class Skeleton : EnemyScript, IEnemy
         Enemy = this;
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         FollowAndAttack();
     }
 

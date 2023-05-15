@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UI;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace DialogueSystem
@@ -19,6 +20,8 @@ namespace DialogueSystem
         public void Initialize()
         {
             Instance = this;
+            nextLineClickabel = new Clickable(NextLine);
+            gameObject.SetActive(false);
         }
 
         #endregion
@@ -42,20 +45,15 @@ namespace DialogueSystem
         private bool IsTyping = false;
         private string CurrentLine;
 
-        private Clickable SkipManupulator;
-
         internal override void OnBind()
         {
             base.OnBind();
-            
-            SkipManupulator ??= new Clickable(EndDialogue);
 
             SpeakerLB = root.Q<Label>("SpeakerLB");
             ReplicaLB = root.Q<Label>("ReplicaLB");
 
-            var SkipLB = root.Q<Label>("SkipLB");
-            SkipLB.RemoveManipulator(SkipManupulator);
-            SkipLB.AddManipulator(SkipManupulator);
+            Button SkipBT = root.Q<Button>("SkipBT");
+            SkipBT.clicked += EndDialogue;
 
             LeftSpeaker = root.Q<VisualElement>("LeftSpeaker");
             RightSpeaker = root.Q<VisualElement>("RightSpeaker");
@@ -67,8 +65,6 @@ namespace DialogueSystem
         private void Awake()
         {
             Initialize();
-            nextLineClickabel = new Clickable(NextLine);
-            gameObject.SetActive(false);
         }
 
         public void StartDialogue(Dialogue dialogue, UnityEvent onDialogueEnd = null)
@@ -86,22 +82,21 @@ namespace DialogueSystem
 
         private void NextLine()
         {
+            StopAllCoroutines();
             if (IsTyping)
             {
                 IsTyping = false;
                 ReplicaLB.text = CurrentLine;
             }
-
-            StopAllCoroutines();
-
-            if (CurrentLineIndex < Dialogue.replicas.Count - 1)
-            {
-                CurrentLineIndex++;
-                StartCoroutine(TypeLine());
-            }
             else
             {
-                EndDialogue();
+                if (CurrentLineIndex < Dialogue.replicas.Count - 1)
+                {
+                    CurrentLineIndex++;
+                    StartCoroutine(TypeLine());
+                }
+                else
+                    EndDialogue();
             }
         }
 
@@ -152,7 +147,7 @@ namespace DialogueSystem
                 yield return new WaitForSecondsRealtime(TextSpeed);
             }
 
-            yield return new WaitForSecondsRealtime(TextSpeed);
+            //yield return new WaitForSecondsRealtime(TextSpeed);
 
             IsTyping = false;
         }

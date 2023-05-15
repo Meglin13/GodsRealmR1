@@ -17,7 +17,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
-// NOTE: this class assumes that you designate StringTable keys in label fields (as seen in Label, Button, etc)
+// NOTE: this class assumes that you designate StringTable keys in label fields (as seen in Name, Button, etc)
 // and start them all with '#' char (so other labels will be left be)
 // example: https://i.imgur.com/H5RUIej.gif
 

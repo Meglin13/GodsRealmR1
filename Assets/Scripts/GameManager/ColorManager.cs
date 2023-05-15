@@ -68,6 +68,6 @@ public class ColorManager : MonoBehaviour, ISingle
         if (hue > 1f | hue < 0f)
             hue = 0f;
 
-        return Color.HSVToRGB(hue, 0.4f, 1);
+        return Color.HSVToRGB(hue, 0.7f, 1);
     }
 }

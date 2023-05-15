@@ -42,7 +42,7 @@ namespace UI.CustomControls
         public void SetModifier(Modifier modifier)
         {
             string statKey = "";
-            UnityEngine.Color col;
+            Color col;
 
             if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
             {

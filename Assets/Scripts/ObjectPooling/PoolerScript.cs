@@ -16,7 +16,7 @@ namespace ObjectPooling
 
         public ObjectAmountList<T> objectsList;
 
-        private void Awake()
+        private void Start()
         {
             Initialize();
 
@@ -32,11 +32,6 @@ namespace ObjectPooling
             obj.gameObject.transform.position = spawnPoint;
 
             return obj;
-        }
-
-        public virtual T CreateObject(T prefab, Vector3 gunpoint, IDamageable dealer, Skill skill)
-        {
-            return null;
         }
     }
 }

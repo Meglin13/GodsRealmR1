@@ -1,50 +1,60 @@
 using ObjectPooling;
 using UnityEngine;
 
-public class Ardalion : CharacterScript, ICharacter
+namespace Characters
 {
-
-    private bool IsUltimateActive = false;
-
-    public override void Initialize()
+    public class Ardalion : CharacterScript, ICharacter
     {
-        Character = this;
-        base.Initialize();
-        IsUltimateActive = false;
-    }
+        private bool IsUltimateActive = false;
 
-    public void Attack()
-    {
-        if (IsUltimateActive)
+        public override void Initialize()
+        {
+            Character = this;
+            base.Initialize();
+            IsUltimateActive = false;
+        }
+
+        public void Attack()
+        {
+            ////if (IsUltimateActive)
+            ////{
+            //    Transform transform = gameObject.transform;
+            //    Vector3 gunpoint = transform.position + transform.forward + transform.up;
+
+            //    var slash = SpawnablePool.Instance.CreateObject(Ultimate.SpawningObject, gunpoint);
+            //    slash.Spawn(this, Ultimate);
+
+            ////}
+        }
+
+        public void DistractionAbility()
         {
             Transform transform = gameObject.transform;
             Vector3 gunpoint = transform.position + transform.forward + transform.up;
 
-            SpawnablePool.Instance.CreateObject(Ultimate.SpawningObject, gunpoint, this, Ultimate);
+            Debug.Log($"{this} {Distract}");
+            var distract = SpawnablePool.Instance.CreateObject(Distract.SpawningObject, gunpoint);
+            distract.Spawn(this, Distract);
         }
-    }
 
-    public void DistractionAbility()
-    {
-        Transform transform = gameObject.transform;
-        Vector3 gunpoint = transform.position + transform.forward + transform.up;
+        private int stacks = 0;
+        private Modifier mod = new Modifier(StatType.Attack, 20, ModifierAmountType.Procent, 10, ModType.Buff);
 
-        Debug.Log($"{this} {Distract}");
-        SpawnablePool.Instance.CreateObject(Distract.SpawningObject, gunpoint, this, Distract);
-    }
+        public void SpecialAbility()
+        {
+            stacks++;
+            if (stacks == 3)
+                GameManager.Instance.StartCoroutine(AddModifier(mod));
 
-    public void SpecialAbility()
-    {
-        Modifier WeaponLengthPlus = new Modifier(StatType.WeaponLength, 3f);
+            MeleeWeapon.Init(EntityStats, Special.DamageMultiplier.GetFinalValue(), false);
+        }
 
-        StartCoroutine(AddModifier(WeaponLengthPlus));
+        public void UltimateAbility()
+        {
+            StartCoroutine(AddModifier(new Modifier(StatType.CritChance, 20, ModifierAmountType.Value, Ultimate.DurationInSecs, ModType.Buff)));
 
-        MeleeWeapon.Init(EntityStats, Special.DamageMultiplier.GetFinalValue(), false);
-    }
-
-    public void UltimateAbility()
-    {
-        IsUltimateActive = true;
-        StartCoroutine(MiscUtilities.Instance.ActionWithDelay(Ultimate.DurationInSecs, () => IsUltimateActive = false));
-    }
+            IsUltimateActive = true;
+            GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(Ultimate.DurationInSecs, () => IsUltimateActive = false));
+        }
+    } 
 }

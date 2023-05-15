@@ -1,3 +1,4 @@
+using DungeonGeneration;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ public class RunManager : MonoBehaviour
 
         if (Params.GenerationParameters == null)
         {
+            Debug.Log("Setting gen params");
             SetGenerationParams();
         }
 
@@ -57,20 +59,30 @@ public class RunManager : MonoBehaviour
 
     private static void SetGenerationParams()
     {
+        int roomAff = 2;
+
+        if (Difficulty > 2)
+            roomAff = 3;
+
+        if (Difficulty > 10)
+            roomAff = 4;
+
         GenerationParameters p = new GenerationParameters()
         {
             GridSize = new Vector2Int(10, 30),
             Seed = Params.Seed,
-            numberOfRooms = 9 * Difficulty / 2
+            numberOfRooms = 9 * Difficulty / roomAff
         };
 
         p.numberOfEvents = Mathf.FloorToInt(p.numberOfRooms / 1.5f);
 
-        p.ChestRooms = Mathf.FloorToInt(p.numberOfEvents * 0.3f);
-        p.BattleRooms = Mathf.FloorToInt(p.numberOfEvents * 0.5f);
-        p.BuffRooms = Mathf.FloorToInt(p.numberOfEvents * 0.2f);
-
         Params.GenerationParameters = p;
+    }
+
+    public static void ResetSettings()
+    {
+        if (Params.GenerationParameters != null)
+            Params.GenerationParameters = null; 
     }
 
     public static float GetChance(Rarity rarity)

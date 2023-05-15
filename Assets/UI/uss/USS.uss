@@ -125,7 +125,7 @@ TextField {
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: rgba(35, 35, 59, 0.8);
+    background-color: rgb(35, 35, 59);
     background-image: none;
     -unity-slice-top: 1500;
     -unity-slice-bottom: 0;
@@ -162,7 +162,8 @@ TextField {
 }
 
 .unity-base-field {
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 5px;
 }
 
 .unity-base-field__input {
@@ -457,8 +458,8 @@ TextField {
     background-image: none;
     -unity-background-scale-mode: scale-to-fit;
     align-items: center;
-    background-color: rgba(255, 199, 0, 255);
-    -unity-background-image-tint-color: rgba(255, 199, 0, 255);
+    background-color: rgb(255, 199, 0);
+    -unity-background-image-tint-color: rgb(255, 199, 0);
     scale: 1.5 1.5;
 }
 
@@ -583,4 +584,144 @@ Scrollview #unity-dragger {
 .infosheet:hover {
     transition-duration: 0.2s;
     background-color: rgba(255, 199, 0, 0.17);
+}
+
+.unity-foldout__checkmark {
+    -unity-background-image-tint-color: rgb(255, 199, 0);
+}
+
+.unity-foldout__toggle .unity-base-field__input {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(255, 199, 0);
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center;
+    max-width: 100%;
+}
+
+.unity-foldout__toggle {
+    justify-content: space-around;
+    align-items: stretch;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.unity-foldout__content {
+    align-items: stretch;
+    justify-content: space-around;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.char-info {
+    height: 80px;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    align-items: center;
+}
+
+.char-info-icon {
+    width: 60px;
+    background-image: resource('Images/GameIcons/ffffff/transparent/1x1/delapouite/info');
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 60px;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.char-info-label {
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: stretch;
+    justify-content: space-around;
+}
+
+.char-info-label-amount {
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.unity-popup-field__input {
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    background-color: rgb(35, 35, 59);
+}
+
+.unity-popup-field Label {
+    justify-content: space-around;
+    align-items: stretch;
+    flex-direction: row;
+    width: 30%;
+}
+
+Dropdown {
+    justify-content: flex-start;
+}
+
+Toogle .unity-checkmark {
+    background-color: rgb(255, 255, 255);
+}
+
+.normal-toggle .unity-toggle__checkmark {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(171, 171, 171, 0.45);
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: auto;
+    margin-bottom: auto;
 }

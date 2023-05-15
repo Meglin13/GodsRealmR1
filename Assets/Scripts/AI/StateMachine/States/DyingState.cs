@@ -23,7 +23,7 @@ public class DyingState : State
 
         animator.SetTrigger("Death");
 
-        GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(2f, () => gameObject.SetActive(false)));
+        GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(0.5f, () => gameObject.SetActive(false)));
     }
 
     public override void LogicUpdate() { }

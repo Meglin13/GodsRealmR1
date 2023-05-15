@@ -18,12 +18,12 @@ MonoBehaviour:
   m_GUID: b287aa0019f9bcb41acaf0277d79051f
   m_SerializeEntries:
   - m_GUID: 12e4d6c6aa5a2de43abe635fac8fba6a
-    m_Address: English (en)
+    m_Address: English
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
   - m_GUID: 03f651266fe245d4ba2b211ff4be5013
-    m_Address: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439 (ru)"
+    m_Address: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale

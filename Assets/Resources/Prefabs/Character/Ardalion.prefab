@@ -252,6 +252,7 @@ MonoBehaviour:
   MeleeWeapon: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
+  priority: 1
   HotKeyNumber: 0
   IsActive: 0
   blockingTime: 0
@@ -1773,6 +1774,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7260530759295547827}
     m_Modifications:
+    - target: {fileID: 2871693772341837865, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
+      propertyPath: BaseWeaponLength
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_RootOrder
       value: 1

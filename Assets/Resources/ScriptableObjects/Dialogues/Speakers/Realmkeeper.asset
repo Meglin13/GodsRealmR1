@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Realmkeeper
   m_EditorClassIdentifier: 
   _Name: Realmkeeper
-  Idle: {fileID: 0}
+  Idle: {fileID: 21300000, guid: b789980ff94112e47abb911df2820ae1, type: 3}

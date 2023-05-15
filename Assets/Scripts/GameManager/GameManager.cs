@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour, ISingle
     public ColorManager colorManager;
     [HideInInspector]
     public RunManager runManager;
+    public DialogueSystem.DialogueManager dialogueManager;
 
     [Header("Default Prefabs")]
     public VFXScript DamagePopUp;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour, ISingle
         miniMapManager = GetComponent<MiniMapManager>();
         colorManager = GetComponent<ColorManager>();
 
+        dialogueManager.Initialize();
         miniMapManager.Initialize();
 
         MainCameraInitialize(Camera.main);
@@ -111,12 +113,10 @@ public class GameManager : MonoBehaviour, ISingle
         {
             foreach (var item in partyManager.PartyMembers)
             {
-                foreach (var skill in item.EntityStats.skills)
+                foreach (var skill in item.EntityStats.SkillSet.Values)
                 {
                     if (skill.SpawningObject)
-                    {
                         spawnings.objectsList.AddItem(skill.SpawningObject, 2);
-                    }
                 }
             }
         }

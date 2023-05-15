@@ -18,8 +18,10 @@ public class ThrowableScript : SpawningObject
 
     public override void Spawn(IDamageable dude, Skill skill)
     {
+        base.Spawn(dude, skill);
+
         hasHitted = new List<Collider>();
-        Throw();
+        rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
     }
 
     private void Awake()
@@ -36,8 +38,6 @@ public class ThrowableScript : SpawningObject
             gameObject.SetActive(false);
         }
     }
-
-    public virtual void Throw() => rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
 
     public void CheckHits()
     {
@@ -61,7 +61,7 @@ public class ThrowableScript : SpawningObject
                             damageable.Stun(skill.StunTime);
 
                         if (skill.EnemyModifier != null)
-                            damageable.AddModifier(skill.EnemyModifier);
+                            GameManager.Instance.StartCoroutine(damageable.AddModifier(skill.EnemyModifier));
                     }
                 }
             }

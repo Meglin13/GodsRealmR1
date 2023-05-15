@@ -1,15 +1,19 @@
+using MyBox;
+using System;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 /// <summary>
 /// Класс статов (атрибутов) сущностей
 /// </summary>
+[Serializable]
 public class Stat
 {
     /// <summary>
     /// Базовое значение
     /// </summary>
-    private float BaseValue { get; set; }
+    [SerializeField]
+    private float BaseValue;
 
     /// <summary>
     /// Уровень стата
@@ -19,11 +23,13 @@ public class Stat
     /// <summary>
     /// Модификатор уровня
     /// </summary>
-    private float LevelModifier { get; set; }
+    [SerializeField]
+    private float LevelModifier;
 
     /// <summary>
     /// Список модификаторов
     /// </summary>
+    [NonSerialized]
     private List<Modifier> Modifiers = new List<Modifier>();
 
     /// <summary>
@@ -114,9 +120,9 @@ public class Stat
     /// Добавления модификатора
     /// </summary>
     /// <param _name="modifier">Добавляемый модификатор</param>
-    public void AddModifier(Modifier modifier)
+    public void AddModifier(Modifier modifier, bool ISStackable = false)
     {
-        if (!Modifiers.Contains(modifier))
+        if (!Modifiers.Contains(modifier) | ISStackable)
             Modifiers.Add(modifier);
     }
 
@@ -133,7 +139,7 @@ public class Stat
     /// <summary>
     /// Проверка на наличие модификатора
     /// </summary>
-    /// <param _name="modifier">Модификатор</param>
+    /// <param name="modifier">Модификатор</param>
     /// <returns></returns>
     public bool ContainsModifier(Modifier modifier) => Modifiers.Contains(modifier);
 
@@ -141,6 +147,8 @@ public class Stat
     /// Удаление дебаффов
     /// </summary>
     public void RemoveDebuffs() => Modifiers.RemoveAll(modifier => modifier.ModifierType == ModType.Debuff & !modifier.IsPermanent);
+
+    public void ClearMods() => Modifiers.Clear();
 
     /// <summary>
     /// Получение процента от чистого значения без модификаторов
@@ -153,16 +161,4 @@ public class Stat
     /// </summary>
     /// <returns>Чистое значение стата</returns>
     public float GetClearValue() => BaseValue + (LevelModifier / 100 * BaseValue * Level);
-
-    public string PrintModifiers()
-    {
-        string result = "";
-
-        foreach (var item in Modifiers)
-        {
-            result += $"{item.Amount} {item.StatType}";
-        }
-
-        return result;
-    }
 }

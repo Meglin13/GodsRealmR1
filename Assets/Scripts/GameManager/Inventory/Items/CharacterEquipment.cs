@@ -53,7 +53,7 @@ public class CharacterEquipment
                 if (modifier.StatType == StatType.InventorySlots)
                     InventoryScript.Instance.AddCapacity(Mathf.FloorToInt(modifier.Amount));
                 else
-                    character.StartCoroutine(character.AddModifier(modifier));
+                    GameManager.Instance.StartCoroutine(character.AddModifier(modifier));
             }
 
             inventory.DeleteItem(item.ID, false);

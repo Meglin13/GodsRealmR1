@@ -1,29 +1,39 @@
-﻿using UnityEngine;
+﻿using ObjectPooling;
+using UnityEngine;
 
 public class Witcher : EnemyScript, IEnemy
 {
-#pragma warning disable CS0649 // Полю "Witcher.FireBall" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
-    GameObject FireBall;
-#pragma warning restore CS0649 // Полю "Witcher.FireBall" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
-
     public override void Start()
     {
         base.Start();
         Enemy = this;
     }
 
+    private void Update()
+    {
+        FollowAndAttack();
+    }
+
     public void Attack()
     {
-        Rigidbody rb = Instantiate(FireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
+        Skill attackSkill = EntityStats.NormalAttackSkill;
+
+        Transform transform = gameObject.transform;
+        Vector3 gunpoint = transform.position + transform.forward + transform.up;
+
+        var attack = SpawnablePool.Instance.CreateObject(attackSkill.SpawningObject, gunpoint);
+        attack.Spawn(this, attackSkill);
     }
 
     public void SpecialPower()
     {
-        Debug.Log(gameObject.name + " has used Special Power!");
+        Skill attackSkill = EntityStats.NormalAttackSkill;
 
-        Rigidbody rb = Instantiate(FireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
+        Transform transform = gameObject.transform;
+        Vector3 gunpoint = transform.position + transform.forward + transform.up;
+
+        var attack = SpawnablePool.Instance.CreateObject(attackSkill.SpawningObject, gunpoint);
+        attack.Spawn(this, attackSkill);
     }
 }
 

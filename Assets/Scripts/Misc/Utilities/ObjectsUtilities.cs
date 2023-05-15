@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public static class ObjectsUtilities
@@ -33,7 +32,6 @@ public static class ObjectsUtilities
         for (int i = 0; i < delList.Length; i++)
         {
             UnsubscribeEvents(delList[i]);
-            delList[i] = null;
         }
     }
 

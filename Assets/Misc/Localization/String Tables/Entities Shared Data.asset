@@ -23,6 +23,30 @@ MonoBehaviour:
     m_Key: Ardalion_Desc
     m_Metadata:
       m_Items: []
+  - m_Id: 14940410924675072
+    m_Key: Ardalion_Special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410991783936
+    m_Key: Ardalion_Special_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410991783937
+    m_Key: Ardalion_Distract
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410991783938
+    m_Key: Ardalion_Distract_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410991783939
+    m_Key: Ardalion_Ultimate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410991783940
+    m_Key: Ardalion_Ultimate_Desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 10254148502466561
     m_Key: Dream
     m_Metadata:
@@ -31,12 +55,60 @@ MonoBehaviour:
     m_Key: Dream_Desc
     m_Metadata:
       m_Items: []
+  - m_Id: 14940410995978240
+    m_Key: Dream_Special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978241
+    m_Key: Dream_Special_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978242
+    m_Key: Dream_Distract
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978243
+    m_Key: Dream_Distract_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978244
+    m_Key: Dream_Ultimate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978245
+    m_Key: Dream_Ultimate_Desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 10254148502466563
     m_Key: Marfa
     m_Metadata:
       m_Items: []
   - m_Id: 10254148502466564
     m_Key: Marfa_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978246
+    m_Key: Marfa_Special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978247
+    m_Key: Marfa_Special_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978248
+    m_Key: Marfa_Distract
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978249
+    m_Key: Marfa_Distract_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978250
+    m_Key: Marfa_Ultimate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14940410995978251
+    m_Key: Marfa_Ultimate_Desc
     m_Metadata:
       m_Items: []
   - m_Id: 10254148502466566

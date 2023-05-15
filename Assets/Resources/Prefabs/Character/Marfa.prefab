@@ -1681,6 +1681,7 @@ MonoBehaviour:
   MeleeWeapon: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
+  priority: 1
   HotKeyNumber: 0
   IsActive: 0
   blockingTime: 0
@@ -1701,7 +1702,6 @@ MonoBehaviour:
   interactor: {fileID: 0}
   CurrentStateName: 
   CurrentSubStateName: 
-  NormalAttackBullet: {fileID: 3396563686935728398, guid: 1dfb8a409718008459fa78da59edff3d, type: 3}
 --- !u!95 &2558054376828345173
 Animator:
   serializedVersion: 5

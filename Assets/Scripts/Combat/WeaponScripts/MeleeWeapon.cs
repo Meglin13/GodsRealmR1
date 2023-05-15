@@ -22,7 +22,8 @@ public class MeleeWeapon : MonoBehaviour
     public void Init(EntityStats entityStats, float Mult, bool CanParry)
     {
         StartDealDamage();
-        trail.Emit = true;
+        if (trail)
+            trail.Emit = true;
         DealerStats = entityStats;
         this.CanParry = CanParry;
         this.Mult = Mult;
@@ -66,7 +67,8 @@ public class MeleeWeapon : MonoBehaviour
     public void EndDealDamage()
     {
         canDealDamage = false;
-        trail.Emit = false;
+        if (trail)
+            trail.Emit = false;
     }
 
     private void OnDrawGizmos()

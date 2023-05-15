@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
-public class RoomTriggerScript : MonoBehaviour
+namespace DungeonGeneration
 {
-    private RoomScript Room;
-    private BoxCollider Trigger;
-
-    private void Awake()
+    [RequireComponent(typeof(BoxCollider))]
+    public class RoomTriggerScript : MonoBehaviour
     {
-        Room = GetComponentInParent<RoomScript>();
+        private RoomScript Room;
+        private BoxCollider Trigger;
 
-        Trigger = GetComponent<BoxCollider>();
-        Trigger.isTrigger = true;
-
-        Trigger.size = new Vector3(Room.Size.x - 1, 0, Room.Size.y - 1);
-    }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag == "Character")
+        private void Awake()
         {
-            Room.OnRoomEnterTrigger();
-        }
-    }
+            Room = GetComponentInParent<RoomScript>();
 
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.tag == "Character")
-        {
-            Room.OnRoomExitTrigger();
+            Trigger = GetComponent<BoxCollider>();
+            Trigger.isTrigger = true;
+
+            Trigger.size = new Vector3(Room.Size.x - 1, 0, Room.Size.y - 1);
         }
-    }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            if (collider.tag == "Character")
+            {
+                Room.OnRoomEnterTrigger();
+            }
+        }
+
+        private void OnTriggerExit(Collider collider)
+        {
+            if (collider.tag == "Character")
+            {
+                Room.OnRoomExitTrigger();
+            }
+        }
+    } 
 }

@@ -2,13 +2,13 @@ using MyBox;
 using System;
 using UnityEngine;
 
-public enum SkillType { Special = 0, Distract = 1, Ultimate = 2 }
+public enum SkillType { Special = 0, Distract = 1, Ultimate = 2, NormalAttack = 3 }
 
 [Serializable]
 public class Skill : ILocalizable
 {
-    public byte Level = 1;
-    public float LevelMod = 10f;
+    private byte Level = 1;
+    private float LevelMod = 10f;
 
     public string Name => SkillName;
     public string Description => _Description;
@@ -24,7 +24,6 @@ public class Skill : ILocalizable
     public SkillType SkillType;
     public Sprite SkillIcon;
 
-    public float BaseDamageMultiplier = 100f;
     public Stat DamageMultiplier;
 
     public SpawningObject SpawningObject;
@@ -52,13 +51,6 @@ public class Skill : ILocalizable
     public Skill(SkillType type)
     {
         this.SkillType = type;
-    }
-
-    public Skill(float radius, float baseDamage)
-    {
-        this.Radius = radius;
-        this.BaseDamageMultiplier = baseDamage;
-        DamageMultiplier = new Stat(BaseDamageMultiplier);
     }
 
     public void SetName(string name)

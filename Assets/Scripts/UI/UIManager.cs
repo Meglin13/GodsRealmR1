@@ -1,4 +1,5 @@
 using DialogueSystem;
+using MyBox;
 using System;
 using UI.CustomControls;
 using UnityEngine;
@@ -47,9 +48,16 @@ namespace UI
         public GameObject DialogueWindow;
         public GameObject DeathScreen;
         public GameObject TutorialScreen;
+        public GameObject Map;
+        public GameObject CharMenu;
 
+        [SerializeField]
+        [ReadOnly]
         private GameObject PreviousMenu;
-        public GameObject CurrentMenu;
+        [SerializeField]
+        [ReadOnly]
+        private GameObject currentMenu;
+        public GameObject CurrentMenu { get => currentMenu; }
 
         private bool CanOpenMenus = true;
         public bool IsModalWindow = false;
@@ -57,6 +65,8 @@ namespace UI
 
         private InputAction ExitButton;
         private InputAction InventoryButton;
+        private InputAction MapButton;
+        private InputAction CharMenuButton;
 
         public event Action OnMenuOpen = delegate { };
         public event Action OnMenuClose = delegate { };
@@ -69,11 +79,18 @@ namespace UI
 
             PlayerInput playerInput = GetComponent<PlayerInput>();
 
+            playerInput.enabled = false;
+            playerInput.enabled = true;
+
             ExitButton = playerInput.actions["Exit"];
             InventoryButton = playerInput.actions["Inventory"];
+            MapButton = playerInput.actions["Map"];
+            CharMenuButton = playerInput.actions["CharMenu"];
 
             ExitButton.performed += ExitButton_performed;
             InventoryButton.performed += ctx => OpenMenu(Inventory);
+            MapButton.performed += ctx => OpenMenu(Map);
+            CharMenuButton.performed += ctx => OpenMenu(CharMenu);
 
             OnMenuOpen += () => SetMenus(true);
             OnMenuClose += () => SetMenus(false);
@@ -93,13 +110,17 @@ namespace UI
             OnMenuOpen -= () => SetMenus(true);
             ExitButton.performed -= ExitButton_performed;
 
+            InventoryButton.Dispose();
+            ExitButton.Dispose();
+            MapButton.Dispose();
+            CharMenuButton.Dispose();
         }
 
         private void ExitButton_performed(InputAction.CallbackContext obj)
         {
-            if (!IsModalWindow)
+            if (!IsModalWindow & CanOpenMenus)
             {
-                if (CurrentMenu == null)
+                if (currentMenu == null)
                     OpenMenu(PauseMenu);
                 else
                     GoBack();
@@ -119,16 +140,18 @@ namespace UI
             NextMenu.SetActive(true);
 
             this.PreviousMenu = CurrentMenu;
-            this.CurrentMenu = NextMenu;
+            this.currentMenu = NextMenu;
         }
 
         public void ChangeScene(string SceneName, GameObject PreviousMenu)
         {
-            PreviousMenu.SetActive(false);
+            if (PreviousMenu != null)
+                PreviousMenu.SetActive(false); 
+
             LoadingScreen.SetActive(true);
 
             this.PreviousMenu = null;
-            this.CurrentMenu = null;
+            this.currentMenu = null;
 
             CanOpenMenus = false;
 
@@ -137,23 +160,23 @@ namespace UI
 
         public void GoBack()
         {
-            if (CurrentMenu)
-                CurrentMenu.SetActive(false); 
+            if (currentMenu)
+                currentMenu.SetActive(false); 
 
             if (PreviousMenu != null & !IsModalWindow)
             {
                 PreviousMenu.SetActive(true);
-                CurrentMenu = PreviousMenu;
+                currentMenu = PreviousMenu;
                 PreviousMenu = null;
             }
             else if (IsModalWindow)
             {
                 ModalWindow.rootVisualElement.Q<ModalWindow>().style.display = DisplayStyle.None;
-                CurrentMenu.SetActive(true);
+                currentMenu.SetActive(true);
             }
             else
             {
-                CurrentMenu = null;
+                currentMenu = null;
                 CanOpenMenus = true;
                 OnMenuClose();
             }
@@ -168,10 +191,10 @@ namespace UI
             {
                 CanOpenMenus = canOpenMenu;
 
-                if (!menu.active & CurrentMenu != menu & PreviousMenu != menu)
+                if (!menu.active & currentMenu != menu & PreviousMenu != menu)
                 {
                     menu.SetActive(true);
-                    CurrentMenu = menu;
+                    currentMenu = menu;
                     OnMenuOpen();
                 }
                 else
@@ -215,7 +238,7 @@ namespace UI
 
             IsModalWindow = true;
 
-            ModalWindow.rootVisualElement.Q<ModalWindow>().Show(type, Caption, Title, Success, CurrentMenu);
+            ModalWindow.rootVisualElement.Q<ModalWindow>().Show(type, Caption, Title, Success, currentMenu);
         }
     }
 }

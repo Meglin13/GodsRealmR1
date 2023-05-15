@@ -5,14 +5,23 @@ namespace DungeonGeneration
     [CreateAssetMenu(fileName = "Battle Room", menuName = "Objects/Dungeon Generator/RoomBehaviour/Battle Room")]
     public class BattleRoom : RoomBehaviour
     {
+        [SerializeField]
+        private int EnemiesAmount = 0;
         public EnemyScript[] enemies;
+        private bool IsInited = false;
+        [SerializeField]
+        private GameObject Reward;
 
         public override void Initialize(RoomScript room)
         {
             base.Initialize(room);
 
-            SetProp(false);
+            SetProp(InstantiatingProp, true);
+
+            Room.OnRoomClear += OnRoomClear;
         }
+
+        private void OnRoomClear() => SetProp(Reward);
 
         public override void OnRoomEnter()
         {
@@ -20,9 +29,11 @@ namespace DungeonGeneration
             {
                 Room.SetDoorsState(false);
                 
-                if (InstantiatingProp.TryGetComponent(out EnemySpawnerScript enemySpawner))
+                if (InstantiatingProp.TryGetComponent(out EnemySpawnerScript enemySpawner) 
+                    & !IsInited)
                 {
-                    enemySpawner.Init(this);
+                    enemySpawner.Init(this, EnemiesAmount);
+                    IsInited = true;
                 }
             }
         }

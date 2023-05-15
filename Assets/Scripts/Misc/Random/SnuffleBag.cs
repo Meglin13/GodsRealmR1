@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = System.Random;
 
+[Serializable]
 public class SnuffleBag<T>
 {
+    [SerializeField]
     private List<T> items = new List<T>();
     public int Size => items.Count;
     private Random random = new Random();
@@ -27,6 +31,7 @@ public class SnuffleBag<T>
     public SnuffleBag(Random random)
     {
         this.random = random;
+
     }
 
     public void Snuffle()
@@ -44,6 +49,7 @@ public class SnuffleBag<T>
     {
         for (int i = 0; i < amount; i++)
             items.Add(item);
+
         currentPosition = Size - 1;
     }
 

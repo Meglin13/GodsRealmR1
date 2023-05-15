@@ -31,6 +31,12 @@ namespace DialogueSystem
         [ButtonMethod]
         private void OnValidate()
         {
+            if (replicas.Count == 0)
+            {
+                replicas.Add(new Replica());
+                UpdateSpeakers();
+            }
+
             string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
             _name = Path.GetFileNameWithoutExtension(assetPath);
 
@@ -41,14 +47,14 @@ namespace DialogueSystem
             }
         }
 
-#endif
-
-        [Button]
+        [ButtonMethod]
         public void UpdateSpeakers()
         {
             foreach (var item in replicas)
                 item.speakers = Speakers;
         }
+
+#endif
 
         [SerializeField]
         private string _name;

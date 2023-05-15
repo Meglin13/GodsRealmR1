@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public enum Element { Fire, Water, Earth, Air, Dark, Light }
 
@@ -13,9 +14,9 @@ public class CombatManager
     {
         Element TargetElement = Target.Element;
         float TargetDefense = Target.ModifiableStats[StatType.Defence].GetFinalValue();
-        float TargetResistance = Target.ElementsResBonus[TargetElement].Resistance.GetFinalValue() / 100;
+        float TargetResistance = Mathf.Clamp01(Target.ElementsResBonus[TargetElement].Resistance.GetFinalValue() / 100);
 
-        float DealerDamageBonus = Dealer.ElementsResBonus[Dealer.Element].DamageBonus.GetFinalValue() / 100;
+        float DealerDamageBonus = Mathf.Clamp01(Dealer.ElementsResBonus[Dealer.Element].DamageBonus.GetFinalValue() / 100);
         float DealerAttack = Dealer.ModifiableStats[StatType.Attack].GetFinalValue();
 
         float ElementRatioDamage = ElemDamageCalc(Dealer.Element, TargetElement);
