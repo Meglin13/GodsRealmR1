@@ -8,9 +8,22 @@ public class ChestScript : MonoBehaviour, IInteractable
     private InventoryScript Inventory;
     private bool IsOpened = false;
 
-    public void Awake()
+    private List<Item> Items;
+
+    private static RandomChances equipment;
+    private static RandomChances potions;
+
+    public void Start()
     {
         Inventory = GameManager.Instance.inventory;
+
+         equipment ??= new RandomChances(GameManager.Instance.EquipmentList.Cast<Item>().ToList());
+         potions ??= new RandomChances(GameManager.Instance.PotionList.Cast<Item>().ToList());
+
+        List<Item> equipmentList = equipment.GetItems(Random.RandomRange(chestStats.Items.Min, chestStats.Items.Max));
+        List<Item> potionsList = potions.GetItems(Random.RandomRange(chestStats.Potions.Min, chestStats.Potions.Max));
+
+        Items = equipmentList.Concat(potionsList).ToList();
     }
 
     public bool CanInteract()
@@ -22,25 +35,24 @@ public class ChestScript : MonoBehaviour, IInteractable
     {
         IsOpened = true;
 
-        GetComponentInChildren<Animator>().SetTrigger("OpenChest");
-
-        RandomChances equipment = new RandomChances(GameManager.Instance.EquipmentList.Cast<Item>().ToList());
-        RandomChances potions = new RandomChances(GameManager.Instance.PotionList.Cast<Item>().ToList());
-
-        List<Item> equipmentList = equipment.GetItems(Random.RandomRange(chestStats.Items.Min, chestStats.Items.Max));
-        List<Item> potionsList = potions.GetItems(Random.RandomRange(chestStats.Potions.Min, chestStats.Potions.Max));
-
-        var items = equipmentList.Concat(potionsList).ToList();
-
-        foreach (Item item in items)
+        if (Items != null)
         {
-            if (!Inventory.AddItemToInventory(item, true))
-                break;
+            GetComponentInChildren<Animator>().SetTrigger("OpenChest");
+
+            foreach (Item item in Items)
+            {
+                if (!Inventory.AddItemToInventory(item, true))
+                    break;
+            }
+
+            Inventory.Gold += Random.RandomRange(chestStats.Gold.Min, chestStats.Gold.Max);
+
+            StartCoroutine(MiscUtilities.Instance.ActionWithDelay(1.5f, () => gameObject.SetActive(false))); 
         }
-
-        Inventory.Gold += Random.RandomRange(chestStats.Gold.Min, chestStats.Gold.Max);
-
-        StartCoroutine(MiscUtilities.Instance.ActionWithDelay(2f, () => gameObject.SetActive(false)));
-
+        else
+        {
+            //TODO: Уведомление в менеджер уведомлений
+            Debug.Log("Ничего нет!");
+        }
     }
 }

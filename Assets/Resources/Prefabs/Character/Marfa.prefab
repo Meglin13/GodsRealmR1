@@ -1685,8 +1685,6 @@ MonoBehaviour:
   HotKeyNumber: 0
   IsActive: 0
   blockingTime: 0
-  CurrentStamina: 0
-  CurrentMana: 0
   IsBlocking: 0
   IsDodging: 0
   velocity: 0

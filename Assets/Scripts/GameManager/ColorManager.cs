@@ -17,7 +17,7 @@ public class ColorManager : MonoBehaviour, ISingle
     [ColorUsage(false, false)]
     public Color PlayerHealthColor, PlayerManaColor, PlayerStaminaColor;
 
-    public Dictionary<Rarity, Color> RarityColor = new Dictionary<Rarity, Color>()
+    public Dictionary<Rarity, Color> RarityColor = new()
     {
         { Rarity.Common, Color.grey },
         { Rarity.Uncommon, Color.green },
@@ -26,7 +26,7 @@ public class ColorManager : MonoBehaviour, ISingle
         { Rarity.Legendary, Color.yellow },
     };
 
-    public Dictionary<Element, string> ElementColor = new Dictionary<Element, string>()
+    public Dictionary<Element, string> ElementColor = new()
     {
         { Element.Fire, "#E95400" },
         { Element.Water, "#1A5ABA" },
@@ -36,7 +36,7 @@ public class ColorManager : MonoBehaviour, ISingle
         { Element.Light, "#FFC700" },
     };
 
-    public Dictionary<StatType, string> StatsColor = new Dictionary<StatType, string>()
+    public Dictionary<StatType, string> StatsColor = new()
     {
         { StatType.Mana, "#001FFF" },
         { StatType.Health, "#45DA00" },

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 398919e035539c448987f4359ff28995, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2915362165975416835
   m_TableData:
   - m_Id: 116781395968
     m_Localized: Restart
@@ -330,6 +331,19 @@ MonoBehaviour:
     m_Localized: Speed
     m_Metadata:
       m_Items: []
+  - m_Id: 41697064491855872
+    m_Localized: Stamina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42097791882145792
+    m_Localized: "\u041Dou are on the {0} floor"
+    m_Metadata:
+      m_Items:
+      - rid: 2915362165975416835
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2915362165975416835
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00b0f6fab78f9500

@@ -4,6 +4,7 @@ using System.Linq;
 using UI.CustomControls;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public enum IndexType { Next, Previous }
 namespace UI
@@ -11,17 +12,17 @@ namespace UI
     public class InventoryUIScript : UIScript
     {
         //Context
-        public CharacterScript CharacterContext;
+        private CharacterScript CharacterContext;
 
-        public int CurrentCharIndex;
-        public List<CharacterScript> Party;
+        private int CurrentCharIndex;
+        private List<CharacterScript> Party;
 
-        public InventoryScript inventory;
-        public InventorySlotControl slotContext;
+        private InventoryScript inventory;
+        private InventorySlotControl slotContext;
         private int SelectedSlotIndex = 0;
 
-        public event Action OnInventoryUpdate = delegate { };
-        public event Action OnItemSelect = delegate { };
+        private event Action OnInventoryUpdate = delegate { };
+        private event Action OnItemSelect = delegate { };
 
         //Inventory
         public Label InventoryCapacityLB;
@@ -29,24 +30,24 @@ namespace UI
         public VisualElement ItemInfoButtonsPanel;
 
         //Character menu
-        public Label CharNameLB;
-
-        public VisualElement CharImage;
-
-        public Button PreviousCharBT;
-        public Button NextCharBT;
+        private Label CharNameLB;
+        
+        private VisualElement CharImage;
+        
+        private Button PreviousCharBT;
+        private Button NextCharBT;
 
         //EquipmentSlots
-        public Dictionary<EquipmentType, InventorySlotControl> charSlots;
-
-        public InventorySlotControl HelmetSlot;
-        public InventorySlotControl ArmorSlot;
-        public InventorySlotControl GlovesSlot;
-        public InventorySlotControl BootsSlot;
-        public InventorySlotControl BraceletSlot;
-        public InventorySlotControl RingSlot;
-        public InventorySlotControl AmuletSlot;
-        public InventorySlotControl ArtefactSlot;
+        private Dictionary<EquipmentType, InventorySlotControl> charSlots;
+        
+        private InventorySlotControl HelmetSlot;
+        private InventorySlotControl ArmorSlot;
+        private InventorySlotControl GlovesSlot;
+        private InventorySlotControl BootsSlot;
+        private InventorySlotControl BraceletSlot;
+        private InventorySlotControl RingSlot;
+        private InventorySlotControl AmuletSlot;
+        private InventorySlotControl ArtefactSlot;
 
         //Item menu
         private Button EquipBT;
@@ -61,7 +62,7 @@ namespace UI
 
         private VisualElement ModsContainer;
 
-        public VisualElement InventoryContainer;
+        private VisualElement InventoryContainer;
 
         internal override void OnBind()
         {
@@ -137,28 +138,30 @@ namespace UI
 
         private void UpdateInventory()
         {
-            InventoryContainer.Clear();
-
             for (int i = 0; i < inventory.Inventory.Capacity; i++)
             {
-                Item item = null;
-
-                InventorySlotControl inventorySlot = new InventorySlotControl();
-
-                if (inventory.Inventory.Count != 0)
+                if (InventoryContainer.childCount - 1 < i)
                 {
+                    Item item = null;
+
+                    InventorySlotControl inventorySlot = new InventorySlotControl();
+
                     if (i < inventory.Inventory.Count)
                     {
-                        item = Instantiate(inventory.Inventory[i]);
-                        item.name = inventory.Inventory[i].name;
-
+                        item = inventory.Inventory[i];
                         inventorySlot.SetSlot(item);
 
                         inventorySlot.AddManipulator(new Clickable(evt => SelectItemSlot(inventorySlot)));
                     }
-                }
 
-                InventoryContainer.Add(inventorySlot);
+                    InventoryContainer.Add(inventorySlot);
+                }
+                else
+                {
+                    var slot = InventoryContainer.Query<InventorySlotControl>().ToList()[i];
+
+                    slot.SetSlot(i < inventory.Inventory.Count ? inventory.Inventory[i] : null);
+                }
             }
 
             if (inventory.Inventory.Count == 0)
@@ -171,15 +174,8 @@ namespace UI
 
         #region [Equipment Managment]
 
-        private bool IsItemEquiped(Item item)
-        {
-            if (item is EquipmentItem)
-            {
-                EquipmentItem equipment = item as EquipmentItem;
-                return equipment.IsEquiped;
-            }
-            return false;
-        }
+        private bool IsItemEquiped(Item item) => 
+            item is EquipmentItem equipment && equipment.IsEquiped;
 
         private void EquipItemButtonClicked()
         {
@@ -212,9 +208,7 @@ namespace UI
                 OnInventoryUpdate();
 
                 if (inventory.Inventory.Count > 0)
-                {
                     ChangeFocus();
-                }
             }
         }
 
@@ -241,9 +235,7 @@ namespace UI
                 slotContext?.UnselectSlot();
                 inventorySlot.SelectSlot();
 
-                SelectedSlotIndex = InventoryContainer.IndexOf(inventorySlot);
-
-                ChangeFocus();
+                SelectedSlotIndex = InventoryScript.Instance.Inventory.IndexOf(inventorySlot.itemContext);
 
                 slotContext = inventorySlot;
 
@@ -279,28 +271,26 @@ namespace UI
 
             if (index > inventory.Inventory.Count - 1)
                 index = inventory.Inventory.Count - 1;
-            else
-                return;
 
-            SelectItemSlot((InventorySlotControl)InventoryContainer[index]);
+            if (inventory.Inventory.Count != 0)
+            {
+                SelectItemSlot((InventorySlotControl)InventoryContainer[index]); 
+            }
         }
 
         #endregion [Context]
 
         #region [Loading Info]
 
-        private void SetInventoryCapacity()
-        {
-            InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Inventory.Capacity}";
-        }
+        private void SetInventoryCapacity() => InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Inventory.Capacity}";
 
         private void SetCurrencies()
         {
             manager.ChangeLabelsText(GoldLB, "Gold", UITable);
-            GoldLB.text += " " + inventory.Gold;
+            GoldLB.text += $" {inventory.Gold}";
 
             manager.ChangeLabelsText(TokenLB, "Token", UITable);
-            TokenLB.text += " " + inventory.Tokens;
+            TokenLB.text += $" {inventory.Tokens}";
         }
 
         private void UpdateCharacterInfo()
@@ -322,10 +312,10 @@ namespace UI
                 manager.ChangeLabelsText(ItemNameLB, slotContext.itemContext.Name, ItemsTable);
                 manager.ChangeLabelsText(ItemDescLB, slotContext.itemContext.Description, ItemsTable);
 
-                if (slotContext.itemContext is EquipmentItem)
-                {
-                    LoadItemModifiers(slotContext.itemContext as EquipmentItem);
-                }
+                if (slotContext.itemContext is EquipmentItem equipment)
+                    LoadItemModifiers(equipment);
+                else
+                    ModsContainer.Clear();
             }
         }
 

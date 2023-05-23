@@ -10,8 +10,6 @@ namespace SaveLoadSystem
     [Serializable]
     public class GameData
     {
-        public GameData() { }
-
         public GameData(int tokens, List<int> unlockedCharactersId)
         {
             this.tokens = tokens;
@@ -19,10 +17,10 @@ namespace SaveLoadSystem
         }
 
         [SerializeField] private int tokens;
-        public int Tokens { get { return tokens; } }
+        public int Tokens { get => tokens; }
 
         [SerializeField] private List<int> unlockedCharactersId;
-        public List<int> UnlockedCharactersId { get { return unlockedCharactersId; } }
+        public List<int> UnlockedCharactersId { get => unlockedCharactersId; }
     }
 
     public static class SaveLoadSystem
@@ -68,12 +66,12 @@ namespace SaveLoadSystem
                     binaryFormatter.Serialize(stream, data);
                 }
 
-                UnityEngine.Debug.Log("Saved");
+                Debug.Log("Saved");
                 return true;
             }
             catch (Exception ex)
             {
-                UnityEngine.Debug.Log("Something went wrong.\n" + ex.Message);
+                Debug.Log("Something went wrong.\n" + ex.Message);
                 return false;
             }
         }
@@ -86,7 +84,7 @@ namespace SaveLoadSystem
 
             if (!File.Exists(path))
             {
-                UnityEngine.Debug.Log("No saved games");
+                Debug.Log("No saved games");
                 return null;
             }
 
@@ -109,11 +107,11 @@ namespace SaveLoadSystem
                     }
                 }
 
-                UnityEngine.Debug.Log("Loaded");
+                Debug.Log("Loaded");
             }
             catch (Exception ex)
             {
-                UnityEngine.Debug.Log("Something went wrong.\n" + ex.Message);
+                Debug.Log("Something went wrong.\n" + ex.Message);
                 return null;
             }
 
@@ -128,11 +126,11 @@ namespace SaveLoadSystem
                 try
                 {
                     File.Delete(path);
-                    UnityEngine.Debug.Log("Deleted");
+                    Debug.Log("Deleted");
                 }
                 catch (Exception ex)
                 {
-                    UnityEngine.Debug.Log("Something went wrong.\n" + ex.Message);
+                    Debug.Log("Something went wrong.\n" + ex.Message);
                 }
             }
 

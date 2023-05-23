@@ -26,18 +26,8 @@ MonoBehaviour:
     _Name: 
     _Description: 
     ModifierType: 0
-    StatType: 13
-    Element: 1
-    ModifierAmountType: 1
-    Amount: 10
-    IsPermanent: 1
-    DurationInSecs: 0
-  - IsVisible: 0
-    _Name: 
-    _Description: 
-    ModifierType: 0
     StatType: 1
-    Element: 0
+    Element: 1
     ModifierAmountType: 1
     Amount: 10
     IsPermanent: 1
@@ -56,8 +46,8 @@ MonoBehaviour:
     _Name: 
     _Description: 
     ModifierType: 0
-    StatType: 13
-    Element: 0
+    StatType: 12
+    Element: 4
     ModifierAmountType: 1
     Amount: 20
     IsPermanent: 1

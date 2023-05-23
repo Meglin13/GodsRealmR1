@@ -19,21 +19,21 @@ namespace DungeonGeneration
         public int Seed = 0;
     }
 
-    public class DungeonGeneratorScript : MonoBehaviour
+    public class DungeonGeneratorScript : MonoBehaviour, ISingle
     {
-        public GenerationParameters GenerationParameters = new GenerationParameters();
+        public static DungeonGeneratorScript Instance;
+        public void Initialize()
+        {
+            Instance = this;
+        }
+
+        [Foldout("Generation", true)]
+        public Random random;
+        [SerializeField]
+        private GenerationParameters GenerationParameters = new GenerationParameters();
         public int SeedOutput;
 
-        public RoomScript[,] Rooms;
-
-        public List<RoomScript> RoomsPrefabs = new List<RoomScript>();
-        public GameObject BossRoom;
-        public List<RoomScript> PlacedRooms = new List<RoomScript>();
-        public GameObject Dungeon;
-
-        public Random random;
-
-        [SerializeField]
+        private RoomScript[,] Rooms;
         private int TESTMODX = 1, TESTMODY = -1;
 
         [SerializeField]
@@ -41,29 +41,37 @@ namespace DungeonGeneration
         [SerializeField]
         private SnuffleBag<RoomBehaviour> behavioursBag;
 
+        [Foldout("Prefabs", true)]
+        [SerializeField]
+        private List<RoomScript> RoomsPrefabs = new List<RoomScript>();
+        [SerializeField]
+        private List<RoomScript> ConnectionRoomsPrefabs = new List<RoomScript>();
+        [SerializeField]
+        private GameObject BossRoom;
+        [SerializeField]
+        private List<RoomScript> PlacedRooms = new List<RoomScript>();
+        [SerializeField]
+        private GameObject Dungeon;
+
         public event Action OnGenerationComplited = delegate { };
 
         private void Start()
         {
+            Initialize();
+
             if (RunManager.Params.GenerationParameters != null)
                 GenerationParameters = RunManager.Params.GenerationParameters;
 
             GenerateDungeon();
 
             foreach (var item in GameManager.Instance.partyManager.PartyMembers)
-            {
-                item.transform.position = PlacedRooms[0].transform.position;
-                item.ResetAgent();
-            }
+                item.agent.Warp(PlacedRooms[0].transform.position);
         }
 
-        private void OnDisable()
-        {
-            OnGenerationComplited = null;
-        }
+        private void OnDisable() => OnGenerationComplited = null;
 
         [ButtonMethod]
-        private void GenerateDungeon()
+        public void GenerateDungeon()
         {
             var seed = GenerationParameters.Seed == 0
                 ? UnityEngine.Random.Range(int.MinValue, int.MaxValue)
@@ -82,7 +90,7 @@ namespace DungeonGeneration
 
             GenerateRandomDungeon();
 
-            SetRoomBehavioursAndDeco();
+            SetRoomBehavioursAndDecoration();
 
             SetBossRoom();
 
@@ -98,9 +106,7 @@ namespace DungeonGeneration
             Vector2 currentPosition = new(PlacedRooms[0].coordinates.x, PlacedRooms[0].coordinates.y - 1);
             RoomScript lastPlacedRoom = new RoomScript();
 
-            int i = 0;
-
-            while (i < GenerationParameters.numberOfRooms)
+            while (PlacedRooms.Where(x => x.CanHaveBehaviour).ToList().Count < GenerationParameters.numberOfRooms)
             {
                 int x = Mathf.FloorToInt(currentPosition.x);
                 int y = Mathf.FloorToInt(currentPosition.y);
@@ -108,7 +114,7 @@ namespace DungeonGeneration
                 int xNext = random.Next(-1, 2);
                 int yNext = random.Next(-1, 2);
 
-                if (random.Next(0, 3) == 0)
+                if (random.Next(3) == 0)
                     yNext = 0;
                 else
                     xNext = 0;
@@ -117,9 +123,7 @@ namespace DungeonGeneration
                 {
                     if (Rooms[x, y] == null)
                     {
-                        PlaceRoom(x, y);
-                        lastPlacedRoom = Rooms[x, y];
-                        i++;
+                        lastPlacedRoom = PlaceRoom(x, y); ;
                     }
 
                     currentPosition = new Vector2(x + xNext, y + yNext);
@@ -143,7 +147,103 @@ namespace DungeonGeneration
             PlacedRooms[^1].transform.position += new Vector3(0, 0, 4);
 
             Rooms[x, y].gameObject.name = "BossRoom";
-            //Rooms[x, y].gameObject.SetEditorIcon(true, 5);
+        }
+
+        public RoomScript PlaceRoom(int x, int y, GameObject prefab = null)
+        {
+            if (!PlacedRooms.Where(i => i.coordinates == new Vector2(x, y)).Any())
+            {
+                GameObject room = null;
+
+                if (prefab == null)
+                {
+                    prefab = RoomsPrefabs[random.Next(RoomsPrefabs.Count)].gameObject;
+
+                    if (random.Next(3) == 0)
+                    {
+                        prefab = ConnectionRoomsPrefabs[random.Next(RoomsPrefabs.Count)].gameObject;
+                    }
+                }
+
+                room = Instantiate(prefab, Dungeon.transform);
+
+                RoomScript roomScript = room.GetComponent<RoomScript>();
+                roomScript.coordinates = new Vector2Int(x, y);
+
+                int roomX = x * Mathf.FloorToInt(roomScript.Size.x);
+                int roomY = y * Mathf.FloorToInt(roomScript.Size.y);
+
+                room.transform.position = new Vector3(roomX * TESTMODX, 0, roomY * TESTMODY);
+
+                room.name = !roomScript.CanHaveBehaviour ? $"Connection {x} {y}" : $"Room {x} {y}";
+
+                Rooms[x, y] = roomScript;
+
+                PlacedRooms.Add(roomScript);
+
+                return roomScript;
+            }
+
+            return null;
+        }
+
+        #region [Rooms Setup]
+        public void SetRoomBehavioursAndDecoration()
+        {
+            var list = new List<RoomBehaviour>();
+
+            foreach (var item in roomBehaviours)
+            {
+                for (int i = 0; i < item.SpawnRate * GenerationParameters.numberOfEvents; i++)
+                    list.Add(item);
+            }
+
+            behavioursBag = new SnuffleBag<RoomBehaviour>(list, random);
+
+            for (int i = 1; i < PlacedRooms.Count - 1; i++)
+            {
+                PlacedRooms[i].SetBehaviour(behavioursBag.Next());
+                PlacedRooms[i].SetDecoration();
+            }
+        }
+
+        public void SetDoors()
+        {
+            foreach (var item in PlacedRooms)
+                item.SetDoorways(GetNeighbors(item.coordinates));
+        } 
+        #endregion
+
+        #region [Utilities]
+        public bool[] GetNeighbors(Vector2 roomIndex)
+        {
+            List<bool> neighbors = new List<bool>(4);
+
+            int[] IndexArray = new int[4] { 0, 1, 0, -1 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                bool result = false;
+
+                int x = IndexArray[i];
+                int y = IndexArray[IndexArray.Length - 1 - i];
+
+                int neighborX = Mathf.FloorToInt(roomIndex.x) + x;
+                int neighborY = Mathf.FloorToInt(roomIndex.y) + y;
+
+                if (neighborY >= 0 & neighborY < Rooms.GetLength(1)
+                        & neighborX >= 0 & neighborX < Rooms.GetLength(0))
+                {
+                    if (Rooms[neighborX, neighborY] != null)
+                    {
+                        result = true;
+                    }
+                }
+
+                neighbors.Add(result);
+            }
+
+            return neighbors.ToArray();
         }
 
         private void ResetSpawnRoom(RoomScript room)
@@ -186,85 +286,6 @@ namespace DungeonGeneration
             ResetSpawnRoom(room);
         }
 
-        public void PlaceRoom(int x, int y, GameObject prefab = null)
-        {
-            if (PlacedRooms.Where(i => i.coordinates == new Vector2(x, y)).FirstOrDefault() == null)
-            {
-                GameObject room = null;
-
-                if (!prefab)
-                    room = Instantiate(RoomsPrefabs[UnityEngine.Random.Range(0, RoomsPrefabs.Count)].gameObject, Dungeon.transform);
-                else
-                    room = Instantiate(prefab, Dungeon.transform);
-
-                RoomScript roomScript = room.GetComponent<RoomScript>();
-                roomScript.coordinates = new Vector2Int(x, y);
-
-                int roomX = x * Mathf.FloorToInt(roomScript.Size.x);
-                int roomY = y * Mathf.FloorToInt(roomScript.Size.y);
-
-                room.transform.position = new Vector3(roomX * TESTMODX, 0, roomY * TESTMODY);
-                room.name = $"Room {roomScript.coordinates.x} {roomScript.coordinates.y}";
-
-                Rooms[x, y] = roomScript;
-
-                PlacedRooms.Add(roomScript);
-            }
-        }
-
-        public void SetRoomBehavioursAndDeco()
-        {
-            var list = new List<RoomBehaviour>();
-            foreach (var item in roomBehaviours)
-            {
-                for (int i = 0; i < item.SpawnRate * GenerationParameters.numberOfEvents; i++)
-                    list.Add(item);
-            }
-
-            behavioursBag = new SnuffleBag<RoomBehaviour>(list, random);
-
-            for (int i = 1; i < PlacedRooms.Count - 1; i++)
-            {
-                PlacedRooms[i].SetBehaviour(behavioursBag.Next());
-                PlacedRooms[i].SetDecoration();
-            }
-        }
-
-        public void SetDoors()
-        {
-            foreach (var item in PlacedRooms)
-                item.SetDoorways(GetNeighbors(item.coordinates));
-        }
-
-        public bool[] GetNeighbors(Vector2 roomIndex)
-        {
-            List<bool> neighbors = new List<bool>(4);
-
-            int[] IndexArray = new int[4] { 0, 1, 0, -1 };
-
-            for (int i = 0; i < 4; i++)
-            {
-                bool result = false;
-
-                int x = IndexArray[i];
-                int y = IndexArray[IndexArray.Length - 1 - i];
-
-                int neighborX = Mathf.FloorToInt(roomIndex.x) + x;
-                int neighborY = Mathf.FloorToInt(roomIndex.y) + y;
-
-                if (neighborY >= 0 & neighborY < Rooms.GetLength(1)
-                        & neighborX >= 0 & neighborX < Rooms.GetLength(0))
-                {
-                    if (Rooms[neighborX, neighborY] != null)
-                    {
-                        result = true;
-                    }
-                }
-
-                neighbors.Add(result);
-            }
-
-            return neighbors.ToArray();
-        }
+        #endregion
     }
 }

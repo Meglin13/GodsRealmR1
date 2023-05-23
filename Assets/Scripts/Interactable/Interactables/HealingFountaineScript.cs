@@ -26,14 +26,12 @@ namespace Interactables
 
                 InventoryScript.Instance.Gold -= Price;
 
-                //var health = 0f;
-                //PartyManager.Instance.PartyMembers.ForEach(x => health += x.EntityStats.Health.GetFinalValue());
-                //health = health / PartyManager.Instance.PartyMembers.Count;
+                var currentHealth = 0f;
+                PartyManager.Instance.PartyMembers.ForEach(x => currentHealth += x.EntityStats.Health.GetFinalValue());
+                currentHealth = currentHealth / PartyManager.Instance.PartyMembers.Count;
 
-                //PartyManager.Instance.GiveSupportToAll(health, StatType.Health);
+                PartyManager.Instance.GiveSupportToAll(currentHealth, StatType.Health);
 
-                foreach (var item in PartyManager.Instance.PartyMembers)
-                    item.GiveSupport(item.EntityStats.Health.GetFinalValue() * 0.3f, StatType.Health);
             }
             else
                 text.color = Color.red;

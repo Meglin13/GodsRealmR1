@@ -31,7 +31,6 @@ public class SnuffleBag<T>
     public SnuffleBag(Random random)
     {
         this.random = random;
-
     }
 
     public void Snuffle()

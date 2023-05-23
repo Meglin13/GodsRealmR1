@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/uss/USS.uss?fileID=7433441132597879392&amp;guid=70ecce3acde01df4f83897f770be60cb&amp;type=3#USS" />
     <ui:VisualElement name="Panel" class="panel" style="width: 60%;">
-        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgba(35, 35, 59, 0.2); width: auto; max-height: none; height: 90%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
+        <ui:ScrollView scroll-deceleration-rate="2.12" elasticity="0,1" name="SettingsMenu" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" tabindex="-1" style="-unity-font: resource(&apos;Fonts &amp; Materials/DolomanPavljenko&apos;); font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-left; white-space: normal; -unity-text-outline-width: 0; background-color: rgba(35, 35, 59, 0.2); width: auto; max-height: none; height: 100%; position: relative; left: auto; display: flex; align-items: auto; opacity: 1;">
             <ui:Label text="#Settings" display-tooltip-when-elided="true" name="SettingsLB" class="header-label" />
             <ui:VisualElement focusable="true" name="VolumeSettings" style="display: none;">
                 <ui:Label text="#Audio" display-tooltip-when-elided="true" name="VolumeLB" class="separator-label title" />

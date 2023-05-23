@@ -9,17 +9,8 @@
             </ui:VisualElement>
             <ui:VisualElement name="CharaSelection" style="flex-shrink: 1; flex-grow: 0; margin-left: 20px; width: 100%;">
                 <ui:Label text="#Select_Character" display-tooltip-when-elided="true" name="Select_Character" class="title" style="margin-top: 0; flex-shrink: 1;" />
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="CharacterPanek" style="width: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; flex-shrink: 1; flex-grow: 0; margin-top: 0; margin-bottom: 0; height: 100%; flex-direction: column; flex-wrap: wrap; align-items: stretch; overflow: visible; min-width: auto; min-height: auto;">
-                    <ui:VisualElement name="CharacterList" style="flex-direction: row; flex-wrap: wrap; width: 100%; justify-content: center;">
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                        <UI.CustomControls.CharacterSlot />
-                    </ui:VisualElement>
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="CharacterPanel" style="width: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; flex-shrink: 1; flex-grow: 0; margin-top: 0; margin-bottom: 0; height: 100%; flex-direction: column; flex-wrap: wrap; align-items: flex-start; overflow: visible; min-width: auto; min-height: auto;">
+                    <ui:VisualElement name="CharacterList" style="flex-direction: row; flex-wrap: wrap; width: 100%; justify-content: center;" />
                 </ui:ScrollView>
                 <ui:VisualElement name="PartyRules" style="flex-direction: row; flex-wrap: wrap;">
                     <ui:Toggle label="#CanSwitch" value="true" name="CanSwitchTG" style="display: none;" />

@@ -13,11 +13,22 @@ public class RunParameters
 
 public class RunManager : MonoBehaviour
 {
-    public static int Difficulty = 1;
-    public static RunParameters Params { get; set; }
+    public static int difficulty = 1;
+    public static int Difficulty 
+    { 
+        get => difficulty; 
+        private set => difficulty = value; 
+    }
+
+    public static RunParameters Params { get; private set; }
     private static float dropChanceAffix = 1;
 
-    public static int CurrentFloor = 1;
+    private static int currentFloor = 1;
+    public static int CurrentFloor 
+    { 
+        get => currentFloor; 
+        private set => currentFloor = value; 
+    }
 
     private static Dictionary<Rarity, float> BaseDropChances = new Dictionary<Rarity, float>(5)
     {
@@ -28,11 +39,13 @@ public class RunManager : MonoBehaviour
         { Rarity.Legendary, 1 },
     };
 
-    public void NewFloor() => CurrentFloor++;
-    public void EndRun() => CurrentFloor = 1;
+    public static void NewFloor() => CurrentFloor++;
+    public static void EndRun() => CurrentFloor = 1;
 
     public static void SetDifficulty(int Difficulty)
     {
+        CurrentFloor = 1;
+
         RunManager.Difficulty = Difficulty;
 
         Params ??= new RunParameters()
@@ -81,8 +94,11 @@ public class RunManager : MonoBehaviour
 
     public static void ResetSettings()
     {
-        if (Params.GenerationParameters != null)
-            Params.GenerationParameters = null; 
+        if (Params?.GenerationParameters != null)
+        {
+            Params.GenerationParameters = null;
+            CurrentFloor = 1;
+        }
     }
 
     public static float GetChance(Rarity rarity)

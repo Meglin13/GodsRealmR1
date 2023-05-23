@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UI.CustomControls;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
+using static MyBox.EditorTools.MyGUI;
 
 namespace UI
 {
@@ -28,27 +31,36 @@ namespace UI
 
         private void LoadInfo()
         {
-            var CharacterList = root.Q<VisualElement>("CharacterList");
-            CharacterList.Clear();
+            var CharacterContainer = root.Q<VisualElement>("CharacterList");
 
-            foreach (var item in AvailableCharacters)
+            for (int i = 0; i < AvailableCharacters.Count; i++)
             {
-                CharacterSlot characterSlot = new CharacterSlot();
+                if (CharacterContainer.childCount - 1 < i)
+                {
+                    EntityStats stats = null;
 
-                characterSlot.SetSlot(item);
-                characterSlot.AddManipulator(new Clickable(() => AddCharacter(characterSlot.entityStats)));
+                    CharacterSlot characterSlot = new CharacterSlot();
 
-                CharacterList.Add(characterSlot);
+                    if (i < AvailableCharacters.Count)
+                    {
+                        stats = AvailableCharacters[i];
+                        characterSlot.SetSlot(stats);
+                        characterSlot.AddManipulator(new Clickable(() => AddCharacter(characterSlot.entityStats)));
+                    }
+
+                    CharacterContainer.Add(characterSlot);
+                }
+                else
+                {
+                    CharacterContainer.Query<CharacterSlot>().ToList()[i].SetSlot(i < AvailableCharacters.Count ? AvailableCharacters[i] : null);
+                }
             }
 
-            var PartyShow = root.Q<VisualElement>("PartyShow");
-            PartyShow.Clear();
+            var PartyShow = root.Q<VisualElement>("PartyShow").Query<CharacterIcon>().ToList();
 
             for (int i = 0; i < SelectedCharacters.Capacity; i++)
             {
-                CharacterIcon character = new CharacterIcon();
-                PartyShow.Add(character);
-
+                CharacterIcon character = PartyShow[i];
                 EntityStats chara = null;
 
                 if (i < SelectedCharacters.Count)
@@ -56,14 +68,17 @@ namespace UI
 
                 character.SetSlot(chara);
 
-                character.DeleteButton.clicked += () =>
+                System.Action deleteAction = () =>
                 {
                     if (character.entityStats)
                     {
                         SelectedCharacters.Remove(character.entityStats);
-                        character.entityStats = null;
+                        character.SetSlot(null);
+                        LoadInfo();
                     }
                 };
+                character.DeleteButton.clicked -= deleteAction;
+                character.DeleteButton.clicked += deleteAction;
             }
         }
 
@@ -72,12 +87,13 @@ namespace UI
             if (!SelectedCharacters.Contains(character) & SelectedCharacters.Count < 3)
             {
                 SelectedCharacters.Add(character);
-                LoadInfo();
             }
             else
             {
                 SelectedCharacters.Remove(character);
             }
+
+            LoadInfo();
         }
 
         private void StartRun()

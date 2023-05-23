@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3432486611154525574}
   - component: {fileID: 3432486611154525569}
+  - component: {fileID: 495166919}
   m_Layer: 0
   m_Name: DungeonGenerator
   m_TagString: Untagged
@@ -44,4 +45,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4549dcd348bfb114182b403d64b5dded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomsPrefabs: []
+  RoomsPrefabs:
+  - {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
+  ConnectionRoomsPrefabs:
+  - {fileID: 757199092305407380, guid: 6855640b47acf3743a4e2ab3e436e440, type: 3}
+  BossRoom: {fileID: 7554211218079262242, guid: 98806368d59671747a797a0b6585a986, type: 3}
+  PlacedRooms:
+  - {fileID: 0}
+  Dungeon: {fileID: 0}
+  GenerationParameters:
+    GridSize: {x: 10, y: 30}
+    numberOfRooms: 40
+    numberOfEvents: 18
+    Seed: 0
+  SeedOutput: -1460455494
+  TESTMODX: 1
+  TESTMODY: -1
+  roomBehaviours:
+  - {fileID: 11400000, guid: 9b397a5d162855740a1d9b676879d721, type: 2}
+  - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+  - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+  - {fileID: 11400000, guid: 65ba1a976ea5c5242a365778325b53c8, type: 2}
+  - {fileID: 11400000, guid: 772d29501d7343e449b0b7a905ef477d, type: 2}
+  behavioursBag:
+    items:
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: 65ba1a976ea5c5242a365778325b53c8, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: 9b397a5d162855740a1d9b676879d721, type: 2}
+    - {fileID: 11400000, guid: 9b397a5d162855740a1d9b676879d721, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: 65ba1a976ea5c5242a365778325b53c8, type: 2}
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - {fileID: 11400000, guid: e2299114f1e90c74d9577e04ad530442, type: 2}
+    - {fileID: 11400000, guid: 65ba1a976ea5c5242a365778325b53c8, type: 2}
+--- !u!114 &495166919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432486611154525575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2176
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0

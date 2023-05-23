@@ -47,8 +47,19 @@ public abstract class CharacterScript : EntityScript
     internal Skill Ultimate;
 
     //Текущее состояние атрибутов
-    public float CurrentStamina;
-    public float CurrentMana;
+    private float currentStamina;
+    public float CurrentStamina
+    {
+        get => currentStamina;
+        set => currentStamina = Mathf.Clamp(value, 0, EntityStats.Stamina.GetFinalValue());
+    }
+
+    private float currentMana;
+    public float CurrentMana
+    {
+        get => currentMana;
+        set => currentMana = Mathf.Clamp(value, 0, EntityStats.Mana.GetFinalValue());
+    }
 
     [HideInInspector]
     public bool IsBlocking, IsDodging;
@@ -104,6 +115,13 @@ public abstract class CharacterScript : EntityScript
         HealthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<BarScript>();
         ManaBar = GameObject.FindGameObjectWithTag("ManaBar").GetComponentInChildren<BarScript>();
         StaminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponentInChildren<BarScript>();
+
+        CurrentStamina = EntityStats.Stamina.GetFinalValue();
+        CurrentMana = EntityStats.Mana.GetFinalValue();
+
+        UpdateBars();
+
+        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
 
         //Interactor
         interactor = GetComponent<InteractorScript>();
@@ -176,7 +194,7 @@ public abstract class CharacterScript : EntityScript
         else if (CanBlock & blockingTime <= GameManager.Instance.ParryTime)
         {
             GameManager.Instance.StartCoroutine(AddModifier(GameManager.Instance.ParryMod));
-            
+
             EntityStateMachine.CurrentState.InnerStateMachine.ChangeState(new PlayerAttackState(this, EntityStateMachine.CurrentState.InnerStateMachine));
         }
         else
@@ -271,13 +289,6 @@ public abstract class CharacterScript : EntityScript
     public void Start()
     {
         InitializeStateMachine();
-
-        //Текущие статы
-        CurrentStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
-        CurrentMana = EntityStats.ModifiableStats[StatType.Mana].GetFinalValue();
-        CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
-
-        animator.SetFloat("CharSpeedMult", EntityStats.AttackSpeed);
     }
 
     public virtual void Update()
@@ -307,12 +318,8 @@ public abstract class CharacterScript : EntityScript
 
     public void StaminaRecovering()
     {
-        float MaxStamina = EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue();
+        CurrentStamina += Time.deltaTime * 5f;
 
-        if (CurrentStamina < MaxStamina)
-            CurrentStamina += Time.deltaTime * 5f;
-
-        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
         IsStaminaRecovering = CurrentStamina <= EntityStats.ModifiableStats[StatType.Stamina].GetProcent() * 30;
 
         OnStaminaChange();
@@ -321,7 +328,6 @@ public abstract class CharacterScript : EntityScript
     public void ChangeStamina(float Amount)
     {
         CurrentStamina += Amount;
-        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, EntityStats.ModifiableStats[StatType.Stamina].GetFinalValue());
         OnStaminaChange();
     }
 
@@ -415,7 +421,7 @@ public abstract class CharacterScript : EntityScript
 
     public void UpdateBars()
     {
-        if (IsActive)
+        if (IsActive & gameObject.active)
         {
             HealthBar.ChangeBarValue(CurrentHealth, EntityStats.ModifiableStats[StatType.Health].GetFinalValue());
             ManaBar.ChangeBarValue(CurrentMana, EntityStats.ModifiableStats[StatType.Mana].GetFinalValue());
@@ -439,9 +445,7 @@ public abstract class CharacterScript : EntityScript
                 ChangeStamina(Amount);
                 break;
             case StatType.Mana:
-                var ManaRecBonus = Mathf.Clamp(EntityStats.ModifiableStats[StatType.ManaRecoveryBonus].GetFinalValue(), 0, 80) / 100;
-                var AmountWithBouns = Amount * (1 + ManaRecBonus);
-                CurrentMana = Mathf.Clamp(CurrentMana + AmountWithBouns, 0, EntityStats.ModifiableStats[type].GetFinalValue());
+                CurrentMana += Amount;
                 break;
         }
     }

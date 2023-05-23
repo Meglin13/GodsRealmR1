@@ -7,6 +7,8 @@ public class BarScript : MonoBehaviour
     private Image Bar;
     [SerializeField]
     private TextMeshProUGUI numbers;
+    [SerializeField]
+    private TextMeshProUGUI level;
 
     private void Awake()
     {
@@ -18,13 +20,12 @@ public class BarScript : MonoBehaviour
         Bar.fillAmount = CurrentValue / MaxValue;
 
         if (numbers)
-        {
-            numbers.text = $"{CurrentValue} / {MaxValue}";
-        }
+            numbers.text = $"{Mathf.FloorToInt(CurrentValue)}/{Mathf.FloorToInt(MaxValue)}";
     }
 
-    public void SetValue(float value)
+    public void SetLevel(int levelInt)
     {
-        Bar.fillAmount = value;
+        if (level)
+            level.text = levelInt.ToString();
     }
 }

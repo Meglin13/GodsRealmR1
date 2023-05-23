@@ -23,7 +23,7 @@ namespace UI
         [SerializeField]
         private LocalizedStringTable CharacterLocalTable;
         [SerializeField]
-        private LocalizedStringTable DialogueLocalTable; 
+        private LocalizedStringTable DialogueLocalTable;
         [SerializeField]
         private LocalizedStringTable TutorialLocalTable;
 
@@ -48,6 +48,7 @@ namespace UI
         public GameObject DialogueWindow;
         public GameObject DeathScreen;
         public GameObject TutorialScreen;
+        public GameObject BuffScreen;
         public GameObject Map;
         public GameObject CharMenu;
 
@@ -57,7 +58,11 @@ namespace UI
         [SerializeField]
         [ReadOnly]
         private GameObject currentMenu;
-        public GameObject CurrentMenu { get => currentMenu; }
+        public GameObject CurrentMenu 
+        { 
+            get => currentMenu; 
+            private set => currentMenu = value; 
+        }
 
         private bool CanOpenMenus = true;
         public bool IsModalWindow = false;
@@ -146,7 +151,7 @@ namespace UI
         public void ChangeScene(string SceneName, GameObject PreviousMenu)
         {
             if (PreviousMenu != null)
-                PreviousMenu.SetActive(false); 
+                PreviousMenu.SetActive(false);
 
             LoadingScreen.SetActive(true);
 
@@ -161,7 +166,7 @@ namespace UI
         public void GoBack()
         {
             if (currentMenu)
-                currentMenu.SetActive(false); 
+                currentMenu.SetActive(false);
 
             if (PreviousMenu != null & !IsModalWindow)
             {
@@ -184,14 +189,20 @@ namespace UI
 
         public void OpenMenu(GameObject menu, bool canOpenMenu = true)
         {
-            if (menu == null)
+            if (CurrentMenu != null & menu != CurrentMenu)
+                return;
+
+            if (menu == null | menu == currentMenu)
+            {
                 GoBack();
+                return;
+            }
 
             if (CanOpenMenus)
             {
                 CanOpenMenus = canOpenMenu;
 
-                if (!menu.active & currentMenu != menu & PreviousMenu != menu)
+                if (!menu.active)
                 {
                     menu.SetActive(true);
                     currentMenu = menu;

@@ -18,9 +18,9 @@ namespace UI.CustomControls
 
         #endregion UXML
 
-        Image StatIcon;
-        Label StatName;
-        Label AmountOfMod;
+        private Image StatIcon;
+        private Label StatName;
+        private Label AmountOfMod;
 
         public ModifierListItem()
         {
@@ -41,7 +41,7 @@ namespace UI.CustomControls
 
         public void SetModifier(Modifier modifier)
         {
-            string statKey = "";
+            string statKey;
             Color col;
 
             if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
@@ -66,12 +66,12 @@ namespace UI.CustomControls
                 statKey = modifier.StatType.ToString();
             }
 
-
             UIManager.Instance.ChangeLabelsText(StatName, statKey, UIManager.Instance.UITable);
 
             AmountOfMod.text = modifier.ModifierType == ModType.Buff ? "+" : "-";
             AmountOfMod.text += modifier.Amount.ToString();
-            AmountOfMod.style.color = modifier.ModifierType == ModType.Buff ? new StyleColor(UnityEngine.Color.green) : UnityEngine.Color.red;
+            AmountOfMod.style.color = modifier.ModifierType == ModType.Buff ? 
+                Color.green : Color.red;
             if (modifier.ModifierAmountType == ModifierAmountType.Procent)
                 AmountOfMod.text += "%";
         }

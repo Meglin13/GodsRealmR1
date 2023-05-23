@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DungeonGeneration.DungeonProps;
+using UnityEngine;
 
 namespace DungeonGeneration
 {

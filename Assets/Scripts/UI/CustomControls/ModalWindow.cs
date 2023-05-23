@@ -22,8 +22,8 @@ namespace UI.CustomControls
         private Label Caption;
         private Label Title;
         private VisualElement ButtonsContainer;
-        private Button YesOKBT;
-        private Button NoCancelBT;
+        public Button YesOKBT;
+        public Button NoCancelBT;
 
         private UIManager manager;
 
@@ -50,11 +50,13 @@ namespace UI.CustomControls
 
             YesOKBT = new Button();
             ButtonsContainer.Add(YesOKBT);
+            YesOKBT.AddToClassList("margin-auto");
             YesOKBT.text = "#Yes";
             YesOKBT.clicked += YesOKBT_clicked;
 
             NoCancelBT = new Button();
             ButtonsContainer.Add(NoCancelBT);
+            NoCancelBT.AddToClassList("margin-auto");
             NoCancelBT.text = "#No";
             NoCancelBT.clicked += NoCancelBT_clicked;
 
@@ -68,7 +70,8 @@ namespace UI.CustomControls
 
         private void YesOKBT_clicked()
         {
-            Success();
+                Success?.Invoke(); 
+
             Accessor.SetActive(true);
             this.style.display = DisplayStyle.None;
         }

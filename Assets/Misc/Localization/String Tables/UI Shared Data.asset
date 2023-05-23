@@ -327,6 +327,14 @@ MonoBehaviour:
     m_Key: Speed
     m_Metadata:
       m_Items: []
+  - m_Id: 41697064491855872
+    m_Key: Stamina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42097791882145792
+    m_Key: Current_Floor
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

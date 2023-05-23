@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DungeonGeneration
+namespace DungeonGeneration.DungeonProps
 {
     public class EnemySpawnerScript : MonoBehaviour
     {

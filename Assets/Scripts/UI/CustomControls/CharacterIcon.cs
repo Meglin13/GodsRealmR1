@@ -66,7 +66,8 @@ namespace UI.CustomControls
                 this.entityStats = entityStats;
 
                 this.style.backgroundImage = new StyleBackground(entityStats.Art);
-                CharName.text = entityStats.Name;
+
+                UIManager.Instance.ChangeLabelsText(CharName, entityStats.Name, UIManager.Instance.CharacterTable);
 
                 ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.ElementColor[entityStats.Element], out Color color);
                 ElementIcon.style.backgroundColor = new StyleColor(color);

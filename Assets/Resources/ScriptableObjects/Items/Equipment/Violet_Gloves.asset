@@ -56,7 +56,7 @@ MonoBehaviour:
     _Name: 
     _Description: 
     ModifierType: 0
-    StatType: 13
+    StatType: 8
     Element: 1
     ModifierAmountType: 1
     Amount: 16

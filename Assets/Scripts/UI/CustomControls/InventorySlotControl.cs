@@ -53,7 +53,7 @@ namespace UI.CustomControls
                 Icon.sprite = item.Icon;
 
                 Color color = GameManager.Instance.colorManager.RarityColor[item._Rarity];
-                color.a = 0.8f;
+                color.a = 0.7f;
                 Icon.style.backgroundColor = color;
             }
             else
@@ -70,17 +70,12 @@ namespace UI.CustomControls
         public void SelectSlot()
         {
             if (itemContext != null & ColorUtility.TryParseHtmlString("#FFC700", out Color color))
-            {
                 SetBorderColor(color);
-            }
         }
 
-        public void UnselectSlot()
-        {
-            SetBorderColor(defaultBorderColor);
-        }
+        public void UnselectSlot() => SetBorderColor(defaultBorderColor);
 
-        public void SetBorderColor(StyleColor color)
+        private void SetBorderColor(StyleColor color)
         {
             style.borderRightColor = color;
             style.borderLeftColor = color;

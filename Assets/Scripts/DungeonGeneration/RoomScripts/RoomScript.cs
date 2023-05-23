@@ -31,16 +31,14 @@ namespace DungeonGeneration
             Doorway.active = IsDoorActive;
         }
 
+        /// <summary>
+        /// Открытие/закрытие двери
+        /// </summary>
+        /// <param name="IsOpened"></param>
         public void SetDoor(bool IsOpened)
         {
-            if (Doorway.active)
-            {
-                Door.active = !IsOpened;
-            }
-            else
-            {
-                Door.active = false;
-            }
+            if (Door != null)
+                Door.active = Doorway.active && !IsOpened;
         }
     }
 
@@ -49,8 +47,13 @@ namespace DungeonGeneration
     {
         public Vector2Int Size;
 
-        public RoomBehaviour Behaviour;
-        public bool IsRoomCleared = false;
+        [SerializeField]
+        private bool canHaveBehaviour = true;
+        public bool CanHaveBehaviour { get => canHaveBehaviour; }
+        [SerializeField]
+        private RoomBehaviour Behaviour;
+        private bool isRoomCleared = false;
+        public bool IsRoomCleared { get => isRoomCleared; }
 
         public event Action OnRoomClear = delegate { };
         public event Action OnRoomEnter = delegate { };
@@ -60,17 +63,17 @@ namespace DungeonGeneration
 
         public GameObject[] Props;
         public GameObject PropsContainer;
-        public GameObject DecorationContainer;
+        [SerializeField] private GameObject DecorationContainer;
 
         [HideInInspector]
         public int OpenedDoorsCount;
         public List<DoorwayObject> DoorwaysList = new List<DoorwayObject>(4)
-    {
-        new DoorwayObject() { Side = WorldSide.North},
-        new DoorwayObject() { Side = WorldSide.East},
-        new DoorwayObject() { Side = WorldSide.South},
-        new DoorwayObject() { Side = WorldSide.West}
-    };
+        {
+            new DoorwayObject() { Side = WorldSide.North},
+            new DoorwayObject() { Side = WorldSide.East},
+            new DoorwayObject() { Side = WorldSide.South},
+            new DoorwayObject() { Side = WorldSide.West}
+        };
 
         private void OnDisable()
         {
@@ -80,39 +83,41 @@ namespace DungeonGeneration
         }
 
         public void OnRoomEnterTrigger() => OnRoomEnter();
-
         public void OnRoomExitTrigger() => OnRoomExit();
 
         private void Awake()
         {
+            gameObject.isStatic = true;
+
             SetDoorways();
 
             OnRoomClear += () => SetDoorsState(true);
 
             if (Behaviour)
-            {
                 SetBehaviour(Behaviour);
-            }
         }
 
         public void RoomClear()
         {
-            IsRoomCleared = true;
+            isRoomCleared = true;
             OnRoomClear();
         }
 
         public void SetBehaviour(RoomBehaviour behaviour)
         {
-            foreach (Transform child in PropsContainer.transform)
+            if (CanHaveBehaviour)
             {
-                DestroyImmediate(child.gameObject);
+                //foreach (Transform child in PropsContainer.transform)
+                //{
+                //    DestroyImmediate(child.gameObject);
+                //}
+
+                this.Behaviour = Instantiate(behaviour);
+                Behaviour.Initialize(this);
+
+                OnRoomEnter += Behaviour.OnRoomEnter;
+                OnRoomExit += Behaviour.OnRoomExit; 
             }
-
-            this.Behaviour = Instantiate(behaviour);
-            Behaviour.Initialize(this);
-
-            OnRoomEnter += Behaviour.OnRoomEnter;
-            OnRoomExit += Behaviour.OnRoomExit;
         }
 
         [ButtonMethod]
@@ -124,6 +129,19 @@ namespace DungeonGeneration
                 child.gameObject.SetActive(active);
             }
         }
+
+#if UNITY_EDITOR
+
+        [ButtonMethod]
+        public void HideDecor()
+        {
+            foreach (Transform child in DecorationContainer.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+#endif
 
         #region [Doors]
         /// <summary>

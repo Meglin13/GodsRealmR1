@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour, ISingle
     public MiniMapManager miniMapManager;
     [HideInInspector]
     public ColorManager colorManager;
-    [HideInInspector]
-    public RunManager runManager;
     public DialogueSystem.DialogueManager dialogueManager;
 
     [Header("Default Prefabs")]

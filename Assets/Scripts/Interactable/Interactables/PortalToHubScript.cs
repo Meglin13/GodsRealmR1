@@ -12,6 +12,19 @@ namespace Interactables
     internal class PortalToHubScript : MonoBehaviour, IInteractable
     {
         public bool CanInteract() => true;
-        public void Interaction() => UIManager.Instance.ChangeScene("HubScene", null);
+        public void Interaction()
+        {
+            if (RunManager.CurrentFloor == RunManager.Params.FloorsAmount)
+            {
+                UIManager.Instance.ChangeScene("HubScene", null);
+                RunManager.ResetSettings();
+            }
+            else
+            {
+                Debug.Log("New Floor");
+                RunManager.NewFloor();
+                DungeonGeneration.DungeonGeneratorScript.Instance.GenerateDungeon();
+            }
+        }
     }
 }

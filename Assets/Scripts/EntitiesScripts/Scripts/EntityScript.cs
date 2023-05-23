@@ -58,8 +58,9 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
     [SerializeField]
     private EntityStats Stats;
 
+    [SerializeField]
     [Range(1, 100)]
-    public int Level = 1;
+    private int Level = 1;
 
     [HideInInspector]
     public MeleeWeapon MeleeWeapon;
@@ -77,6 +78,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
 
     public virtual void Initialize()
     {
+        Stats = Instantiate(Stats);
         EntityStats.Initialize(Level);
 
         CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
@@ -116,14 +118,11 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
     private byte priority = 1;
     public byte Priority { get => priority; }
 
-    private float health;
+    private float currentHealth;
     public float CurrentHealth
     {
-        get => health;
-        set
-        {
-            health = Mathf.Clamp(value, 0, EntityStats.Health.GetFinalValue());
-        }
+        get => currentHealth;
+        set => currentHealth = Mathf.Clamp(value, 0, EntityStats.Health.GetFinalValue());
     }
 
     public EntityStats EntityStats { get => Stats; }

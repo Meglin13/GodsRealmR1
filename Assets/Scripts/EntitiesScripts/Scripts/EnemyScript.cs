@@ -80,6 +80,8 @@ public class EnemyScript : EntityScript
         HealthBarPrefab.transform.localScale *= 0.25f;
         HealthBar = HealthBarPrefab.GetComponentInChildren<BarScript>();
 
+        HealthBar.SetLevel(EntityStats.Level);
+
         OnTakeDamage -= UpdateHealthBar;
         OnTakeDamage += UpdateHealthBar;
     }
@@ -110,6 +112,7 @@ public class EnemyScript : EntityScript
     {
         CurrentHealth = 1000;
         UpdateHealthBar();
+        HealthBar.SetLevel(EntityStats.Level);
     }
 
     //private void FixedUpdate()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BehaviourType: 0
   InstantiatingProp: {fileID: 2361113081116990357, guid: 445bfce36c33146448b638ae6499f0c3, type: 3}
-  SpawnRate: 0.2
+  SpawnRate: 0.28
   EnemiesAmount: 0
   enemies:
   - {fileID: 5930609273068166046, guid: 27ba6ab8ac0e9ba47917d44af8f36975, type: 3}

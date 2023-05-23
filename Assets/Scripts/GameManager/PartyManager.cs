@@ -272,6 +272,12 @@ public class PartyManager : MonoBehaviour, ISingle
         {
             if (type == StatType.Health | type == StatType.Stamina | type == StatType.Mana)
             {
+                if (type == StatType.Mana)
+                {
+                    var ManaRecBonus = Mathf.Clamp(item.EntityStats.ModifiableStats[StatType.ManaRecoveryBonus].GetFinalValue(), 0, 80) / 100;
+                    Amount *= (1 + ManaRecBonus);
+                }
+
                 item.GiveSupport(Amount, type);
 
                 string PopUpColor = GameManager.Instance.colorManager.StatsColor[type];
@@ -283,11 +289,6 @@ public class PartyManager : MonoBehaviour, ISingle
                 Debug.Log("Wrong type of support!!!");
             }
         }
-    }
-
-    public void GiveManaToTeammate(CharacterScript character, float Amount, StatType type)
-    {
-        character.GiveSupport(Amount, type);
     }
 
     #endregion [Team Commands]
