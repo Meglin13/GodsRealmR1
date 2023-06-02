@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -16,8 +11,10 @@ namespace DungeonGeneration.DungeonProps
 
         private void OnEnable()
         {
-            localString.Arguments = new object[] { RunManager.CurrentFloor };
+            localString.Arguments = new object[] { RunManager.CurrentFloor, RunManager.Params.FloorsAmount };
             localString.StringChanged += UpdateString;
+
+            localString.RefreshString();
         }
 
         private void OnDisable()
@@ -25,9 +22,6 @@ namespace DungeonGeneration.DungeonProps
             localString.StringChanged -= UpdateString;
         }
 
-        private void UpdateString(string value)
-        {
-            text.text = value;
-        }
+        private void UpdateString(string value) => text.text = value;
     }
 }

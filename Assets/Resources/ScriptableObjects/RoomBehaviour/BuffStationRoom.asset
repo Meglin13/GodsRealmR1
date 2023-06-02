@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df04964bace18d541aed123983c04f82, type: 3}
   m_Name: BuffStationRoom
   m_EditorClassIdentifier: 
-  BehaviourType: 3
+  behaviourType: 2
   InstantiatingProp: {fileID: 9165955424642147404, guid: 2dd496ca151462849b22e08cba917a2b, type: 3}
-  SpawnRate: 0.15
+  spawnRate: 0.2
+  canHaveSameNeighbors: 0
+  sameNeighborsRadius: 2

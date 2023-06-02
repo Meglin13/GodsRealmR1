@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ChestStats", menuName = "Objects/Chest Stats")]
+[CreateAssetMenu(fileName = "ChestStats", menuName = "Objects/Chest stats")]
 public class ChestStats : ScriptableObject
 {
 #if UNITY_EDITOR

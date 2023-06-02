@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df04964bace18d541aed123983c04f82, type: 3}
   m_Name: FountaneRoom
   m_EditorClassIdentifier: 
-  BehaviourType: 3
+  behaviourType: 4
   InstantiatingProp: {fileID: 9090844308688943638, guid: df891b7d2eae7144fb33913bc8e3e4d5, type: 3}
-  SpawnRate: 0.13
+  spawnRate: 0.15
+  canHaveSameNeighbors: 0
+  sameNeighborsRadius: 3

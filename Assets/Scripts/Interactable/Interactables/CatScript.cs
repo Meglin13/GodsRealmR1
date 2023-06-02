@@ -21,10 +21,7 @@ namespace Interactables
         [SerializeField]
         private float TimeBetweenActions;
 
-        public bool CanInteract()
-        {
-            return true;
-        }
+        public bool CanInteract() => true;
 
         public void Interaction()
         {

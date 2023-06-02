@@ -16,7 +16,7 @@ public class InteractorScript : MonoBehaviour
         var playerInput = GetComponent<PlayerInput>();
         interact = playerInput.actions["Interact"];
 
-        InteractionButton = GameObject.FindAnyObjectByType<CameraCenterBehaviour>().InteractionButton;
+        InteractionButton = FindAnyObjectByType<CameraCenterBehaviour>().InteractionButton;
         InteractionButton.SetActive(false);
 
         interactionLayer = 1 << AIUtilities.InteractLayer;
@@ -26,11 +26,17 @@ public class InteractorScript : MonoBehaviour
     {
         interactColliders = Physics.OverlapSphere(transform.position, interactionRadius, interactionLayer);
 
-        InteractionButton.SetActive(interactColliders.Length > 0);
+        IInteractable interactable = null;
 
-        if (interactColliders.Length > 0 & interact.triggered 
-            && interactColliders[0].TryGetComponent(out IInteractable interactable) 
-            && interactable.CanInteract())
+        bool exp = interactColliders.Length > 0
+            && interactColliders[0].TryGetComponent(out interactable)
+            && interactable.CanInteract();
+
+        InteractionButton.SetActive(exp);
+
+        if (exp && interact.triggered)
+        {
             interactable.Interaction();
+        }
     }
 }

@@ -18,7 +18,7 @@ public class PlayerAttackState : State
         animator.applyRootMotion = true;
         timePassed = 0f;
 
-        currentClipLength = 1f;
+        currentClipLength = 0.8f;
 
         IsAttackAction = false;
 

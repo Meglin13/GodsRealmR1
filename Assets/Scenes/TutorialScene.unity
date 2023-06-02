@@ -976,7 +976,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -1986,7 +1986,7 @@ PrefabInstance:
     - target: {fileID: 1926865516, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: HiddenSecrets.Array.data[1]
       value: 
-      objectReference: {fileID: 223497326}
+      objectReference: {fileID: 1174128356}
     - target: {fileID: 1926865516, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: HiddenSecrets.Array.data[2]
       value: 
@@ -1995,6 +1995,14 @@ PrefabInstance:
       propertyPath: HiddenSecrets.Array.data[3]
       value: 
       objectReference: {fileID: 160400595}
+    - target: {fileID: 1726698072449248965, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -948.8894
+      objectReference: {fileID: 0}
+    - target: {fileID: 4371076732402884457, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4371076733504524505, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -2005,15 +2013,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4371076733504524508, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.27799177
+      value: 0.2777771
       objectReference: {fileID: 0}
     - target: {fileID: 4371076733504524508, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.59487134
+      value: 0.5951142
       objectReference: {fileID: 0}
     - target: {fileID: 4371076733504524508, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.1474164
+      value: -3.1464827
       objectReference: {fileID: 0}
     - target: {fileID: 4371076733504524508, guid: 2bb1598d5bd556441981a464897aa286, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2111,7 +2119,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:628e52cc827e150489fabdcef09f1a1a
     m_TableEntryReference:
-      m_KeyId: 24536068096
+      m_KeyId: 5202440483155968
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2131,7 +2139,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -2190,8 +2198,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2251,7 +2259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &801805102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2416,6 +2424,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7554211218079262240, guid: 98806368d59671747a797a0b6585a986, type: 3}
+      propertyPath: behaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: 235a68c169661c04fb4795c6c8484145, type: 2}
+    - target: {fileID: 7554211218079262240, guid: 98806368d59671747a797a0b6585a986, type: 3}
       propertyPath: DoorwaysList.Array.data[2].IsDoorActive
       value: 1
       objectReference: {fileID: 0}
@@ -2496,7 +2508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &885049536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3108,7 +3120,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -3327,7 +3339,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -3613,11 +3625,11 @@ PrefabInstance:
     - target: {fileID: 5716090509274294069, guid: f771ac909b4f95643a6d3a887018e773, type: 3}
       propertyPath: characters.Array.data[0]
       value: 
-      objectReference: {fileID: 146997388651124025, guid: c9c28c2c72d2c68499cd2cc6e9dd2268, type: 3}
+      objectReference: {fileID: 1578458822363217673, guid: 2bd8d5b22df5c214088118775c8892e5, type: 3}
     - target: {fileID: 5716090509274294069, guid: f771ac909b4f95643a6d3a887018e773, type: 3}
       propertyPath: characters.Array.data[1]
       value: 
-      objectReference: {fileID: 1578458822363217673, guid: 2bd8d5b22df5c214088118775c8892e5, type: 3}
+      objectReference: {fileID: 146997388651124025, guid: c9c28c2c72d2c68499cd2cc6e9dd2268, type: 3}
     - target: {fileID: 5716090509274294070, guid: f771ac909b4f95643a6d3a887018e773, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -3783,6 +3795,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
       propertyPath: Behaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
+      propertyPath: behaviour
       value: 
       objectReference: {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
@@ -4100,7 +4116,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:628e52cc827e150489fabdcef09f1a1a
     m_TableEntryReference:
-      m_KeyId: 24536068096
+      m_KeyId: 5202440428630016
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4120,7 +4136,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -4400,7 +4416,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -4524,6 +4540,10 @@ PrefabInstance:
       propertyPath: Behaviour
       value: 
       objectReference: {fileID: 11400000, guid: 4a61cb291187a82499de49fc8b7db9ed, type: 2}
+    - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
+      propertyPath: behaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
       propertyPath: Props.Array.size
       value: 1
@@ -4682,6 +4702,10 @@ PrefabInstance:
       propertyPath: Behaviour
       value: 
       objectReference: {fileID: 11400000, guid: d75a0d3ca07acb84b897f00cd9f6302e, type: 2}
+    - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
+      propertyPath: behaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: 65ba1a976ea5c5242a365778325b53c8, type: 2}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
       propertyPath: DoorwaysList.Array.data[0].IsDoorActive
       value: 1
@@ -5358,7 +5382,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -5535,7 +5559,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []
@@ -5569,7 +5593,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278241279
+    rgba: 4294957312
   m_fontColor: {r: 0, g: 0.85000014, b: 1, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5715,6 +5739,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
       propertyPath: Behaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b397a5d162855740a1d9b676879d721, type: 2}
+    - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}
+      propertyPath: behaviour
       value: 
       objectReference: {fileID: 11400000, guid: 9b397a5d162855740a1d9b676879d721, type: 2}
     - target: {fileID: 5270399411945083442, guid: 9829329b7890b5d45942e71d8f882208, type: 3}

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df04964bace18d541aed123983c04f82, type: 3}
   m_Name: CommonChest
   m_EditorClassIdentifier: 
-  BehaviourType: 3
+  behaviourType: 3
   InstantiatingProp: {fileID: 2096369768841985887, guid: 01703834e940af6448ec69068e0aa5fc, type: 3}
-  SpawnRate: 0.1
+  spawnRate: 0.2
+  canHaveSameNeighbors: 0
+  sameNeighborsRadius: 1

@@ -336,7 +336,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 42097791882145792
-    m_Localized: "\u041Dou are on the {0} floor"
+    m_Localized: You are on the <color=#FFC700>{0}</color> floor of <color=#FFC700>{1}</color>
     m_Metadata:
       m_Items:
       - rid: 2915362165975416835

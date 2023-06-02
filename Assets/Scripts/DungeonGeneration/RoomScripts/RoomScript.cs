@@ -51,7 +51,13 @@ namespace DungeonGeneration
         private bool canHaveBehaviour = true;
         public bool CanHaveBehaviour { get => canHaveBehaviour; }
         [SerializeField]
-        private RoomBehaviour Behaviour;
+        private RoomBehaviour behaviour;
+        public RoomBehaviour Behaviour 
+        { 
+            get => behaviour; 
+            private set => behaviour = value; 
+        }
+
         private bool isRoomCleared = false;
         public bool IsRoomCleared { get => isRoomCleared; }
 
@@ -130,25 +136,11 @@ namespace DungeonGeneration
             }
         }
 
-#if UNITY_EDITOR
-
-        [ButtonMethod]
-        public void HideDecor()
-        {
-            foreach (Transform child in DecorationContainer.transform)
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
-
-#endif
-
         #region [Doors]
         /// <summary>
         /// Установка состояния дверей
         /// </summary>
-        /// <param _name="sides">Массив информации о ближайших комнатах. 
-        /// Двери открываются по часовой стрелке, начиная с севера: СЕВЕР, ВОСТОК, ЮГ, ЗАПАД</param>
+        /// <param name="sides">Массив информации о ближайших комнатах. Двери открываются по часовой стрелке, начиная с севера: СЕВЕР, ВОСТОК, ЮГ, ЗАПАД</param>
         public void SetDoorways(bool[] sides)
         {
             OpenedDoorsCount = 0;
@@ -171,36 +163,33 @@ namespace DungeonGeneration
         public void SetDoorways()
         {
             foreach (var door in DoorwaysList)
-            {
                 door.SetDoorway();
-            }
         }
 
         /// <summary>
         /// Метод используется для того, чтобы закрывать именно двери, а не проходы
         /// </summary>
-        /// <param _name="IsOpened">Открыть двери или нет</param>
+        /// <param name="IsOpened">Открыть двери или нет</param>
         public void SetDoorsState(bool IsOpened)
         {
             foreach (var door in DoorwaysList)
-            {
                 door.SetDoor(IsOpened);
-            }
         }
 
 #if UNITY_EDITOR
 
         [ButtonMethod]
-        public void CloseDoors()
+        public void HideDecor()
         {
-            SetDoorsState(false);
+            foreach (Transform child in DecorationContainer.transform)
+                child.gameObject.SetActive(false);
         }
 
         [ButtonMethod]
-        public void OpenDoors()
-        {
-            SetDoorsState(true);
-        }
+        public void CloseDoors() => SetDoorsState(false);
+
+        [ButtonMethod]
+        public void OpenDoors() => SetDoorsState(true);
 
 #endif
         #endregion

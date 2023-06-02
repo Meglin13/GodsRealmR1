@@ -4,7 +4,6 @@ using System.Linq;
 using UI.CustomControls;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 public enum IndexType { Next, Previous }
 namespace UI

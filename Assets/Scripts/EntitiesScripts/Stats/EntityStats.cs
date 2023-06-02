@@ -28,7 +28,7 @@ public enum WeaponType
 }
 
 
-[CreateAssetMenu(fileName = "Entity Stats", menuName = "Objects/Entity Stats")]
+[CreateAssetMenu(fileName = "Entity stats", menuName = "Objects/Entity stats")]
 public class EntityStats : ScriptableObject, ICollectable, ILocalizable
 {
 #if UNITY_EDITOR

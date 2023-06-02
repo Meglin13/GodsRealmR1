@@ -1,3 +1,4 @@
+using EasyTransition;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,7 @@ namespace UI
         private IEnumerator LoadSceneAsync(string SceneName)
         {
             AsyncOperation loadScene = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Single);
+
 
             loadScene.allowSceneActivation = false;
 

@@ -1,25 +1,43 @@
 ﻿using MyBox;
+using UnityEditor;
 using UnityEngine;
 
 namespace DungeonGeneration
 {
     public enum RoomBehaviourType
-    { Battle, Shop, Buffer, FreeChest, Corridor, Heal, BossPortal, Misc }
+    { Battle, Shop, Buffer, FreeChest, Heal, Boss, Misc }
 
     public abstract class RoomBehaviour : ScriptableObject
     {
-        [ReadOnly]
-        public RoomBehaviourType BehaviourType;
-
-        public GameObject InstantiatingProp;
-        internal RoomScript Room;
-        public float SpawnRate;
+        [SerializeField]
+        private protected RoomBehaviourType behaviourType;
+        public RoomBehaviourType BehaviourType 
+        { 
+            get => behaviourType;
+            protected set => behaviourType = value; 
+        }
 
         [SerializeField]
-        public virtual void Initialize(RoomScript room)
-        {
-            this.Room = room;
-        }
+        private protected GameObject InstantiatingProp;
+
+        private RoomScript room;
+        public RoomScript Room { get => room; }
+
+        [SerializeField]
+        private float spawnRate;
+        public float SpawnRate { get => spawnRate; }
+
+        [SerializeField]
+        private bool canHaveSameNeighbors = true;
+        public bool CanHaveSameNeighbors { get => canHaveSameNeighbors; }
+
+        [ConditionalField("canHaveSameNeighbors", true)]
+        [SerializeField]
+        private int sameNeighborsRadius;
+        public int SameNeighborsRadius { get => sameNeighborsRadius; }
+
+        [SerializeField]
+        public virtual void Initialize(RoomScript room) => this.room = room;
 
         public void SetProp(GameObject Prop, bool Active = true)
         {
@@ -34,7 +52,6 @@ namespace DungeonGeneration
         }
 
         public abstract void OnRoomEnter();
-
         public abstract void OnRoomExit();
     }
 }

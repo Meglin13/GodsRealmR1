@@ -68,7 +68,7 @@ namespace DungeonGeneration.DungeonProps
 
                 enemy.agent.Warp(position);
 
-                enemy.EntityStats.Initialize(Random.Range(EnemiesLevel - 2, EnemiesLevel + 5));
+                enemy.EntityStats.Initialize(Random.Range(EnemiesLevel - 5, EnemiesLevel));
                 
                 enemy.OnDie -= OnEnemyDie;
                 enemy.OnDie += OnEnemyDie;

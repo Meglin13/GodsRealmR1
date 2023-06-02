@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Interactables
 {
     [RequireComponent(typeof(BoxCollider))]
-    internal class PortalToHubScript : MonoBehaviour, IInteractable
+    public class PortalToHubScript : MonoBehaviour, IInteractable
     {
         public bool CanInteract() => true;
         public void Interaction()
         {
-            if (RunManager.CurrentFloor == RunManager.Params.FloorsAmount)
+            if (SceneManager.GetActiveScene().name == "TutorialScene" | RunManager.CurrentFloor == RunManager.Params.FloorsAmount)
             {
                 UIManager.Instance.ChangeScene("HubScene", null);
                 RunManager.ResetSettings();

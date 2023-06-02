@@ -14,7 +14,7 @@ namespace DialogueSystem
 
         public bool CanInteract()
         {
-            return true;
+            return dialogue != null;
         }
 
         public void Interaction()

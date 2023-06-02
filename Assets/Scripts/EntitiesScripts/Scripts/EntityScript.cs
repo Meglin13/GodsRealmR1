@@ -17,7 +17,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
 
     public virtual void OnValidate()
     {
-        if (Stats)
+        if (stats)
         {
             if (GetComponent<Animator>().runtimeAnimatorController == null)
             {
@@ -56,7 +56,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
 
     [MustBeAssigned]
     [SerializeField]
-    private EntityStats Stats;
+    private protected EntityStats stats;
 
     [SerializeField]
     [Range(1, 100)]
@@ -78,7 +78,6 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
 
     public virtual void Initialize()
     {
-        Stats = Instantiate(Stats);
         EntityStats.Initialize(Level);
 
         CurrentHealth = EntityStats.ModifiableStats[StatType.Health].GetFinalValue();
@@ -125,7 +124,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
         set => currentHealth = Mathf.Clamp(value, 0, EntityStats.Health.GetFinalValue());
     }
 
-    public EntityStats EntityStats { get => Stats; }
+    public EntityStats EntityStats { get => stats; }
     public int EnemyLayer { get => EntityStats.EnemyLayer; }
     public string EnemyTag { get => EntityStats.EnemyTag; }
 

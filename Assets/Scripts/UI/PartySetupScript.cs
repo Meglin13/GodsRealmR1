@@ -5,7 +5,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
-using static MyBox.EditorTools.MyGUI;
 
 namespace UI
 {

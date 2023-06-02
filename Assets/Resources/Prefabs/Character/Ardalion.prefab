@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b0977cdefe8ca449bd58bc5f8000c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: {fileID: 11400000, guid: 491d487ffcf57804ca66123db0949472, type: 2}
+  stats: {fileID: 11400000, guid: 491d487ffcf57804ca66123db0949472, type: 2}
   Level: 1
   MeleeWeapon: {fileID: 0}
   animator: {fileID: 0}

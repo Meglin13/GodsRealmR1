@@ -1,4 +1,5 @@
 using DungeonGeneration;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,7 +53,7 @@ public class RunManager : MonoBehaviour
         {
             EnemiesLevel = Difficulty * 7,
             EnemiesInOneRoom = Difficulty + 3,
-            FloorsAmount = Mathf.FloorToInt(Difficulty * 0.5f)
+            FloorsAmount = (int)Math.Ceiling(Difficulty * 0.5f)
         };
 
         if (Params.GenerationParameters == null)
@@ -84,7 +85,7 @@ public class RunManager : MonoBehaviour
         {
             GridSize = new Vector2Int(10, 30),
             Seed = Params.Seed,
-            numberOfRooms = 9 * Difficulty / roomAff
+            numberOfRooms = 10 * Difficulty / roomAff
         };
 
         p.numberOfEvents = Mathf.FloorToInt(p.numberOfRooms / 1.5f);

@@ -33,7 +33,7 @@ public abstract class CharacterScript : EntityScript
     #region [Character Script Stats]
 
     //Статы персонажа
-    [Header("Character Stats")]
+    [Header("Character stats")]
     [HideInInspector]
     public float blockingTime;
     private Camera _camera;
@@ -391,19 +391,19 @@ public abstract class CharacterScript : EntityScript
         Enum.TryParse(name, out SkillType result);
         Skill skill = EntityStats.SkillSet[result];
 
-        if (CurrentMana >= skill.ManaCost & !skill.IsCooldown())
+        if (CurrentMana >= skill.ManaCost & !skill.Cooldown)
         {
             animator.SetTrigger(skill.SkillType.ToString());
         }
         else
         {
-            Debug.Log($"Cannot activate skill!!! {skill.IsCooldown()}");
+            Debug.Log($"Cannot activate skill!!! {skill.Cooldown}");
         }
     }
 
     private void UseAbility(Skill skill)
     {
-        if (!skill.IsCooldown() & CurrentMana >= skill.ManaCost)
+        if (!skill.Cooldown & CurrentMana >= skill.ManaCost)
         {
             float ManaCon = Mathf.Clamp(EntityStats.ModifiableStats[StatType.ManaConsumption].GetFinalValue(), 0, 80) / 100;
             GiveSupport(-skill.ManaCost * (1 - ManaCon), StatType.Mana);
@@ -413,7 +413,7 @@ public abstract class CharacterScript : EntityScript
 
             GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
-        else if (skill.IsCooldown())
+        else if (skill.Cooldown)
             Debug.Log($"{skill.Name} is cooldown!!!");
         else
             Debug.Log($"Not enough mana! Need {skill.ManaCost}/{CurrentMana}");

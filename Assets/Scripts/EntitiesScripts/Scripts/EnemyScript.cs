@@ -14,6 +14,7 @@ public class EnemyScript : EntityScript
 
     public override void Initialize()
     {
+        stats = Instantiate(stats);
         base.Initialize();
 
         AttackRange = EntityStats.AttackRange;

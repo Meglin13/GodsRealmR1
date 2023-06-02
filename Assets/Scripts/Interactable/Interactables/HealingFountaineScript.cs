@@ -28,7 +28,7 @@ namespace Interactables
 
                 var currentHealth = 0f;
                 PartyManager.Instance.PartyMembers.ForEach(x => currentHealth += x.EntityStats.Health.GetFinalValue());
-                currentHealth = currentHealth / PartyManager.Instance.PartyMembers.Count;
+                currentHealth /= PartyManager.Instance.PartyMembers.Count;
 
                 PartyManager.Instance.GiveSupportToAll(currentHealth, StatType.Health);
 

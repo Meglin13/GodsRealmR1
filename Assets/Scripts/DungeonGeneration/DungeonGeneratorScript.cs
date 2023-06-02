@@ -53,6 +53,16 @@ namespace DungeonGeneration
         [SerializeField]
         private GameObject Dungeon;
 
+#if UNITY_EDITOR
+
+        [Foldout("Statistic", true)]
+        public int FreeChestAmount;
+        public int BuffsAmount;
+        public int EnemiesAmount;
+        public int FontainesAmount;
+        public int BehaviourAmount;
+#endif
+
         public event Action OnGenerationComplited = delegate { };
 
         private void Start()
@@ -95,6 +105,10 @@ namespace DungeonGeneration
             SetBossRoom();
 
             SetDoors();
+
+#if UNITY_EDITOR
+            GetStatistic();
+#endif
 
             GetComponent<Unity.AI.Navigation.NavMeshSurface>().BuildNavMesh();
 
@@ -194,56 +208,114 @@ namespace DungeonGeneration
 
             foreach (var item in roomBehaviours)
             {
-                for (int i = 0; i < item.SpawnRate * GenerationParameters.numberOfEvents; i++)
+                int roomsAmount = (int)Math.Round(item.SpawnRate * GenerationParameters.numberOfEvents + 0.1);
+
+                for (int i = 0; i < roomsAmount; i++)
                     list.Add(item);
             }
 
             behavioursBag = new SnuffleBag<RoomBehaviour>(list, random);
 
-            for (int i = 1; i < PlacedRooms.Count - 1; i++)
+            for (int i = 1; i < PlacedRooms.Count; i++)
             {
-                PlacedRooms[i].SetBehaviour(behavioursBag.Next());
-                PlacedRooms[i].SetDecoration();
+                var room = PlacedRooms[i];
+
+                if (room && room.CanHaveBehaviour)
+                {
+                    RoomBehaviour behaviour = behavioursBag.Next();
+
+                    RoomScript[] neighbors = GetNeightbors(room.coordinates, behaviour.SameNeighborsRadius);
+
+                    if (!behaviour.CanHaveSameNeighbors)
+                    {
+                        while (neighbors.Where(x => x && (x.Behaviour && x.Behaviour.BehaviourType == behaviour.BehaviourType)).ToList().Count != 0)
+                        {
+                            behaviour = behavioursBag.Next();
+
+                            if (behaviour.CanHaveSameNeighbors)
+                                break;
+                        }
+                    }
+
+                    room.SetBehaviour(behaviour);
+                    room.SetDecoration();
+                }
             }
         }
 
         public void SetDoors()
         {
             foreach (var item in PlacedRooms)
-                item.SetDoorways(GetNeighbors(item.coordinates));
-        } 
+                item.SetDoorways(GetNeighbors(item));
+        }
         #endregion
 
         #region [Utilities]
-        public bool[] GetNeighbors(Vector2 roomIndex)
+
+        private RoomScript[] GetNeighboringRooms(Vector2Int coordinates)
         {
-            List<bool> neighbors = new List<bool>(4);
+            List<RoomScript> neighbors = new List<RoomScript>(4);
 
             int[] IndexArray = new int[4] { 0, 1, 0, -1 };
 
             for (int i = 0; i < 4; i++)
             {
-                bool result = false;
+                RoomScript result = null;
 
                 int x = IndexArray[i];
                 int y = IndexArray[IndexArray.Length - 1 - i];
 
-                int neighborX = Mathf.FloorToInt(roomIndex.x) + x;
-                int neighborY = Mathf.FloorToInt(roomIndex.y) + y;
+                int neighborX = coordinates.x + x;
+                int neighborY = coordinates.y + y;
 
                 if (neighborY >= 0 & neighborY < Rooms.GetLength(1)
                         & neighborX >= 0 & neighborX < Rooms.GetLength(0))
                 {
-                    if (Rooms[neighborX, neighborY] != null)
-                    {
-                        result = true;
-                    }
+                    result = Rooms[neighborX, neighborY];
                 }
 
                 neighbors.Add(result);
             }
 
             return neighbors.ToArray();
+        }
+
+        private RoomScript[] GetNeightbors(Vector2Int center, int radius)
+        {
+            var rooms = new List<RoomScript>();
+
+            for (int y = -radius; y < radius + 1; y++)
+            {
+                for (int x = -radius; x < radius + 1; x++)
+                {
+                    int neighborY = center.y + y;
+                    int neighborX = center.x + x;
+
+                    if (neighborY >= 0 & neighborY < Rooms.GetLength(1)
+                        & neighborX >= 0 & neighborX < Rooms.GetLength(0))
+                    {
+                        var room = Rooms[neighborX, neighborY];
+
+                        if (room)
+                        {
+                            rooms.Add(room);
+                        }
+                    }
+                }
+            }
+
+            return rooms.ToArray();
+        }
+
+        private bool[] GetNeighbors(RoomScript room)
+        {
+            var neighbors = new bool[4];
+            var rooms = GetNeighboringRooms(room.coordinates);
+
+            for (int i = 0; i < 4; i++)
+                neighbors[i] = rooms[i] != null;
+
+            return neighbors;
         }
 
         private void ResetSpawnRoom(RoomScript room)
@@ -285,6 +357,18 @@ namespace DungeonGeneration
 
             ResetSpawnRoom(room);
         }
+
+#if UNITY_EDITOR
+        private void GetStatistic()
+        {
+            FreeChestAmount = PlacedRooms.Where(x => x && x.Behaviour && x.Behaviour.BehaviourType == RoomBehaviourType.FreeChest).Count();
+            BuffsAmount = PlacedRooms.Where(x => x && x.Behaviour && x.Behaviour.BehaviourType == RoomBehaviourType.Buffer).Count();
+            EnemiesAmount = PlacedRooms.Where(x => x && x.Behaviour && x.Behaviour.BehaviourType == RoomBehaviourType.Battle).Count();
+            FontainesAmount = PlacedRooms.Where(x => x && x.Behaviour && x.Behaviour.BehaviourType == RoomBehaviourType.Heal).Count();
+
+            BehaviourAmount = FreeChestAmount + BuffsAmount + EnemiesAmount + FontainesAmount;
+        }
+#endif
 
         #endregion
     }

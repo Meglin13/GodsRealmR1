@@ -1,4 +1,5 @@
 ﻿using MyBox;
+using NaughtyAttributes;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -10,7 +11,7 @@ public class ShowRadiusCircleScript : MonoBehaviour
     [Range(3, 256)]
     public int numSegments = 128;
 
-    [ButtonMethod]
+    [Button]
     public void Draw(float radius)
     {
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();

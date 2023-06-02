@@ -117,8 +117,8 @@ MonoBehaviour:
     SkillType: 0
     SkillIcon: {fileID: 0}
     DamageMultiplier:
-      BaseValue: 0
-      LevelModifier: 0
+      BaseValue: 100
+      LevelModifier: 5
     SpawningObject: {fileID: 3396563686935728398, guid: e347372a4a7d25b4ab4a2ae2810e35e5, type: 3}
     CooldownInSecs: 0
     DurationInSecs: 0

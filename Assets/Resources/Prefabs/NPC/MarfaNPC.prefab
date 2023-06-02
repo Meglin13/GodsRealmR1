@@ -1632,11 +1632,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8457799904004227375}
+  - component: {fileID: 7669973849345625980}
   - component: {fileID: 2558054376828345173}
   - component: {fileID: 5550407068814863249}
   - component: {fileID: 3296162133240193860}
   - component: {fileID: 129525303076208450}
-  - component: {fileID: 7669973849345625980}
   m_Layer: 6
   m_Name: MarfaNPC
   m_TagString: Character
@@ -1661,6 +1661,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7669973849345625980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091629236802886549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0409078297e4494698965b859fc3bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 0}
+  OnDialogueEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &2558054376828345173
 Animator:
   serializedVersion: 5
@@ -1734,19 +1750,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7669973849345625980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9091629236802886549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0409078297e4494698965b859fc3bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: 02364d70ab491544aa4c9f468e3af29b, type: 2}
 --- !u!1001 &8280603825502161092
 PrefabInstance:
   m_ObjectHideFlags: 0

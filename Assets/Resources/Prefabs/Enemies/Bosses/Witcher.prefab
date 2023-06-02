@@ -16963,12 +16963,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000011578242470}
+  - component: {fileID: 6152136936492676922}
   - component: {fileID: 95000012058624550}
   - component: {fileID: -5370145686620404535}
   - component: {fileID: 8742399048380271984}
   - component: {fileID: -5047399628476150410}
   - component: {fileID: 7205935444842954224}
-  - component: {fileID: 6152136936492676922}
   m_Layer: 8
   m_Name: Witcher
   m_TagString: Enemy
@@ -16997,6 +16997,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6152136936492676922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013586557078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2ea764ce9ff724fa287eb9e4b88e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: f02084957efcb3f4bb5c43f7b2a3e689, type: 2}
+  Level: 1
+  MeleeWeapon: {fileID: 0}
+  animator: {fileID: 0}
+  agent: {fileID: 0}
+  priority: 1
+  SightTrigger: {fileID: 0}
+  CurrentState: 
+  TargetName: 
+  IsCharInAttackRange: 0
+  IsCharInSightRange: 0
 --- !u!95 &95000012058624550
 Animator:
   serializedVersion: 5
@@ -17123,29 +17146,6 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!114 &6152136936492676922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013586557078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2ea764ce9ff724fa287eb9e4b88e49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Stats: {fileID: 11400000, guid: f02084957efcb3f4bb5c43f7b2a3e689, type: 2}
-  Level: 1
-  MeleeWeapon: {fileID: 0}
-  animator: {fileID: 0}
-  agent: {fileID: 0}
-  priority: 1
-  SightTrigger: {fileID: 0}
-  CurrentState: 
-  TargetName: 
-  IsCharInAttackRange: 0
-  IsCharInSightRange: 0
 --- !u!1 &1000013699516860
 GameObject:
   m_ObjectHideFlags: 0

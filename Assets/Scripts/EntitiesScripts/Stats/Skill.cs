@@ -29,7 +29,15 @@ public class Skill : ILocalizable
     public SpawningObject SpawningObject;
 
     public float CooldownInSecs = 5f;
-    private bool Cooldown = false;
+    private bool cooldown = false;
+    public bool Cooldown
+    {
+        get => cooldown;
+        private set => cooldown = value;
+    }
+
+    private float timeStamp;
+    public float TimeStamp => timeStamp;
 
     public float DurationInSecs = 0f;
     public bool IsPeriodic = false;
@@ -65,13 +73,13 @@ public class Skill : ILocalizable
     {
         SetCooldown();
         OnSkillTrigger();
+        timeStamp = Time.time + CooldownInSecs;
     }
 
     public void ClearEvents() => ObjectsUtilities.UnsubscribeEvents(OnSkillTrigger);
 
-    public void SetCooldown() => Cooldown = true;
-    public bool IsCooldown() => Cooldown;
-    public void ResetCooldown() => Cooldown = false;
+    public void SetCooldown() => cooldown = true;
+    public void ResetCooldown() => cooldown = false;
 
     public void LevelUpSkill(byte newLevel) => Level += newLevel;
 }

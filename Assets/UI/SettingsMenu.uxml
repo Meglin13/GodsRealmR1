@@ -16,7 +16,7 @@
                 <ui:DropdownField label="#Ref_Rate" index="-1" focusable="true" name="RefRateDDF" tabindex="5" />
                 <ui:Toggle label="#Fullscreen" name="FullscreenTG" tabindex="7" value="true" class="normal-toggle" style="justify-content: space-between;" />
             </ui:VisualElement>
-            <ui:VisualElement name="LanguageSettings">
+            <ui:VisualElement name="LanguageSettings" style="display: none;">
                 <ui:Label text="#Language" display-tooltip-when-elided="true" name="LanguageLB" tabindex="-1" class="separator-label title" style="-unity-text-align: middle-center;" />
                 <ui:DropdownField label="#Language" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="LangDDF" />
             </ui:VisualElement>
