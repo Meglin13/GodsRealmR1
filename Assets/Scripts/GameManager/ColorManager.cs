@@ -70,4 +70,32 @@ public class ColorManager : MonoBehaviour, ISingle
 
         return Color.HSVToRGB(hue, 0.7f, 1);
     }
+
+    //public static void GetColor()
+    //{
+    //    string statKey;
+    //    Color col;
+
+    //    if (modifier.StatType == StatType.Resistance | modifier.StatType == StatType.ElementalDamageBonus)
+    //    {
+    //        if (modifier.StatType == StatType.ElementalDamageBonus)
+    //            statKey = modifier.Element + "DamageBonus";
+    //        else
+    //            statKey = modifier.Element + "Resistance";
+
+    //        StatIcon.sprite = Resources.Load<Sprite>($"Icons/ModifierIcons/{modifier.Element}");
+
+    //        if (ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.ElementColor[modifier.Element], out col))
+    //            StatIcon.tintColor = col;
+    //    }
+    //    else
+    //    {
+    //        if (ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.StatsColor[modifier.StatType], out col))
+    //            StatIcon.tintColor = col;
+
+    //        StatIcon.sprite = Resources.Load<Sprite>($"Icons/ModifierIcons/{modifier.StatType}");
+
+    //        statKey = modifier.StatType.ToString();
+    //    }
+    //}
 }

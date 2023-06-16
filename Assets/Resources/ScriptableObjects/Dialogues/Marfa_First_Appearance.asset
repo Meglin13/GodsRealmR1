@@ -72,3 +72,33 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
     Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
     Line: Marfa_First_Appearance_Ardalion_9
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_10
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_11
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Marfa_12
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_13
+  - Comment: 
+    speakers:
+    - {fileID: 11400000, guid: 1b06c9ecc60d8c8469c2db54ed131bb8, type: 2}
+    - {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Speaker: {fileID: 11400000, guid: 64ccf4ba2cd72ad4da90929173832553, type: 2}
+    Line: Marfa_First_Appearance_Ardalion_14

@@ -23,7 +23,7 @@ namespace UI
             {
                 CharacterSlot characterSlot = new CharacterSlot();
                 characterSlot.SetSlot(character);
-                characterSlot.AddManipulator(new Clickable(()=> LoadInfo(characterSlot.entityStats)));
+                characterSlot.AddManipulator(new Clickable(() => LoadInfo(characterSlot.entityStats)));
                 CharList.Add(characterSlot);
             }
 
@@ -38,16 +38,22 @@ namespace UI
             Label nameLB = root.Q<Label>("CharacterName");
             UIManager.Instance.ChangeLabelsText(nameLB, character.Name, CharacterTable);
 
+            Label descLB = root.Q<Label>("DescLB");
+            UIManager.Instance.ChangeLabelsText(descLB, character.Description, CharacterTable);
+
+            VisualElement element = root.Q<VisualElement>("Element");
+            element.style.backgroundImage = new StyleBackground(Resources.Load<Sprite>($"Icons/ModifierIcons/{character.Element}"));
+
+            if (ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.ElementColor[character.Element], out Color col))
+                element.style.unityBackgroundImageTintColor = col;
+
             Foldout stats = root.Q<Foldout>("Stats");
             stats.Clear();
-           
+
             if (character.ModifiableStats == null)
             {
                 character.Initialize(character.Level);
             }
-
-            Foldout skills = root.Q<Foldout>("Skills");
-            skills.Clear();
 
             foreach (var item in character.ModifiableStats)
             {
@@ -56,15 +62,40 @@ namespace UI
                 stats.Add(characterInfoControl);
             }
 
+            Foldout skills = root.Q<Foldout>("Skills");
+            skills.Clear();
+
             foreach (var item in character.SkillSet)
             {
                 var name = UIManager.Instance.GetLocalizedString(item.Value.Name, CharacterTable);
 
                 var desc = UIManager.Instance.GetLocalizedString(item.Value.Description, CharacterTable);
 
-                Label lab = new Label($"{name}\n{desc}\n");
-                lab.style.whiteSpace = WhiteSpace.Normal;
-                skills.Add(lab);
+                if (item.Value.Name != string.Empty)
+                {
+                    Label lab = new Label($"<color=#FFC700>{name}</color>\n{desc}");
+                    lab.AddToClassList("skill-label");
+                    skills.Add(lab);
+                }
+            }
+
+            Foldout elements = root.Q<Foldout>("Elements");
+            elements.Clear();
+
+            CharacterInfoControl infoElements = new CharacterInfoControl();
+            UIManager.Instance.ChangeLabelsText(infoElements.Name, "Element", UITable);
+            var rb = UIManager.Instance.GetLocalizedString("Resistance", UITable) + "/" + UIManager.Instance.GetLocalizedString("DamageBonus", UITable);
+            infoElements.Amount.text = rb;
+
+            elements.Add(infoElements);
+
+            foreach (var item in character.ElementsResBonus)
+            {
+                CharacterInfoControl characterInfoControl = new CharacterInfoControl();
+                characterInfoControl.SetInfo(item.Value.Resistance, item.Key);
+                UIManager.Instance.ChangeLabelsText(characterInfoControl.Name, item.Key.ToString(), UITable);
+                characterInfoControl.Amount.text = $"{item.Value.Resistance.GetFinalValue()}%/{item.Value.DamageBonus.GetFinalValue()}%";
+                elements.Add(characterInfoControl);
             }
         }
     }

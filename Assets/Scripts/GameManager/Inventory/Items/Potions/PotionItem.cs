@@ -4,11 +4,7 @@
     Modifier
 }
 
-public enum PotionStrength
-{
-    Weak, Mid, Strong
-}
-
+public enum PotionStrength { Weak, Mid, Strong }
 
 public class PotionItem : Item
 {
@@ -21,8 +17,5 @@ public class PotionItem : Item
     public PotionType PotionType;
     public PotionStrength PotionStrength;
 
-    public override void UseItem(CharacterScript character)
-    {
-        InventoryScript.Instance.DeleteItem(this.ID, true);
-    }
+    public override void UseItem(CharacterScript character) => InventoryScript.Instance.DeleteItem(this, true);
 }

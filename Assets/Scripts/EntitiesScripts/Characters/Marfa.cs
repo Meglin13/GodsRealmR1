@@ -35,7 +35,7 @@ namespace Characters
 
         public void UltimateAbility()
         {
-
+            GameManager.Instance.partyManager.GiveSupportToAll(EntityStats.ModifiableStats[StatType.Mana].GetProcent() * Ultimate.DamageMultiplier.GetFinalValue(), StatType.Mana);
         }
     } 
 }

@@ -80,7 +80,7 @@ MonoBehaviour:
     LevelModifier: 0
   SightRange: 20
   AttackRange: 10
-  MovementSpeed: 5
+  MovementSpeed: 6
   EnemyLayer: 8
   EntityLayer: 6
   EnemyTag: Enemy
@@ -106,8 +106,8 @@ MonoBehaviour:
   Speed:
     BaseValue: 6
     LevelModifier: 0
-  AttackSpeed: 1.2166667
-  Sprint: 9.49
+  AttackSpeed: 1
+  Sprint: 7.7999997
   DodgeCost: 29
   BlockCost: 30.5
   HeavyBlockCost: 45.75
@@ -125,7 +125,7 @@ MonoBehaviour:
     IsPeriodic: 0
     PeriodicDamageTime: 0
     ManaCost: 0
-    Radius: 0
+    Radius: 5
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0
@@ -199,14 +199,14 @@ MonoBehaviour:
     SkillType: 2
     SkillIcon: {fileID: 0}
     DamageMultiplier:
-      BaseValue: 100
+      BaseValue: 25
       LevelModifier: 5
     SpawningObject: {fileID: 0}
     CooldownInSecs: 20
     DurationInSecs: 0
     IsPeriodic: 0
     PeriodicDamageTime: 0
-    ManaCost: 10
+    ManaCost: 150
     Radius: 1
     IsDebuffing: 0
     EnemyModifier:

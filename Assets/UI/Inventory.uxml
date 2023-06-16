@@ -39,12 +39,14 @@
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ItemInfoPanel" horizontal-scroller-visibility="Hidden" style="height: 100%; width: 30%; flex-grow: 0; flex-shrink: 1; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
             <ui:VisualElement name="CurrenciesInfoPanel" style="height: auto; margin-top: 0; margin-bottom: 0; flex-direction: row; margin-left: 0; margin-right: 0; padding-left: 20px; padding-right: 20px;">
                 <ui:Label text="#Gold" display-tooltip-when-elided="true" name="GoldLB" style="color: rgb(255, 199, 0); margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0;" />
-                <ui:Label text="#Token" display-tooltip-when-elided="true" name="TokenLB" style="color: rgb(149, 105, 255); margin-right: 0; margin-left: auto; margin-top: 0; margin-bottom: 0;" />
+                <ui:Label text="#Token" display-tooltip-when-elided="true" name="TokenLB" style="color: rgb(149, 105, 255); margin-right: 0; margin-left: auto; margin-top: 0; margin-bottom: 0; display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="ItemInfo" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
                 <ui:Label display-tooltip-when-elided="true" name="ItemNameLB" style="height: auto; white-space: normal; -unity-text-align: middle-left; border-bottom-color: rgb(255, 199, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;" />
                 <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ItemInfo" style="border-left-color: rgb(255, 199, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; background-color: rgba(0, 0, 0, 0.2); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-top: 20px; margin-bottom: 20px;">
-                    <ui:Label display-tooltip-when-elided="true" name="ItemDescLB" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; white-space: normal; -unity-text-align: upper-left; height: 300px; align-items: flex-start; flex-direction: column;" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="DescSV" horizontal-scroller-visibility="Hidden" style="height: 330px;">
+                        <ui:Label display-tooltip-when-elided="true" name="ItemDescLB" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; white-space: normal; -unity-text-align: upper-left; height: auto; align-items: flex-start; flex-direction: column;" />
+                    </ui:ScrollView>
                     <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ModsScrollView" style="height: 250px;" />
                 </ui:ScrollView>
             </ui:VisualElement>

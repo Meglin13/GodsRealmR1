@@ -17015,7 +17015,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   agent: {fileID: 0}
   priority: 1
-  SightTrigger: {fileID: 0}
   CurrentState: 
   TargetName: 
   IsCharInAttackRange: 0

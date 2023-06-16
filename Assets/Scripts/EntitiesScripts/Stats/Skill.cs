@@ -56,10 +56,7 @@ public class Skill : ILocalizable
 
     public event Action OnSkillTrigger = delegate { };
 
-    public Skill(SkillType type)
-    {
-        this.SkillType = type;
-    }
+    public Skill(SkillType type) => this.SkillType = type;
 
     public void SetName(string name)
     {

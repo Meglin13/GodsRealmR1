@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class CharacterEquipment
 {
     private CharacterScript character;
@@ -32,39 +34,33 @@ public class CharacterEquipment
     [SerializeField]
     private EquipmentItem Ring, Bracelet, Amulet, Artefact;
 
-    public void EquipItem(EquipmentItem item)
+    public bool EquipItem(EquipmentItem item)
     {
-        if (item)
+        if (EquipmentSlots[item.EquipmentType] != null)
+            UnequipItem(EquipmentSlots[item.EquipmentType]);
+
+        EquipmentSlots[item.EquipmentType] = item;
+
+        foreach (var modifier in item.Modifiers)
         {
-            if (EquipmentSlots[item.EquipmentType] != null)
-            {
-                if (inventory.Inventory.Count == inventory.Inventory.Capacity)
-                    return;
-
-                UnequipItem(EquipmentSlots[item.EquipmentType]);
-            }
-
-            item.IsEquiped = true;
-
-            EquipmentSlots[item.EquipmentType] = item;
-
-            foreach (var modifier in item.Modifiers)
-            {
-                if (modifier.StatType == StatType.InventorySlots)
-                    InventoryScript.Instance.AddCapacity(Mathf.FloorToInt(modifier.Amount));
-                else
-                    GameManager.Instance.StartCoroutine(character.AddModifier(modifier));
-            }
-
-            inventory.DeleteItem(item.ID, false);
+            //TODO: Решить что делать со шмотками на слоты
+            //if (modifier.StatType == StatType.InventorySlots)
+            //    InventoryScript.Instance.AddCapacity(Mathf.FloorToInt(modifier.Amount));
+            //else
+            GameManager.Instance.StartCoroutine(character.AddModifier(modifier));
         }
+
+        inventory.DeleteItem(item);
+
+        return true;
     }
 
-    public void UnequipItem(EquipmentItem item)
+    public bool UnequipItem(EquipmentItem item)
     {
-        EquipmentSlots[item.EquipmentType] = null;
+        if (inventory.Inventory.Count == inventory.Capacity)
+            return false;
 
-        item.IsEquiped = false;
+        EquipmentSlots[item.EquipmentType] = null;
 
         foreach (var modifier in item.Modifiers)
         {
@@ -87,5 +83,7 @@ public class CharacterEquipment
         }
 
         inventory.AddItemToInventory(item, false);
+
+        return true;
     }
 }

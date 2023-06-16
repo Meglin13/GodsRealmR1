@@ -28,7 +28,7 @@ MonoBehaviour:
     BaseValue: 100
     LevelModifier: 10
   Attack:
-    BaseValue: 15
+    BaseValue: 25
     LevelModifier: 5
   Defence:
     BaseValue: 10
@@ -193,7 +193,7 @@ MonoBehaviour:
       Amount: 10
       IsPermanent: 0
       DurationInSecs: 5
-    StunTime: 3
+    StunTime: 5
   - SkillName: Ardalion_Ultimate
     _Description: Ardalion_Ultimate_Desc
     SkillType: 2

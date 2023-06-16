@@ -86,8 +86,6 @@ public class PartyManager : MonoBehaviour, ISingle
             NewPlayer.gameObject.SetActive(true);
             CurrentPlayer.gameObject.SetActive(false);
 
-            NewPlayer.transform.SetPositionAndRotation(CurrentPlayer.transform.position, CurrentPlayer.transform.rotation);
-
             NewPlayer.agent.Warp(CurrentPlayer.transform.position);
         }
         else if (switchingType == PartySwitchingType.Party)
@@ -280,9 +278,12 @@ public class PartyManager : MonoBehaviour, ISingle
 
                 item.GiveSupport(Amount, type);
 
-                string PopUpColor = GameManager.Instance.colorManager.StatsColor[type];
+                if (item.gameObject.active)
+                {
+                    string PopUpColor = GameManager.Instance.colorManager.StatsColor[type];
 
-                MiscUtilities.DamagePopUp(item.transform, $"+{Math.Round(Amount)}", PopUpColor, 0.8f);
+                    MiscUtilities.DamagePopUp(item.transform, $"+{Math.Round(Amount)}", PopUpColor, 0.8f); 
+                }
             }
             else
             {

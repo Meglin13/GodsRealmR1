@@ -139,7 +139,7 @@ public abstract class EntityScript : MonoBehaviour, IDamageable, ITarget
     public virtual void Stun(float Time)
     {
         OnStun();
-        GameManager.Instance.StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, Time, ModType.Debuff)));
+        GameManager.Instance.StartCoroutine(AddModifier(new Modifier(StatType.Defence, 20, ModifierAmountType.Procent, 5, ModType.Debuff)));
     }
 
     public virtual void Death() => OnDie();

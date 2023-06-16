@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &270904740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270904742}
+  - component: {fileID: 270904741}
+  m_Layer: 0
+  m_Name: UnityMainThreadDispatcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &270904741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270904740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1842700439, guid: 42c3f40ad0520e442aa80842ab9748a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &270904742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270904740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423788356
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,19 +340,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UILocalTable:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:398919e035539c448987f4359ff28995
   ItemsLocalTable:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:0316aaac01ae2d545a1b6abd8ac8c0a3
   CharacterLocalTable:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:037a104e0bd1c2540afff87a60ef8d79
   DialogueLocalTable:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:6d1f1a21c902d9f4eb9ef6abb8775c46
   TutorialLocalTable:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:628e52cc827e150489fabdcef09f1a1a
   UITable: {fileID: 0}
   ItemsTable: {fileID: 0}
   CharacterTable: {fileID: 0}
@@ -323,8 +367,11 @@ MonoBehaviour:
   DialogueWindow: {fileID: 0}
   DeathScreen: {fileID: 0}
   TutorialScreen: {fileID: 0}
+  BuffScreen: {fileID: 0}
   Map: {fileID: 0}
-  CurrentMenu: {fileID: 0}
+  CharMenu: {fileID: 0}
+  PreviousMenu: {fileID: 0}
+  currentMenu: {fileID: 0}
   IsModalWindow: 0
   Blur: {fileID: 0}
 --- !u!4 &989863149

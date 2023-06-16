@@ -11,29 +11,18 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// Класс для дополнительных разномастных функций
 /// </summary>
-public class MiscUtilities : MonoBehaviour
+public class MiscUtilities : MonoBehaviour, ISingle
 {
     public static MiscUtilities Instance;
-    [HideInInspector]
-    public GameObject Dump;
+    public void Initialize()
+    {
+        Instance = this;
+    }
+
 
     private void OnEnable()
     {
-        Instance = this;
-
-        Dump = new GameObject("Dump");
-    }
-
-    public static GameObject FindChildWithTag(Transform transform, string tag)
-    {
-        GameObject Child = null;
-
-        foreach (Transform item in transform)
-        {
-            if (item.CompareTag(tag))
-                Child = item.gameObject;
-        }
-        return Child;
+        Initialize();
     }
 
     //Thx Jamora
@@ -58,9 +47,9 @@ public class MiscUtilities : MonoBehaviour
     /// <summary>
     /// Спавнит игровой объект перед другим игровым объектом на заданном расстоянии от него
     /// </summary>
-    /// <param _name="spawner">Тот, кто спавнит</param>
-    /// <param _name="spawningObject">То, что спавнят</param>
-    /// <param _name="distance">Расстояние между тем, кто спавнит, и тем, что спавнят</param>
+    /// <param name="spawner">Тот, кто спавнит</param>
+    /// <param name="spawningObject">То, что спавнят</param>
+    /// <param name="distance">Расстояние между тем, кто спавнит, и тем, что спавнят</param>
     public static T SpawnObjectInFrontOfObject<T>(IDamageable spawner, T spawningObject, float spawnDistance) where T : SpawningObject
     {
         Transform transform = spawner.gameObject.transform;
@@ -84,8 +73,8 @@ public class MiscUtilities : MonoBehaviour
     /// <summary>
     /// Отложенное выполнение функции
     /// </summary>
-    /// <param _name="delaySeconds">Время, через которое будет вызван метод</param>
-    /// <param _name="action">Вызывемый метод</param>
+    /// <param name="delaySeconds">Время, через которое будет вызван метод</param>
+    /// <param name="action">Вызывемый метод</param>
     /// <returns></returns>
     public IEnumerator ActionWithDelay(float delaySeconds, Action action)
     {
@@ -97,9 +86,9 @@ public class MiscUtilities : MonoBehaviour
     /// Метод для получения следующего индекса списка. 
     /// Если следующий индекс выходит за список, то он будет равен 0.
     /// </summary>
-    /// <typeparam _name="T">Универсальный тип</typeparam>
-    /// <param _name="list">Список</param>
-    /// <param _name="curIndex">Текущий индекс</param>
+    /// <typeparam name="T">Универсальный тип</typeparam>
+    /// <param name="list">Список</param>
+    /// <param name="curIndex">Текущий индекс</param>
     /// <returns></returns>
     public static int NextIndex<T>(List<T> list, int curIndex, IndexType indexType)
     {

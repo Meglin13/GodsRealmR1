@@ -7,8 +7,17 @@ public enum AreaType { Attack, Heal }
 
 public class CombatManager
 {
-    //TODO: Бонусы урона по элементам
-    private static float[,] ElementsDamageRatios = new float[6, 6];
+    private static float[,] ElementsDamageRatios = new float[6, 6]
+    {
+         //             Fire   Water  Earth  Air    Dark   Light
+         /* Fire */   { 0,     0,     20,    0,     0,     0  },
+         /* Water */  { 20,    0,     0,     0,     0,     0  },
+         /* Earth */  { 0,     0,     0,     20,    0,     0  },
+         /* Air */    { 20,    0,     20,    0,     0,     0  },
+         /* Dark */   { 20,    20,    20,    20,    0,     30 },
+         /* Light */  { 20,    20,    20,    20,    0,     30 }
+    };
+
 
     public static float DamageCalc(EntityStats Target, EntityStats Dealer, float Multiplier)
     {

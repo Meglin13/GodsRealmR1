@@ -13,13 +13,13 @@ public class RandomChances
         this.items = items;
 
         itemsByRarity = new Dictionary<Rarity, SnuffleBag<Item>>()
-            {
-                { Rarity.Common, new SnuffleBag<Item>(SortByRarity(Rarity.Common)) },
-                { Rarity.Uncommon, new SnuffleBag<Item>(SortByRarity(Rarity.Uncommon)) },
-                { Rarity.Rare, new SnuffleBag<Item>(SortByRarity(Rarity.Rare)) },
-                { Rarity.Epic, new SnuffleBag<Item>(SortByRarity(Rarity.Epic)) },
-                { Rarity.Legendary, new SnuffleBag<Item>(SortByRarity(Rarity.Legendary))},
-            };
+        {
+            { Rarity.Common, new SnuffleBag<Item>(SortByRarity(Rarity.Common)) },
+            { Rarity.Uncommon, new SnuffleBag<Item>(SortByRarity(Rarity.Uncommon)) },
+            { Rarity.Rare, new SnuffleBag<Item>(SortByRarity(Rarity.Rare)) },
+            { Rarity.Epic, new SnuffleBag<Item>(SortByRarity(Rarity.Epic)) },
+            { Rarity.Legendary, new SnuffleBag<Item>(SortByRarity(Rarity.Legendary))},
+        };
     }
 
     private List<Item> SortByRarity(Rarity rarity) => items.Where(x => x._Rarity == rarity).ToList();
@@ -44,7 +44,14 @@ public class RandomChances
             minRange = maxRange;
         }
 
-        return itemsByRarity[rarity].Next();
+        Item item = null;
+
+        if (itemsByRarity[rarity].Size > 0)
+        {
+            item = itemsByRarity[rarity].Next();
+        }
+
+        return item;
     }
 
     public List<Item> GetItems(int Amount)

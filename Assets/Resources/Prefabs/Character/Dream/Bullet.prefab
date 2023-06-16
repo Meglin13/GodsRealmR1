@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasHitted: []
-  Speed: 20
-  mode: 0
+  Speed: 10
+  mode: 1
 --- !u!33 &4410034720245995406
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 1
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
 --- !u!54 &1112452996514835254
 Rigidbody:

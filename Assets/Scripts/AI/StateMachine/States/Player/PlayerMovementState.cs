@@ -13,6 +13,7 @@ public class PlayerMovementState : State
     public override void EnterState()
     {
         dodgeState = new PlayerDodgeState(character, stateMachine);
+        playerBlockState = new PlayerBlockState(character, stateMachine);
 
         animator.applyRootMotion = false;
         animator.SetTrigger("Move");
@@ -34,6 +35,9 @@ public class PlayerMovementState : State
 
         if (IsDodgeAction & character.CurrentStamina >= character.EntityStats.DodgeCost)
             stateMachine.ChangeState(dodgeState);
+
+        if (blockAction.activeControl != null)
+            stateMachine.ChangeState(playerBlockState);
 
         if (IsMovementAction)
         {

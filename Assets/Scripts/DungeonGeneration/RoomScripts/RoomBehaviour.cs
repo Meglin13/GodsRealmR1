@@ -1,6 +1,4 @@
-﻿using MyBox;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DungeonGeneration
 {
@@ -31,8 +29,7 @@ namespace DungeonGeneration
         private bool canHaveSameNeighbors = true;
         public bool CanHaveSameNeighbors { get => canHaveSameNeighbors; }
 
-        [ConditionalField("canHaveSameNeighbors", true)]
-        [SerializeField]
+        [MyBox.ConditionalField("canHaveSameNeighbors", true), SerializeField]
         private int sameNeighborsRadius;
         public int SameNeighborsRadius { get => sameNeighborsRadius; }
 

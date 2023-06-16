@@ -29,10 +29,10 @@ MonoBehaviour:
     LevelModifier: 5
   Attack:
     BaseValue: 5
-    LevelModifier: 0
+    LevelModifier: 5
   Defence:
     BaseValue: 10
-    LevelModifier: 0
+    LevelModifier: 5
   Mana:
     BaseValue: 0
     LevelModifier: 0

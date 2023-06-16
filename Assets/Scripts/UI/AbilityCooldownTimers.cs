@@ -23,7 +23,6 @@ namespace UI
 
         private Dictionary<SkillType, Label> Timers;
 
-
         internal override void OnBind()
         {
             Initialize();

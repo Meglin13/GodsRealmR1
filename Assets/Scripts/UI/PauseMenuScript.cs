@@ -61,7 +61,11 @@ namespace UI
 
         }
 
-        void RestartButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        void RestartButtonClicked()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RunManager.EndRun();
+        }
 
         void MainMenuButtonClicked() => manager.ChangeScene("MainMenu", gameObject);
 

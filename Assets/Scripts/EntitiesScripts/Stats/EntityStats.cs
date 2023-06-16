@@ -1,6 +1,5 @@
 ﻿using Akaal.PvCustomizer.Scripts;
 using MyBox;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -61,8 +60,7 @@ public class EntityStats : ScriptableObject, ICollectable, ILocalizable
     [ReadOnly]
     private int id;
 
-    public int ID
-    { get { return id - 1; } }
+    public int ID => id - 1;
 
     [SerializeField]
     [ReadOnly]

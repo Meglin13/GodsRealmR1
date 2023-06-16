@@ -335,6 +335,70 @@ MonoBehaviour:
     m_Key: Current_Floor
     m_Metadata:
       m_Items: []
+  - m_Id: 49735472612114432
+    m_Key: FireResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028992
+    m_Key: WaterResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028993
+    m_Key: EarthResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028994
+    m_Key: AirResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028995
+    m_Key: DarkResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028996
+    m_Key: LightResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028997
+    m_Key: FireDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028998
+    m_Key: WaterDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675028999
+    m_Key: EarthDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675029000
+    m_Key: AirDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675029001
+    m_Key: DarkDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49735472675029002
+    m_Key: LightDamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50814513171660800
+    m_Key: Element
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50805395442630656
+    m_Key: Resistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50805395442630657
+    m_Key: DamageBonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50806653331177472
+    m_Key: Elements
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

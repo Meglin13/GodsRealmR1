@@ -65,6 +65,8 @@ public static class AIUtilities
 
         Collider[] targets = Physics.OverlapSphere(transform.position, 30, 1 << stats.EnemyLayer);
 
+        Debug.Log(stats.EntityLayer);
+
         var list = new List<ITarget>();
 
         foreach (var item in targets)
@@ -85,7 +87,7 @@ public static class AIUtilities
     /// <summary>
     /// Метод, возвращающий то, достиг ли агент пункта назначения
     /// </summary>
-    /// <param _name="agent">Агент NavMesh</param>
+    /// <param name="agent">Агент NavMesh</param>
     /// <returns>Достиг ли агент пункта назначения</returns>
     public static bool IsAgentReachedDistanation(NavMeshAgent agent)
     {
@@ -103,9 +105,9 @@ public static class AIUtilities
     /// <summary>
     /// Поиск заданного игрового объекта в радиусе
     /// </summary>
-    /// <param _name="gameObject">Объект, являющийся центром области поиска</param>
-    /// <param _name="certainGameObject">Искомый объект</param>
-    /// <param _name="radius">Радиус поиска</param>
+    /// <param name="gameObject">Объект, являющийся центром области поиска</param>
+    /// <param name="certainGameObject">Искомый объект</param>
+    /// <param name="radius">Радиус поиска</param>
     /// <returns>Находится ли объект в радиусе</returns>
     public static bool IsCertainEntityInRadius(GameObject gameObject, GameObject certainGameObject, float radius)
     {

@@ -1,9 +1,5 @@
 ﻿using ObjectPooling;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Characters
@@ -29,17 +25,34 @@ namespace Characters
 
         public void DistractionAbility()
         {
-            
+            var skill = Distract;
+
+            //TODO: Сделать метод получения айдемеджебелов
+            Collider[] hits = Physics.OverlapSphere(gameObject.transform.position, skill.Radius, EntityStats.EnemyLayer);
+
+            if (hits.Length > 0)
+            {
+                foreach (var item in hits)
+                {
+                    MiscUtilities.GetInterfaces(out List<IDamageable> interfaceList, item.gameObject);
+                    foreach (IDamageable damageable in interfaceList)
+                    {
+                            damageable.TakeDamage(EntityStats, skill.DamageMultiplier.GetFinalValue(), false);
+
+                                damageable.Stun(skill.StunTime);
+                    }
+                }
+            }
         }
 
         public void SpecialAbility()
         {
-            
+            PartyManager.Instance.ApplyBuffOnTeam(new Modifier(StatType.Speed, 10, ModifierAmountType.Procent, Special.DurationInSecs, ModType.Buff));
         }
 
         public void UltimateAbility()
         {
-            PartyManager.Instance.ApplyBuffOnTeam(new Modifier(StatType.Attack, Special.DamageMultiplier.GetFinalValue(), ModifierAmountType.Value, Special.DurationInSecs, ModType.Buff));
+            PartyManager.Instance.ApplyBuffOnTeam(new Modifier(StatType.Attack, EntityStats.ModifiableStats[StatType.Attack].GetProcent() * Ultimate.DamageMultiplier.GetFinalValue(), ModifierAmountType.Value, Special.DurationInSecs, ModType.Buff));
         }
     }
 }

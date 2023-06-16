@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
@@ -23,8 +19,8 @@ namespace UI.CustomControls
         #endregion UXML
 
         Image Image = new Image();
-        Label Name = new Label("PLACEHOLDER");
-        Label Amount = new Label("000 >> 000");
+        public Label Name = new Label("PLACEHOLDER");
+        public Label Amount = new Label("000 >> 000");
 
         public CharacterInfoControl()
         {
@@ -47,6 +43,26 @@ namespace UI.CustomControls
             {
                 Amount.text += $" >>> {value.GetFinalValue()}";
             }
+
+            Image.style.backgroundImage = new StyleBackground(Resources.Load<Sprite>($"Icons/ModifierIcons/{statType}"));
+
+            if (ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.StatsColor[statType], out Color col))
+                Image.style.unityBackgroundImageTintColor = col;
+        }
+
+        public void SetInfo(Stat value, Element element)
+        {
+            UIManager.Instance.ChangeLabelsText(Name, element.ToString(), UIManager.Instance.UITable);
+            Amount.text = $"{value.GetClearValue()}";
+            if (value.GetClearValue() != value.GetFinalValue())
+            {
+                Amount.text += $" >> {value.GetFinalValue()}";
+            }
+
+            Image.style.backgroundImage = new StyleBackground(Resources.Load<Sprite>($"Icons/ModifierIcons/{element}"));
+
+            if (ColorUtility.TryParseHtmlString(GameManager.Instance.colorManager.ElementColor[element], out Color col))
+                Image.style.unityBackgroundImageTintColor = col;
         }
     }
 }

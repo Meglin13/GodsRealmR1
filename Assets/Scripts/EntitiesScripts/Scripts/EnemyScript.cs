@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyScript : EntityScript
 {
@@ -8,9 +6,6 @@ public class EnemyScript : EntityScript
 
     [HideInInspector]
     public IEnemy Enemy;
-
-    public Collider SightTrigger;
-
 
     public override void Initialize()
     {
@@ -116,44 +111,38 @@ public class EnemyScript : EntityScript
         HealthBar.SetLevel(EntityStats.Level);
     }
 
-    //private void FixedUpdate()
-    //{
-    //    EntityStateMachine.CurrentState.PhysicsUpdate();
-    //}
-
     #endregion [Unity Methods]
 
     #region [Behavior Patterns]
 
-    //TODO: Паттерны поведения врагов переделать в новый ИИ
     internal void FollowAndAttack()
     {
-        var targetT = AIUtilities.GetTarget(transform, EntityStats);
-
-        if (targetT != null)
+        if (EntityStateMachine.CurrentState is not StunnedState)
         {
-            var target = targetT.gameObject;
+            var targetT = AIUtilities.GetTarget(transform, EntityStats);
+            //var targetT = AIUtilities.FindNearestEntity();
 
-            TargetName = target.ToString();
-            CurrentState = EntityStateMachine.CurrentState.GetType().Name;
+            if (targetT != null)
+            {
+                var target = targetT.gameObject;
 
-            IsCharInAttackRange = AIUtilities.IsCertainEntityInRadius(gameObject, target, AttackRange);
-            IsCharInSightRange = AIUtilities.IsCertainEntityInRadius(gameObject, target, SightRange);
+                TargetName = target.ToString();
+                CurrentState = EntityStateMachine.CurrentState.GetType().Name;
 
-            if (!IsCharInAttackRange & IsCharInSightRange)
-                EntityStateMachine.ChangeState(new TargetFollowingState(target, gameObject, EntityStateMachine));
-            else if (IsCharInAttackRange & IsCharInSightRange)
-                EntityStateMachine.ChangeState(new AttackingState(this, EntityStateMachine));
-            else
-                EntityStateMachine.ChangeState(new IdleState(gameObject, EntityStateMachine));
+                IsCharInAttackRange = AIUtilities.IsCertainEntityInRadius(gameObject, target, AttackRange);
+                IsCharInSightRange = AIUtilities.IsCertainEntityInRadius(gameObject, target, SightRange);
 
-            EntityStateMachine.CurrentState.LogicUpdate();
+                if (!IsCharInAttackRange & IsCharInSightRange)
+                    EntityStateMachine.ChangeState(new TargetFollowingState(target, gameObject, EntityStateMachine));
+                else if (IsCharInAttackRange & IsCharInSightRange)
+                    EntityStateMachine.ChangeState(new AttackingState(this, EntityStateMachine));
+                else
+                    EntityStateMachine.ChangeState(new IdleState(gameObject, EntityStateMachine));
+
+                EntityStateMachine.CurrentState.LogicUpdate();
+            } 
         }
     }
 
     #endregion [Behavior Patterns]
-
-    #region [Utilities]
-
-    #endregion
 }

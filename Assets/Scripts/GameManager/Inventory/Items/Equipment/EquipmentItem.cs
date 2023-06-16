@@ -19,6 +19,7 @@ public class EquipmentItem : Item
         {
             Modifiers = new Modifier[(int)_Rarity + 1];
         }
+        //IsEquiped = false;
     }
 
     [ButtonMethod]
@@ -30,7 +31,8 @@ public class EquipmentItem : Item
             {
                 StatType = (StatType)UnityEngine.Random.RandomRange(0, Enum.GetNames(typeof(StatType)).Length),
                 Amount = UnityEngine.Random.RandomRange(5, (int)_Rarity + 10) * 2,
-                IsPermanent =  true};
+                IsPermanent = true
+            };
 
             Modifiers[i].ModifierAmountType = ModifierAmountType.Procent;
 
@@ -48,20 +50,31 @@ public class EquipmentItem : Item
     public EquipmentType EquipmentType;
     public Modifier[] Modifiers;
 
-    [HideInInspector]
-    public bool IsEquiped = false;
+    [SerializeField]
+    private bool isEquiped = false;
+    public bool IsEquiped
+    {
+        get => isEquiped;
+        set => isEquiped = value;
+    }
 
     public override void UseItem(CharacterScript character)
     {
         var inventory = GameManager.Instance.inventory;
 
-        if (IsEquiped & inventory.Inventory.Count < inventory.Inventory.Capacity)
+        if (isEquiped & inventory.Inventory.Count < inventory.Capacity)
         {
-            character.equipment.UnequipItem(this);
+            if (character.equipment.UnequipItem(this))
+            {
+                isEquiped = false;
+            }
         }
         else
         {
-            character.equipment.EquipItem(this);
+            if (character.equipment.EquipItem(this))
+            {
+                isEquiped = true;
+            }
         }
     }
 }

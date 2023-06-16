@@ -125,7 +125,7 @@ MonoBehaviour:
     IsPeriodic: 0
     PeriodicDamageTime: 0
     ManaCost: 0
-    Radius: 0
+    Radius: 5
     IsDebuffing: 0
     EnemyModifier:
       IsVisible: 0

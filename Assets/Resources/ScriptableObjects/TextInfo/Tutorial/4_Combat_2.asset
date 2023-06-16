@@ -16,5 +16,5 @@ MonoBehaviour:
   _Name: Combat_2
   _Description: Combat_2_Desc
   Image: {fileID: 0}
-  Icon: {fileID: 21300000, guid: b3644be82329cab41860dc20bb08a78e, type: 3}
+  Icon: {fileID: 21300000, guid: e0ec53ee4ddf22744a472716e8049168, type: 3}
   Order: 4

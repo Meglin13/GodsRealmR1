@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class ThrowableScript : SpawningObject
 {
-    private Rigidbody rb;
+    private Rigidbody rigidbody;
 
     [HideInInspector]
     public List<Collider> hasHitted = new List<Collider>();
@@ -20,18 +20,19 @@ public class ThrowableScript : SpawningObject
     {
         base.Spawn(dude, skill);
 
-        hasHitted = new List<Collider>();
-        rb.AddForce(dude.gameObject.transform.forward * Speed, mode);
-    }
+        GetComponent<TrailRenderer>().enabled = false;
+        GetComponent<TrailRenderer>().enabled = true;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
+       
+        hasHitted = new List<Collider>();
+
+        rigidbody.AddForce(dude.gameObject.transform.forward * Speed, mode);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject != dude.gameObject)
+        if (collision.gameObject != dealer.gameObject)
         {
             CheckHits();
             OnHit(collision.GetContact(0).point);

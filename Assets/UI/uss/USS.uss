@@ -125,7 +125,7 @@ TextField {
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: rgb(35, 35, 59);
+    background-color: rgba(35, 35, 59, 0.8);
     background-image: none;
     -unity-slice-top: 1500;
     -unity-slice-bottom: 0;
@@ -222,16 +222,16 @@ TextField {
     width: 100px;
     height: 100px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.5);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-image: resource('Images/UI/InventoryCell/SlotIcon');
-    border-left-color: rgb(75, 71, 57);
-    border-right-color: rgb(75, 71, 57);
-    border-top-color: rgb(75, 71, 57);
-    border-bottom-color: rgb(75, 71, 57);
+    border-left-color: rgb(67, 61, 41);
+    border-right-color: rgb(87, 79, 55);
+    border-top-color: rgb(67, 61, 41);
+    border-bottom-color: rgb(67, 61, 41);
     border-left-width: 3px;
     border-right-width: 3px;
     border-top-width: 3px;
@@ -245,6 +245,7 @@ TextField {
     background-color: rgba(0, 0, 0, 0.42);
     -unity-background-scale-mode: scale-to-fit;
     -unity-background-image-tint-color: rgb(255, 255, 255);
+    position: relative;
 }
 
 .slot:hover {
@@ -252,10 +253,10 @@ TextField {
     border-right-width: 3px;
     border-top-width: 3px;
     border-bottom-width: 3px;
-    border-left-color: rgb(168, 168, 168);
-    border-right-color: rgb(168, 168, 168);
-    border-top-color: rgb(168, 168, 168);
-    border-bottom-color: rgb(168, 168, 168);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
     transition-duration: 0.2s;
 }
 
@@ -271,6 +272,12 @@ TextField {
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    -unity-text-align: middle-center;
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    flex-grow: 1;
+    top: auto;
 }
 
 .buttons-container {
@@ -588,14 +595,19 @@ Scrollview #unity-dragger {
 
 .unity-foldout__checkmark {
     -unity-background-image-tint-color: rgb(255, 199, 0);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
 .unity-foldout__toggle .unity-base-field__input {
     flex-direction: row-reverse;
     justify-content: space-between;
     width: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-top: 0;
     padding-bottom: 0;
     border-bottom-width: 2px;
@@ -613,23 +625,25 @@ Scrollview #unity-dragger {
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .unity-foldout__content {
-    align-items: stretch;
+    align-items: center;
     justify-content: space-around;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 0;
+    padding-right: 0;
     flex-shrink: 0;
-    flex-grow: 1;
+    flex-grow: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .char-info {
@@ -643,7 +657,11 @@ Scrollview #unity-dragger {
     border-bottom-color: rgb(255, 199, 0);
     border-top-width: 1px;
     border-bottom-width: 1px;
-    align-items: center;
+    align-items: stretch;
+    width: 90%;
+    flex-shrink: 1;
+    flex-grow: 0;
+    -unity-text-align: middle-center;
 }
 
 .char-info-icon {
@@ -658,15 +676,21 @@ Scrollview #unity-dragger {
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
+    flex-shrink: 0;
 }
 
 .char-info-label {
-    margin-left: 0;
+    margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-around;
+    -unity-text-align: middle-center;
+    width: auto;
+    font-size: 35px;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .char-info-label-amount {
@@ -760,4 +784,27 @@ Toogle .unity-checkmark {
 .icon-button:hover {
     -unity-background-image-tint-color: rgb(255, 199, 0);
     transition-duration: 0.4s;
+}
+
+.skill-label {
+    border-left-color: rgb(255, 199, 0);
+    border-right-color: rgb(255, 199, 0);
+    border-top-color: rgb(255, 199, 0);
+    border-bottom-color: rgb(255, 199, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    -unity-text-align: middle-left;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    white-space: normal;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }

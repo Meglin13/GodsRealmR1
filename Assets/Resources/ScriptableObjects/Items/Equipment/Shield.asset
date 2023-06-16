@@ -55,11 +55,11 @@ MonoBehaviour:
   - IsVisible: 0
     _Name: 
     _Description: 
-    ModifierType: 1
+    ModifierType: 0
     StatType: 5
     Element: 0
     ModifierAmountType: 1
     Amount: 10
     IsPermanent: 1
     DurationInSecs: 0
-  IsEquiped: 0
+  isEquiped: 0

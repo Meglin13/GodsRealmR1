@@ -13,7 +13,7 @@ public class ChestScript : MonoBehaviour, IInteractable
     private static RandomChances equipment;
     private static RandomChances potions;
 
-    public void Start()
+    public void OnEnable()
     {
         Inventory = GameManager.Instance.inventory;
 
@@ -26,10 +26,7 @@ public class ChestScript : MonoBehaviour, IInteractable
         Items = equipmentList.Concat(potionsList).ToList();
     }
 
-    public bool CanInteract()
-    {
-        return !IsOpened;
-    }
+    public bool CanInteract() => !IsOpened;
 
     public void Interaction()
     {

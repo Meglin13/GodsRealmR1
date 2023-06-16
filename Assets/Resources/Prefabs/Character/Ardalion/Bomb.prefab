@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasHitted: []
-  Speed: 5
+  Speed: 10
   mode: 1
 --- !u!1001 &5536629988616552308
 PrefabInstance:

@@ -13,7 +13,7 @@ public class MainMenuCamera : MonoBehaviour
 
     public List<Material> Skyboxes = new List<Material>();
 
-    void Start()
+    void OnEnable()
     {
         hue = Random.Range(0, 255);
 

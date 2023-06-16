@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace ObjectPooling
@@ -8,7 +7,6 @@ namespace ObjectPooling
     [Serializable]
     public class PoolMono<T> where T : MonoBehaviour
     {
-        private T Prefab { get; }
         private ObjectAmountList<T> Prefabs { get; }
         public bool AutoExpand { get; set; }
         public Transform Container { get; }

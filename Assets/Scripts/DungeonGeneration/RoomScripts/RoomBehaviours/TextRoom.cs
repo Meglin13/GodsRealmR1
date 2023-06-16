@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 
 namespace DungeonGeneration
 {
@@ -10,18 +11,16 @@ namespace DungeonGeneration
     public class TextRoom : RoomBehaviour
     {
         private List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
-        [SerializeField]
-        [Range(0f, 5f)]
+        [SerializeField, Range(0f, 5f)]
         private float fadeDuration = 1f;
 
-        public TextRoom()
-        {
-            BehaviourType = RoomBehaviourType.Misc;
-        }
+        public TextRoom() => BehaviourType = RoomBehaviourType.Misc;
 
         public override void Initialize(RoomScript room)
         {
             base.Initialize(room);
+
+            texts.Clear();
 
             foreach (var item in room.Props)
             {
@@ -33,24 +32,25 @@ namespace DungeonGeneration
                     targetColor.a = 0;
 
                     text.color = targetColor;
+
+                    text.gameObject.SetActive(false);
+                    text.gameObject.SetActive(true);
                 }
             }
         }
 
         public override void OnRoomEnter()
         {
+            Initialize(Room);
+
             foreach (var text in texts)
-            {
                 Room.StartCoroutine(ShowText(text, false));
-            }
         }
 
         public override void OnRoomExit()
         {
             foreach (var text in texts)
-            {
                 Room.StartCoroutine(ShowText(text, true));
-            }
         }
 
         public IEnumerator ShowText(TextMeshProUGUI text, bool MakeAlpha)

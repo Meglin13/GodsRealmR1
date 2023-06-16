@@ -19,7 +19,6 @@ namespace DungeonGeneration.DungeonProps
         [SerializeField]
         [ReadOnly]
         private int spawnedEnemiesCount = 0;
-
         public int SpawnedEnemiesCount 
         { 
             get => spawnedEnemiesCount; 

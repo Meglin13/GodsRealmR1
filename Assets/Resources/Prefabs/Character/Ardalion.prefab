@@ -125,7 +125,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2740555052288755486}
-  - {fileID: 5609765139172978638}
   m_Father: {fileID: 887881090849669341}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -256,6 +255,15 @@ MonoBehaviour:
   HotKeyNumber: 0
   IsActive: 0
   blockingTime: 0
+  equipment:
+    Helmet: {fileID: 0}
+    Armor: {fileID: 0}
+    Boots: {fileID: 0}
+    Gloves: {fileID: 0}
+    Ring: {fileID: 0}
+    Bracelet: {fileID: 0}
+    Amulet: {fileID: 0}
+    Artefact: {fileID: 0}
   IsBlocking: 0
   IsDodging: 0
   velocity: 0
@@ -854,6 +862,7 @@ Transform:
   m_Children:
   - {fileID: 7260530759295547827}
   - {fileID: 6979980032610692075}
+  - {fileID: 5609765139172978638}
   m_Father: {fileID: 3923920634172279485}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1770,7 +1779,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7260530759295547827}
+    m_TransformParent: {fileID: 887881090849669341}
     m_Modifications:
     - target: {fileID: 2871693772341837865, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: BaseWeaponLength
@@ -1778,35 +1787,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8079999
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.039
+      value: 0.035896238
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.056
+      value: 0.18282369
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.047
+      value: 0.04669387
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7882904
+      value: -0.77151406
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15686586
+      value: 0.14834091
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.19354819
+      value: 0.19495915
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.56261045
+      value: -0.58715594
       objectReference: {fileID: 0}
     - target: {fileID: 3600937119628108872, guid: ba02411f58b28b34eb0528cca6c37149, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

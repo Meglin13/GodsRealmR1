@@ -12,15 +12,13 @@ namespace DungeonGeneration.DungeonProps
         private void OnEnable()
         {
             localString.Arguments = new object[] { RunManager.CurrentFloor, RunManager.Params.FloorsAmount };
+
             localString.StringChanged += UpdateString;
 
             localString.RefreshString();
         }
 
-        private void OnDisable()
-        {
-            localString.StringChanged -= UpdateString;
-        }
+        private void OnDisable() => localString.StringChanged -= UpdateString;
 
         private void UpdateString(string value) => text.text = value;
     }

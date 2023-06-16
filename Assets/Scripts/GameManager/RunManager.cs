@@ -15,20 +15,20 @@ public class RunParameters
 public class RunManager : MonoBehaviour
 {
     public static int difficulty = 1;
-    public static int Difficulty 
-    { 
-        get => difficulty; 
-        private set => difficulty = value; 
+    public static int Difficulty
+    {
+        get => difficulty;
+        private set => difficulty = value;
     }
 
     public static RunParameters Params { get; private set; }
     private static float dropChanceAffix = 1;
 
     private static int currentFloor = 1;
-    public static int CurrentFloor 
-    { 
-        get => currentFloor; 
-        private set => currentFloor = value; 
+    public static int CurrentFloor
+    {
+        get => currentFloor;
+        private set => currentFloor = value;
     }
 
     private static Dictionary<Rarity, float> BaseDropChances = new Dictionary<Rarity, float>(5)
@@ -43,11 +43,13 @@ public class RunManager : MonoBehaviour
     public static void NewFloor() => CurrentFloor++;
     public static void EndRun() => CurrentFloor = 1;
 
-    public static void SetDifficulty(int Difficulty)
+    public static void SetDifficulty(int Difficulty, RunParameters param = null)
     {
         CurrentFloor = 1;
 
         RunManager.Difficulty = Difficulty;
+
+        Params = param;
 
         Params ??= new RunParameters()
         {
@@ -56,22 +58,12 @@ public class RunManager : MonoBehaviour
             FloorsAmount = (int)Math.Ceiling(Difficulty * 0.5f)
         };
 
-        if (Params.GenerationParameters == null)
-        {
-            Debug.Log("Setting gen params");
-            SetGenerationParams();
-        }
+        Params.GenerationParameters ??= SetGenerationParams();
 
         dropChanceAffix = RunManager.Difficulty != 1 ? 1 + Difficulty / 40 : 1;
     }
 
-    public static void SetDifficulty(int Difficulty, RunParameters param)
-    {
-        Params = param;
-        SetDifficulty(Difficulty);
-    }
-
-    private static void SetGenerationParams()
+    private static GenerationParameters SetGenerationParams()
     {
         int roomAff = 2;
 
@@ -90,13 +82,16 @@ public class RunManager : MonoBehaviour
 
         p.numberOfEvents = Mathf.FloorToInt(p.numberOfRooms / 1.5f);
 
-        Params.GenerationParameters = p;
+        return p;
     }
 
     public static void ResetSettings()
     {
+        Difficulty = 1;
+
         if (Params?.GenerationParameters != null)
         {
+            Params = null;
             Params.GenerationParameters = null;
             CurrentFloor = 1;
         }

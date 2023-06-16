@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Iron_Gloves
   m_EditorClassIdentifier: 
   id: 86402f0bd08a92743a59517640287f3b
+  InstanceID: 
   _Name: Iron_Gloves
   _Description: Iron_Gloves_Desc
   Icon: {fileID: 21300000, guid: abd035fb6332ca349b38f5a611127c07, type: 3}
@@ -66,10 +67,10 @@ MonoBehaviour:
     _Name: 
     _Description: 
     ModifierType: 0
-    StatType: 13
+    StatType: 7
     Element: 2
     ModifierAmountType: 1
-    Amount: 28
+    Amount: 5
     IsPermanent: 1
     DurationInSecs: 0
-  IsEquiped: 0
+  isEquiped: 0

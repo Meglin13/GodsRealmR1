@@ -13,11 +13,13 @@ namespace UI
         //Context
         private CharacterScript CharacterContext;
 
+        [SerializeField]
         private int CurrentCharIndex;
         private List<CharacterScript> Party;
 
         private InventoryScript inventory;
         private InventorySlotControl slotContext;
+        [SerializeField]
         private int SelectedSlotIndex = 0;
 
         private event Action OnInventoryUpdate = delegate { };
@@ -26,7 +28,7 @@ namespace UI
         //Inventory
         public Label InventoryCapacityLB;
 
-        public VisualElement ItemInfoButtonsPanel;
+        private VisualElement ItemInfoButtonsPanel;
 
         //Character menu
         private Label CharNameLB;
@@ -115,16 +117,26 @@ namespace UI
             InventoryContainer = root.Q<VisualElement>("InventoryContainer");
 
             //Button events
-            EquipBT.clicked += EquipItemButtonClicked;
+            EquipBT.clicked += UseItemButtonClicked;
             DropBT.clicked += DropItemButtonClicked;
 
             PreviousCharBT.clicked += () => ChangeCharacterContext(IndexType.Previous);
             NextCharBT.clicked += () => ChangeCharacterContext(IndexType.Next);
 
+            inventory.OnInventoryChanged += InventoryChanged;
+
             OnInventoryUpdate();
         }
 
-        public void OnDisable()
+        private void InventoryChanged()
+        {
+            if (gameObject.active)
+            {
+                OnInventoryUpdate(); 
+            }
+        }
+
+        private void OnDisable()
         {
             ObjectsUtilities.UnsubscribeEvents(new Action[2] { OnInventoryUpdate, OnItemSelect });
 
@@ -137,7 +149,7 @@ namespace UI
 
         private void UpdateInventory()
         {
-            for (int i = 0; i < inventory.Inventory.Capacity; i++)
+            for (int i = 0; i < inventory.Capacity; i++)
             {
                 if (InventoryContainer.childCount - 1 < i)
                 {
@@ -173,17 +185,14 @@ namespace UI
 
         #region [Equipment Managment]
 
-        private bool IsItemEquiped(Item item) => 
-            item is EquipmentItem equipment && equipment.IsEquiped;
+        private bool IsItemEquiped(Item item) => item is EquipmentItem equipment && equipment.IsEquiped;
 
-        private void EquipItemButtonClicked()
+        private void UseItemButtonClicked()
         {
             slotContext.itemContext.UseItem(CharacterContext);
 
-            if (inventory.Inventory.Count < inventory.Inventory.Capacity)
+            if (inventory.Inventory.Count < inventory.Capacity)
                 SelectedSlotIndex = inventory.Inventory.Count - 1;
-
-            OnInventoryUpdate();
 
             ChangeFocus();
         }
@@ -202,9 +211,7 @@ namespace UI
                     SelectedSlotIndex = inventory.Inventory.Count - 1;
                 }
 
-                inventory.DeleteItem(item.ID, true);
-
-                OnInventoryUpdate();
+                inventory.DeleteItem(item, true);
 
                 if (inventory.Inventory.Count > 0)
                     ChangeFocus();
@@ -223,18 +230,14 @@ namespace UI
                     ItemInfoButtonsPanel.visible = true;
 
                 if (inventorySlot.itemContext is EquipmentItem)
-                {
                     manager.ChangeLabelsText(EquipBT, IsItemEquiped(inventorySlot.itemContext) ? "Unequip" : "Equip", UITable);
-                }
                 else
-                {
                     manager.ChangeLabelsText(EquipBT, "Use", UITable);
-                }
 
                 slotContext?.UnselectSlot();
                 inventorySlot.SelectSlot();
 
-                SelectedSlotIndex = InventoryScript.Instance.Inventory.IndexOf(inventorySlot.itemContext);
+                SelectedSlotIndex = inventory.Inventory.IndexOf(inventorySlot.itemContext);
 
                 slotContext = inventorySlot;
 
@@ -261,7 +264,7 @@ namespace UI
 
             CharacterContext = Party[CurrentCharIndex];
 
-            OnInventoryUpdate();
+            UpdateCharacterInfo();
         }
 
         private void ChangeFocus()
@@ -273,7 +276,7 @@ namespace UI
 
             if (inventory.Inventory.Count != 0)
             {
-                SelectItemSlot((InventorySlotControl)InventoryContainer[index]); 
+                SelectItemSlot((InventorySlotControl)InventoryContainer[index]);
             }
         }
 
@@ -281,7 +284,7 @@ namespace UI
 
         #region [Loading Info]
 
-        private void SetInventoryCapacity() => InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Inventory.Capacity}";
+        private void SetInventoryCapacity() => InventoryCapacityLB.text = $"{inventory.Inventory.Count} / {inventory.Capacity}";
 
         private void SetCurrencies()
         {

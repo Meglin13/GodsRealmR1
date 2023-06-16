@@ -18,8 +18,8 @@ namespace UI.CustomControls
 
         #endregion UXML
 
-        private Image Icon;
-        private Label AmountLB;
+        public Image Icon;
+        public Label AmountLB;
         public Item itemContext;
 
         private StyleColor defaultBG;
@@ -30,8 +30,8 @@ namespace UI.CustomControls
             Icon = new Image();
             AmountLB = new Label();
 
-            Add(AmountLB);
             Add(Icon);
+            Add(AmountLB);
 
             Icon.AddToClassList("slot-icon");
             AmountLB.AddToClassList("slot-amount-label");
@@ -48,20 +48,21 @@ namespace UI.CustomControls
             {
                 itemContext = item;
 
-                AmountLB.text = item.Amount == 1 ? "" : item.Amount.ToString();
+                AmountLB.text = item.Amount.ToString();
+                AmountLB.style.visibility = item.Amount == 1 ? Visibility.Hidden : Visibility.Visible;
 
                 Icon.sprite = item.Icon;
 
                 Color color = GameManager.Instance.colorManager.RarityColor[item._Rarity];
                 color.a = 0.7f;
-                Icon.style.backgroundColor = color;
+                this.style.backgroundColor = color;
             }
             else
             {
-                AmountLB.text = null;
+                AmountLB.style.visibility = Visibility.Hidden;
 
                 Icon.sprite = null;
-                Icon.style.backgroundColor = defaultBG;
+                this.style.backgroundColor = defaultBG;
 
                 itemContext = null;
             }

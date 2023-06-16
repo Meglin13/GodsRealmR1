@@ -16,15 +16,7 @@ namespace Characters
 
         public void Attack()
         {
-            ////if (IsUltimateActive)
-            ////{
-            //    Transform transform = gameObject.transform;
-            //    Vector3 gunpoint = transform.position + transform.forward + transform.up;
 
-            //    var slash = SpawnablePool.Instance.CreateObject(Ultimate.SpawningObject, gunpoint);
-            //    slash.Spawn(this, Ultimate);
-
-            ////}
         }
 
         public void DistractionAbility()

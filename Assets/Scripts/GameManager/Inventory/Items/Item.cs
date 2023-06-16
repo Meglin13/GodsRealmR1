@@ -31,8 +31,6 @@ public class Item : ScriptableObject, ILocalizable
         string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
         this._Name = Path.GetFileNameWithoutExtension(assetPath);
         this._Description = Path.GetFileNameWithoutExtension(assetPath) + "_Desc";
-
-
     }
 #endif
 
@@ -40,6 +38,10 @@ public class Item : ScriptableObject, ILocalizable
     [SerializeField]
     private string id;
     public string ID { get { return id; } }
+
+    [ReadOnly]
+    public string InstanceID;
+    public static int lastID = 0;
 
     public string Name => _Name;
     public string Description => _Description;
@@ -54,12 +56,22 @@ public class Item : ScriptableObject, ILocalizable
     [PvIcon]
     public Sprite Icon;
     public Rarity _Rarity;
-    [HideInInspector]
+    [ReadOnly]
     public int Amount = 1;
     [ReadOnly]
     public bool IsStackable;
     [ReadOnly]
     public ItemType Type;
+
+    public Item GetCopy()
+    {
+        var item = Instantiate(this);
+
+        item.InstanceID = item.GetType().ToString()[0] + "_" + lastID;
+        lastID++;
+
+        return item;
+    }
 
     public virtual void UseItem(CharacterScript character) { }
 }

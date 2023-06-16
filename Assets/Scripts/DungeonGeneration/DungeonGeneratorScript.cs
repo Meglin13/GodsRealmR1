@@ -74,8 +74,11 @@ namespace DungeonGeneration
 
             GenerateDungeon();
 
-            foreach (var item in GameManager.Instance.partyManager.PartyMembers)
-                item.agent.Warp(PlacedRooms[0].transform.position);
+            OnGenerationComplited += () =>
+            {
+                foreach (var item in GameManager.Instance.partyManager.PartyMembers)
+                    item.agent.Warp(PlacedRooms[0].transform.position);
+            };
         }
 
         private void OnDisable() => OnGenerationComplited = null;
@@ -93,8 +96,10 @@ namespace DungeonGeneration
 
             Rooms = new RoomScript[GenerationParameters.GridSize.x, GenerationParameters.GridSize.y];
 
+#if UNITY_EDITOR
             if (PlacedRooms.Count > 1)
                 ClearDungeon();
+#endif
 
             ResetSpawnRoom(PlacedRooms[0]);
 

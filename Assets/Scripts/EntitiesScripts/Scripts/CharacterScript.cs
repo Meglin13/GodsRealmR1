@@ -172,7 +172,6 @@ public abstract class CharacterScript : EntityScript
         distractAbilityAction.performed += TriggerSkillAnim;
         specialAbilityAction.performed += TriggerSkillAnim;
         ultimateAbilityAction.performed += TriggerSkillAnim;
-
     }
 
     #endregion [Character Script Stats]
@@ -203,7 +202,6 @@ public abstract class CharacterScript : EntityScript
 
             if (CurrentStamina <= 0)
             {
-                CurrentStamina = 0;
                 CurrentHealth -= Damage;
                 Stun(3f);
             }
@@ -335,21 +333,7 @@ public abstract class CharacterScript : EntityScript
     {
         if (int.TryParse(obj.control.name, out int num) & num != 0)
         {
-            //if (commanderAction.activeControl != null | commanderAction.triggered)
-            //{
-            //    if (leftAction.triggered || leftAction.activeControl != null)
-            //    {
-            //        GameManager.Instance.partyManager.GiveCommandToMember(CommandType.GoToPoint, num);
-            //    }
-            //    else if (rightAction.triggered || rightAction.activeControl != null)
-            //    {
-            //        GameManager.Instance.partyManager.GiveCommandToMember(CommandType.ComeToLeader, num);
-            //    }
-            //}
-            //else
-            {
-                GameManager.Instance.partyManager.SwitchPlayer(this, num - 1);
-            }
+            GameManager.Instance.partyManager.SwitchPlayer(this, num - 1);
         }
     }
 
@@ -394,6 +378,7 @@ public abstract class CharacterScript : EntityScript
         if (CurrentMana >= skill.ManaCost & !skill.Cooldown)
         {
             animator.SetTrigger(skill.SkillType.ToString());
+            LookAtEnemy(20);
         }
         else
         {
@@ -409,7 +394,7 @@ public abstract class CharacterScript : EntityScript
             GiveSupport(-skill.ManaCost * (1 - ManaCon), StatType.Mana);
 
             skill.ActivateSkill();
-            LookAtEnemy(EntityStats.AttackRange);
+            //LookAtEnemy(EntityStats.AttackRange);
 
             GameManager.Instance.StartCoroutine(MiscUtilities.Instance.ActionWithDelay(skill.CooldownInSecs, () => skill.ResetCooldown()));
         }
