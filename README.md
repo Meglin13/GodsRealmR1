@@ -36,8 +36,8 @@
 - Stats rework
 - Damage Formulas
 - Minimap improvements
--- Active character marker
--- Teammebmers and Enemies markers
+    - Active character marker
+    - Teammebmers and Enemies markers
 - Movement relative to the camera
 - Fixed attacks skip
 
@@ -47,13 +47,13 @@
 - Throwables script
 - Modifiers (permanent and temporary) and Team Buffs
 - Added first Character's Abilities
-#### UI
--- Main Menu
--- Settings menu
--- Loading Screen
 - Healthbar initilize in script
 - Parry and Parry Crit Attack
 - Elements System and Elemental Resistance
+### UI
+- Main Menu
+- Settings menu
+- Loading Screen
 #### Fixes
 - Fixed NullReferenceException after Player's death
 
@@ -78,14 +78,14 @@
 - Added events to scripts
 - Mana recovery bonus and mana comsumptions stats
 - Entities Scripts rework
-- Inventory fully implmented
+- Inventory fully implemented
 #### Fixes
 - Minimap camera movement
 - Parry buff does not applies
 - UI Localization brokes buttons functionality
 
 ### 08.03-12.03
-- Interation system
+- Interaction system
 - Random loot
 - Chest stars
 - Rooms prefab and RoomScript
