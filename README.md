@@ -1,5 +1,8 @@
 # God's Realm Devlog #
 
+## Video Demonstration
+[![Watch the video](https://img.youtube.com/vi/NdE_LmGoVYo/hqdefault.jpg)](https://www.youtube.com/embed/NdE_LmGoVYo)
+
 ## 2022
 
 ### 01.08-10.08
